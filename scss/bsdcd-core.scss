@@ -120,17 +120,48 @@
     display: inline;
   }
   .accepted_ccs {
-    text-indent: -9000em;
-    height: 26px;
-    width: 100%;
-    position:relative;
-    //fancypants non-modernizr svg fallback trick: http://pauginer.tumblr.com/post/36614680636/invisible-gradient-technique
-    background: transparent url(/page/-/donate/Credit_Card_Icons.png) left center no-repeat;
-    background-image: -webkit-linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons.svg);
-    background-image: linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons.svg);
     overflow:hidden;
-    margin-top:0;
-
+    position:relative;
+  }
+    .cc-img {
+        @include inline-block();
+        vertical-align:top;
+        height: 26px;
+        position:relative;
+        //fancypants non-modernizr svg fallback trick: http://pauginer.tumblr.com/post/36614680636/invisible-gradient-technique
+        background-image: url(/page/-/donate/Credit_Card_Icons_m.png);
+        background-repeat: no-repeat;
+        background-image: -webkit-linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons_m.svg);
+        background-image: linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons_m.svg);
+        overflow:hidden;
+        margin-top:0;
+        width:40px;
+        margin-right:5px;
+        text-indent: -999em;
+    }
+  .hide-text{
+    position:absolute;
+    top:-50px;
+    left:-50px;
+  }
+  .accept-mc{
+    width: 37px;
+    background-position: 0 center;
+  }
+  .accept-ds{
+    background-position: -111px center;
+    width:38px;
+  }
+  .accept-ax{
+    width:25px;
+    background-position: -83px center;
+  }
+  .accept-vs{
+    background-position: -40px center;
+  }
+  .accept-ma{
+    background-position: -153px center;
+    width:37px;
   }
   .cc_type_cont{
     margin-bottom:10px;
@@ -141,36 +172,36 @@
     .cc-is-ma .cc_maestro_start_cont {
         display:block;
     }
-  .cc-cover .accepted_ccs{
-    &:after, &:before{
-        content:'';
-        position:absolute;
-        top:0;
-        height:100%;
-        .oldie &{
-            background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P8////GQAJzQPLjFTuFwAAAABJRU5ErkJggg==) repeat;
-        }
-        background: rgba(255,255,255,0.8);
-        left:0;
-    }
-    &:before{
-        width:110px;
+
+    /*dimming cards when one is selected*/
+  .cc-cover {
+    .cc-img {
+        @include opacity(0.2);
     }
   }
   .cc-is-vs{
-    .accepted_ccs:before{
-        left:80px;
-    }
-    .accepted_ccs:after{
-        width:40px;
+    .accept-vs{
+        @include opacity(1);
     }
   }
   .cc-is-ax {
-    .accepted_ccs:before{
-        left:110px;
+    .accept-ax{
+        @include opacity(1);
     }
-    .accepted_ccs:after{
-        width:80px;
+  }
+  .cc-is-mc {
+    .accept-mc{
+        @include opacity(1);
+    }
+  }
+  .cc-is-ds {
+    .accept-ds{
+        @include opacity(1);
+    }
+  }
+  .cc-is-ma {
+    .accept-ma{
+        @include opacity(1);
     }
   }
     .cc-is-mc .accepted_ccs:before{
@@ -239,14 +270,21 @@
 
 /* error state */
 
+#general_error{
+    display:none;
+}
+
 .blue_contribute_error {
     li.form_field_cont.error, #general_error {
+        display:block;
         background-color: #f2dede;
+        border:none;
         border-color: #eed3d7;
         padding: 5px 21px 5px 5px;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
         -webkit-border-radius: 4px;
         border-radius: 4px;
+        height:auto;
         @include respond-min( $form-field-layout ){
             margin-left:-10px;
         }
@@ -373,8 +411,20 @@
     .zip_cont {
       width: $fourth-width-field-container-width;
     }
-    .accepted_ccs {
-      background-position: left center;
+    //dealing with field size when state is a text input
+    .state-text-input, .blue_contribute_error.state-text-input{
+        .state_cd_cont{
+            width: $half-width-field-container-width;
+            padding-right: $container-right-padding;
+            margin-right:0;
+        }
+        .zip_cont{
+            clear:left;
+            width:140px !important;
+            input {
+                width: 89%;
+            }
+        }
     }
     label, p.error {
       font-size: 14px;

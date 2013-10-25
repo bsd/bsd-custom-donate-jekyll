@@ -38,7 +38,7 @@ window.optimizely = window.optimizely || [];
 				sequential.qd = status;
 				console.log('qd',status);
 			});
-            
+
             /*if bsd reports errors, drop sequential styling*/
             $.Topic('bsd-validation-update').subscribe(function(ok){
                 if(!ok) { $topNode.removeClass('sequential'); }
@@ -415,9 +415,9 @@ window.optimizely = window.optimizely || [];
 				}
 
 				//needs to not use US validation when it's not the US
-				zip = $("[name='zip']").val();
+				zip = $topNode.find("[name='zip']").val();
 
-
+                console.log('zip',zip);
 				if( countryVal ==="US" ){
 					zip.replace(/\D/g, '');
 				}

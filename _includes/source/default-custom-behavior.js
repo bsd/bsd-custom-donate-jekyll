@@ -13,9 +13,10 @@
         $state_label = $state_cdCont.find('label'),
         $state_cd = $state_cdCont.find('input,select').eq(0),
         state_cd_id = $state_cd.attr('id'),
+        state_cd_tabindex = $state_cd.attr('tabindex'),
         $zip_label = $form.find('label.zip_related'),
-        $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').removeClass('hidden').attr('name','state_cd').attr('id',state_cd_id),
-        $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd'}),
+        $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').removeClass('hidden').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
+        $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
         countryVal = $form.data('default-country');
 
 	$('.other_amount_label').hide();

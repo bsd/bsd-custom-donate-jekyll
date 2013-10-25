@@ -11,7 +11,7 @@
 </div>
 {% endif %}
 
-<div id="bsd_contribute_cont" class="bsdcd-outer-container {{page.extra-classes-on-outer-container}}{% if page.top-node-is-outer == true%} pre-first-click{% if page.sequential == true%} sequential sequential_step_0{%endif%}{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.default-currency-symbol}}">
+<div id="bsd_contribute_cont" class="bsdcd-outer-container {{page.extra-classes-on-outer-container}}{% if page.top-node-is-outer == true%} pre-first-click{% if page.sequential %} sequential sequential_step_0{%endif%}{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.default-currency-symbol}}">
     {% if page.header-section %}
     <div id="sequential_header" class="bsdcd-top-section base">
     {% if page.title %}<h1>{{page.title}}</h1>{%endif%}
@@ -143,7 +143,7 @@
                     <h2 class="form_section_header" id="creditcard_header">Credit card</h2>
                 </li><!--/.form_section_header_cont-->
                 <li class="qd_info_extra cc_type_cont">
-                    <p class="accepted_ccs">We accept: {% if page.accept-visa %}Visa{%endif%}{% if page.accept-mastercard %}MasterCard{%endif%}{% if page.accept-amex %}American Express{%endif%}{% if page.accept-discover %}Discover{%endif%}</p>
+                    <p class="accepted_ccs"><span class="hide-text">We accept: </span>{% if page.accept-visa %}<span class="cc-img accept-vs"> Visa </span>{%endif%}{% if page.accept-mastercard %}<span class="cc-img accept-mc"> MasterCard </span>{%endif%}{% if page.accept-amex %}<span class="cc-img accept-ax"> American Express </span>{%endif%}{% if page.accept-discover %}<span class="cc-img accept-ds"> Discover </span>{%endif%}{% if page.accept-maestro %}<span class="cc-img accept-ma"> Maestro </span>{%endif%}</p>
                     <ul class="cc_type_radio_cont">
                         {% if page.accept-visa == true %}<li>
                             <input type="radio" class="radio" id="{{page.id-prefix}}cc_mc" value="mc" name="cc_type_cd">
@@ -324,12 +324,13 @@
 
         (function($){
             var $topNode = $('#bsd_contribute_cont');
-
+{% if page.sequential %}
             $topNode.sequential({
 
                 debug: true
 
             });
+{%endif%}
             $topNode.find('form').blueContribute({
 
                 debug: true

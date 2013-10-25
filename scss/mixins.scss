@@ -1,5 +1,12 @@
 /* BSD team's approved mixins */
 
+@mixin opacity($opacity){
+    $ieop: floor($opacity * 100);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=$ieop)";
+    filter: alpha(opacity=$ieop);
+    opacity: $opacity;
+}
+
 @mixin transition($trans: all, $duration: 0.1s, $function: linear) {
   -webkit-transition: $trans $duration $function;
   -moz-transition: $trans $duration $function;

@@ -1,7 +1,6 @@
-#sequential_next_btn, .bsdcd-seq-breadcrumbs, #sequential_next_cont {
+#sequential_next_btn, .bsdcd-seq-breadcrumbs, #sequential_next_cont, #sequential_general_error_cont {
   display: none;
 }
-
 
 @include respond-min( $sequential-breakpoint ){
 
@@ -17,7 +16,7 @@
                 display:none !important;
             }
         }
-        #sequential_general_error_cont, #sequential_next_cont, .bsdcd-seq-breadcrumbs {
+        #sequential_next_cont, .bsdcd-seq-breadcrumbs {
           display: block;
         }
         .bsdcd-form {
@@ -216,6 +215,11 @@
     .sequential_error_message{
         margin:0 0 10px;
     }
+
+    .sequential_error  #sequential_general_error_cont {
+        display:block;
+    }
+
     //no next button to start on amount selection
     .pre-first-click #sequential_next_cont {
         display:none;
@@ -226,22 +230,6 @@
         left:9px;
     }
 
-
-    //dealing with field size when state is a text input
-    .sequential.sequential_step_1 .state-text-input, .blue_contribute_error.state-text-input{
-        .state_cd_cont{
-            width: $half-width-field-container-width;
-            padding-right: $container-right-padding;
-            margin-right:0;
-        }
-        .zip_cont{
-            clear:left;
-            width:140px !important;
-            input {
-                width: 89%;
-            }
-        }
-    }
     .blue_contribute_processing #sequential_next_btn {
         cursor:default;
     }
