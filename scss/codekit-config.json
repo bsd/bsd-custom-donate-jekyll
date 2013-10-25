@@ -26,27 +26,15 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/pih-minimal\/bsdcd-backgrounds.scss" : {
+    "\/shatter-minimal\/bsdcd-backgrounds.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/pih-minimal\/bsdcd-backgrounds.scss",
+      "inputAbbreviatedPath" : "\/shatter-minimal\/bsdcd-backgrounds.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
       "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
-      "fileType" : 4,
-      "debugStyle" : 0
-    },
-    "\/bsdcd-core.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/bsdcd-core.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/bsdcd-core.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -62,12 +50,24 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/shatter-minimal\/bsdcd-backgrounds.scss" : {
+    "\/bsdcd-core.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/shatter-minimal\/bsdcd-backgrounds.scss",
+      "inputAbbreviatedPath" : "\/bsdcd-core.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/bsdcd-core.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
+    "\/pih-minimal\/bsdcd-backgrounds.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/pih-minimal\/bsdcd-backgrounds.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
       "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
