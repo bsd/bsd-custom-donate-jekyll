@@ -3,20 +3,20 @@
 ##Configuration options REVIEW AND CHANGE THESE PER DONATION FORM
 
 
-internal-title: PIH Demo
+internal-title: Shatterproof Demo
 
-client: PIH
+client: Shatterproof
 author: Drew Tipson
 
-#Page Title (if used in your imported header)
-page-title: Give
+#Page Title, if used in your imported header
+page-title: Donate
 
-tools-slug: donate
-tools-recurring-slug: reccur
+tools-slug: default
+tools-recurring-slug: #leave blank for no recurring
 default-source-codes: sequential-donate
 
 ##
-layout: pih-minimal
+layout: shatter-minimal
 sequential: true
 quick-donate: true
 
@@ -28,8 +28,8 @@ extra-classes-on-outer-container: #just a string of extra classes to add, just i
 
 ##top-section
 header-section: true
-title: Your Donation Will Save Lives
-subtitle: Donate to Partners In Health
+title: DONATE
+subtitle: Help us bring new energy, new resources, and a new commitment to prevent, treat and ultimately end addiction.
 
 #form customization
 custom-amounts: [10, 20, 50, 100, 250, 500, 1000] #an array of 7 values for the donation amount
@@ -48,8 +48,8 @@ default-country: US # set to either US or GB or leave blank for international. C
 default-currency-symbol: "$"
 
 #text sections
-recurring-intro: Our patients need your help all year round. Become a recurring donor to make an automatic donation to PIH every month.
-recurring-label: Please Make This A Recurring Contribution (Optional)
+recurring-intro: 
+recurring-label: Make This A Recurring Contribution (Optional)
 
 #in honor-of
 in-honor-of-section: true #not ready for primetime yet

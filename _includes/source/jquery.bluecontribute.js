@@ -119,9 +119,6 @@ var blueContribute = {};
 
                 var amt_error_only = false, i;
 
-                //toggle the processing body class
-                $form.toggleClass('blue_contribute_processing');
-
                 //remove all existing errors
                 if(blueContribute.latestResponseObject){
 
@@ -193,7 +190,8 @@ var blueContribute = {};
 
                     if(blueContribute.latestResponseObject.status === 'success'){
 
-                        if(!gup('debug')) { window.location = blueContribute.latestResponseObject.redirect_url; }
+                        //if there's no debug parameter or if the site is secure, go to the redirect url
+                        if(!gup('debug') || !nonsecure) { window.location = blueContribute.latestResponseObject.redirect_url; }
 
                     } else {
 
@@ -201,7 +199,7 @@ var blueContribute = {};
 
                         locked = false;
 
-                        if(blueContribute.latestResponseObject.code === 'noslug'){
+                        if(blueContribute.latestResponseObject.code === 'noslug'  || blueContribute.latestResponseObject.code === 'invalidslug'){
 
                             window.alert("A BSD slug must be provided as a value in a hidden field named 'slug' on this form.");
 
@@ -280,29 +278,33 @@ var blueContribute = {};
                         }
 
                         //adjust the dom so that the user can see the errors
-                        $form.addClass('blue_contribute_error');
+                        $form.addClass('blue_contribute_error').removeClass('blue_contribute_processing');
 
                         //alert others of the fail
                         //will currently blow away QD if the amount is wrong... that's wrong, I think
-                        if ($.Topic) { $.Topic('validation-update').publish( false, amt_error_only ); }
+                        if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
 
                         window.scrollTo(0, 0);
 
                     }
 
+
                 } else {
 
                     locked = false;
                     //adjust the dom so that the user can see the errors
-                    $form.addClass('blue_contribute_error');
+                    $form.addClass('blue_contribute_error').removeClass('blue_contribute_processing');  //toggle off the processing body class
 
                     //alert others of the fail
                     //will currently blow away QD if the amount is wrong... that's wrong, I think
-                    if ($.Topic) { $.Topic('validation-update').publish( false, amt_error_only ); }
+                    if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
                     //to do: update dom with a general error message to indicate to the user that something is wrong
                     debug('donate api response was not parsable by jquery/is not valid json--it is probably html');
                     $('.general_error').text('We are unable to process your transaction at this time.').removeClass('hidden');
                 }
+
+                //behavior that happens on success or fail
+
 
                 if( typeof blueContribute.settings.afterPost === 'function' ){
 
@@ -323,7 +325,7 @@ var blueContribute = {};
 
                 responseHandler:  defaultResponseHandler,
 
-                slug: 'default'
+                slug: ($form.data('slug')||'default')
 
             };
             
@@ -343,6 +345,8 @@ var blueContribute = {};
                     beforePostReturnValue = blueContribute.settings.beforePost();
 
                 }
+
+                $form.addClass('blue_contribute_processing');
 
                 if(beforePostReturnValue && !locked){
                     locked = true;

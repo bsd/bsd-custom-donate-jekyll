@@ -38,15 +38,13 @@ window.optimizely = window.optimizely || [];
 				sequential.qd = status;
 				console.log('qd',status);
 			});
-
+            
+            /*if bsd reports errors, drop sequential styling*/
+            $.Topic('bsd-validation-update').subscribe(function(ok){
+                if(!ok) { $topNode.removeClass('sequential'); }
+            });
 
 			sequential.utilityFunctions = {};
-
-			sequential.utilityFunctions.postErrorHandler = function(){
-
-				$topNode.removeClass('sequential');
-
-			};
 
 			sequential.utilityFunctions.goToStep = function(step){
 
@@ -240,7 +238,7 @@ window.optimizely = window.optimizely || [];
 
 						if(typeof amount === 'number'){
 
-							if( amount >= sequential.settings.donationAmountMinimum ){
+							if( amount >= sequential.settings.donationAmountMinimum || nomin){
 
 								//user selected amount is over minimum
 								return true;
@@ -248,8 +246,10 @@ window.optimizely = window.optimizely || [];
 							} else {
 
 								//user selected amount is not over minimum
-								return false;
+                                _gaq.push(['_trackEvent', 'Sequential donate', 'Amount error', 'Below minimum']);
+                                window.optimizely.push(['trackEvent', 'sequential_amount_under_minimum_error']);
 
+                                return false;
 							}
 
 						} else {

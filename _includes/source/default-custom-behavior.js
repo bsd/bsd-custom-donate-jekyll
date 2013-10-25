@@ -22,7 +22,7 @@
 
     $form.find('[name="http_referrer"]').val(document.referrer);
 
-    if(gup('nomin')==="true"){
+    if(nomin){
         $('<input/>',{'type':'hidden','name':'nomin','value':'1'}).appendTo($form);
     }
 

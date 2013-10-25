@@ -14,18 +14,6 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/pih-minimal\/variables.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/pih-minimal\/variables.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/variables.css",
-      "fileType" : 4,
-      "debugStyle" : 0
-    },
     "\/shatter-minimal\/bsdcd-backgrounds.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -38,15 +26,15 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/shatter-minimal\/variables.scss" : {
+    "\/pih-minimal\/bsdcd-backgrounds.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/shatter-minimal\/variables.scss",
+      "inputAbbreviatedPath" : "\/pih-minimal\/bsdcd-backgrounds.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/variables.css",
+      "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -62,15 +50,27 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/pih-minimal\/bsdcd-backgrounds.scss" : {
+    "\/shatter-minimal\/variables.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/pih-minimal\/bsdcd-backgrounds.scss",
+      "inputAbbreviatedPath" : "\/shatter-minimal\/variables.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
+      "outputAbbreviatedPath" : "\/css\/variables.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
+    "\/pih-minimal\/variables.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/pih-minimal\/variables.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/variables.css",
       "fileType" : 4,
       "debugStyle" : 0
     },

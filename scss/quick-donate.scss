@@ -29,14 +29,12 @@
     border-bottom: 1px solid #ccc;
     margin-bottom:20px;
 }
-.qd_loading_spinner {
-    display: none;
-}
 
 .qd_loading_spinner {
     display: none;
     background: url(/page/-/donate/ajax-loader.gif) left center no-repeat;
     padding-left: 22px;
+    margin-left:5px;
     .qd_loading &{
         display:block;
     }

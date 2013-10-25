@@ -2,6 +2,8 @@ name: Donate
 pygments: true
 relative_permalinks: true
 
+permalink: /:year/:title.html
+
 include: [".htaccess","ctl"]
 exclude: ["_js"]
 

@@ -7,7 +7,8 @@
         },
         topics = {},
         hash = window.location.hash.replace("#",''),
-        nonsecure = window.location.protocol.indexOf('s')===-1;
+        nonsecure = ( window.location.protocol.indexOf('s')===-1 ),
+        nomin = ( gup('nomin')==="1" );
 
     if (nonsecure){
         console.log('WARNING: This form is on a nonsecure domain and can only work in test mode.');

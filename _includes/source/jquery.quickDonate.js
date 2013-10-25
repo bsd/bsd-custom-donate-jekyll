@@ -377,7 +377,7 @@ var quickDonate = quickDonate || {};
             });
 
             //clear quick donate if the blue validation had any other errors than just the amount
-            $.Topic('validation-update').subscribe(function(ok, amt_error_only){
+            $.Topic('bsd-validation-update').subscribe(function(ok, amt_error_only){
                 if (!ok && !amt_error_only){
                     quickDonate.settings.clearInfo(0, 'reveal');
                 }

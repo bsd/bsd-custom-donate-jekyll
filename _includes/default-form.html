@@ -1,26 +1,17 @@
-
-{% if page.custom-amounts %}
-    {% assign amounts = page.custom-amounts %}
-{% else %}
-    {% assign amounts = site.amounts %}
-{% endif %}
-
-{% if page.include-styles-inline %}
-<!--[if lte IE 8]>
+{% if page.custom-amounts %}{% assign amounts = page.custom-amounts %}{% else %}{% assign amounts = site.amounts %}{% endif %}{% if page.include-styles-inline %}<!--[if lte IE 8]>
     <link rel="stylesheet" href="/page/-/donate/{% if page.layout %}{{page.layout}}/{%endif%}bsdcd-styles-desktop.css">
 <![endif]-->
 <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="/page/-/donate/{% if page.layout %}{{page.layout}}/{%endif%}bsdcd-styles.css">
 <!--<![endif]-->
-{% endif %}
-{% if page.include-login-inline %}
+{% endif %}{% if page.include-login-inline %}
 <div class="qd-login-links-section">
     <a href="#login" class="qd-log-in-link">Log in to Quick Donate</a>
     <a href="#logout" class="qd-log-out-link">Log Out</a>
 </div>
 {% endif %}
 
-<div id="bsd_contribute_cont" class="bsdcd-outer-container {{page.extra-classes-on-outer-container}}{% if page.top-node-is-outer == true%} pre-first-click{% if page.sequential == true%} sequential sequential_step_0{%endif%}{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.default-currency-symbol}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
+<div id="bsd_contribute_cont" class="bsdcd-outer-container {{page.extra-classes-on-outer-container}}{% if page.top-node-is-outer == true%} pre-first-click{% if page.sequential == true%} sequential sequential_step_0{%endif%}{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.default-currency-symbol}}">
     {% if page.header-section %}
     <div id="sequential_header" class="bsdcd-top-section base">
     {% if page.title %}<h1>{{page.title}}</h1>{%endif%}
@@ -34,7 +25,7 @@
         <li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2"><a href="#step_3">Payment<span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a></li>
     </ol>
     {%endif%}
-    <form action="" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" data-require-country="{% if page.require-country %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}">
+    <form action="" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" data-require-country="{% if page.require-country %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
         <input id="BSDForm-quick_donate_populated" name="quick_donate_populated" type="hidden" value="">
         <input name="source_codes" type="hidden" value="{% if page.default-source-codes %}{{page.default-source-codes}}{%endif%}">
         {% if page.country-selection != true and page.default-country %}<input id="default_country" name="default_country" type="hidden" value="{{page.default-country}}">{%endif %}
@@ -53,7 +44,7 @@
                     <p id="qd_header" class="qd_header">Saved payment method</p>
                     <p>Type: <span id="qd_cc_type"></span></p>
                     <p>Number: <span id="qd_cc_number"></span></p>
-                    <p class="qd-options"><a href="#" id="qd_clear_info">Use different info</a> &nbsp;<a href="/ctl/Contribution/Quick/Manage" id="qd_manage_account" target="_blank">Manage your account</a></p>
+                    <p class="qd-options"><a href="#" id="qd_clear_info">Use different info</a> &nbsp;&nbsp;&nbsp; <a href="/ctl/Contribution/Quick/Manage" id="qd_manage_account" target="_blank">Manage your account</a></p>
                 </li>
             </ul>
             <ul class="sequential_step step_1 clearfix">
@@ -317,13 +308,13 @@
             <li id="sequential_general_error_cont">
                 <p class="sequential_error_message error"></p>
             </li>
-            <li id="sequential_next_cont"><p class="big_btn" id="sequential_next_btn_cont"><a href="#" id="sequential_next_btn" class="sequential_move_forward" title="Next"><span id="sequential_next_btn_copy">Next</span><span id="sequential_donate_btn_copy">Donate</span></a></p></li>
+            <li id="sequential_next_cont"><p class="big_btn" id="sequential_next_btn_cont"><a href="#" id="sequential_next_btn" class="sequential_move_forward"><span id="sequential_next_btn_copy">Next</span><span id="sequential_donate_btn_copy">Donate</span></a></p></li>
             <li id="submit_cont">
                 <p id="processing_indicator">Processing...</p>
                 <input type="submit" value="Donate now" class="bid_btn" id="submit" tabindex="30">
             </li>
         </ul><!--/#bsd_contribute_form_fields_cont-->
-        <input type="hidden" name="slug" value="donate">
+        <input type="hidden" name="slug" value="{{page.tools-slug}}">
     </form>
     {%if page.country-selection == true and page.default-country != "US"  %}<select class="state_cd us-state-dropdown hidden"><option value=""></option><option value="AK">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option><option value="--" disabled="disabled">---</option><option value="AA">AA</option><option value="AE">AE</option><option value="AP">AP</option><option value="AS">AS</option><option value="FM">FM</option><option value="GU">GU</option><option value="MH">MH</option><option value="MP">MP</option><option value="PR">PR</option><option value="PW">PW</option><option value="VI">VI</option></select>{%endif%}
 
@@ -341,20 +332,12 @@
             });
             $topNode.find('form').blueContribute({
 
-                debug: true,
-
-                slug: 'donate',
-
-                recurSlug: 'recurring',
-
-                afterPost: sequential.utilityFunctions.postErrorHandler
+                debug: true
 
             });
-
             $topNode.detectCCType();
+            
             $topNode.quickDonate({
-
-                //tokenRequestPath: '/page/cde/Api/Tokenize/v1',
 
                 debug: true
 

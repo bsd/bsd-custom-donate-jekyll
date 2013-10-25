@@ -190,6 +190,7 @@
     }
   #processing_indicator {
     display: none;
+    cursor:default;
   }
   .form_field_cont{
     margin-bottom: $form-container-bottom-margin;

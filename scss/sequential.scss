@@ -114,9 +114,6 @@
             left: 0px;
             width: 370px;
         }
-        #sequential_next_btn {
-            display: block;
-        }
         #bsd_contribute_form_fields_cont {
             position: relative;
             margin: 0;
@@ -245,7 +242,9 @@
             }
         }
     }
-
+    .blue_contribute_processing #sequential_next_btn {
+        cursor:default;
+    }
 }
 
 /**/
