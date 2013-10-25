@@ -1,0 +1,88 @@
+---
+
+permalink: /v1
+
+succeed: true
+
+---
+{%if page.succeed %}{
+    "api_version": 1,
+    "status": "success",
+    "redirect_url": "http://i.imgur.com/HDdHa.gif",
+    "reporting_data": {
+        "action_code": "BgpYQRENBEERWl9bbhVSBgYUAR8E",
+        "td": {
+            "firstname": "Xiao",
+            "lastname": "Yu",
+            "email": "xiao@yu.name",
+            "phone": "6177929000",
+            "addr1": "15 Howard St.",
+            "addr2": "Unit #3",
+            "city": "Cambridge",
+            "state": "MA",
+            "zip": "02139",
+            "country": "US",
+            "transaction_amt": 12.34,
+            "is_recurring": "0",
+            "contribution_key": "HYrsBu_M-89u8TbI1c",
+            "source": null,
+            "subsource": null,
+            "contribution_page_id": "1",
+            "modulename": "contribution",
+            "formname": "Default Fundraising Page",
+            "pagetype": "1",
+            "pageamounts": [
+                10,
+                25,
+                50,
+                100,
+                250,
+                1000,
+                4
+            ],
+            "used_quick_donate": false
+        }
+    }
+}{% else %}{
+    "api_version":1,
+    "status":"fail",
+    "code":"validation",
+    "field_errors":[
+        {
+            "field": "lastname",
+            "message":"required field"
+        },
+        {
+            "field": "employer",
+            "message":"required field"
+        },
+        {
+            "field": "occupation",
+            "message":"required field"
+        },
+        {
+            "field": "state_cd",
+            "message":"required field"
+        },
+        {
+            "field": "zip",
+            "message":"required field"
+        },
+        {
+            "field": "cc_number",
+            "message":"required field"
+        },
+        {
+            "field": "cc_expir_group",
+            "message":"required field"
+        },
+        {
+            "field": "cc_type_cd_group",
+            "message":"invalid or unsupported card type"
+        },
+        {
+            "field":"recurring_acknowledge",
+            "message":"You must check the box below to set up a recurring contribution."
+        }
+    ]
+}{% endif %}

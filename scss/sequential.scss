@@ -1,0 +1,259 @@
+#sequential_next_btn, .bsdcd-seq-breadcrumbs, #sequential_next_cont {
+  display: none;
+}
+
+
+@include respond-min( $sequential-breakpoint ){
+
+    .step-error a{
+        color: $error-message-text-color !important;
+    }
+    #sequential_general_error_cont, #sequential_next_cont, .bsdcd-seq-breadcrumbs {
+        display: none;
+    }
+    .sequential {
+        .sequential_breadcrumb_payment{
+            .qd-pay-step-num{
+                display:none !important;
+            }
+        }
+        #sequential_general_error_cont, #sequential_next_cont, .bsdcd-seq-breadcrumbs {
+          display: block;
+        }
+        .bsdcd-form {
+          height: auto;
+          overflow: hidden;
+          margin-top: -1px;
+        }
+        .general_error, .qd_info_section {
+          display: none;
+        }
+        .mobile-only {
+            display: none;
+        }
+        .bsdcd-seq-breadcrumbs {
+            width: $section-total-width - (10 * 2);
+            overflow:hidden;
+            background: #fff;
+            height: 85px;
+            padding: 0 10px;
+            margin: 0;
+            border-bottom: 1px solid #000;
+            font-size: 13px;
+            border-bottom: 1px solid #d8d8d8;
+            background: #f2f2f2;
+            li {
+                float: left;
+                width: 110px;
+                padding-top: 20px;
+                list-style-type:none;
+                position: relative;
+                a {
+                    text-decoration: none;
+                    font-weight: bold;
+                    cursor: default;
+                    color: #b8b8b8;
+                    span {
+                      color: #fff;
+                    }
+                }
+                &.active a span, &.completed a span {
+                    text-decoration: none;
+                    font-weight: bold;
+                    cursor: pointer;
+                    color: #fff;
+                }
+                &.active a, &.completed a {
+                    cursor: pointer;
+                    color: #555;
+                }
+                span {
+                    display: block;
+                    background: $step-inactive;
+                    width: 14px;
+                    padding: 4px 4px 4px 10px;
+                    border-radius: 30px;
+                    font-weight: bold;
+                }
+                &.active span, &.completed span {
+                    background: $step-active;
+                }
+                &.sequential_breadcrumb_amount {
+                    padding-left: 77px;
+                }
+                hr {
+                    position: absolute;
+                }
+            }
+        }
+        .sequential_breadcrumb_amount hr {
+            top: 37px;
+            left: 117px;
+            width: 86px;
+        }
+        .sequential_breadcrumb_name hr {
+            width: 100px;
+            left: 32px;
+            top: 37px;
+        }
+        .sequential_breadcrumb_amount span {
+            margin-left: 12px;
+        }
+        .sequential_breadcrumb_name span {
+            margin-left: 4px;
+        }
+        .sequential_breadcrumb_payment span {
+            margin-left: 13px;
+        }
+        #submit_cont, #sequential_donate_btn_copy {
+            display: none;
+        }
+        #sequential_next_cont {
+            //position: absolute;
+            top: 260px;
+            left: 0px;
+            width: 370px;
+        }
+        #sequential_next_btn {
+            display: block;
+        }
+        #bsd_contribute_form_fields_cont {
+            position: relative;
+            margin: 0;
+        }
+        .sequential_step {
+            margin: 0;
+            top:0;
+        }
+        #sequential_next_btn {
+            text-decoration: none;
+            text-align: left;
+            padding-left: 35px;
+            //background: url(/page/-/donate/right-arrow-white.png) center right no-repeat;
+            color: #fff;
+            display: block;
+            padding: 10px 40px 10px 40px;
+            text-align: center;
+        }
+        #sequential_next_btn_cont {
+            //border-radius: 4px 25px 25px 2px!important;
+            width: 135px;
+            margin: auto auto;
+            padding: 0!important;
+        }
+        #sequential_general_error_cont {
+            text-align: center;
+            width: 100%;
+            p{
+                margin-top:0;
+            }
+        }
+        p.general_error {
+            color: $error-message-text-color;
+            font-weight: bold;
+            font-size: 17px;
+        }
+        .sequential_step {
+            width: $section-inner-width;
+            opacity: 0;
+            @include transition2( opacity, .3s , ease, left, .3s , ease );
+            &.active {
+                opacity: 1;
+                z-index: 1;
+            }
+            &.inactive {
+                position:absolute;
+                opacity: 0;
+                left:-$section-total-width;
+                z-index:0;
+            }
+        }
+        #sequential_payment_info {
+            padding: 0;
+            //padding: 0 20px;
+            .qd_populated &{
+                padding:20px 0 0;
+            }
+        }
+        .cc_year, .cc_month {
+            width: 123px;
+        }
+        input.text.error, select.error {
+            border: 2px solid $error-field-border-color !important;
+        }
+        &.sequential_step_2 .bsdcd-form {
+            #sequential_donate_btn_copy {
+                display: block;
+            }
+            #sequential_next_btn_copy {
+                display: none;
+            }
+            #sequential_next_btn_cont {
+                width: 230px;
+            }
+        }
+
+        //hiding the second step when quick donate is active
+        &.qd_populated .bsdcd-seq-breadcrumbs li{
+            &.sequential_breadcrumb_amount{
+                padding-left:127px;
+                hr{
+                    left:167px;
+                    width:84px;
+                }
+            }
+            &.sequential_breadcrumb_name{
+                display:none;
+            }
+            &.sequential_breadcrumb_payment{
+                .qd-pay-step-num{
+                    display:block !important;
+                }
+                .no-qd-pay-step-num, hr{
+                    display:none;
+                }
+            }
+        }
+    }
+
+    .sequential_error_message{
+        margin:0 0 10px;
+    }
+    //no next button to start on amount selection
+    .pre-first-click #sequential_next_cont {
+        display:none;
+    }
+
+    //minor adjustment to balance items
+    .sequential_breadcrumb_name{
+        left:9px;
+    }
+
+
+    //dealing with field size when state is a text input
+    .sequential.sequential_step_1 .state-text-input, .blue_contribute_error.state-text-input{
+        .state_cd_cont{
+            width: $half-width-field-container-width;
+            padding-right: $container-right-padding;
+            margin-right:0;
+        }
+        .zip_cont{
+            clear:left;
+            width:140px !important;
+            input {
+                width: 89%;
+            }
+        }
+    }
+
+}
+
+/**/
+.oldie {
+    .sequential .sequential_step {
+        display: none;
+        &.active {
+            display: block;
+        }
+    }
+}

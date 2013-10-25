@@ -1,0 +1,411 @@
+
+/*
+
+  Author: Kyle Rush, kylerrush@gmail.com
+  
+*/
+
+
+/*****************************************************************
+
+          CONFIGURATION SETTINGS
+
+*****************************************************************/
+/*amount and submit button */
+/* h1, h2, h3, & h4 */
+/*****************************************************************
+
+            BEGIN STYLES
+
+*****************************************************************/
+
+/*limitation of current styles, should retest and refix */
+.bsdcd-outer-container *{
+    box-sizing:content-box;
+}
+
+.insecure-warning{
+    position:absolute;
+    top:0;
+    right:0;
+    padding:5px;
+    display:inline-block;
+    color: #aa0000;
+    background-color: #FFEEEE;
+    opacity: 0.4;
+    z-index:9999;
+    pointer-events:none;
+}
+
+.bsdcd-outer-container {
+  width: 93%;
+  margin: 0 auto;
+
+  ul,ol {
+    list-style: none;
+    padding: 0;
+    margin:0;
+  }
+  label {
+    font-size: 1.1em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: $label-bottom-margin;
+    span{
+        float:left; //put the required asterisk on the left
+        margin-right:1px;
+        //color: $dim-red;
+        .ie7 & {float:none;}
+    }
+  }
+  input.text, textarea {
+    background: #f1f1f1;
+    border: 1px solid #DEDEDE;
+    border-radius: 3px;
+    font-size: 1.3em;
+    width: 100%;
+    padding: 7px;
+    -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
+  }
+  select {
+    width: 100%;
+    font-size: 20px;
+    border-color: #ebebeb;
+    padding: 4px 6px;
+    vertical-align: top;
+    line-height:28px;
+    height:28px;
+  }
+    .form_field_cont{
+        padding-right: $container-right-padding;
+    }
+  li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_btn {
+    padding: 15px 5px;
+    display: block;
+    width: 95%;
+    background: $button-normal;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(0, 0, 0, 0.1)), color-stop(1, rgba(255, 255, 255, 0.2)));
+    border: 1px solid darken($button-normal, 10%);
+    border-radius: 3px;
+    //box-shadow: inset 0px 1px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px 1px darken($button-normal, 20%);
+    font-family: 'Whitney 4r', 'Whitney A', 'Whitney B', 'Whitney', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    font-size: 19px;
+    text-align: center;
+  }
+  .other_amount_radio {
+    display: none;
+  }
+  ul.amounts li.amount_cont {
+    margin-bottom:15px;
+    input.preset_amount_input {
+      display:none;
+    }
+    label.active {
+    z-index:1;
+      background: $button-active;
+      color: #fff;
+      border: 1px solid #fff;
+      box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .cc_month {
+    margin-bottom: 10px;
+  }
+  .cc_type_radio_cont label {
+    display: inline;
+  }
+  .accepted_ccs {
+    text-indent: -9000em;
+    height: 26px;
+    width: 100%;
+    position:relative;
+    //fancypants non-modernizr svg fallback trick: http://pauginer.tumblr.com/post/36614680636/invisible-gradient-technique
+    background: transparent url(/page/-/donate/Credit_Card_Icons.png) left center no-repeat;
+    background-image: -webkit-linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons.svg);
+    background-image: linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons.svg);
+    overflow:hidden;
+    margin-top:0;
+
+  }
+  .cc_type_cont{
+    margin-bottom:10px;
+  }
+  .cc_maestro_start_cont{
+    display:none;
+  }
+    .cc-is-ma .cc_maestro_start_cont {
+        display:block;
+    }
+  .cc-cover .accepted_ccs{
+    &:after, &:before{
+        content:'';
+        position:absolute;
+        top:0;
+        height:100%;
+        .oldie &{
+            background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P8////GQAJzQPLjFTuFwAAAABJRU5ErkJggg==) repeat;
+        }
+        background: rgba(255,255,255,0.8);
+        left:0;
+    }
+    &:before{
+        width:110px;
+    }
+  }
+  .cc-is-vs{
+    .accepted_ccs:before{
+        left:80px;
+    }
+    .accepted_ccs:after{
+        width:40px;
+    }
+  }
+  .cc-is-ax {
+    .accepted_ccs:before{
+        left:110px;
+    }
+    .accepted_ccs:after{
+        width:80px;
+    }
+  }
+    .cc-is-mc .accepted_ccs:before{
+        left:40px;
+    }
+    .honoree_field_cont{
+        display:none;
+    }
+    .honor-section .honoree_field_cont{
+        display:block;
+    }
+    .inmemory_field_cont{
+        display:none;
+    }
+    .memorial-section .inmemory_field_cont{
+        display:block;
+    }
+  #processing_indicator {
+    display: none;
+  }
+  .form_field_cont{
+    margin-bottom: $form-container-bottom-margin;
+  }
+  .form_section_header{
+    margin:10px 0;
+  }
+  .bsdcd-top-section{
+    padding:10px;
+  }
+}
+
+/*should be tablet only?*/
+.cvv-question-mark{
+    position:relative;
+    border-radius:1em;
+    cursor: pointer;
+    height: 1em;
+    padding: 0 0.3em;
+    font-size:100%;
+    background-color:$question-mark-background;
+    color: $question-mark-color;
+    &:hover:before{
+
+    }
+    &:hover:after{
+        z-index:40;
+        position:absolute;
+        content: attr(data-content);
+        min-height:20px;
+        background:white;
+        color: black;
+        margin-left:100%;
+        padding:10px;
+        left: 0;
+        border-left: 20px solid transparent;
+        box-sizing: border-box;
+        background-clip: padding-box;
+        width: 400px;
+    }
+}
+
+.cc_type_radio_cont {
+  display: none;
+}
+
+/* error state */
+
+.blue_contribute_error {
+    li.form_field_cont.error, #general_error {
+        background-color: #f2dede;
+        border-color: #eed3d7;
+        padding: 5px 21px 5px 5px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        @include respond-min( $form-field-layout ){
+            margin-left:-10px;
+        }
+    }
+    li.form_field_cont.error.state_cd_cont {
+        padding-right:5px;
+    }
+    &.state-text-input li.form_field_cont.error.state_cd_cont{
+        padding-right:21px;
+    }
+    li.form_field_cont.error p {
+        color: #b94a48;
+    }
+    .cc_type_radio_cont{
+        display:block;
+    }
+}
+
+.bsdcd-form p.error {
+  color: #c41230;
+  font-weight: bold;
+}
+
+/* processing state */
+
+.blue_contribute_processing {
+  #processing_indicator {
+    display: block;
+  }
+  #submit {
+    display: none;
+  }
+}
+
+
+.ie8 {
+    .state_cd_cont select {
+        width:84%;
+    }
+}
+
+/* configuration settings */
+
+@include respond-min( $form-field-layout ){
+
+  .bsdcd-outer-container {
+
+    background: none;
+    padding: 20px;
+
+    .bsdcd-top-section { 
+        text-align:left;
+        width: $section-total-width - ($section-inner-side-padding * 2);
+        background: #fff;
+        padding: 10px $section-inner-side-padding;
+        border-bottom: 1px solid #d8d8d8;
+    }
+    .bsdcd-form {
+      width: $section-total-width - ( $section-inner-side-padding * 2 );
+      background: #fff;
+      padding: $section-inner-side-padding;
+    }
+    .form_section_header {
+      text-align: left;
+    }
+    li {
+      &.amount_cont label.preset_amount_label {
+        width: 102px;
+        padding: 8px 5px;
+      }
+      &.amounts_cont {
+        overflow: hidden;
+        padding: 5px 5px 5px 7px;
+      }
+    }
+    label.preset_amount_label {
+      cursor: pointer;
+    }
+    .amount_cont {
+      margin-right: 14px;
+      margin-bottom: 28px;
+      float: left;
+      width: 115px;
+    }
+    .other_amount_label {
+      display: none;
+    }
+    .amount_cont_3, .amount_cont_6 {
+      margin-right: 0;
+    }
+    .amount_cont_8 {
+      width: 230px;
+    }
+    li.amount_cont_8 input.text {
+      padding: 8px 7px!important;
+    }
+    #contributor_header_cont {
+      clear: both;
+    }
+    .form_field_cont{
+        width: $full-width-field-container-width;
+        float:left;
+    }
+    .firstname_cont, .lastname_cont, .city_cont, .phone_cont, .email_cont, .employer_cont, .occupation_cont, .cc_month, .honoree_state_cd_cont, .honoree_zip_cont, .cc_cvv_cont {
+      width: $half-width-field-container-width;
+    }
+    .cc_year {
+      width: 175px;
+    }
+    .firstname_cont, .email_cont, .employer_cont, .cc_month, .city_cont, .state_cd_cont {
+      margin-right: 15px;
+    }
+    .addr1_cont, .country_cont, .email_cont, .employer_cont, .city_cont, .form_section_header_cont, .recurring-checkbox-cont, .honoree_zip_cont {
+      clear: both;
+    }
+    select {
+      font-size: 14px;
+      color: #707070;
+    }
+    .state_cd_cont {
+      width: $fourth-width-field-container-width + $container-right-padding;
+      padding-right:0;
+    }
+    .zip_cont {
+      width: $fourth-width-field-container-width;
+    }
+    .accepted_ccs {
+      background-position: left center;
+    }
+    label, p.error {
+      font-size: 14px;
+    }
+    input {
+      &:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="file"]), &.text {
+        font-size: 14px;
+        line-height: 26px;
+        font-weight: normal;
+        color: #555;
+        padding: 7px;
+        line-height: 14px;
+      }
+    }
+    li.error p {
+      margin: 0;
+    }
+    #submit_cont {
+      clear: both;
+    }
+    #submit {
+      width: 372px;
+    }
+    #processing_indicator {
+      width: 359px;
+    }
+  }
+
+}
+
+@media all and (min-width: 1000px) {
+    .bsdcd-outer-container {
+        width: 940px;
+    }
+}

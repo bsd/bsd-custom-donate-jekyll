@@ -1,0 +1,29 @@
+
+
+
+
+/*Custom Styles*/
+
+header{
+    background:white;
+}
+
+h1 {
+    margin-top:20px;
+    font-size:5rem!important;
+}
+
+@include respond-min( $form-field-layout ){
+    .bsdcd-top-section {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .qd-login-links-section {
+        top: -80px;
+    }
+}
+
+
+.base ul li, .base ol li {
+    list-style: none;
+}

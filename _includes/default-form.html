@@ -1,0 +1,366 @@
+
+{% if page.custom-amounts %}
+    {% assign amounts = page.custom-amounts %}
+{% else %}
+    {% assign amounts = site.amounts %}
+{% endif %}
+
+{% if page.include-styles-inline %}
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="/page/-/donate/{% if page.layout %}{{page.layout}}/{%endif%}bsdcd-styles-desktop.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="/page/-/donate/{% if page.layout %}{{page.layout}}/{%endif%}bsdcd-styles.css">
+<!--<![endif]-->
+{% endif %}
+{% if page.include-login-inline %}
+<div class="qd-login-links-section">
+    <a href="#login" class="qd-log-in-link">Log in to Quick Donate</a>
+    <a href="#logout" class="qd-log-out-link">Log Out</a>
+</div>
+{% endif %}
+
+<div id="bsd_contribute_cont" class="bsdcd-outer-container {{page.extra-classes-on-outer-container}}{% if page.top-node-is-outer == true%} pre-first-click{% if page.sequential == true%} sequential sequential_step_0{%endif%}{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.default-currency-symbol}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
+    {% if page.header-section %}
+    <div id="sequential_header" class="bsdcd-top-section base">
+    {% if page.title %}<h1>{{page.title}}</h1>{%endif%}
+    {% if page.subtitle %}<h2>{{page.subtitle}}</h2>{%endif%}
+    </div>
+    {%endif%}
+    {% if page.sequential %}
+    <ol class="bsdcd-seq-breadcrumbs">
+        <li class="sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0"><a href="#step_1">Amount<span>1</span></a><hr></li>
+        <li class="sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1"><a href="#step_2">Name<span>2</span></a><hr></li>
+        <li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2"><a href="#step_3">Payment<span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a></li>
+    </ol>
+    {%endif%}
+    <form action="" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" data-require-country="{% if page.require-country %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}">
+        <input id="BSDForm-quick_donate_populated" name="quick_donate_populated" type="hidden" value="">
+        <input name="source_codes" type="hidden" value="{% if page.default-source-codes %}{{page.default-source-codes}}{%endif%}">
+        {% if page.country-selection != true and page.default-country %}<input id="default_country" name="default_country" type="hidden" value="{{page.default-country}}">{%endif %}
+        {% if page.no_minimum == true %}<input name="nomin" type="hidden" value="1">{%endif%}
+        <input name="http_referer" type="hidden" value="">
+        <ul id="bsd_contribute_form_fields_cont">
+            <p class="general_error error" id="general_error"></p>
+            <p class="qd_loading_spinner">Loading...</p>
+            <ul class="qd_info_section">
+                <li class="qd_info qd-personal-info">
+                    <p id="qd_name_cont"><span id="qd_name" class="qd_header"></span> &nbsp;<a href="#" id="qd_nuclear">Not you?</a></p>
+                    <p><span id="qd_address"></span></p>
+                    <p><span id="qd_location"></span></p>
+                </li>
+                <li class="qd_info qd-payment-info">
+                    <p id="qd_header" class="qd_header">Saved payment method</p>
+                    <p>Type: <span id="qd_cc_type"></span></p>
+                    <p>Number: <span id="qd_cc_number"></span></p>
+                    <p class="qd-options"><a href="#" id="qd_clear_info">Use different info</a> &nbsp;<a href="/ctl/Contribution/Quick/Manage" id="qd_manage_account" target="_blank">Manage your account</a></p>
+                </li>
+            </ul>
+            <ul class="sequential_step step_1 clearfix">
+                <li class="section_header_cont mobile-only amount_group_related" id="select_amount_header">
+                    <h2 class="form_section_header" id="amount_header">Select an amount</h2>
+                </li><!--/.form_section_header_cont-->
+                <li class="amount_group_related amounts_cont">
+                    <p class="amount_group_error hidden error"></p>
+                    <input type="radio" name="amount" value="other" class="other_amount_radio" checked>
+                    <ul class="amounts">
+                        {% for amt in amounts %}
+                        <li class="amount_cont amount_cont_{{ forloop.index }} {% cycle 'odd', 'even' %} {% if forloop.first %}first fis{%endif%}">
+                            <input type="radio" class="radio preset_amount_input amount_{{amt}}" name="amount" value="{{amt}}" tabindex="1" id="{{page.id-prefix}}amount_{{amt}}">
+                            <label for="{{page.id-prefix}}amount_{{amt}}" class="preset_amount_label">{{page.default-currency-symbol]}}{{amt}}</label>
+                        </li>
+                        {% if forloop.last %}
+                        <li class="amount_cont amount_cont_{{ forloop.index | plus: 1 }} last {% cycle 'odd', 'even' %}">
+                            <label for="{{page.id-prefix}}amount_other" id="other_amount_label" class="other_amount_label">Other amount:</label>
+                            <input type="text" class="text other_amount_input amount_other" name="amount_other" id="{{page.id-prefix}}amount_other" placeholder="Other amount" tabindex="2">
+                        </li>
+                        {%endif%}
+                        {% endfor %}
+                    </ul><!--/#amounts-->
+                </li><!--/#amount_cont-->
+            </ul>
+            <ul class="sequential_step step_2 clearfix">
+                <li class="form_section_header_cont mobile-only firstname_related lastname_related qd_info_extra" id="contributor_header_cont">
+                    <h2 class="form_section_header" id="contributor_header">Contributor</h2>
+                </li><!--/#form_section_header_cont-->
+                <li class="personalized_info firstname_cont firstname_related form_field_cont">
+                    <p class="firstname_error hidden error"></p>
+                    <label for="{{page.id-prefix}}firstname" class="firstname_related">First name<span>*</span></label>
+                    <input type="text" class="text firstname" name="firstname" id="{{page.id-prefix}}firstname" tabindex="3" required="required">
+                </li><!--/#firstname_cont-->
+                <li class="personalized_info lastname_cont lastname_related form_field_cont">
+                    <p class="lastname_error hidden error"></p>
+                    <label for="{{page.id-prefix}}lastname" class="lastname_related">Last name<span>*</span></label>
+                    <input type="text" class="text" name="lastname" id="{{page.id-prefix}}lastname" tabindex="4" required="required">
+                </li><!--/#lastname_cont-->
+                {% if page.country-selection %}
+                <li class="personalized_info country_cont form_field_cont country_related">
+                    <p class="country_error hidden error"></p>
+                    <label for="{{page.id-prefix}}country">Country{% if page.require-country %}<span>*</span>{%endif%}</label>
+                    <select id="{{page.id-prefix}}country" name="country" tabindex="5" class="country" {% if page.require-country %}required="required"{%endif%}>
+                        <option value="" {% if page.default-country != "US" and page.default-country!="GB" %}selected="selected"{%endif%}></option><option value="US" {% if page.default-country == "US" %}selected="selected"{% endif %}>United States</option><option value="GB" {%if page.default-country == "GB" %}selected="selected"{%endif%}>United Kingdom</option><option value="AF">Afghanistan</option><option value="AL">Albania</option><option value="DZ">Algeria</option><option value="AS">American Samoa</option><option value="AD">Andorra</option><option value="AO">Angola</option><option value="AI">Anguilla</option><option value="AG">Antigua and Barbuda</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AW">Aruba</option><option value="AU">Australia</option><option value="AT">Austria</option><option value="AZ">Azerbaijan</option><option value="BS">Bahamas</option><option value="BH">Bahrain</option><option value="BD">Bangladesh</option><option value="BB">Barbados</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BZ">Belize</option><option value="BJ">Benin</option><option value="BM">Bermuda</option><option value="BT">Bhutan</option><option value="BO">Bolivia</option><option value="BA">Bosnia and Herzegovina</option><option value="BW">Botswana</option><option value="BR">Brazil</option><option value="VG">British Virgin Islands</option><option value="IO">British Indian Ocean Territory</option><option value="BN">Brunei</option><option value="BG">Bulgaria</option><option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="KH">Cambodia</option><option value="CM">Cameroon</option><option value="CA">Canada</option><option value="CV">Cape Verde</option><option value="KY">Cayman Islands</option><option value="CF">Central African Republic</option><option value="TD">Chad</option><option value="CL">Chile</option><option value="CN">China</option><option value="CX">Christmas Island</option><option value="CO">Colombia</option><option value="KM">Comoros Islands</option><option value="CD">Congo, Democratic Republic of the</option><option value="CG">Congo, Republic of the</option><option value="CK">Cook Islands</option><option value="CR">Costa Rica</option><option value="CI">Cote D'ivoire</option><option value="HR">Croatia</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="DJ">Djibouti</option><option value="DM">Dominica</option><option value="DO">Dominican Republic</option><option value="TP">East Timor</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="SV">El Salvador</option><option value="GQ">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="EE">Estonia</option><option value="ET">Ethiopia</option><option value="FK">Falkland Islands (Malvinas)</option><option value="FO">Faroe Islands</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="FR">France</option><option value="GF">French Guiana</option><option value="PF">French Polynesia</option><option value="TF">French Southern Territories</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GE">Georgia</option><option value="DE">Germany</option><option value="GH">Ghana</option><option value="GI">Gibraltar</option><option value="GR">Greece</option><option value="GL">Greenland</option><option value="GD">Grenada</option><option value="GP">Guadeloupe</option><option value="GU">Guam</option><option value="GT">Guatemala</option><option value="GN">Guinea</option><option value="GW">Guinea-Bissau</option><option value="GY">Guyana</option><option value="HT">Haiti</option><option value="VA">Holy See (Vatican City State)</option><option value="HN">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IQ">Iraq</option><option value="IE">Ireland</option><option value="IL">Israel</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JP">Japan</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KE">Kenya</option><option value="KI">Kiribati</option><option value="KR">South Korea</option><option value="XK">Kosovo</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Laos</option><option value="LV">Latvia</option><option value="LB">Lebanon</option><option value="LS">Lesotho</option><option value="LR">Liberia</option><option value="LI">Liechtenstein</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MO">Macau</option><option value="MK">Macedonia</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="ML">Mali</option><option value="MT">Malta</option><option value="MH">Marshall Islands</option><option value="MQ">Martinique</option><option value="MR">Mauritania</option><option value="MU">Mauritius</option><option value="YT">Mayotte</option><option value="MX">Mexico</option><option value="FM">Micronesia</option><option value="MD">Moldova, Republic of</option><option value="MC">Monaco</option><option value="MN">Mongolia</option><option value="ME">Montenegro</option><option value="MS">Montserrat</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="MM">Myanmar</option><option value="NA">Namibia</option><option value="NR">Nauru</option><option value="NP">Nepal</option><option value="NL">Netherlands</option><option value="AN">Netherlands Antilles</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NI">Nicaragua</option><option value="NE">Niger</option><option value="NG">Nigeria</option><option value="NU">Niue</option><option value="NF">Norfolk Island</option><option value="MP">Northern Mariana Islands</option><option value="NO">Norway</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PW">Palau</option><option value="PA">Panama</option><option value="PG">Papua New Guinea</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="PH">Philippines</option><option value="PN">Pitcairn Island</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="PR">Puerto Rico</option><option value="QA">Qatar</option><option value="RE">Reunion</option><option value="RO">Romania</option><option value="RU">Russian Federation</option><option value="RW">Rwanda</option><option value="KN">Saint Kitts and Nevis</option><option value="LC">Saint Lucia</option><option value="VC">Saint Vincent and the Grenadines</option><option value="WS">Samoa</option><option value="SM">San Marino</option><option value="ST">Sao Tome and Principe</option><option value="SA">Saudi Arabia</option><option value="SN">Senegal</option><option value="RS">Serbia</option><option value="SC">Seychelles</option><option value="SL">Sierra Leone</option><option value="SG">Singapore</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="SB">Solomon Islands</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="ES">Spain</option><option value="LK">Sri Lanka</option><option value="SH">St. Helena</option><option value="PM">St. Pierre and Miquelon</option><option value="SR">Suriname</option><option value="SZ">Swaziland</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="TW">Taiwan</option><option value="TJ">Tajikistan</option><option value="TZ">Tanzania</option><option value="TH">Thailand</option><option value="TG">Togo</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TT">Trinidad and Tobago</option><option value="TN">Tunisia</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="TC">Turks and Caicos Islands</option><option value="TV">Tuvalu</option><option value="UG">Uganda</option><option value="UA">Ukraine</option><option value="AE">United Arab Emirates</option><option value="UY">Uruguay</option><option value="UZ">Uzbekistan</option><option value="VU">Vanuatu</option><option value="VE">Venezuela</option><option value="VN">Viet Nam</option><option value="VI">Virgin Islands (U.S.)</option><option value="WF">Wallis and Futuna Islands</option><option value="EH">Western Sahara</option><option value="YE">Yemen</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option>
+                    </select>
+                </li>
+                {%endif%}
+                <li class="personalized_info addr1_cont addr1_related form_field_cont">
+                    <p class="addr1_error hidden error"></p>
+                    <label for="{{page.id-prefix}}addr1" class="addr1_related">Address<span>*</span></label>
+                    <input type="text" class="text addr1" name="addr1" id="{{page.id-prefix}}addr1" tabindex="6" required="required">
+                </li><!--/#addr1_cont-->
+                <li class="personalized_info city_cont city_related form_field_cont">
+                    <p class="city_error hidden error"></p>
+                    <label for="{{page.id-prefix}}city" class="city_related">City<span>*</span></label>
+                    <input type="text" class="text city" name="city" id="{{page.id-prefix}}city" tabindex="7" required="required">
+                </li><!--/#city-cont-->
+                <li class="personalized_info state_cd_cont state_cd_related form_field_cont">
+                    <p class="state_cd_error hidden error"></p>
+                    <label for="{{page.id-prefix}}state_cd" class="state_cd_related">{%if page.default-country =="US" %}State<span>*</span>{% elsif page.default-country =="GB"%}County<span>*</span>{%else%}*State/Region/Province<span>*</span>{%endif%}</label>
+                    {%if page.default-country !="US" %}<input type="text" class="text state_cd" id="{{page.id-prefix}}state_cd" name="state_cd" tabindex="8" required="required">{%elsif page.default-country =="US"%}
+                    <select name="state_cd" id="{{page.id-prefix}}state_cd" class="state_cd us-state-dropdown" tabindex="8" required="required"><option value=""></option><option value="AK">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option><option value="--" disabled="disabled">---</option><option value="AA">AA</option><option value="AE">AE</option><option value="AP">AP</option><option value="AS">AS</option><option value="FM">FM</option><option value="GU">GU</option><option value="MH">MH</option><option value="MP">MP</option><option value="PR">PR</option><option value="PW">PW</option><option value="VI">VI</option></select>{%endif%}
+                </li><!--/#state_cd-cont-->
+                <li class="personalized_info zip_cont zip_related form_field_cont">
+                    <p class="zip_error hidden error"></p>
+                    <label for="{{page.id-prefix}}zip" class="zip_related">ZIP<span>*</span></label>
+                    <input type="text" class="zip text" name="zip" id="{{page.id-prefix}}zip" maxlength="14" tabindex="9" required="required">
+                </li><!--/#zip-cont-->
+                <li class="personalized_info email_cont email_related form_field_cont">
+                    <p class="email_error hidden error"></p>
+                    <label for="{{page.id-prefix}}email" class="email_related">Email<span>*</span></label>
+                    <input type="text" class="email text" name="email" maxlength="256" id="{{page.id-prefix}}email" tabindex="10" required="required">
+                </li><!--/#email-->
+                <li class="personalized_info phone_cont phone_related form_field_cont">
+                    <p class="phone_error hidden error"></p>
+                    <label for="{{page.id-prefix}}phone" class="phone_related">Phone<span>*</span></label>
+                    <input type="text" class="phone text" name="phone" id="{{page.id-prefix}}phone" tabindex="11" required="required">
+                </li><!--/#phone-->
+            {% if page.employer-and-occupation %}
+                <li class="form_section_header_cont mobile-only qd_info_extra">
+                    <h2 class="form_section_header" id="employment_header">Employment</h2>
+                </li><!--/.form_section_header_cont-->
+                <li class="personalized_info employer_cont employer_related form_field_cont">
+                    <label for="{{page.id-prefix}}employer" class="employer_related">Employer<span>*</span></label>
+                    <input type="text" class="employer text" name="employer" id="{{page.id-prefix}}employer" tabindex="12" required="required">
+                </li><!--/#employer_cont-->
+                <li class="personalized_info occupation_cont occupation_related form_field_cont">
+                    <label for="{{page.id-prefix}}occupation" class="occupation_related">Occupation<span>*</span></label>
+                    <input type="text" class="occupation text" name="occupation" id="{{page.id-prefix}}occupation" tabindex="13" required="required">
+                </li><!--/#occupation_cont-->
+            {%endif%}
+            </ul><!--/.sequential-setp-2-->
+            <ul class="sequential_step step_3 clearfix" id="sequential_payment_info">
+                <li class="form_section_header_cont mobile-only qd_info_extra cc_number_related cc_expir_group_related">
+                    <h2 class="form_section_header" id="creditcard_header">Credit card</h2>
+                </li><!--/.form_section_header_cont-->
+                <li class="qd_info_extra cc_type_cont">
+                    <p class="accepted_ccs">We accept: {% if page.accept-visa %}Visa{%endif%}{% if page.accept-mastercard %}MasterCard{%endif%}{% if page.accept-amex %}American Express{%endif%}{% if page.accept-discover %}Discover{%endif%}</p>
+                    <ul class="cc_type_radio_cont">
+                        {% if page.accept-visa == true %}<li>
+                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_mc" value="mc" name="cc_type_cd">
+                            <label for="{{page.id-prefix}}cc_mc">MasterCard</label>
+                        </li>{%endif%}
+                        {% if page.accept-mastercard == true %}<li>
+                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_vs" value="vs" name="cc_type_cd">
+                            <label for="{{page.id-prefix}}cc_vs">Visa</label>
+                        </li>{%endif%}
+                        {% if page.accept-amex == true %}<li>
+                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_ax" value="ax" name="cc_type_cd">
+                            <label for="{{page.id-prefix}}cc_ax">AmericanExpress</label>
+                        </li>{%endif%}
+                        {% if page.accept-discover == true %}<li>
+                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_ds" value="ds" name="cc_type_cd">
+                            <label for="{{page.id-prefix}}cc_ds">Discover</label>
+                        </li>{%endif%}
+                        {% if page.accept-maestro == true %}<li>
+                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_ma" value="ma" name="cc_type_cd">
+                            <label for="{{page.id-prefix}}cc_ma">Maestro</label>
+                        </li>{%endif%}
+                    </ul><!--/#cc-type-radio-cont-->
+                </li><!--/#cc_type-cont-->
+                <li class="qd_info_extra cc_number_cont cc_number_related cc_type_cd_group_related form_field_cont">
+                    <p class="cc_number_error hidden error"></p>
+                    <p class="cc_type_cd_group_error hidden error"></p>
+                    <label for="{{page.id-prefix}}cc_number" class="cc_number_related cc_type_cd_group_related">Card number<span>*</span></label>
+                    <input type="text" class="text cc_number cc_type_cd_group_related" maxlength="19" id="{{page.id-prefix}}cc_number" name="cc_number" tabindex="14" autocomplete="off" required="required">
+                </li>
+                <li class="qd_info_extra cc_maestro_start_cont cc_maestro_start_related form_field_cont">
+                    <p class="cc_expir_group_error hidden error"></p>
+                    <label for="{{page.id-prefix}}cc_start_month" class="cc_maestro_start_related">Start Month/Year<span>*</span></label>
+                    <select id="{{page.id-prefix}}cc_start_month" class="cc_start_month cc_month" autocomplete="off" name="cc_start_month" tabindex="15" required="required">
+                        <option value="">Month</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <select id="{{page.id-prefix}}cc_start_year" class="cc_start_year cc_year" autocomplete="off" name="cc_start_year" tabindex="16" required="required">
+                        <option value="">Year</option>
+                        <option value="2012">2012</option>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                    </select>
+                </li>
+                <li class="qd_info_extra cc_expiration_cont cc_expir_group_related form_field_cont">
+                    <p class="cc_expir_group_error hidden error"></p>
+                    <label for="{{page.id-prefix}}cc_expir_month" class="cc_expir_group_related">Expiration<span>*</span></label>
+                    <select id="{{page.id-prefix}}cc_expir_month" class="cc_expir_month cc_month" autocomplete="off" name="cc_expir_month" tabindex="17" required="required">
+                        <option value="">Month</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <select id="{{page.id-prefix}}cc_expir_year" class="cc_expir_year cc_year" autocomplete="off" name="cc_expir_year" tabindex="18" required="required">
+                        <option value="">Year</option>
+                        <option value="2012">2012</option>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                    </select>
+                </li>
+                {% if page.require-cvv %}
+                <li class="qd_info_extra cc_cvv_cont cc_cvv_group_related form_field_cont">
+                    <p class="cc_cvv_group_error hidden error"></p>
+                    <label for="{{page.id-prefix}}cc_cvv" class="cc_cvv_group_related">Card Security Code<span>*</span> {% if page.show-cvv-help %}<span class="tooltip cvv-question-mark" data-content="For Visa, Mastercard, or Discover, the three-digit CVV number is printed on the signature panel on the back of the card immediately after the card's account number. For American Express, the four-digit CVV number is printed on the front of the card above the card account number.">?</span>{%endif%}</label>
+                    <input size="4" maxlength="4" id="{{page.id-prefix}}cc_cvv" autocomplete="off" name="cc_cvv" type="text" class="text" tabindex="19">
+                </li>
+                {%endif%}
+                {% if page.in-honor-of-section %}
+                <li class="in-honor-of form_field_cont">
+                    <h3 class="form_section_header">Honor Someone with Your Contribution (optional)</h3>
+                    {%if page.in-honor-of-section-intro%}<p>{{page.in-honor-of-section-intro}}</p>{%endif%}
+                     <select class="honoree-select" name="honoree_in_memoriam" tabindex="20"><option value="-1" selected="selected">-- please choose --</option><option value="0">In honor of...</option><option value="1">In memory of...</option></select>
+                </li>
+                <li class="form_field_cont honoree_field_cont honoree_name_related">
+                    <p class="honoree_name_error hidden error"></p>
+                    <label for="{{page.id-prefix}}_honoree_name">Honoree name</label>
+                    <input id="{{page.id-prefix}}_honoree_name" type="text" class="text" name="honoree_name" tabindex="21">
+                </li>
+                <li class="form_field_cont inmemory_field_cont honoree_recipient_name_related">
+                    <p class="honoree_recipient_name_error hidden error"></p>
+                    <label for="{{page.id-prefix}}_honoree_recipient_name">Please Notify - Enter Name (Optional)</label>
+                    <input id="{{page.id-prefix}}_honoree_recipient_name" type="text" class="text" name="honoree_recipient_name" tabindex="22">
+                </li>
+                <li class="form_field_cont honoree_field_cont honoree_email_related">
+                    <p class="honoree_name_error hidden error"></p>
+                    <label for="{{page.id-prefix}}_honoree_email">Notify by Email - Enter Email Address (Optional)</label>
+                    <input id="{{page.id-prefix}}_honoree_email" type="text" class="text" name="honoree_email" tabindex="23">
+                </li>
+                {% if page.country-selection %}
+                <li id="" class="country_cont honoree_field_cont form_field_cont honoree_country_related">
+                    <p class="honoree_country_error hidden error"></p>
+                    <label for="{{page.id-prefix}}_honoree_country">Country</label>
+                    <select id="{{page.id-prefix}}_honoree_country" class="country" name="honoree_country" tabindex="24" {% if page.require-country %}required="required"{%endif%}>
+                        <option value="" {% if page.default-country != "US" and page.default-country!="GB" %}selected="selected"{%endif%}></option><option value="US" {% if page.default-country == "US" %}selected="selected"{% endif %}>United States</option><option value="GB" {%if page.default-country == "GB" %}selected="selected"{%endif%}>United Kingdom</option><option value="AF">Afghanistan</option><option value="AL">Albania</option><option value="DZ">Algeria</option><option value="AS">American Samoa</option><option value="AD">Andorra</option><option value="AO">Angola</option><option value="AI">Anguilla</option><option value="AG">Antigua and Barbuda</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AW">Aruba</option><option value="AU">Australia</option><option value="AT">Austria</option><option value="AZ">Azerbaijan</option><option value="BS">Bahamas</option><option value="BH">Bahrain</option><option value="BD">Bangladesh</option><option value="BB">Barbados</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BZ">Belize</option><option value="BJ">Benin</option><option value="BM">Bermuda</option><option value="BT">Bhutan</option><option value="BO">Bolivia</option><option value="BA">Bosnia and Herzegovina</option><option value="BW">Botswana</option><option value="BR">Brazil</option><option value="VG">British Virgin Islands</option><option value="IO">British Indian Ocean Territory</option><option value="BN">Brunei</option><option value="BG">Bulgaria</option><option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="KH">Cambodia</option><option value="CM">Cameroon</option><option value="CA">Canada</option><option value="CV">Cape Verde</option><option value="KY">Cayman Islands</option><option value="CF">Central African Republic</option><option value="TD">Chad</option><option value="CL">Chile</option><option value="CN">China</option><option value="CX">Christmas Island</option><option value="CO">Colombia</option><option value="KM">Comoros Islands</option><option value="CD">Congo, Democratic Republic of the</option><option value="CG">Congo, Republic of the</option><option value="CK">Cook Islands</option><option value="CR">Costa Rica</option><option value="CI">Cote D'ivoire</option><option value="HR">Croatia</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="DJ">Djibouti</option><option value="DM">Dominica</option><option value="DO">Dominican Republic</option><option value="TP">East Timor</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="SV">El Salvador</option><option value="GQ">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="EE">Estonia</option><option value="ET">Ethiopia</option><option value="FK">Falkland Islands (Malvinas)</option><option value="FO">Faroe Islands</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="FR">France</option><option value="GF">French Guiana</option><option value="PF">French Polynesia</option><option value="TF">French Southern Territories</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GE">Georgia</option><option value="DE">Germany</option><option value="GH">Ghana</option><option value="GI">Gibraltar</option><option value="GR">Greece</option><option value="GL">Greenland</option><option value="GD">Grenada</option><option value="GP">Guadeloupe</option><option value="GU">Guam</option><option value="GT">Guatemala</option><option value="GN">Guinea</option><option value="GW">Guinea-Bissau</option><option value="GY">Guyana</option><option value="HT">Haiti</option><option value="VA">Holy See (Vatican City State)</option><option value="HN">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IQ">Iraq</option><option value="IE">Ireland</option><option value="IL">Israel</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JP">Japan</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KE">Kenya</option><option value="KI">Kiribati</option><option value="KR">South Korea</option><option value="XK">Kosovo</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Laos</option><option value="LV">Latvia</option><option value="LB">Lebanon</option><option value="LS">Lesotho</option><option value="LR">Liberia</option><option value="LI">Liechtenstein</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MO">Macau</option><option value="MK">Macedonia</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="ML">Mali</option><option value="MT">Malta</option><option value="MH">Marshall Islands</option><option value="MQ">Martinique</option><option value="MR">Mauritania</option><option value="MU">Mauritius</option><option value="YT">Mayotte</option><option value="MX">Mexico</option><option value="FM">Micronesia</option><option value="MD">Moldova, Republic of</option><option value="MC">Monaco</option><option value="MN">Mongolia</option><option value="ME">Montenegro</option><option value="MS">Montserrat</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="MM">Myanmar</option><option value="NA">Namibia</option><option value="NR">Nauru</option><option value="NP">Nepal</option><option value="NL">Netherlands</option><option value="AN">Netherlands Antilles</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NI">Nicaragua</option><option value="NE">Niger</option><option value="NG">Nigeria</option><option value="NU">Niue</option><option value="NF">Norfolk Island</option><option value="MP">Northern Mariana Islands</option><option value="NO">Norway</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PW">Palau</option><option value="PA">Panama</option><option value="PG">Papua New Guinea</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="PH">Philippines</option><option value="PN">Pitcairn Island</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="PR">Puerto Rico</option><option value="QA">Qatar</option><option value="RE">Reunion</option><option value="RO">Romania</option><option value="RU">Russian Federation</option><option value="RW">Rwanda</option><option value="KN">Saint Kitts and Nevis</option><option value="LC">Saint Lucia</option><option value="VC">Saint Vincent and the Grenadines</option><option value="WS">Samoa</option><option value="SM">San Marino</option><option value="ST">Sao Tome and Principe</option><option value="SA">Saudi Arabia</option><option value="SN">Senegal</option><option value="RS">Serbia</option><option value="SC">Seychelles</option><option value="SL">Sierra Leone</option><option value="SG">Singapore</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="SB">Solomon Islands</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="ES">Spain</option><option value="LK">Sri Lanka</option><option value="SH">St. Helena</option><option value="PM">St. Pierre and Miquelon</option><option value="SR">Suriname</option><option value="SZ">Swaziland</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="TW">Taiwan</option><option value="TJ">Tajikistan</option><option value="TZ">Tanzania</option><option value="TH">Thailand</option><option value="TG">Togo</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TT">Trinidad and Tobago</option><option value="TN">Tunisia</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="TC">Turks and Caicos Islands</option><option value="TV">Tuvalu</option><option value="UG">Uganda</option><option value="UA">Ukraine</option><option value="AE">United Arab Emirates</option><option value="UY">Uruguay</option><option value="UZ">Uzbekistan</option><option value="VU">Vanuatu</option><option value="VE">Venezuela</option><option value="VN">Viet Nam</option><option value="VI">Virgin Islands (U.S.)</option><option value="WF">Wallis and Futuna Islands</option><option value="EH">Western Sahara</option><option value="YE">Yemen</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option>
+                    </select>
+                </li>
+                {%endif%}
+                <li class="addr1_cont honoree_field_cont honoree_addr1_related form_field_cont">
+                    <p class="honoree_addr1_error hidden error"></p>
+                    <label for="{{page.id-prefix}}_honoree_addr1" class="honoree_addr1_related">Address</label>
+                    <input type="text" class="text addr1" name="honoree_addr1" id="{{page.id-prefix}}_honoree_addr1" tabindex="25" required="required">
+                </li>
+                <li class="city_cont honoree_field_cont honoree_city_related form_field_cont">
+                    <p class="honoree_city_error hidden error"></p>
+                    <label for="{{page.id-prefix}}_honoree_city" class="honoree_city_related">City</label>
+                    <input type="text" class="text city" name="honoree_city" id="{{page.id-prefix}}_honoree_city" tabindex="26" required="required">
+                </li>
+                <li class="honoree_state_cd_cont honoree_field_cont honoree_state_cd_related form_field_cont">
+                    <p class="honoree_state_cd_error hidden error"></p>
+                    <label for="{{page.id-prefix}}_honoree_state_cd" class="honoree_state_cd_related">*State/Region/Province</label>
+                    <input type="text" class="text" id="{{page.id-prefix}}_honoree_state_cd" name="honoree_state_cd" tabindex="27">
+                </li>
+                <li class="honoree_zip_cont honoree_field_cont honoree_zip_related form_field_cont">
+                    <p class="honoree_zip_error hidden error"></p>
+                    <label for="{{page.id-prefix}}_honoree_zip" class="honoree_zip_related">ZIP</label>
+                    <input type="text" class="text zip" name="honoree_zip" id="{{page.id-prefix}}_honoree_zip" maxlength="14" tabindex="28" required="required">
+                </li>
+                {%endif%}
+                {% if page.tools-recurring-slug %}
+                <li class="recurring-checkbox-cont form_field_cont">
+                    <h3 class="form_section_header">Recurring Contribution (optional)</h3>
+                    {%if page.recurring-intro%}<p>{{page.recurring-intro}}</p>{%endif%}
+                    <label id="recurring_acknowledge-label" for="{{page.id-prefix}}recurring_acknowledge"><input name="recurring_acknowledge" id="{{page.id-prefix}}recurring_acknowledge" type="checkbox" value="1" tabindex="29"> {%if page.recurring-label%}{{page.recurring-label}}{%else%}Make this a monthly recurring contribution{%endif%}</label>
+                </li>
+                {%endif%}
+            </ul><!--/.sequential-step-3-->
+            <li id="sequential_general_error_cont">
+                <p class="sequential_error_message error"></p>
+            </li>
+            <li id="sequential_next_cont"><p class="big_btn" id="sequential_next_btn_cont"><a href="#" id="sequential_next_btn" class="sequential_move_forward" title="Next"><span id="sequential_next_btn_copy">Next</span><span id="sequential_donate_btn_copy">Donate</span></a></p></li>
+            <li id="submit_cont">
+                <p id="processing_indicator">Processing...</p>
+                <input type="submit" value="Donate now" class="bid_btn" id="submit" tabindex="30">
+            </li>
+        </ul><!--/#bsd_contribute_form_fields_cont-->
+        <input type="hidden" name="slug" value="donate">
+    </form>
+    {%if page.country-selection == true and page.default-country != "US"  %}<select class="state_cd us-state-dropdown hidden"><option value=""></option><option value="AK">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option><option value="--" disabled="disabled">---</option><option value="AA">AA</option><option value="AE">AE</option><option value="AP">AP</option><option value="AS">AS</option><option value="FM">FM</option><option value="GU">GU</option><option value="MH">MH</option><option value="MP">MP</option><option value="PR">PR</option><option value="PW">PW</option><option value="VI">VI</option></select>{%endif%}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/page/-/donate/sequential-donate.js"></script>
+    <script type="text/javascript">
+
+        (function($){
+            var $topNode = $('#bsd_contribute_cont');
+
+            $topNode.sequential({
+
+                debug: true
+
+            });
+            $topNode.find('form').blueContribute({
+
+                debug: true,
+
+                slug: 'donate',
+
+                recurSlug: 'recurring',
+
+                afterPost: sequential.utilityFunctions.postErrorHandler
+
+            });
+
+            $topNode.detectCCType();
+            $topNode.quickDonate({
+
+                //tokenRequestPath: '/page/cde/Api/Tokenize/v1',
+
+                debug: true
+
+            });
+
+        }(jQuery));
+
+    </script>
+</div><!--/#bsd_contribute_cont-->

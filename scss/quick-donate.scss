@@ -1,0 +1,89 @@
+/*quick-donate-related styles*/
+
+.qd_info_section{
+
+    a {
+      font-size: 13pt;
+      font-weight:500;
+    }
+    p {
+      margin: 0 0 0.4em;
+      line-height: 14px;
+    }
+    .qd-options{
+        margin-top:10px;
+    }
+}
+
+.qd_header {
+    font-weight: bold;
+}
+
+.qd-personal-info{
+    color: $purple;
+    padding-bottom:20px;
+}
+.qd-payment-info{
+    color: $green;
+    padding-bottom:10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom:20px;
+}
+.qd_loading_spinner {
+    display: none;
+}
+
+.qd_loading_spinner {
+    display: none;
+    background: url(/page/-/donate/ajax-loader.gif) left center no-repeat;
+    padding-left: 22px;
+    .qd_loading &{
+        display:block;
+    }
+    @include respond-min( $form-field-layout ){
+        position: absolute;
+        top: -40px;
+    }
+}
+.qd_info_section{
+    display:none;
+}
+.qd_populated {
+    .qd_info_extra, .personalized_info {
+      display: none !important;
+    }
+    .qd_info, .qd_info_section {
+      display: block !important;
+    }
+}
+
+/*qd login, logout links*/
+.qd-login-links-section{
+    display:none;
+    z-index:40;
+}
+
+.qd-login-links-section{
+    .qd_load_failed &{
+        display:block; 
+    }
+    .qd_not_enabled &{
+        display:none; 
+    }
+}
+
+.qd-log-out-link{
+    display:none;
+}
+
+
+@include respond-min( $form-field-layout ){
+    .qd_populated.sequential_step_0 .qd_info_section{
+        display: none !important;
+    }
+    .qd-login-links-section{
+        position:absolute;
+        right:20px;
+        top:-40px;
+    }
+}

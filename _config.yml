@@ -1,0 +1,10 @@
+name: Donate
+pygments: true
+relative_permalinks: true
+
+include: [".htaccess","ctl"]
+exclude: ["_js"]
+
+#defaults for donate pages
+default-currency-symbol: "$"
+amounts: [15, 35, 50, 100, 250, 500, 1000]

@@ -1,0 +1,22 @@
+RewriteEngine On
+ErrorDocument 404 /index.html
+
+##remove slashes
+RewriteRule ^(.+)/$ http://%{HTTP_HOST}/$1 [R=301,]
+Options -Indexes
+DirectorySlash Off
+
+##fake paths
+##RewriteRule ^page/-/donate/(.*) /js/test/$1 [R=301,L]
+##RewriteRule ^page/cde/Api/Tokenize/(.*) https://donate.pih.org/page/cde/Api/Tokenize/$1 [R=301,L]
+##RewriteRule ^ctl/Contribution/Quick/(.*) /js/test/testdata.json [R=301,L]
+##RewriteRule ^page/cde/Api/Charge/v1 /js/test/valfail.json [R=301,L]
+
+##ignore slashes
+RewriteCond %{THE_REQUEST} ^(GET|HEAD)\ /.+\.html\ HTTP
+RewriteRule ^(.+)\.html$ http://%{HTTP_HOST}/$1 [R=301,L]
+
+##check html if all else fails
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^.+$ %{REQUEST_FILENAME}.html [L]

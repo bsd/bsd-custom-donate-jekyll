@@ -1,0 +1,18 @@
+/*background scaling for huge backgrounds*/
+/*works best with a relatively huge image: we've been using 2000x1380 */
+
+@include respond-min( $tablet ){
+    body {
+        background-image: $giant-background-image; //actual image defined in variables
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+        background-position: 50% 0;
+        background-attachment:fixed;
+    }
+}
+
+@include respond-min( $desktop + 100px ){
+    body {
+        background-position: 60% 0;
+    }
+}
