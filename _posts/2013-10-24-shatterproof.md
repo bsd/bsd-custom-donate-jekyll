@@ -60,7 +60,7 @@ accept-visa: true
 accept-mastercard: true
 accept-amex: true
 accept-discover: true
-accept-maestro: false
+accept-maestro: false #shows up, but not tested
 accept-pay-pal: false  #not yet working
 
 ##debug

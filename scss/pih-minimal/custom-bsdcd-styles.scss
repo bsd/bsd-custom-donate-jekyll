@@ -5,7 +5,7 @@
     font-style: normal;
 }
 
-.bsdcd-outer-container  .form_section_header{
+.bsdcd-outer-container .form_section_header{
     @include Whitney();
     font-weight: 600;
 }
@@ -49,6 +49,9 @@ font-weight: bold;
 
 
 @include respond-min( $form-field-layout ){
+    .bsdcd-outer-container{
+        margin-left:30px;
+    }
     body{
         background-color:black;
     }

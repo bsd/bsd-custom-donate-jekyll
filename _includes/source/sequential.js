@@ -346,11 +346,11 @@ window.optimizely = window.optimizely || [];
 
 					numberOfInvalidFields++;
 
-					firstName.addClass('error');
+					firstName.addClass('bsdcd-error');
 
 				} else {
 
-					firstName.removeClass('error');
+					firstName.removeClass('bsdcd-error');
 
 				}
 
@@ -360,11 +360,11 @@ window.optimizely = window.optimizely || [];
 
 					numberOfInvalidFields++;
 
-					lastName.addClass('error');
+					lastName.addClass('bsdcd-error');
 
 				} else {
 
-					lastName.removeClass('error');
+					lastName.removeClass('bsdcd-error');
 
 				}
 
@@ -374,11 +374,11 @@ window.optimizely = window.optimizely || [];
 
 					numberOfInvalidFields++;
 
-					address.addClass('error');
+					address.addClass('bsdcd-error');
 
 				} else {
 
-					address.removeClass('error');
+					address.removeClass('bsdcd-error');
 
 				}
 
@@ -388,11 +388,11 @@ window.optimizely = window.optimizely || [];
 
 					numberOfInvalidFields++;
 
-					city.addClass('error');
+					city.addClass('bsdcd-error');
 
 				} else {
 
-					city.removeClass('error');
+					city.removeClass('bsdcd-error');
 
 				}
 
@@ -402,13 +402,13 @@ window.optimizely = window.optimizely || [];
 
 					numberOfInvalidFields++;
 
-					state.addClass('error');
+					state.addClass('bsdcd-error');
 
 					//console.log('state first');
 
 				} else {
 
-					state.removeClass('error');
+					state.removeClass('bsdcd-error');
 
 					//console.log('state second');
 
@@ -423,16 +423,16 @@ window.optimizely = window.optimizely || [];
 				}
 
 				if( countryVal === "US" && zip.length >= 5 && zip.length <= 9 ){
-					$topNode.find("[name='zip']").removeClass('error');
+					$topNode.find("[name='zip']").removeClass('bsdcd-error');
 				} else if ( countryVal ==="GB" && zip.length >= 3 && zip.length <= 10 ){
-					$topNode.find("[name='zip']").removeClass('error');
+					$topNode.find("[name='zip']").removeClass('bsdcd-error');
 				}else if ( countryVal !== "US" && countryVal !== "GB" && !!zip ){
-					$topNode.find("[name='zip']").removeClass('error');
+					$topNode.find("[name='zip']").removeClass('bsdcd-error');
 				}else {
 
 					numberOfInvalidFields++;
 
-					$topNode.find("[name='zip']").addClass('error');
+					$topNode.find("[name='zip']").addClass('bsdcd-error');
 
 				}
 
@@ -444,11 +444,11 @@ window.optimizely = window.optimizely || [];
 
 						numberOfInvalidFields++;
 
-						country.addClass('error');
+						country.addClass('bsdcd-error');
 
 					}
                     else {
-                        country.removeClass('error');
+                        country.removeClass('bsdcd-error');
                     }
 
 				}
@@ -477,13 +477,13 @@ window.optimizely = window.optimizely || [];
 
 				if( email.isValid() ){
 
-					email.input.removeClass('error');
+					email.input.removeClass('bsdcd-error');
 
 				} else {
 
 					numberOfInvalidFields++;
 
-					email.input.addClass('error');
+					email.input.addClass('bsdcd-error');
 
 				}
 
@@ -511,13 +511,13 @@ window.optimizely = window.optimizely || [];
 
 				if( phone.isValid() ){
 
-					phone.input.removeClass('error');
+					phone.input.removeClass('bsdcd-error');
 
 				} else {
 
 					numberOfInvalidFields++;
 
-					phone.input.addClass('error');
+					phone.input.addClass('bsdcd-error');
 
 				}
 
@@ -527,11 +527,11 @@ window.optimizely = window.optimizely || [];
 
                     numberOfInvalidFields++;
 
-                    employer.addClass('error');
+                    employer.addClass('bsdcd-error');
 
                 } else {
 
-                    employer.removeClass('error');
+                    employer.removeClass('bsdcd-error');
 
                 }
 
@@ -541,11 +541,11 @@ window.optimizely = window.optimizely || [];
 
                     numberOfInvalidFields++;
 
-                    occupation.addClass('error');
+                    occupation.addClass('bsdcd-error');
 
                 } else {
 
-                    occupation.removeClass('error');
+                    occupation.removeClass('bsdcd-error');
 
                 }
 
@@ -595,13 +595,13 @@ window.optimizely = window.optimizely || [];
 
 				if( creditCard.isValid() ){
 
-					creditCard.field.removeClass('error');
+					creditCard.field.removeClass('bsdcd-error');
 
 				} else {
 
 					invalidFields++;
 
-					creditCard.field.addClass('error');
+					creditCard.field.addClass('bsdcd-error');
 
 				}
 
@@ -630,13 +630,13 @@ window.optimizely = window.optimizely || [];
 
 				if( expirationDate.month.isValid() ){
 
-					expirationDate.month.field.removeClass('error');
+					expirationDate.month.field.removeClass('bsdcd-error');
 
 				} else {
 
 					invalidFields++;
 
-					expirationDate.month.field.addClass('error');
+					expirationDate.month.field.addClass('bsdcd-error');
 
 				}
 
@@ -670,11 +670,11 @@ window.optimizely = window.optimizely || [];
 
 				if( expirationDate.year.isValid() ){
 
-					expirationDate.year.field.removeClass('error');
+					expirationDate.year.field.removeClass('bsdcd-error');
 
 				} else {
 
-					expirationDate.year.field.addClass('error');
+					expirationDate.year.field.addClass('bsdcd-error');
 
 					invalidFields++;
 
@@ -686,11 +686,11 @@ window.optimizely = window.optimizely || [];
 
                     if( sequential.qd || /^[0-9]{3,4}$/.test( cvv.val() ) ){
 
-                        cvv.removeClass('error');
+                        cvv.removeClass('bsdcd-error');
 
                     }else {
                         invalidFields++;
-                        cvv.addClass('error');
+                        cvv.addClass('bsdcd-error');
 
                     }
 

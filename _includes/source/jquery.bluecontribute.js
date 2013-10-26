@@ -54,6 +54,7 @@ var blueContribute = {};
                 locked = false,
                 $sourceField = $form.find('[name="source_codes"]'),
                 defaultsource = $sourceField.val(),
+                $genError = $form.find('.bsdcd-general_error'),
                 urlsource = gup('source')|| gup('fb_ref') || false;
 
             //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
@@ -137,10 +138,10 @@ var blueContribute = {};
                                 $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').removeClass('hidden');
 
                                 //remove the error class to the related fields
-                                $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('error');
+                                $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
 
                                 //remove the general errors message
-                                $('.general_error').text('').removeClass('hidden');
+                                $genError.text('').removeClass('hidden');
 
                                 $form.toggleClass('blue_contribute_error');
 
@@ -224,10 +225,10 @@ var blueContribute = {};
                                         $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text(blueContribute.latestResponseObject.field_errors[i].message).removeClass('hidden');
 
                                         //add the error class to the related fields
-                                        $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').addClass('error').removeClass('hidden');
+                                        $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
 
                                         //inject the general errors message
-                                        $('.general_error').text('Your donation was not successful. Please correct the problems marked below.').removeClass('hidden');
+                                        $genError.text('Your donation was not successful. Please correct the problems marked below.').removeClass('hidden');
 
                                     }
 
@@ -250,7 +251,7 @@ var blueContribute = {};
                             //checking for a declined card
                             if(blueContribute.latestResponseObject.gateway_response.status === "decline"){
 
-                                $('.general_error').text('The transaction was declined. Please check that the address matches or else use a different credit card.').removeClass('hidden');
+                                $genError.text('The transaction was declined. Please check that the address information is correct or else use a different card.').removeClass('hidden');
 
                                 debug('donate api response indicates that the gateway rejected the transaction because the bank declined the transaction');
 
@@ -262,14 +263,14 @@ var blueContribute = {};
                             ){
 
                                 //not sure why this would happen
-                                $('.general_error').text('There was a problem with your submission. Please try again.').removeClass('hidden');
+                                $genError.text('There was a problem with your submission. Please try again.').removeClass('hidden');
 
                                 debug('unknown error received from the donate api');
 
                             } else {
 
                                 //not sure why this would happen
-                                $('.general_error').text('There was a problem with your submission. Please try again.').removeClass('hidden');
+                                $genError.text('There was a problem with your submission. Please try again.').removeClass('hidden');
 
                                 debug('unknown error received from the donate api');
 
@@ -300,7 +301,7 @@ var blueContribute = {};
                     if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
                     //to do: update dom with a general error message to indicate to the user that something is wrong
                     debug('donate api response was not parsable by jquery/is not valid json--it is probably html');
-                    $('.general_error').text('We are unable to process your transaction at this time.').removeClass('hidden');
+                    $genError.text('We are unable to process your transaction at this time.').removeClass('hidden');
                 }
 
                 //behavior that happens on success or fail

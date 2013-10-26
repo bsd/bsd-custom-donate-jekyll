@@ -38,9 +38,10 @@
 }
 
 .bsdcd-outer-container {
-  width: 93%;
-  margin: 0 auto;
-
+    @include respond-max($form-field-layout - 1px){
+        width: 93%;
+        margin: 0 auto;
+    }
   ul,ol {
     list-style: none;
     padding: 0;
@@ -230,7 +231,7 @@
     margin:10px 0;
   }
   .bsdcd-top-section{
-    padding:10px;
+    padding:10px 0;
   }
 }
 
@@ -275,12 +276,12 @@
 }
 
 .blue_contribute_error {
-    li.form_field_cont.error, #general_error {
+    li.form_field_cont.bsdcd-error, #general_error {
         display:block;
         background-color: #f2dede;
         border:none;
         border-color: #eed3d7;
-        padding: 5px 21px 5px 5px;
+        padding: 5px ($container-right-padding + 5px) 5px 5px;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
         -webkit-border-radius: 4px;
         border-radius: 4px;
@@ -289,13 +290,13 @@
             margin-left:-10px;
         }
     }
-    li.form_field_cont.error.state_cd_cont {
+    li.form_field_cont.bsdcd-error.state_cd_cont {
         padding-right:5px;
     }
-    &.state-text-input li.form_field_cont.error.state_cd_cont{
+    &.state-text-input li.form_field_cont.bsdcd-error.state_cd_cont{
         padding-right:21px;
     }
-    li.form_field_cont.error p {
+    li.form_field_cont.bsdcd-error p {
         color: #b94a48;
     }
     .cc_type_radio_cont{
@@ -303,7 +304,7 @@
     }
 }
 
-.bsdcd-form p.error {
+.bsdcd-form p.bsdcd-error {
   color: #c41230;
   font-weight: bold;
 }
@@ -332,8 +333,9 @@
 
   .bsdcd-outer-container {
 
+    width: $section-total-width;
     background: none;
-    padding: 20px;
+    padding: 20px 0;
 
     .bsdcd-top-section { 
         text-align:left;
@@ -391,8 +393,8 @@
     .firstname_cont, .lastname_cont, .city_cont, .phone_cont, .email_cont, .employer_cont, .occupation_cont, .cc_month, .honoree_state_cd_cont, .honoree_zip_cont, .cc_cvv_cont {
       width: $half-width-field-container-width;
     }
-    .cc_year {
-      width: 175px;
+    .cc_year, .cc_month {
+        width: 123px;
     }
     .firstname_cont, .email_cont, .employer_cont, .cc_month, .city_cont, .state_cd_cont {
       margin-right: 15px;
@@ -406,6 +408,10 @@
     }
     .state_cd_cont {
       width: $fourth-width-field-container-width + $container-right-padding;
+      padding-right:0;
+    }
+    .full_dropdown_cont{
+      width: $full-width-field-container-width + $container-right-padding;
       padding-right:0;
     }
     .zip_cont {
@@ -426,37 +432,26 @@
             }
         }
     }
-    label, p.error {
+    label, p.bsdcd-error {
       font-size: 14px;
     }
-    input {
-      &:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="file"]), &.text {
+    input.text {
         font-size: 14px;
         line-height: 26px;
         font-weight: normal;
         color: #555;
         padding: 7px;
         line-height: 14px;
-      }
     }
-    li.error p {
+    li.bsdcd-error p {
       margin: 0;
     }
     #submit_cont {
       clear: both;
     }
-    #submit {
-      width: 372px;
-    }
-    #processing_indicator {
-      width: 359px;
+    .bsdcd-submit-button {
+      width: $section-inner-width - 7px; //minus extra padding and possible border
     }
   }
 
-}
-
-@media all and (min-width: 1000px) {
-    .bsdcd-outer-container {
-        width: 940px;
-    }
 }

@@ -41,6 +41,10 @@ At this point, you should have basically two steps to get things working (this w
 
 Now test!
 
+##Wrapper Tips
+
+It's best to use a minimal wrapper (no nav, clutter) and it's also best to avoid wrappers like #framework that might just add tools styles and clutter that you don't want to have to undo.  It's also worth noting that h1-h6/p/ul/li styles used within the form markup may have to be tweaked or extended if you're using classes like .base to set font styles and sizes.  
+
 ##Creating new templates
 
 At this point, you should basically have DrewT set this up for you.  It's quick, but not yet automated or intuitive. 

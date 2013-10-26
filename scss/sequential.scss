@@ -171,10 +171,8 @@
                 padding:20px 0 0;
             }
         }
-        .cc_year, .cc_month {
-            width: 123px;
-        }
-        input.text.error, select.error {
+
+        input.text.bsdcd-error, select.bsdcd-error {
             border: 2px solid $error-field-border-color !important;
         }
         &.sequential_step_2 .bsdcd-form {
