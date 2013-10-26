@@ -327,6 +327,14 @@
     }
 }
 
+@include respond-min( $widephone ){
+    li.amount_cont {
+        width:48%;
+        float:left;
+        margin: 0 1%;
+    }
+}
+
 /* configuration settings */
 
 @include respond-min( $form-field-layout ){
@@ -366,10 +374,8 @@
       cursor: pointer;
     }
     .amount_cont {
-      margin-right: 14px;
-      margin-bottom: 28px;
-      float: left;
-      width: 115px;
+        margin: 0 14px 28px 0;
+        width: 115px;
     }
     .other_amount_label {
       display: none;

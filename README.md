@@ -1,14 +1,25 @@
 bsd-custom-donate-jekyll
 ========================
 
-A Jekyll framework for locally developing/testing/listing custom donate pages using the donate API.
+A Jekyll framework for locally developing/testing/listing custom donate pages using the donate API.  Simulates API calls and logins so that you can test the process without actually donating money.
 
-There are two main ways you can use this tool. 
+There are three main ways you can use this tool. 
 
 1. Either you can simply create some plug-and-play custom donate form markup based on config variables and use that in EE or the tools, include the js/css links to the library and then handle any extra client styling yourself, or
 2. You can create new jekyll wrappers/style types in the tool and compile/preview/test all the css/js on the local jekyll server.
+3. Canibalize the code
 
+Some things of note here:
+    *SASSified
+    *handles quick donate logins/logouts natively
+    *handles prefill of data from url parameters and spud
+    *credit card type auto-detection. (Currently Visa, Mastercard, Amex, Discover, Maestro)
+    *nomin=1 for testing extremely low dollar amounts
+    *sequential donate behavior is separated from the core
+    *built for content-box so that it can work with older sites.  Better(i.e., simpler) border-box support in progress if you don't need to support IE7
+    *Core Layout supports IE7
 
+There's a lot more to be done to make the core more flexible and customizable, but you shouldn't need more than a couple of client-specific tweaks to get a nice looking, fully functional form.
 
 ##Requirements: 
 
