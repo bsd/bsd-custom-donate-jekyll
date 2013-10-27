@@ -3,25 +3,25 @@
     {% include default-form.html %}
     </div> <!-- /#content -->
     
-
-        </div> <!-- /#container-->
-        <footer role="contentinfo">
-            <div class="fixed">
-                <div class="footer-text">
-                    <h4>Help Make Our Country Shatterproof.</h4>
-                    <span class="copyright">Read our <a href="/pages/privacy-policy">privacy policy</a>.</span>
+            <footer role="contentinfo">
+                <div class="fixed">
+                    <div class="footer-text">
+                        <h4>Help Make Our Country Shatterproof.</h4>
+                        <span class="copyright">Read our <a href="/pages/privacy-policy">privacy policy</a>.</span>
+                    </div>
+                    <form class="signup" method="post" action="/page/s/quick-signup-form" role="form">
+                        <label for="footer-signup-email">Email Address</label>
+                        <input type="email" class="signup-email" name="email" title="Email Address" placeholder="email" maxlength="254" id="footer-signup-email" required="required">
+                        <label for="footer-signup-zip">Zip Code</label>
+                        <input type="tel" class="signup-zip" name="zip" title="Zip Code" placeholder="zip" id="footer-signup-zip" maxlength="10" required="required" pattern="^\d{5}(-\d{4})?$">
+                        <button type="submit" name="submit-btn">Join Us</button>
+                    </form><!-- /.signup -->
+                    <a href="http://www.clintonfoundation.org/main/our-work/by-initiative/clinton-health-matters-initiative/commitments/current-commitments.html#nav-link-5259" target="_blank"><img class="seal" src="/page/-/site/images/clinton-badge.png" alt="Clinton Health Matters Initiative"></a>
+                    <div class="copyright mobile-copyright"><span>Read our <a href="/pages/privacy-policy">privacy policy</a>.</span></div>
                 </div>
-                <form class="signup" method="post" action="/page/s/quick-signup-form" role="form">
-                    <label for="footer-signup-email">Email Address</label>
-                    <input type="email" class="signup-email" name="email" title="Email Address" placeholder="email" maxlength="254" id="footer-signup-email" required="required">
-                    <label for="footer-signup-zip">Zip Code</label>
-                    <input type="tel" class="signup-zip" name="zip" title="Zip Code" placeholder="zip" id="footer-signup-zip" maxlength="10" required="required" pattern="^\d{5}(-\d{4})?$">
-                    <button type="submit" name="submit-btn">Join Us</button>
-                </form><!-- /.signup -->
-                <a href="http://www.clintonfoundation.org/main/our-work/by-initiative/clinton-health-matters-initiative/commitments/current-commitments.html#nav-link-5259" target="_blank"><img class="seal" src="/page/-/site/images/clinton-badge.png" alt="Clinton Health Matters Initiative"></a>
-                <div class="copyright mobile-copyright"><span>Read our <a href="/pages/privacy-policy">privacy policy</a>.</span></div>
-            </div>
-        </footer>
+            </footer>
+        </div> <!-- /#container-->
+
     <div id='fb-root'></div>
 <script>
 
