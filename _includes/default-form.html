@@ -279,17 +279,17 @@
                 </li>
                 <li class="city_cont honoree_field_cont honoree_city_related form_field_cont">
                     <p class="honoree_city_error hidden bsdcd-error"></p>
-                    <label for="{{page.id-prefix}}_honoree_city" class="honoree_city_related">City (Optional)</label>
+                    <label for="{{page.id-prefix}}_honoree_city" class="honoree_city_related">City</label>
                     <input type="text" class="text city" name="honoree_city" id="{{page.id-prefix}}_honoree_city" tabindex="26" required="required">
                 </li>
                 <li class="honoree_state_cd_cont honoree_field_cont honoree_state_cd_related form_field_cont">
                     <p class="honoree_state_cd_error hidden bsdcd-error"></p>
-                    <label for="{{page.id-prefix}}_honoree_state_cd" class="honoree_state_cd_related">State/Region/Province (Optional)</label>
+                    <label for="{{page.id-prefix}}_honoree_state_cd" class="honoree_state_cd_related">State/Region/Province</label>
                     <input type="text" class="text" id="{{page.id-prefix}}_honoree_state_cd" name="honoree_state_cd" tabindex="27">
                 </li>
                 <li class="honoree_zip_cont honoree_field_cont honoree_zip_related form_field_cont">
                     <p class="honoree_zip_error hidden bsdcd-error"></p>
-                    <label for="{{page.id-prefix}}_honoree_zip" class="honoree_zip_related">Postal Code (Optional)</label>
+                    <label for="{{page.id-prefix}}_honoree_zip" class="honoree_zip_related">Postal Code</label>
                     <input type="{%if page.default-country == "US" AND page.country-selection != true %}tel{%else%}text{%endif%}" class="text zip" name="honoree_zip" id="{{page.id-prefix}}_honoree_zip" maxlength="14" tabindex="28" required="required">
                 </li>
                 {%endif%}

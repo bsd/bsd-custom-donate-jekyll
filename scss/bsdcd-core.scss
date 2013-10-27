@@ -181,7 +181,7 @@
     /*dimming cards when one is selected*/
   .cc-cover {
     .cc-img {
-        @include opacity(0.2);
+        @include opacity(0.1);
     }
   }
   .cc-is-vs{
@@ -442,6 +442,9 @@
             width:140px;
             .ie7 & { margin-right:140px; }
         }
+    }
+    .state-text-input .state_cd_cont label{
+        width:107%;
     }
     label, p.bsdcd-error {
       font-size: 14px;

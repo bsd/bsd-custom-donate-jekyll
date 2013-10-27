@@ -30,3 +30,14 @@ h1 {
 .base ul li, .base ol li {
     list-style: none;
 }
+
+
+/*true sticky footer*/
+body{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+#container{
+    flex:1;
+}

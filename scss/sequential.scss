@@ -34,8 +34,7 @@
             width: $section-total-width - (10 * 2);
             overflow:hidden;
             background: #fff;
-            height: 85px;
-            padding: 0 10px;
+            padding: 20px 10px 28px;
             margin: 0;
             border-bottom: 1px solid #000;
             font-size: 13px;
@@ -46,7 +45,6 @@
                 @include inline-block();
                 vertical-align:middle;
                 width: 110px;
-                padding-top: 20px;
                 list-style-type:none;
                 position: relative;
                 a {
@@ -72,13 +70,13 @@
                     display: block;
                     background: $step-inactive;
                     width: 30px;
-                    height:28px;
+                    height:29px;
                     line-height:30px;
                     border-radius: 30px;
                     font-weight: bold;
                     margin: 0 auto;
                     position:relative;
-                    padding-top:2px;
+                    padding-top:1px;
                     .oldie & {
                         padding-top:0;
                     }
@@ -94,9 +92,10 @@
             }
         }
         .sequential_breadcrumb_amount hr {
-            top: 37px;
+            top: 50%;
             left: 50%;
             width: 200%;
+            margin-top:8px;
         }
         #submit_cont, #sequential_donate_btn_copy {
             display: none;
