@@ -22,6 +22,8 @@
 /*limitation of current styles, should retest and refix */
 .bsdcd-outer-container *{
     box-sizing:content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
 }
 
 .insecure-warning{
@@ -87,6 +89,8 @@
     width: 95%;
     background: $button-normal;
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(0, 0, 0, 0.1)), color-stop(1, rgba(255, 255, 255, 0.2)));
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
+    background-image:  -moz-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
     border: 1px solid darken($button-normal, 10%);
     border-radius: 3px;
     //box-shadow: inset 0px 1px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px 1px darken($button-normal, 20%);
@@ -327,12 +331,15 @@
     }
 }
 
-@include respond-min( $widephone ){
-    li.amount_cont {
+@include respond-min( $phone ){
+    .amount_cont {
         width:48%;
         float:left;
-        margin: 0 1%;
+        &.odd{
+            margin-right:4%
+        }
     }
+
 }
 
 /* configuration settings */
@@ -432,10 +439,8 @@
         }
         .zip_cont{
             clear:left;
-            width:140px !important;
-            input {
-                width: 89%;
-            }
+            width:140px;
+            .ie7 & { margin-right:140px; }
         }
     }
     label, p.bsdcd-error {

@@ -41,8 +41,10 @@
             font-size: 13px;
             border-bottom: 1px solid #d8d8d8;
             background: #f2f2f2;
+            text-align:center;
             li {
-                float: left;
+                @include inline-block();
+                vertical-align:middle;
                 width: 110px;
                 padding-top: 20px;
                 list-style-type:none;
@@ -69,16 +71,21 @@
                 span {
                     display: block;
                     background: $step-inactive;
-                    width: 14px;
-                    padding: 4px 4px 4px 10px;
+                    width: 30px;
+                    height:28px;
+                    line-height:30px;
                     border-radius: 30px;
                     font-weight: bold;
+                    margin: 0 auto;
+                    position:relative;
+                    padding-top:2px;
+                    .oldie & {
+                        padding-top:0;
+                    }
+                    z-index:40;
                 }
                 &.active span, &.completed span {
                     background: $step-active;
-                }
-                &.sequential_breadcrumb_amount {
-                    padding-left: 77px;
                 }
                 hr {
                     position: absolute;
@@ -88,30 +95,13 @@
         }
         .sequential_breadcrumb_amount hr {
             top: 37px;
-            left: 117px;
-            width: 86px;
-        }
-        .sequential_breadcrumb_name hr {
-            width: 100px;
-            left: 32px;
-            top: 37px;
-        }
-        .sequential_breadcrumb_amount span {
-            margin-left: 12px;
-        }
-        .sequential_breadcrumb_name span {
-            margin-left: 4px;
-        }
-        .sequential_breadcrumb_payment span {
-            margin-left: 13px;
+            left: 50%;
+            width: 200%;
         }
         #submit_cont, #sequential_donate_btn_copy {
             display: none;
         }
         #sequential_next_cont {
-            //position: absolute;
-            top: 260px;
-            left: 0px;
             width: 370px;
         }
         #bsd_contribute_form_fields_cont {
@@ -190,12 +180,9 @@
 
         //hiding the second step when quick donate is active
         &.qd_populated .bsdcd-seq-breadcrumbs li{
-            &.sequential_breadcrumb_amount{
-                padding-left:127px;
-                hr{
-                    left:167px;
-                    width:84px;
-                }
+            hr{
+                left:50%;
+                width:100%;
             }
             &.sequential_breadcrumb_name{
                 display:none;
@@ -222,11 +209,6 @@
     //no next button to start on amount selection
     .pre-first-click #sequential_next_cont {
         display:none;
-    }
-
-    //minor adjustment to balance items
-    .sequential_breadcrumb_name{
-        left:9px;
     }
 
     .blue_contribute_processing #sequential_next_btn {

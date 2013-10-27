@@ -36,7 +36,7 @@ custom-amounts: [10, 20, 50, 100, 250, 500, 1000] #an array of 7 values for the 
 min-donation: 2
 max-donation: 3000
 country-selection: true #whether to show a country selection dropdown
-require-country: true
+require-country: true #country selection must be true for this to work, of course
 require-cvv: true #this setting/field will not affect quick donate
 show-cvv-help: false #help tooltip: not ready for prime-time
 
