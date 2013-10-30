@@ -11,8 +11,12 @@
     }
 }
 
-@include respond-min( $desktop + 100px ){
+@include respond-min( $desktop ){
     body {
-        background-position: 60% 0;
+        background-size: cover
     }
+}
+
+@media screen and (max-height: 500px) and (min-width: $tablet ) and (max-width: $desktop - 1px ){
+    body { background-size: cover; }
 }

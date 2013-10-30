@@ -55,7 +55,7 @@ var blueContribute = {};
                 $sourceField = $form.find('[name="source_codes"]'),
                 defaultsource = $sourceField.val(),
                 $genError = $form.find('.bsdcd-general_error'),
-                urlsource = gup('source')|| gup('fb_ref') || false;
+                urlsource = gup('source')|| gup('fb_ref') || '';
 
             //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
             $sourceField.val( defaultsource ? defaultsource + ',' + urlsource : urlsource );

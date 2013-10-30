@@ -10,18 +10,34 @@
     font-weight: 600;
 }
 
-.qd_info_section{
+.qd_info_section, li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_btn{
     @include Whitney();
     font-weight: 400;
 }
+    .qd-login-links-section{
+        bottom: 30px;
+        position:absolute;
+        right:10px;
+        top:auto;
+    }
+@include respond-min( $form-field-layout ){
+
+    .qd-login-links-section{
+        position:absolute;
+        top:auto;
+        right:20px;
+    }
+}
+
 h1, h2, h3, h4, h5 {
 font-family: Helvetica, Arial;
 color: #707070;
 font-weight: bold;
 }
 
-
-
+.qd-personal-info{
+    color: $purple;
+}
 
 .sequential .bsdcd-seq-breadcrumbs li{
   font-family: "Libre Baskerville", Georgia, "Times New Roman", Times, serif;
@@ -51,6 +67,7 @@ font-weight: bold;
 @include respond-min( $form-field-layout ){
     .bsdcd-outer-container{
         margin-left:30px;
+        padding-bottom:0;
     }
     body{
         background-color:black;
@@ -69,7 +86,6 @@ font-weight: bold;
             text-align:left;
         }
     }
-
 
   header {
     height:115px !important;
@@ -105,7 +121,9 @@ font-weight: bold;
         margin:0;
     }
     @include respond-min( $form-field-layout ){
+        width: $section-total-width - ( 25px * 2 ); 
         margin-left:30px;
+        margin-top:0;
         background-color: black;
         background-color: rgba(0,0,0,0.8);
         padding: 10px 25px;

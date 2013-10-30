@@ -22,7 +22,7 @@ quick-donate: true
 
 id-prefix: cd_ #id used in order to reduce collision with other elements on a page 
 include-styles-inline: true #if true, will include the css link blocks above the form
-include-login-inline: true #if true, will include the login section above the form
+include-login-inline: false #if true, will include the login section above the form
 top-node-is-outer: true #attach key handlers to outer element on bsdcd-outer-container instead of to the body element
 extra-classes-on-outer-container: #just a string of extra classes to add, just in case you need to
 
@@ -32,12 +32,13 @@ title: DONATE
 subtitle: Help us bring new energy, new resources, and a new commitment to prevent, treat and ultimately end addiction.
 
 #form customization
-custom-amounts: [10, 20, 50, 100, 250, 500, 1000] #an array of 7 values for the donation amount
-min-donation: 2
-max-donation: 3000
+custom-amounts: [10, 25, 50, 100, 250, 1000, 2500] #an array of 7 values for the donation amount
+min-donation: 5
+max-donation: 300000
 country-selection: true #whether to show a country selection dropdown
 require-country: true #country selection must be true for this to work, of course
-require-cvv: true #this setting/field will not affect quick donate
+optional-phone: true #phone is required by default, this overrides that
+require-cvv: false #this setting/field will not affect quick donate
 show-cvv-help: false #help tooltip: not ready for prime-time
 
 employer-and-occupation: false

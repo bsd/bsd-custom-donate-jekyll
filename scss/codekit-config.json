@@ -14,15 +14,15 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/pih-minimal\/variables.scss" : {
+    "\/shatter-minimal\/bsdcd-styles-desktop.scss" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
+      "ignore" : 0,
       "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/pih-minimal\/variables.scss",
+      "outputPathIsSetByUser" : 1,
+      "inputAbbreviatedPath" : "\/shatter-minimal\/bsdcd-styles-desktop.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/variables.css",
+      "outputAbbreviatedPath" : "~\/Sites\/git\/bsd-custom-donate-jekyll\/page\/-\/donate\/shatter-minimal\/bsdcd-styles-desktop.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -32,6 +32,18 @@
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/pih-minimal\/bsdcd-backgrounds.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
+    "\/shatter-minimal\/bsdcd-backgrounds.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/shatter-minimal\/bsdcd-backgrounds.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
       "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
@@ -62,15 +74,15 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/shatter-minimal\/bsdcd-styles-desktop.scss" : {
+    "\/quick-donate.scss" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
-      "outputPathIsSetByUser" : 1,
-      "inputAbbreviatedPath" : "\/shatter-minimal\/bsdcd-styles-desktop.scss",
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/quick-donate.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "~\/Sites\/git\/bsd-custom-donate-jekyll\/page\/-\/donate\/shatter-minimal\/bsdcd-styles-desktop.css",
+      "outputAbbreviatedPath" : "\/css\/quick-donate.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -86,15 +98,15 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/quick-donate.scss" : {
+    "\/pih-minimal\/bsdcd-styles-desktop.scss" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
+      "ignore" : 0,
       "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/quick-donate.scss",
+      "outputPathIsSetByUser" : 1,
+      "inputAbbreviatedPath" : "\/pih-minimal\/bsdcd-styles-desktop.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/quick-donate.css",
+      "outputAbbreviatedPath" : "~\/Sites\/git\/bsd-custom-donate-jekyll\/page\/-\/donate\/pih-minimal\/bsdcd-styles-desktop.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -107,18 +119,6 @@
       "outputStyle" : 3,
       "shouldRunBless" : 0,
       "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
-      "fileType" : 4,
-      "debugStyle" : 0
-    },
-    "\/pih-minimal\/bsdcd-styles-desktop.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 1,
-      "inputAbbreviatedPath" : "\/pih-minimal\/bsdcd-styles-desktop.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "~\/Sites\/git\/bsd-custom-donate-jekyll\/page\/-\/donate\/pih-minimal\/bsdcd-styles-desktop.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -146,15 +146,15 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/shatter-minimal\/bsdcd-backgrounds.scss" : {
+    "\/pih-minimal\/variables.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/shatter-minimal\/bsdcd-backgrounds.scss",
+      "inputAbbreviatedPath" : "\/pih-minimal\/variables.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
+      "outputAbbreviatedPath" : "\/css\/variables.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -194,18 +194,6 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/pfb\/bsdcd-styles-desktop.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 1,
-      "inputAbbreviatedPath" : "\/pfb\/bsdcd-styles-desktop.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "~\/Sites\/git\/bsd-custom-donate-jekyll\/page\/-\/donate\/pfb\/bsdcd-styles-desktop.css",
-      "fileType" : 4,
-      "debugStyle" : 0
-    },
     "\/mixins.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -215,6 +203,18 @@
       "outputStyle" : 3,
       "shouldRunBless" : 0,
       "outputAbbreviatedPath" : "\/css\/mixins.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
+    "\/pfb\/bsdcd-styles-desktop.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 1,
+      "inputAbbreviatedPath" : "\/pfb\/bsdcd-styles-desktop.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "~\/Sites\/git\/bsd-custom-donate-jekyll\/page\/-\/donate\/pfb\/bsdcd-styles-desktop.css",
       "fileType" : 4,
       "debugStyle" : 0
     },

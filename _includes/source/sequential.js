@@ -509,7 +509,7 @@ window.optimizely = window.optimizely || [];
 
 				};
 
-				if( phone.isValid() ){
+				if( (sequential.settings.optionalphone && !phone.number) || phone.isValid() ){
 
 					phone.input.removeClass('bsdcd-error');
 
@@ -728,6 +728,8 @@ window.optimizely = window.optimizely || [];
 				donationAmountMinimum: $form.data('min-donation')||null,
 
                 requireCountry: $form.data('require-country')||false,
+
+                optionalphone: $form.data('optional-phone')||false,
 
                 requireCVV: $form.data('require-cvv')||false,
 

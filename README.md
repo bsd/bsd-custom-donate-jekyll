@@ -5,7 +5,7 @@ A Jekyll framework for locally developing/testing/listing custom donate pages us
 
 There are three main ways you can use this tool. 
 
-1. Either you can simply create some plug-and-play custom donate form markup based on config variables and use that in EE or the tools, include the js/css links to the library and then handle any extra client styling yourself, or
+1. Either you can simply create some plug-and-play custom donate form markup based on config variables and use that code in EE or the tools, include the js/css links to the library and then handle any extra client styling yourself, or
 2. You can create new jekyll wrappers/style types in the tool and compile/preview/test all the css/js on the local jekyll server.
 3. Canibalize the code
 

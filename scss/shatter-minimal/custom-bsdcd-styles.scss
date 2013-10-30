@@ -12,6 +12,10 @@ h1 {
     margin-top:20px;
     font-size:5rem!important;
 }
+h2, .base h2{
+    font-family: Arvo, Times, 'Times New Roman', serif;
+    font-size: 16px;
+}
 
 @include respond-min( $form-field-layout ){
     .qd_loading_spinner {
@@ -22,23 +26,46 @@ h1 {
         border-top-right-radius: 10px;
     }
     .qd-login-links-section {
-        top: -80px;
+        top: -94px;
+    }
+    .bsdcd-form {
+        border-radius: 0 0 5px 5px;
     }
 }
 
+.no-account{
+    font-size: 11px;
+    color: #888;
+    line-height: 8px;
+}
 
 .base ul li, .base ol li {
     list-style: none;
 }
+li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_btn{
+    font-family: Arvo, Times, 'Times New Roman', serif
+}
+
 
 
 /*true sticky footer*/
 #container{
+    display: -webkit-flex;
+    display: -moz-flex;
     display: flex;
     min-height: 100vh;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
     flex-direction: column;
 }
 #content{
-    flex:1;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
     width:100%;
+}
+footer{
+    width:100%;
+    clear:left;
 }

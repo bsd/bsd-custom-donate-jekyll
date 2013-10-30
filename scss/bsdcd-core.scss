@@ -40,6 +40,7 @@
 }
 
 .bsdcd-outer-container {
+    position:relative;
     @include respond-max($form-field-layout - 1px){
         width: 93%;
         margin: 0 auto;
@@ -94,9 +95,6 @@
     border: 1px solid darken($button-normal, 10%);
     border-radius: 3px;
     //box-shadow: inset 0px 1px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px 1px darken($button-normal, 20%);
-    font-family: 'Whitney 4r', 'Whitney A', 'Whitney B', 'Whitney', sans-serif;
-    font-weight: 400;
-    font-style: normal;
     color: #fff;
     font-size: 19px;
     text-align: center;
@@ -110,7 +108,7 @@
       display:none;
     }
     label.active {
-    z-index:1;
+      z-index:1;
       background: $button-active;
       color: #fff;
       border: 1px solid #fff;
@@ -209,9 +207,20 @@
         @include opacity(1);
     }
   }
-    .cc-is-mc .accepted_ccs:before{
-        left:40px;
+  .paypal-text{
+    display:none;
+  }
+.cc-is-paypal{
+    .paypal_text_cont{
+        display:block;
     }
+    .cc_number_cont, cc_maestro_start_cont, .cc_expiration_cont, .cc_cvv_cont{
+        display:none;
+    }
+}
+
+
+
     .honoree_field_cont{
         display:none;
     }
@@ -407,7 +416,7 @@
       width: $half-width-field-container-width;
     }
     .cc_year, .cc_month {
-        width: 123px;
+        width: 123px !important;
     }
     .firstname_cont, .email_cont, .employer_cont, .cc_month, .city_cont, .state_cd_cont {
       margin-right: 15px;

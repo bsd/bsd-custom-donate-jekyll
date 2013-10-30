@@ -38,6 +38,10 @@
         <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="http://www.pih.org/styles/index.css">
                 <!--<![endif]-->
+
+<!--[if lte IE 8]><link rel="stylesheet" href="/page/-/donate/pih-minimal/bsdcd-styles-desktop.css"><![endif]-->
+<!--[if gt IE 8]><!--><link rel="stylesheet" href="/page/-/donate/pih-minimal/bsdcd-styles.css"><!--<![endif]-->
+                
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
             <script src="http://www.pih.org/js/source-min.js"></script>
     </head>
@@ -47,7 +51,10 @@
             <header>
                 <div class="centered">
                     <h1 class="logo"><a href="http://www.pih.org/" class="ir">Partners In Health</a></h1>
-                    
+                    <div class="qd-login-links-section">
+                        <a href="#login" class="qd-log-in-link">Log in to Quick Donate</a>
+                        <a href="#logout" class="qd-log-out-link">Log Out</a>
+                    </div>
                 </div><!--/.centered-->
                 
             </header>
