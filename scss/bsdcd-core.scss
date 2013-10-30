@@ -107,12 +107,19 @@
     input.preset_amount_input {
       display:none;
     }
-    label.active {
-      z-index:1;
-      background: $button-active;
-      color: #fff;
-      border: 1px solid #fff;
-      box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
+    @mixin active-labels(){
+        z-index:1;
+        background: $button-active;
+        color: #fff;
+        border: 1px solid #fff;
+        box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+    //these otherwise identical styles are split because IE7 will break if they are extended normally
+    label.active{
+      @include active-labels();
+    }
+    input:checked + label {
+      @include active-labels();
     }
   }
 
@@ -221,7 +228,7 @@
 
 
 
-    .honoree_field_cont{
+    .js & .honoree_field_cont{
         display:none;
     }
     .honor-section .honoree_field_cont{

@@ -24,8 +24,9 @@ There's a lot more to be done to make the core more flexible and customizable, b
 
 ##Requirements: 
 
--Ruby, latest version of Jekyll (v1), etc.
--Something to compile SASS with (Codekit, sass watch, etc.)
+*Ruby, latest version of Jekyll (v1), etc.
+*Something to compile SASS with (Codekit, sass watch, etc.)
+*Your site MUST implement the .js .no-js method. Otherwise, there's no easy way to toggle sequential off when javascript is disabled
 
 ##Setup: 
 
@@ -42,6 +43,7 @@ Simply create a markdown file in _posts with the YYYY-MM-DD-unique-name format. 
 First question: does your client have an EE install that can run on a secure domain?  i.e. https://donate.pih.org/pages/ is a real EE page (even though not all of its assets are secure)
 
 Yes: then you can host a custom donate page on EE, as a template, maybe even using the standard wrappers (as long as you're not calling any non-secure assets in the wrapper or the main css).
+
 No: then you probably have to host the custom form in the Simple Pages module on the tools, so that it can all run on the client's secure domain. Again, whatever wrapper you use should be https:// friendly
 
 (Caveat: in either case, you're going to want to make sure that there is no way to access the non-secure version of the page, ideally by using a server side method to forward people to the secure domain when they request your page.)
