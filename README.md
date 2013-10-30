@@ -70,16 +70,16 @@ The basics though, involve creating
 
 ## Todo
 
--allow quick donate to be turned completely off
--separate structure from functionality even more, and split off style choices into discrete modules
--make the lack of a next button on the amounts step in sequential an option rather than a mandatory feature
--arbitrary custom fields
--additional stock layouts (more conventional text on the left/form on the right, layout for sidebar iframes, etc.)
+*allow quick donate to be turned completely off
+*separate structure from functionality even more, and split off style choices into discrete modules
+*make the lack of a next button on the amounts step in sequential an option rather than a mandatory feature
+*arbitrary custom fields
+*additional stock layouts (more conventional text on the left/form on the right, layout for sidebar iframes, etc.)
 
 ### Minor things these scripts do that you might not notice at first, but are critical behavior
 
--If users can ever select a country different from the US, then the zip field cannot be type="tel"  This would bring up the numbers only keypad on mobile phones, preventing users from entering any postal codes that include letters. We can't switch types dynamically because this breaks/throws security warnings in IEs.
--Likewise, if users can select different countries than the US, then state_cd needs to switch from a dropdown to a text field and back again.  The main form handles this already, and the in honor section simply leaves honoree_state_cd as a text field regardless because it always allows international addresses.
+*If users can ever select a country different from the US, then the zip field cannot be type="tel"  This would bring up the numbers only keypad on mobile phones, preventing users from entering any postal codes that include letters. We can't switch types dynamically because this breaks/throws security warnings in IEs.
+*Likewise, if users can select different countries than the US, then state_cd needs to switch from a dropdown to a text field and back again.  The main form handles this already, and the in honor section simply leaves honoree_state_cd as a text field regardless because it always allows international addresses.
 
 
 
