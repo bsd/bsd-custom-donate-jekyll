@@ -6,7 +6,7 @@
         background-image: $giant-background-image; //actual image defined in variables
         background-repeat: no-repeat;
         background-size: 200%;
-        background-position: 70% 0;
+        background-position: 70% 100px;
         background-attachment:fixed;
     }
 }
@@ -14,14 +14,14 @@
 @include respond-min( $desktop + 100px ){
     body {
         background-size: 140%;
-        background-position: 60% 0;
+        background-position: 60% 100px;
     }
 }
 
 @include respond-min( $widedesktop ){
     body {
         background-size: 120%; //cover doesn't really work, because the image moves depending on the height of the page
-        background-position: 20% 0;
+        background-position: 20% 100px;
     }
 }
 @include respond-min( 2000px ){

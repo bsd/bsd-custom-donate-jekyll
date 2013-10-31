@@ -51,6 +51,7 @@ var blueContribute = {};
         blueContribute: function(options) {
 
             var $form = $(this),
+                $body = $('body'),
                 locked = false,
                 $sourceField = $form.find('[name="source_codes"]'),
                 defaultsource = $sourceField.val(),
@@ -84,7 +85,7 @@ var blueContribute = {};
             defaultBeforePost = function(){
 
                 //toggle processing body class
-                $form.addClass('blue_contribute_processing');
+                $body.addClass('blue_contribute_processing');
 
                 return true;
 
@@ -143,7 +144,7 @@ var blueContribute = {};
                                 //remove the general errors message
                                 $genError.text('').removeClass('hidden');
 
-                                $form.toggleClass('blue_contribute_error');
+                                $body.toggleClass('blue_contribute_error');
 
                             }
 
@@ -279,7 +280,7 @@ var blueContribute = {};
                         }
 
                         //adjust the dom so that the user can see the errors
-                        $form.addClass('blue_contribute_error').removeClass('blue_contribute_processing');
+                        $body.addClass('blue_contribute_error').removeClass('blue_contribute_processing');
 
                         //alert others of the fail
                         //will currently blow away QD if the amount is wrong... that's wrong, I think
@@ -294,7 +295,7 @@ var blueContribute = {};
 
                     locked = false;
                     //adjust the dom so that the user can see the errors
-                    $form.addClass('blue_contribute_error').removeClass('blue_contribute_processing');  //toggle off the processing body class
+                    $body.addClass('blue_contribute_error').removeClass('blue_contribute_processing');  //toggle off the processing body class
 
                     //alert others of the fail
                     //will currently blow away QD if the amount is wrong... that's wrong, I think
@@ -347,7 +348,7 @@ var blueContribute = {};
 
                 }
 
-                $form.addClass('blue_contribute_processing');
+                $body.addClass('blue_contribute_processing');
 
                 if(beforePostReturnValue && !locked){
                     locked = true;

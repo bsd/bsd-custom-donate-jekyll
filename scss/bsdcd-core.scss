@@ -46,9 +46,15 @@
         margin: 0 auto;
     }
   ul,ol {
-    list-style: none;
+    list-style: none !important;
     padding: 0;
     margin:0;
+    li{
+        list-style: none;
+        .base &{
+            list-style: none !important;
+        }
+    }
   }
   label {
     font-size: 1.1em;
@@ -101,6 +107,10 @@
   }
   .other_amount_radio {
     display: none;
+  }
+  .amounts {
+    list-style:none !important;
+    margin:0 !important;
   }
   ul.amounts li.amount_cont {
     margin-bottom:15px;
@@ -242,7 +252,7 @@
     }
   #processing_indicator {
     display: none;
-    cursor:default;
+    cursor:wait;
   }
   .form_field_cont{
     margin-bottom: $form-container-bottom-margin;
@@ -313,7 +323,7 @@
     li.form_field_cont.bsdcd-error.state_cd_cont {
         padding-right:5px;
     }
-    &.state-text-input li.form_field_cont.bsdcd-error.state_cd_cont{
+    .state-text-input li.form_field_cont.bsdcd-error.state_cd_cont{
         padding-right:21px;
     }
     li.form_field_cont.bsdcd-error p {
@@ -332,6 +342,7 @@
 /* processing state */
 
 .blue_contribute_processing {
+    cursor:wait;
   #processing_indicator {
     display: block;
   }
@@ -339,7 +350,6 @@
     display: none;
   }
 }
-
 
 .ie8 {
     .state_cd_cont select {
@@ -447,8 +457,8 @@
       width: $fourth-width-field-container-width;
     }
     //dealing with field size when state is a text input
-    .state-text-input, .blue_contribute_error.state-text-input{
-        .state_cd_cont{
+    .state-text-input, .blue_contribute_error .state-text-input{
+        li.form_field_cont.state_cd_cont{
             width: $half-width-field-container-width;
             padding-right: $container-right-padding;
             margin-right:0;
