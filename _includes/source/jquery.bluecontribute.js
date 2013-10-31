@@ -82,10 +82,8 @@ var blueContribute = {};
 
             };
 
+            /*optional function could include additional _synchronous_ validation checks, but in the base install isn't needed*/
             defaultBeforePost = function(){
-
-                //toggle processing body class
-                $body.addClass('blue_contribute_processing');
 
                 return true;
 
@@ -340,7 +338,8 @@ var blueContribute = {};
 
                 debug('form submit attempt');
 
-                var beforePostReturnValue = true;
+                var beforePostReturnValue = true,
+                    apiRequest;
 
                 if(typeof blueContribute.settings.beforePost === 'function'){
 
@@ -352,26 +351,32 @@ var blueContribute = {};
 
                 if(beforePostReturnValue && !locked){
                     locked = true;
-                    //send the donation api request
-                    var apiRequest = $.ajax({
 
-                        url: blueContribute.settings.postTo,
-                        
-                        type: nonsecure?'GET':'POST',
+                    /*default wait is zero, but we can optionally increase it*/
+                    $.wait(blueContribute.settings).then(function(){
 
-                        dataType: 'json',
+                        //send the donation api request
+                        apiRequest = $.ajax({
 
-                        converters: { "text json": jQuery.parseJSON },
+                            url: blueContribute.settings.postTo,
+                            
+                            type: nonsecure?'GET':'POST',
 
-                        timeout: 30000,
+                            dataType: 'json',
 
-                        data: $form.serializeObject()
+                            converters: { "text json": jQuery.parseJSON },
+
+                            timeout: 30000,
+
+                            postdelay: 0,
+
+                            data: $form.serializeObject()
+
+                        }).always(defaultResponseHandler);
+
+                        if(nonsecure){ console.log('form is on a non-secure domain, transaction results simulated'); }
 
                     });
-
-                    if(nonsecure){ console.log('form is on a non-secure domain, transaction results simulated'); }
-
-                    apiRequest.always(defaultResponseHandler);
 
                 }else {
                     debug('double submission detected');

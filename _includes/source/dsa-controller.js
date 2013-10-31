@@ -10,10 +10,20 @@
         nonsecure = ( window.location.protocol.indexOf('s')===-1 ),
         nomin = ( gup('nomin')==="1" );
 
+    window._gaq = _gaq || [];
+    window.optimizely = window.optimizely || [];
+
     if (nonsecure){
         console.log('WARNING: This form is on a nonsecure domain and can only work in test mode.');
         $('body').prepend('<div class="insecure-warning">This site is not running on a secure domain and is in test mode.</div>');
     }
+
+    /*add pretty timeouts*/
+    $.wait = function(time) {
+      return $.Deferred(function(dfd) {
+        setTimeout(dfd.resolve, time);
+      });
+    };
 
     /*add basic pub sub, for error-free behavior chains*/
     $.Topic = function( id ) {

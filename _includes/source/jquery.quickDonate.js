@@ -355,6 +355,7 @@ var quickDonate = quickDonate || {};
                 );
             });
 
+            /*not currently exposed/used*/
             $( '.qd-log-out-link' ).click(function(e){
                 e.preventDefault();
 

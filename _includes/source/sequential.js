@@ -6,12 +6,7 @@
 * Written by Kyle Rush (kylerrush@gmail.com)
 */
 
-var sequential = {},
-	_gaq = _gaq || [];
-
-
-
-window.optimizely = window.optimizely || [];
+var sequential = {};
 
 (function($){
 

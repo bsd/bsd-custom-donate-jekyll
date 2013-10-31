@@ -18,7 +18,7 @@ Some things of note here:
     *nomin=1 for testing extremely low dollar amounts
     *sequential donate behavior is separated from the core
     *built for content-box so that it can work with older sites.  Better(i.e., simpler) border-box support in progress if you don't need to support IE7
-    *Core Layout supports IE7
+    *But... core layout should support IE7
 
 There's a lot more to be done to make the core more flexible and customizable, but you shouldn't need more than a couple of client-specific tweaks to get a nice looking, fully functional form.
 
@@ -32,13 +32,15 @@ There's a lot more to be done to make the core more flexible and customizable, b
 
 1. Clone the reponsitory and cd into it
 2. run "jekyll serve --w" from the command line
-3. navigate to [http://localhost:4000] and you should see a list of pages built
+3. navigate to http://localhost:4000 and you should see a list of pages built
 
 ##Creating new pages in jekyll
 
-Simply create a markdown file in _posts with the YYYY-MM-DD-unique-name format.  Copy over the default config file, then go through and set all the options.  In the future, we'll automate this for you.  If you've created a valid config file, your jekyll server should list your page and you should see it in the _sites directory. 
+Simply create a markdown file in _posts with the YYYY-MM-DD-unique-name format.  Copy over the default config file, then go through and set all the options.  In the future, we'll automate this for you.  If you've created a valid config file, your jekyll server should list your page and you should see it in the _sites directory as well as in the list on http://localhost:4000
 
-##Implementing a new page
+If you've not changed any of the default options, it won't have the right styles, of course.  Pulling those from a site and getting them into the test jekyll environment isn't hard (takes me about 10 minutes max). Check the "Creating new layouts" section for more.
+
+##Implementing a new page in practice
 
 First question: does your client have an EE install that can run on a secure domain?  i.e. https://donate.pih.org/pages/ is a real EE page (even though not all of its assets are secure)
 
@@ -55,11 +57,19 @@ At this point, you should have basically two steps to get things working (this w
 
 Now test!
 
+##Things you'll want to test
+
+1. Overriden styles: there's a trade-off in making bsdcd styles simpler/faster: existing client styles may override the core, breaking the plug-n-play nature of structure/look. However, there are a couple of very common culprits if things look wrong: 
+    *special padding and margins on ul/ol/li elements (often caused by over-specific rules).
+    *.base or #framework classes in the wrapper triggering a bunch of complex tools styles (just remove those from the wrapper in most cases)
+2. Do you have some means of getting the CSS in the <head>?  If not, the styles may flash on first load. A custom tools wrapper may be in order, or an includes/header.html conditinal that can call the styles as needed.
+3. Does the background image work at all browser sizes above tablet?  This can take some serious playing around with the code in bsdcd-backgrounds, as it really depends on what the image is, and what part of it you want to keep in view as the page scales, all without exposing the edges of the image.
+
 ##Wrapper Tips
 
 It's best to use a minimal wrapper (no nav, clutter) and it's also best to avoid wrappers like #framework that might just add tools styles and clutter that you don't want to have to undo.  It's also worth noting that h1-h6/p/ul/li styles used within the form markup may have to be tweaked or extended if you're using classes like .base to set font styles and sizes.  
 
-##Creating new templates
+##Creating new layouts
 
 At this point, you should basically have DrewT set this up for you.  It's quick, but not yet automated or intuitive. 
 

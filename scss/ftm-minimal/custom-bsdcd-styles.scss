@@ -1,0 +1,13 @@
+#content{
+    position:relative;
+}
+
+@include respond-min( $tablet ){
+    .qd-login-links-section{
+        top:0;   
+    }
+}
+
+.preset_amount_label, .sequential_move_forward{
+    font-family: futura-pt, Helvetica, Arial, sans-serif !important;
+}
