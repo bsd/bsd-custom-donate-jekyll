@@ -75,9 +75,9 @@ At this point, you should basically have DrewT set this up for you.  It's quick,
 
 The basics though, involve creating
 
-1. a page layout template that pulls in
-2. any necessary headers and footer wrappers, with their external assets pointed at the client site
-3. a new scss folder for the project that compiles into the /page/-/donate/foldername folder
+1. a page layout template [layoutname].html (can use jekyll includes if you understand how to use them) that pulls in
+2. any necessary headers and footer wrappers, with their external assets (like images) tweaked to point at the client's production site
+3. a new folder [layoutname] in scss for the project that compiles the css into the /page/-/donate/[layoutname] folder
 
 
 ## Todo

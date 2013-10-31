@@ -10,7 +10,7 @@
         nonsecure = ( window.location.protocol.indexOf('s')===-1 ),
         nomin = ( gup('nomin')==="1" );
 
-    window._gaq = _gaq || [];
+    window._gaq = window._gaq || [];
     window.optimizely = window.optimizely || [];
 
     if (nonsecure){
