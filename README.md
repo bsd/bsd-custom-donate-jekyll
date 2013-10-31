@@ -38,7 +38,7 @@ There's a lot more to be done to make the core more flexible and customizable, b
 
 Simply create a markdown file in _posts with the YYYY-MM-DD-unique-name format.  Copy over the default config file, then go through and set all the options.  In the future, we'll automate this for you.  If you've created a valid config file, your jekyll server should list your page and you should see it in the _sites directory as well as in the list on http://localhost:4000
 
-If you've not changed any of the default options, it won't have the right styles, of course.  Pulling those from a site and getting them into the test jekyll environment isn't hard (takes me about 10 minutes max). Check the "Creating new layouts" section for more.
+If you've not changed any of the default options, it won't have any styles, of course (but all the js should work!).  Pulling those from a site and getting them into the test jekyll environment isn't hard (takes me about 10 minutes max). Check the "Creating new layouts" section for more.
 
 ##Implementing a new page in practice
 
@@ -76,7 +76,7 @@ At this point, you should basically have DrewT set this up for you.  It's quick,
 The basics though, involve creating
 
 1. a page layout template [layoutname].html (can use jekyll includes if you understand how to use them) that pulls in
-2. any necessary headers and footer wrappers, with their external assets (like images) tweaked to point at the client's production site
+2. any necessary headers and footer wrappers, with their external assets (like images) tweaked to point at the client's production site (but don't go crazy: this is all just so that you can quickly test the styles/layout)
 3. a new folder [layoutname] in scss for the project that compiles the css into the /page/-/donate/[layoutname] folder
 
 

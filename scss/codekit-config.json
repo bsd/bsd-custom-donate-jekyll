@@ -2,6 +2,30 @@
   "CodeKitInfo" : "This is a CodeKit project configuration file. It is designed to sync project settings across multiple machines. Modifying the contents of this file can be a poor life decision if you don't know what you're doing. This file is not useful unless accompanied by the project that created it in CodeKit. For more information, see: http:\/\/incident57.com\/codekit",
   "creatorBuild" : "8376",
   "files" : {
+    "\/sequential.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/sequential.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/sequential.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
+    "\/bsdcd-core.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/bsdcd-core.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/bsdcd-core.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
     "\/pih-minimal\/bsdcd-styles.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -26,30 +50,6 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/bsdcd-core.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/bsdcd-core.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/bsdcd-core.css",
-      "fileType" : 4,
-      "debugStyle" : 0
-    },
-    "\/shatter-minimal\/variables.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/shatter-minimal\/variables.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/variables.css",
-      "fileType" : 4,
-      "debugStyle" : 0
-    },
     "\/pfb\/variables.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -59,18 +59,6 @@
       "outputStyle" : 3,
       "shouldRunBless" : 0,
       "outputAbbreviatedPath" : "\/css\/variables.css",
-      "fileType" : 4,
-      "debugStyle" : 0
-    },
-    "\/quick-donate.scss" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/quick-donate.scss",
-      "outputStyle" : 3,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/quick-donate.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -86,15 +74,15 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/pih-minimal\/bsdcd-backgrounds.scss" : {
+    "\/quick-donate.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/pih-minimal\/bsdcd-backgrounds.scss",
+      "inputAbbreviatedPath" : "\/quick-donate.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
+      "outputAbbreviatedPath" : "\/css\/quick-donate.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -107,6 +95,18 @@
       "outputStyle" : 3,
       "shouldRunBless" : 0,
       "outputAbbreviatedPath" : "~\/Sites\/git\/bsd-custom-donate-jekyll\/page\/-\/donate\/ftm-minimal\/bsdcd-styles.css",
+      "fileType" : 4,
+      "debugStyle" : 0
+    },
+    "\/pih-minimal\/bsdcd-backgrounds.scss" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/pih-minimal\/bsdcd-backgrounds.scss",
+      "outputStyle" : 3,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/bsdcd-backgrounds.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
@@ -266,15 +266,15 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/sequential.scss" : {
+    "\/shatter-minimal\/variables.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/sequential.scss",
+      "inputAbbreviatedPath" : "\/shatter-minimal\/variables.scss",
       "outputStyle" : 3,
       "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/sequential.css",
+      "outputAbbreviatedPath" : "\/css\/variables.css",
       "fileType" : 4,
       "debugStyle" : 0
     },
