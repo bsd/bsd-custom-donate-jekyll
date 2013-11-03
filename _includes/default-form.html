@@ -16,7 +16,7 @@
     {%endif%}
     {% if page.sequential %}
     <ol class="bsdcd-seq-breadcrumbs clearfix">
-        <li class="sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0"><a href="#step_1">Amount<span>1</span></a><hr></li><li class="sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1"><a href="#step_2">Name<span>2</span></a></li><li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2"><a href="#step_3">Payment<span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a></li>
+        <li class="sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0" data-stepname="amount"><a href="#step_1">Amount<span>1</span></a><hr></li><li class="sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1" data-stepname="personal_info"><a href="#step_2">Name<span>2</span></a></li><li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2" data-stepname="payment_info"><a href="#step_3">Payment<span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a></li>
     </ol>
     {%endif%}
     <form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
@@ -41,7 +41,7 @@
                     <p class="qd-options"><a href="#" id="qd_clear_info">Use different info</a> &nbsp;&nbsp;&nbsp; <a href="/ctl/Contribution/Quick/Manage" id="qd_manage_account" target="_blank">Manage your account</a></p>
                 </li>
             </ul>
-            <ul class="sequential_step step_1 clearfix">
+            <ul class="sequential_step step_1 active clearfix">
                 <li class="section_header_cont mobile-only amount_group_related" id="select_amount_header">
                     <h2 class="form_section_header" id="amount_header">Select an amount</h2>
                 </li><!--/.form_section_header_cont-->
@@ -136,8 +136,9 @@
                 <li class="form_section_header_cont mobile-only qd_info_extra cc_number_related cc_expir_group_related">
                     <h2 class="form_section_header" id="creditcard_header">Credit card</h2>
                 </li><!--/.form_section_header_cont-->
-                <li class="qd_info_extra cc_type_cont">
-                    <p class="accepted_ccs"><span class="hide-text">We accept: </span>{% if page.accept-visa %}<span class="cc-img accept-vs"> Visa </span>{%endif%}{% if page.accept-mastercard %}<span class="cc-img accept-mc"> MasterCard </span>{%endif%}{% if page.accept-amex %}<span class="cc-img accept-ax"> American Express </span>{%endif%}{% if page.accept-discover %}<span class="cc-img accept-ds"> Discover </span>{%endif%}{% if page.accept-maestro %}<span class="cc-img accept-ma"> Maestro </span>{%endif%}{% if page.accept-paypal %}<span class="cc-img accept-pp"> Paypal </span>{%endif%}</p>
+                <li class="qd_info_extra cc_type_cont cc_type_cd_group_related form_field_cont">
+                    <p class="cc_type_cd_group_error hidden bsdcd-error"></p>
+                    <div class="accepted_ccs"><span class="hide-text">We accept: </span>{% if page.accept-visa %}<span class="cc-img accept-vs"> Visa </span>{%endif%}{% if page.accept-mastercard %}<span class="cc-img accept-mc"> MasterCard </span>{%endif%}{% if page.accept-amex %}<span class="cc-img accept-ax"> American Express </span>{%endif%}{% if page.accept-discover %}<span class="cc-img accept-ds"> Discover </span>{%endif%}{% if page.accept-maestro %}<span class="cc-img accept-ma"> Maestro </span>{%endif%}{% if page.accept-paypal %}<span class="cc-img accept-pp"> Paypal </span>{%endif%}</div>
                     <ul class="cc_type_radio_cont">
                         {% if page.accept-visa == true %}<li>
                             <input type="radio" class="radio" id="{{page.id-prefix}}cc_mc" value="mc" name="cc_type_cd">
@@ -170,13 +171,12 @@
                     <p>You will be prompted to provide your PayPal account information upon clicking the Process Contribution button.</p>
                 </li>
                 {%endif%}
-                <li class="qd_info_extra cc_number_cont cc_number_related cc_type_cd_group_related form_field_cont">
+                <li class="qd_info_extra cc_number_cont cc_number_related form_field_cont">
                     <p class="cc_number_error hidden bsdcd-error"></p>
-                    <p class="cc_type_cd_group_error hidden bsdcd-error"></p>
                     <label for="{{page.id-prefix}}cc_number" class="cc_number_related cc_type_cd_group_related">Card number<span>*</span></label>
                     <input type="tel" class="text cc_number cc_type_cd_group_related" maxlength="19" id="{{page.id-prefix}}cc_number" name="cc_number" tabindex="14" autocomplete="off" required="required">
                 </li>
-                <li class="qd_info_extra cc_maestro_start_cont cc_maestro_start_related full_dropdown_cont form_field_cont">
+                <li class="qd_info_extra cc_maestro_start_cont cc_maestro_start_related form_field_cont">
                     <p class="cc_expir_group_error hidden bsdcd-error"></p>
                     <label for="{{page.id-prefix}}cc_start_month" class="cc_maestro_start_related">Start Month/Year<span>*</span></label>
                     <select id="{{page.id-prefix}}cc_start_month" class="cc_start_month cc_month" autocomplete="off" name="cc_start_month" tabindex="15" required="required">
@@ -209,7 +209,7 @@
                         <option value="2022">2022</option>
                     </select>
                 </li>
-                <li class="qd_info_extra cc_expiration_cont cc_expir_group_related full_dropdown_cont form_field_cont">
+                <li class="qd_info_extra cc_expiration_cont cc_expir_group_related form_field_cont">
                     <p class="cc_expir_group_error hidden bsdcd-error"></p>
                     <label for="{{page.id-prefix}}cc_expir_month" class="cc_expir_group_related">Expiration<span>*</span></label>
                     <select id="{{page.id-prefix}}cc_expir_month" class="cc_expir_month cc_month" autocomplete="off" name="cc_expir_month" tabindex="17" required="required">
@@ -299,7 +299,8 @@
                 </li>
                 {%endif%}
                 {% if page.tools-recurring-slug %}
-                <li class="recurring-checkbox-cont form_field_cont">
+                <li class="recurring-checkbox-cont form_field_cont recurring_acknowledge_related">
+                    <p class="recurring_acknowledge_error hidden bsdcd-error"></p>
                     <h3 class="form_section_header">Recurring Contribution (optional)</h3>
                     {%if page.recurring-intro%}<p>{{page.recurring-intro}}</p>{%endif%}
                     <label id="recurring_acknowledge-label" for="{{page.id-prefix}}recurring_acknowledge"><input name="recurring_acknowledge" id="{{page.id-prefix}}recurring_acknowledge" type="checkbox" value="1" tabindex="29"> {%if page.recurring-label%}{{page.recurring-label}}{%else%}Make this a monthly recurring contribution{%endif%}</label>
@@ -319,7 +320,7 @@
     </form>
     {%if page.country-selection == true and page.default-country != "US"  %}<select class="state_cd us-state-dropdown hidden"><option value=""></option><option value="AK">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option><option value="--" disabled="disabled">---</option><option value="AA">AA</option><option value="AE">AE</option><option value="AP">AP</option><option value="AS">AS</option><option value="FM">FM</option><option value="GU">GU</option><option value="MH">MH</option><option value="MP">MP</option><option value="PR">PR</option><option value="PW">PW</option><option value="VI">VI</option></select>{%endif%}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    {% if page.include-jquery %}<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>{%endif%}
     <script src="/page/-/donate/sequential-donate.js"></script>
     <script type="text/javascript">
 

@@ -56,13 +56,15 @@ var blueContribute = {};
                 $sourceField = $form.find('[name="source_codes"]'),
                 defaultsource = $sourceField.val(),
                 $genError = $form.find('.bsdcd-general_error'),
-                urlsource = gup('source')|| gup('fb_ref') || '';
+                urlsource = gup('source')|| gup('fb_ref') || '',
+                pagetitle = document.title,
+                wait = false;
 
             //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
             $sourceField.val( defaultsource ? defaultsource + ',' + urlsource : urlsource );
 
 
-            var debug, defaultResponseHandler, defaults, defaultBeforePost, slugSwitch;
+            var debug, defaultResponseHandler, defaults, defaultBeforePost, slugSwitch, processingState;
 
             debug = function(message){
 
@@ -87,6 +89,30 @@ var blueContribute = {};
 
                 return true;
 
+            };
+
+            processingState = function(on){
+                var i = 1,
+                    states = ['Processing','Processing.','Processing..','Processing...',pagetitle],
+                    ln = states.length;
+                    wait = on; //cancels any outstanding timers
+                if (on){
+                    $body.addClass('blue_contribute_processing');
+                    (function processing(){
+                        $.wait(300).then(function(){
+                            document.title = states[i % ln];
+                            if (wait){
+                                i++;
+                                processing();
+                            }
+                            else {
+                                document.title = pagetitle;
+                            }
+                        });
+                    }());
+                }else {
+                    $body.removeClass('blue_contribute_processing');
+                }
             };
 
             slugSwitch = function(){
@@ -134,7 +160,7 @@ var blueContribute = {};
                                 debug('reseting ' + blueContribute.latestResponseObject.field_errors[i].field);
 
                                 //wipe the error messages for each field
-                                $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').removeClass('hidden');
+                                $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').addClass('hidden');
 
                                 //remove the error class to the related fields
                                 $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
@@ -207,10 +233,14 @@ var blueContribute = {};
 
                             debug('validation error');
 
+                            report(
+                                ['Donate API', 'Validation Errors', blueContribute.latestResponseObject.field_errors.length],
+                                'donate_api_valiation_error'
+                            );
+
                             if( $.isArray(blueContribute.latestResponseObject.field_errors) ){
 
                                 if(blueContribute.latestResponseObject.field_errors.length > 0){
-
 
                                     debug(blueContribute.latestResponseObject.field_errors);
 
@@ -219,7 +249,7 @@ var blueContribute = {};
                                     }
 
                                     for(i = 0; i <= blueContribute.latestResponseObject.field_errors.length - 1; i++){
-
+                                        
                                         //inject the error messages for each field
                                         $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text(blueContribute.latestResponseObject.field_errors[i].message).removeClass('hidden');
 
@@ -247,6 +277,11 @@ var blueContribute = {};
 
                             debug('donate api response indicates that the gateway rejected the transaction');
 
+                            report(
+                                ['Donate API', 'Gateway Error', blueContribute.latestResponseObject.gateway_response.status],
+                                'donate_api_gateway_error'
+                            );
+                            
                             //checking for a declined card
                             if(blueContribute.latestResponseObject.gateway_response.status === "decline"){
 
@@ -254,20 +289,10 @@ var blueContribute = {};
 
                                 debug('donate api response indicates that the gateway rejected the transaction because the bank declined the transaction');
 
-                            } else if(
-
-                                blueContribute.latestResponseObject.gateway_response.status === "unkown" ||
-                                blueContribute.latestResponseObject.gateway_response.status === "error"
-
-                            ){
-
-                                //not sure why this would happen
-                                $genError.text('There was a problem with your submission. Please try again.').removeClass('hidden');
-
-                                debug('unknown error received from the donate api');
-
                             } else {
 
+                                //blueContribute.latestResponseObject.gateway_response.status === "unkown" ||
+                                //blueContribute.latestResponseObject.gateway_response.status === "error"
                                 //not sure why this would happen
                                 $genError.text('There was a problem with your submission. Please try again.').removeClass('hidden');
 
@@ -278,7 +303,8 @@ var blueContribute = {};
                         }
 
                         //adjust the dom so that the user can see the errors
-                        $body.addClass('blue_contribute_error').removeClass('blue_contribute_processing');
+                        $body.addClass('blue_contribute_error');
+                        processingState(false);
 
                         //alert others of the fail
                         //will currently blow away QD if the amount is wrong... that's wrong, I think
@@ -288,13 +314,12 @@ var blueContribute = {};
 
                     }
 
-
                 } else {
 
                     locked = false;
                     //adjust the dom so that the user can see the errors
-                    $body.addClass('blue_contribute_error').removeClass('blue_contribute_processing');  //toggle off the processing body class
-
+                    $body.addClass('blue_contribute_error');  //toggle off the processing body class
+                    processingState(false);
                     //alert others of the fail
                     //will currently blow away QD if the amount is wrong... that's wrong, I think
                     if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
@@ -304,8 +329,6 @@ var blueContribute = {};
                 }
 
                 //behavior that happens on success or fail
-
-
                 if( typeof blueContribute.settings.afterPost === 'function' ){
 
                     blueContribute.settings.afterPost();
@@ -324,6 +347,8 @@ var blueContribute = {};
                 beforePost: defaultBeforePost,
 
                 responseHandler:  defaultResponseHandler,
+
+                postdelay: 3000,
 
                 slug: ($form.data('slug')||'default')
 
@@ -347,13 +372,11 @@ var blueContribute = {};
 
                 }
 
-                $body.addClass('blue_contribute_processing');
-
                 if(beforePostReturnValue && !locked){
                     locked = true;
-
+                    processingState(true);
                     /*default wait is zero, but we can optionally increase it*/
-                    $.wait(blueContribute.settings).then(function(){
+                    $.wait(blueContribute.settings.postdelay).then(function(){
 
                         //send the donation api request
                         apiRequest = $.ajax({
@@ -367,8 +390,6 @@ var blueContribute = {};
                             converters: { "text json": jQuery.parseJSON },
 
                             timeout: 30000,
-
-                            postdelay: 0,
 
                             data: $form.serializeObject()
 
@@ -386,7 +407,7 @@ var blueContribute = {};
 
             $form.submit(function(e){
 
-                blueContribute.submitForm(nonsecure);
+                blueContribute.submitForm();
                 
                 e.preventDefault();
 

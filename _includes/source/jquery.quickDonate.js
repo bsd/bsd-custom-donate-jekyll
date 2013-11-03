@@ -183,6 +183,11 @@ var quickDonate = quickDonate || {};
                                 window.location.hash = '';
                             }
 
+                            report(
+                                ['Quick Donate', 'populated', true],
+                                'quick_donate_populated'
+                            );
+
                             $.Topic('data-update').publish( 'qd_populated' );
                             $.Topic('qd-status').publish( true );
 
@@ -202,7 +207,7 @@ var quickDonate = quickDonate || {};
 
                         //something was wrong with the response object
                         qdFail();
-                            //if t.enabled is false, hard stop the qd process, since there's no point in asking now. User doesn't have quick donate yet, so don't prompt them to login
+                        //if user doesn't have quick donate yet, don't prompt them to login. But no way to tell when logged out...
                     }
 
                 } else {
@@ -222,12 +227,19 @@ var quickDonate = quickDonate || {};
                 firstTry = false;
             };
 
-            clearQDInfo = function(e, method){
+            clearQDInfo = function(e, method, noreport){
 
                 if(typeof e === 'object'){e.preventDefault();}
 
                 $bothNodes.removeClass('qd_populated');
                 $form.find("[name='quick_donate_populated']").val('');
+
+                if(!noreport){
+                    report(
+                        ['Quick Donate', 'cleared', method],
+                        'quick_donate_cleared_'+method
+                    );
+                }
 
                 if ($.Topic) { $.Topic('qd-status').publish( false ); }
 
@@ -254,7 +266,7 @@ var quickDonate = quickDonate || {};
                     if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
                         $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
                     }
-                    $.Topic('change-step').publish(1); //go to now unhidden name step
+                    $.Topic('change-step').publish(1, true); //go to now unhidden name step, but do it silently
                     $.Topic('data-update').publish( 'qd_cleared' );
                     $('.sequential_breadcrumb_2').removeClass('completed'); //back up completion measure
                 }
@@ -369,7 +381,7 @@ var quickDonate = quickDonate || {};
                     jsonp: "jsonp",
                     success: function(data, textStatus, jqXHR){
                         quickDonate.settings.clearInfo(e, 'reveal');
-                        sequential.utilityFunctions.goToStep(1);
+                        $.Topic('change-step').publish(1);
                     }
                 });
 
@@ -380,7 +392,7 @@ var quickDonate = quickDonate || {};
             //clear quick donate if the blue validation had any other errors than just the amount
             $.Topic('bsd-validation-update').subscribe(function(ok, amt_error_only){
                 if (!ok && !amt_error_only){
-                    quickDonate.settings.clearInfo(0, 'reveal');
+                    quickDonate.settings.clearInfo(0, 'reveal', true); //clear qd because user had errors, but don't report since it's assumed and not user initiated
                 }
             });
 
@@ -390,7 +402,7 @@ var quickDonate = quickDonate || {};
             bQuery.bsd.quickDonate = function(){
                 console.log('login');
                 loggedin = true;
-                if(window.sequential) { sequential.utilityFunctions.goToStep(0); }
+                $.Topic('change-step').publish(0);
                 quickDonate.tryToken();
             };
 

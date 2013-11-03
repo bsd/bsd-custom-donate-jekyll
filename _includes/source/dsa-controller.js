@@ -1,17 +1,24 @@
 
+    window._gaq = window._gaq || [];
+    window.optimizely = window.optimizely || [];
+
     var gup = function(name) {
             name = name.replace(/(\[|\])/g,"\\$1");
             var regex = new RegExp("[\\?&]"+name+"=([^&#]*)"),
                 results = regex.exec( window.location.href );
                 if( results === null ){ return "";} else {return results[1];}
         },
+        report = function(ga,opt){
+            window._gaq.push( ['_trackEvent'].concat(ga) );
+            window.optimizely.push( ['trackEvent'].concat(opt) );
+            console.log("ANALYTICS:", ga,opt);
+        },
         topics = {},
         hash = window.location.hash.replace("#",''),
         nonsecure = ( window.location.protocol.indexOf('s')===-1 ),
         nomin = ( gup('nomin')==="1" );
 
-    window._gaq = window._gaq || [];
-    window.optimizely = window.optimizely || [];
+
 
     if (nonsecure){
         console.log('WARNING: This form is on a nonsecure domain and can only work in test mode.');

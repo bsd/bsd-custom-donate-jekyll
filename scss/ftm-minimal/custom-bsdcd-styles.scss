@@ -4,7 +4,7 @@
 
 @include respond-min( $tablet ){
     .qd-login-links-section{
-        top:0;   
+        top:-40px;   
     }
 }
 

@@ -316,6 +316,8 @@
         -webkit-border-radius: 4px;
         border-radius: 4px;
         height:auto;
+    }
+    li.form_field_cont.bsdcd-error{
         @include respond-min( $form-field-layout ){
             margin-left:-10px;
         }
@@ -325,9 +327,6 @@
     }
     .state-text-input li.form_field_cont.bsdcd-error.state_cd_cont{
         padding-right:21px;
-    }
-    li.form_field_cont.bsdcd-error p {
-        color: #b94a48;
     }
     .cc_type_radio_cont{
         display:block;
