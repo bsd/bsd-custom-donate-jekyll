@@ -57,6 +57,7 @@ var blueContribute = {};
                 defaultsource = $sourceField.val(),
                 $genError = $form.find('.bsdcd-general_error'),
                 urlsource = gup('source')|| gup('fb_ref') || '',
+                $slugField = $form.find("[name='slug']"),
                 pagetitle = document.title,
                 wait = false;
 
@@ -64,7 +65,7 @@ var blueContribute = {};
             $sourceField.val( defaultsource ? defaultsource + ',' + urlsource : urlsource );
 
 
-            var debug, defaultResponseHandler, defaults, defaultBeforePost, slugSwitch, processingState;
+            var debug, defaultResponseHandler, defaults, defaultBeforePost, processingState;
 
             debug = function(message){
 
@@ -93,14 +94,14 @@ var blueContribute = {};
 
             processingState = function(on){
                 var i = 1,
-                    states = ['Processing','Processing.','Processing..','Processing...',pagetitle],
+                    states = ['Processing','.Processing.','..Processing..','...Processing...'],
                     ln = states.length;
                     wait = on; //cancels any outstanding timers
                 if (on){
                     $body.addClass('blue_contribute_processing');
                     (function processing(){
-                        $.wait(300).then(function(){
-                            document.title = states[i % ln];
+                        $.wait(400).then(function(){
+                            document.title = states[i % ln] + " | " +pagetitle;
                             if (wait){
                                 i++;
                                 processing();
@@ -113,32 +114,6 @@ var blueContribute = {};
                 }else {
                     $body.removeClass('blue_contribute_processing');
                 }
-            };
-
-            slugSwitch = function(){
-
-                //recur/non-recur slug switch
-
-                $form.on('click', "[name='recurring_acknowledge']", function(e){
-
-                    var $recurringCheckbox, slug, recurSlug, $slugField;
-
-                    $recurringCheckbox = $(this);
-
-                    $slugField = $("[name='slug']");
-
-                    if($slugField.val() === blueContribute.settings.slug){
-
-                        $slugField.val(blueContribute.settings.recurSlug);
-
-                    } else {
-
-                        $slugField.val(blueContribute.settings.slug);
-
-                    }
-
-                });
-
             };
 
             defaultResponseHandler = function(data){
@@ -348,16 +323,35 @@ var blueContribute = {};
 
                 responseHandler:  defaultResponseHandler,
 
-                postdelay: 3000,
+                postdelay: 5000,
 
-                slug: ($form.data('slug')||'default')
+                slug: ($form.data('slug')||'default'),
+
+                recurSlug: ($form.data('recur-slug')||false)
 
             };
             
             //consolidate both user defined and default functions
             blueContribute.settings =  $.extend(true, defaults, options);
 
-            slugSwitch();
+            console.log(blueContribute.settings);
+            //if a recurring slug exists, allow it to switch the submit slug, or else remove it for safety's sake
+            if(blueContribute.settings.recurSlug){
+                $form.on('click', "[name='recurring_acknowledge']", function(e){
+
+                    if($slugField.val() === blueContribute.settings.slug){
+
+                        $slugField.val(blueContribute.settings.recurSlug);
+
+                    } else {
+
+                        $slugField.val(blueContribute.settings.slug);
+
+                    }
+                });
+            }else{
+                $form.find("[name='recurring_acknowledge']").closest('li').remove();
+            }
 
             blueContribute.submitForm = function(){
 
