@@ -16,7 +16,7 @@ tools-recurring-slug: #leave blank for no recurring
 default-source-codes: sequential-donate
 
 ##
-layout: shatter-minimal
+layout: shatter-minimal #use form-only if you want jekyll to only print out the core markup
 sequential: true
 quick-donate: true
 
@@ -61,9 +61,9 @@ accept-pay-pal: false  #not yet working
 
 #additional power options
 id-prefix: cd_ #id used in order to reduce collision with other elements on a page 
-include-styles-inline: true #if true, will include the css link blocks above the form
-include-login-inline: false #if true, will include the login section above the form
-include-jquery: true #include a jquery, in case your wrapper hasn't called one yet. false if your wrapper already has one in the head
+include-styles-inline: false #if true, will include the css link blocks above the form
+include-login-inline: true #if true, will include the login section above the form
+include-jquery: false #include a jquery, in case your wrapper hasn't called one yet. false if your wrapper already has one in the head
 top-node-is-outer: true #attach key handlers to outer element on bsdcd-outer-container instead of to the body element
 extra-classes-on-outer-container: #just a string of extra classes to add, just in case you need to
 
