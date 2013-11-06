@@ -48,8 +48,8 @@ recurring-intro:
 recurring-label: Make This A Recurring Contribution (Optional)
 
 #in honor-of
-in-honor-of-section: true #not ready for primetime yet
-in-honor-of-section-intro: "If you would like to make your gift in honor or in memory of someone, please fill out the form below. To send a notification of your thoughtful gift, please enter the recipient's contact information."
+in-honor-of-section: true 
+in-honor-of-section-intro: To make your contribution in somebody's honor, fill in the information below. Please provide an email or street address so we can notify them (or, in the case of an in memoriam contribution, the recipient you specify) of your thoughtfulness and generosity.
 
 #creditcards accepted
 accept-visa: true

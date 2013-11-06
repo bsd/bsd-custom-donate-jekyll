@@ -25,7 +25,8 @@ var quickDonate = quickDonate || {};
                 $form = $topNode.find('.bsdcd-form ').eq(0),
                 firstTry = true,
                 loggedin = false,
-                spudfields = ['firstname', 'lastname', 'email', 'zip', 'phone', 'addr1', 'addr2', 'city', 'state_cd', 'occupation', 'employer'],
+                spudfields = ['firstname', 'lastname', 'email', 'zip', 'phone', 'country','addr1', 'addr2', 'city', 'state_cd', 'occupation', 'employer'],
+                qdfields = ['cc_number','cc_expir_month','cc_expir_year'],
                 defaults, tokenRequest, t, ccName, ccNumberFormatted, defaultQDFields, defaultResponseHandler, clearQDInfo, prefill, qdFail;
 
             quickDonate.settings = quickDonate.settings || {};
@@ -39,7 +40,8 @@ var quickDonate = quickDonate || {};
 
                     var $f = $form.find('[name="'+v+'"]'),
                         fname = $f.attr('name'),
-                        insert = decodeURIComponent(gup(v)).replace(/\+/g,' ') || obj[v]|| null;
+                        //insert = decodeURIComponent(gup(v)).replace(/\+/g,' ') || obj[v]|| null; //prefill maybe not wanted on contrib pages
+                        insert = obj[v]|| null;
 
                     if (insert) {
                         $f.val(insert).removeClass('placeholder').addClass('prefilled');
@@ -254,7 +256,17 @@ var quickDonate = quickDonate || {};
                     });
                     
                     logout.done(function(data){
-                        window.location.reload();
+                        $.each(spudfields.concat(qdfields,['quick_donate_populated']),function(i,v){
+                            $('[name="'+v+'"').val('');
+                        });
+                        $bothNodes.removeClass('qd_populated').addClass('qd_load_failed');
+                        if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
+                            $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
+                        }
+                        $.Topic('change-step').publish(1, true);
+                        $.Topic('data-update').publish( 'qd_cleared' );
+                        $('.sequential_breadcrumb_2').removeClass('completed'); //back up completion measure
+                        $('#sequential_next_cont').show(); //prevent submission (soft) while we wait for page to reload
                     }).fail(function(){
                         window.location.hash = 'noquickd';
                         window.location.reload();

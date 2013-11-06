@@ -31,7 +31,7 @@ var sequential = {};
 			sequential.qd = false;
 			$.Topic('qd-status').subscribe(function(status){
 				sequential.qd = status;
-				console.log('qd',status);
+				//console.log('qd',status);
 			});
 
             /*if bsd reports errors, drop sequential styling*/
@@ -43,7 +43,7 @@ var sequential = {};
 
 			sequential.utilityFunctions.goToStep = function(step, silent){
 
-                console.log(step);
+                //console.log(step);
 
 				var isPreviousStep, changeStep, oldstep = sequential.currentStep, $newStep, stepname;
 
@@ -51,7 +51,7 @@ var sequential = {};
 
 				changeStep = function(){
 
-					console.log('step',step, silent);
+					//console.log('step',step, silent);
                     sequential.currentStep = step;
 
                     $topNode.removeClass('sequential_step_' + oldstep).find('.sequential_error_message').text('');
@@ -113,7 +113,7 @@ var sequential = {};
                                     changeStep();
                                 }
 							} else {
-								console.log('step fail',sequential.currentStep);
+								//console.log('step fail',sequential.currentStep);
                                 $('li.sequential_breadcrumb_' + sequential.currentStep).addClass('step-error');
 							}
 
@@ -185,7 +185,7 @@ var sequential = {};
 
 					if(typeof sequential.settings.donationAmountLimit === 'number'){
 
-						console.log('donation amount minimum is set');
+						//console.log('donation amount minimum is set');
 
 						if(typeof amount === 'number'){
 
@@ -413,7 +413,7 @@ var sequential = {};
 				//needs to not use US validation when it's not the US
 				zip = $topNode.find("[name='zip']").val();
 
-                console.log('zip',zip);
+                //console.log('zip',zip);
 				if( countryVal ==="US" ){
 					zip.replace(/\D/g, '');
 				}
@@ -700,7 +700,7 @@ var sequential = {};
 
 				if( invalidFields > 0 ){
 
-                    console.log(invalidFields);
+                    //console.log(invalidFields);
 
 					$('.sequential_error_message').text('Please correct the problems marked above.');
 

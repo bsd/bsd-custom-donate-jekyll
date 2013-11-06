@@ -323,7 +323,7 @@ var blueContribute = {};
 
                 responseHandler:  defaultResponseHandler,
 
-                postdelay: 5000,
+                postdelay: 0, //artificially deplay the submission
 
                 slug: ($form.data('slug')||'default'),
 

@@ -11,7 +11,7 @@
         report = function(ga,opt){
             window._gaq.push( ['_trackEvent'].concat(ga) );
             window.optimizely.push( ['trackEvent'].concat(opt) );
-            console.log("ANALYTICS:", ga,opt);
+            //console.log("ANALYTICS:", ga,opt);
         },
         topics = {},
         hash = window.location.hash.replace("#",''),
