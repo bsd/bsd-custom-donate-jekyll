@@ -16,7 +16,7 @@ tools-recurring-slug: #leave blank for no recurring
 default-source-codes: sequential-donate
 
 ##
-layout: shatter-minimal #use form-only if you want jekyll to only print out the core markup
+layout: form-only #use form-only if you want jekyll to only print out the core markup
 sequential: true
 quick-donate: true
 
