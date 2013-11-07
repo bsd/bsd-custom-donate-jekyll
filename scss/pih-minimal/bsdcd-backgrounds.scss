@@ -29,3 +29,8 @@
         background-size: 100%; //cover doesn't really work, because the image moves depending on the height of the page
     }
 }
+
+.oldie body{
+    background-size:auto;
+    background-position: 70% 100px !important;
+}

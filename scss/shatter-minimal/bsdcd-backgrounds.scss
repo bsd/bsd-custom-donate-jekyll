@@ -20,3 +20,8 @@
 @media screen and (max-height: 500px) and (min-width: $tablet ) and (max-width: $desktop - 1px ){
     body { background-size: cover; }
 }
+
+.oldie body{
+    background-size:auto;
+    background-position: center 0;
+}

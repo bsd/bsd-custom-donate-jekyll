@@ -247,29 +247,34 @@ var quickDonate = quickDonate || {};
 
                 if(method === 'nuclear'){
 
-                    $('#sequential_next_cont').hide(); //prevent submission (soft) while we wait for page to reload
+                    $('#sequential_next_cont').hide(); //prevent any submission (soft) while we wait for changes
 
-                    var logout = $.ajax({
-                        dataType: "json",
-                        url: '/page/user/logout?jsonp=callback=?',
-                        timeout: 8000
+                    $.each(spudfields.concat(qdfields,['quick_donate_populated']),function(i,v){
+                        $('[name="'+v+'"').val('');
                     });
-                    
-                    logout.done(function(data){
-                        $.each(spudfields.concat(qdfields,['quick_donate_populated']),function(i,v){
-                            $('[name="'+v+'"').val('');
-                        });
-                        $bothNodes.removeClass('qd_populated').addClass('qd_load_failed');
-                        if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
-                            $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
-                        }
-                        $.Topic('change-step').publish(1, true);
-                        $.Topic('data-update').publish( 'qd_cleared' );
-                        $('.sequential_breadcrumb_2').removeClass('completed'); //back up completion measure
-                        $('#sequential_next_cont').show(); //prevent submission (soft) while we wait for page to reload
+                    $bothNodes.removeClass('qd_populated');
+                    if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
+                        $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
+                    }
+                    $.Topic('change-step').publish(1, true);
+                    $.Topic('data-update').publish( 'qd_cleared' );
+                    $('.sequential_breadcrumb_2').removeClass('completed'); //back up completion measure
+
+                    $('#sequential_next_cont').show();
+
+                    $.ajax({
+                        "dataType": "jsonp",
+                        "jsonp":"jsonp",
+                        "url": "/page/user/logout",
+                        "timeout": 8000
+                    }).done(function(data){
+                         $bothNodes.addClass('qd_load_failed'); //when logout is complete, put login link back
                     }).fail(function(){
-                        window.location.hash = 'noquickd';
-                        window.location.reload();
+                        if (nonsecure){
+                            //if we're in test mode, fake a logout. all the above code should allow a user to donate fresh even if the logout failed
+                            window.location.hash = 'noquickd';
+                            window.location.reload();
+                        }
                     });
                     
                 }
