@@ -119,10 +119,6 @@ var sequential = {};
 
 						}
 
-					} else {
-
-						//not an actual function
-
 					}
 
 				}

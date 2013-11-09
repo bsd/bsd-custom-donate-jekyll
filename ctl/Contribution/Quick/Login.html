@@ -13,8 +13,8 @@ Content-Type: text/html
 <body>
 <script>
 function fakeLogin(){
-    console.log(window.opener.bQuery.bsd.quickDonate);
-  if ( window.opener.bQuery.bsd.quickDonate ) {
+
+  if ( window.opener && window.opener.bQuery && window.opener.bQuery.bsd && window.opener.bQuery.bsd.quickDonate ) {
     window.opener.bQuery.bsd.quickDonate( 'disableLoginLink' );
     window.opener.bQuery.bsd.quickDonate( 'populateForm', 'contribution', 'quick_donate_populated' );
   }
@@ -22,7 +22,7 @@ function fakeLogin(){
 }
 </script>
 
-Not a real login, but if you want to fake a Quick Donate login, <a href="javascript:fakeLogin()">click here</a>.
+Not a real login, but if you want to fake a Quick Donate login, <a href="javascript:fakeLogin();">click here</a>.
 
 </body>
 </html>

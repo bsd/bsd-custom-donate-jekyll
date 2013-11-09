@@ -42,11 +42,13 @@ employer-and-occupation: false
 
 
 #additional text sections
-recurring-intro: Our patients need your help all year round. Become a recurring donor.
-recurring-label: Make This A Recurring Contribution (Optional)
+recurring-section-title: Recurring Contribution <span>(Optional)</span>
+recurring-intro: We need your help all year round. Become a recurring donor to make an automatic donation every month.
+recurring-label: Please Make This A Recurring Contribution <span>(Optional)</span>
 
 #in honor-of
-in-honor-of-section: false 
+in-honor-of-section: false
+in-honor-of-section-title: Honor Someone with Your Contribution <span>(Optional)</span>
 in-honor-of-section-intro: "If you would like to make your gift in honor or in memory of someone, please fill out the form below. To send a notification of your thoughtful gift, please enter the recipient's contact information."
 
 #creditcards accepted

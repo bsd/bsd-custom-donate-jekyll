@@ -27,7 +27,7 @@ var quickDonate = quickDonate || {};
                 loggedin = false,
                 spudfields = ['firstname', 'lastname', 'email', 'zip', 'phone', 'country','addr1', 'addr2', 'city', 'state_cd', 'occupation', 'employer'],
                 qdfields = ['cc_number','cc_expir_month','cc_expir_year'],
-                defaults, tokenRequest, t, ccName, ccNumberFormatted, defaultQDFields, defaultResponseHandler, clearQDInfo, prefill, qdFail;
+                defaults, ccName, ccNumberFormatted, defaultQDFields, defaultResponseHandler, clearQDInfo, prefill, qdFail;
 
             quickDonate.settings = quickDonate.settings || {};
 
@@ -39,7 +39,6 @@ var quickDonate = quickDonate || {};
                 $.each(spudfields,function(i,v){
 
                     var $f = $form.find('[name="'+v+'"]'),
-                        fname = $f.attr('name'),
                         //insert = decodeURIComponent(gup(v)).replace(/\+/g,' ') || obj[v]|| null; //prefill maybe not wanted on contrib pages
                         insert = obj[v]|| null;
 
@@ -51,7 +50,7 @@ var quickDonate = quickDonate || {};
 
             qdFail = function(){
                 //need to get the logged in state because asking people who are already logged in to log in is pointless
-                $bothNodes.removeClass('qd_loading').addClass( (loggedin)?' qd_not_enabled':' qd_load_failed'); //if user is logged in but
+                $bothNodes.removeClass('qd_loading').addClass(  ((loggedin)?' qd_not_enabled':' qd_load_failed')  ); //if user is logged in but
                 $.Topic('qd-status').publish( false );
                 if (firstTry){
                     getSpud().always(function(d){ prefill(d); });
@@ -231,10 +230,7 @@ var quickDonate = quickDonate || {};
 
             clearQDInfo = function(e, method, noreport){
 
-                if(typeof e === 'object'){e.preventDefault();}
-
-                $bothNodes.removeClass('qd_populated');
-                $form.find("[name='quick_donate_populated']").val('');
+                if(typeof e === 'object'){ e.preventDefault(); }
 
                 if(!noreport){
                     report(
@@ -243,15 +239,17 @@ var quickDonate = quickDonate || {};
                     );
                 }
 
-                if ($.Topic) { $.Topic('qd-status').publish( false ); }
+                $.Topic('qd-status').publish( false );
 
                 if(method === 'nuclear'){
-
+                    
+                    
                     $('#sequential_next_cont').hide(); //prevent any submission (soft) while we wait for changes
 
-                    $.each(spudfields.concat(qdfields,['quick_donate_populated']),function(i,v){
-                        $('[name="'+v+'"').val('');
+                    $.each( spudfields.concat(qdfields, ['quick_donate_populated'] ), function(i,v){
+                        $form.find('[name="'+v+'"]').val('');
                     });
+
                     $bothNodes.removeClass('qd_populated');
                     if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
                         $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
@@ -276,7 +274,6 @@ var quickDonate = quickDonate || {};
                             window.location.reload();
                         }
                     });
-                    
                 }
                 else {
                     $bothNodes.removeClass('qd_populated').addClass('qd_cleared');
@@ -287,7 +284,8 @@ var quickDonate = quickDonate || {};
                     $.Topic('data-update').publish( 'qd_cleared' );
                     $('.sequential_breadcrumb_2').removeClass('completed'); //back up completion measure
                 }
-
+                $bothNodes.removeClass('qd_populated');
+                $form.find("[name='quick_donate_populated']").val('');
             };
 
             //set the default settings
@@ -335,7 +333,6 @@ var quickDonate = quickDonate || {};
             
             function tryToken(){
                 var obj = requestToken();
-                console.log(obj);
                 obj.always(function(d) {
                     quickDonate.tokenRequest = d;
                     quickDonate.settings.responseHandler(obj, d);
@@ -387,23 +384,7 @@ var quickDonate = quickDonate || {};
             /*not currently exposed/used*/
             $( '.qd-log-out-link' ).click(function(e){
                 e.preventDefault();
-
-                $.ajax({
-                    url: "/ctl/Spud/Remove"
-                });
-
-                $.ajax({
-                    url: "/page/user/logout",
-                    dataType: "jsonp",
-                    jsonp: "jsonp",
-                    success: function(data, textStatus, jqXHR){
-                        quickDonate.settings.clearInfo(e, 'reveal');
-                        $.Topic('change-step').publish(1);
-                    }
-                });
-
-                $( '.sequential_qd_info' ).hide();
-                
+                quickDonate.settings.clearInfo(e, 'nuclear');
             });
 
             //clear quick donate if the blue validation had any other errors than just the amount
@@ -415,9 +396,8 @@ var quickDonate = quickDonate || {};
 
             /*fake the existence of bQuery and or add a silly method to catch login attempts*/
             window.bQuery = window.bQuery || jQuery;
-            bQuery.bsd = bQuery.bsd || {};
-            bQuery.bsd.quickDonate = function(){
-                console.log('login');
+            window.bQuery.bsd = window.bQuery.bsd || {};
+            window.bQuery.bsd.quickDonate = function(){
                 loggedin = true;
                 $.Topic('change-step').publish(0);
                 quickDonate.tryToken();

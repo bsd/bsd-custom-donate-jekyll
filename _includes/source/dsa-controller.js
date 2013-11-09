@@ -16,7 +16,8 @@
         topics = {},
         hash = window.location.hash.replace("#",''),
         nonsecure = ( window.location.protocol.indexOf('s')===-1 ),
-        nomin = ( gup('nomin')==="1" );
+        nomin = ( gup('nomin')==="1" ),
+        touch  = !!('ontouchstart' in window) || !!('msmaxtouchpoints' in window.navigator);
 
 
 

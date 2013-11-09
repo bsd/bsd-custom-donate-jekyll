@@ -163,8 +163,6 @@ var blueContribute = {};
 
                 var responseIsValidJSON = false;
 
-                console.log('req', data);
-
                 if(data && !data.api_version){
                 //try to parse the response body as json, if errors occur it is most likely because the json is invalid or because html was returned instead
                     try {
@@ -334,7 +332,6 @@ var blueContribute = {};
             //consolidate both user defined and default functions
             blueContribute.settings =  $.extend(true, defaults, options);
 
-            console.log(blueContribute.settings);
             //if a recurring slug exists, allow it to switch the submit slug, or else remove it for safety's sake
             if(blueContribute.settings.recurSlug){
                 $form.on('click', "[name='recurring_acknowledge']", function(e){
@@ -418,5 +415,5 @@ var blueContribute = {};
             
     });
 
-})(jQuery);
+}(jQuery));
                     

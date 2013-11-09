@@ -162,7 +162,7 @@
         }
 
         input.text.bsdcd-error, select.bsdcd-error {
-            border: 2px solid $error-field-border-color !important;
+            box-shadow: $core-box-shadow, 0 0 2px 2px $error-field-border-color !important;
         }
         &.sequential_step_2 .bsdcd-form {
             #sequential_donate_btn_copy {
@@ -215,11 +215,17 @@
 }
 
 /**/
-.oldie {
+.oldie.js {
     .sequential .sequential_step {
         display: none;
         &.active {
             display: block;
+        }
+    }
+    .sequential {
+        input.text.bsdcd-error, select.bsdcd-error {
+            border: 1px solid $error-field-border-color !important;
+            outline: 2px solid $error-field-border-color !important;
         }
     }
 }

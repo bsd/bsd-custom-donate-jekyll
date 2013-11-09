@@ -19,6 +19,8 @@
 
 *****************************************************************/
 
+$core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
+
 /*limitation of current styles, should retest and refix */
 .bsdcd-outer-container *{
     box-sizing:content-box;
@@ -64,6 +66,7 @@
     span{
         float:left; //put the required asterisk on the left
         margin-right:1px;
+        .oldie & { font-size:16px; }
         //color: $dim-red;
         .ie7 & {float:none;}
     }
@@ -75,17 +78,29 @@
     font-size: 1.3em;
     width: 100%;
     padding: 7px;
-    -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
-    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
+    -webkit-box-shadow: $core-box-shadow;
+    box-shadow: $core-box-shadow; 
+    &:focus{
+        background: #f3f3f3;
+    }
   }
   select {
-    width: 100%;
-    font-size: 20px;
+    width: 95%;
+    font-size: 16px;
     border-color: #ebebeb;
     padding: 4px 6px;
     vertical-align: top;
     line-height:28px;
-    height:28px;
+    height:32px;
+    border-radius: 3px;
+    background: #f8f8f8;
+    border: 1px solid #DEDEDE;
+    -webkit-box-shadow: $core-box-shadow;
+    box-shadow: $core-box-shadow;
+    .boxsizing &{
+        @include border-box();
+        width:100%;
+    }
   }
     .form_field_cont{
         padding-right: $container-right-padding;
@@ -441,8 +456,7 @@
       clear: both;
     }
     select {
-      font-size: 14px;
-      color: #707070;
+      font-size: 16px;
     }
     .state_cd_cont {
       width: $fourth-width-field-container-width + $container-right-padding;
@@ -475,12 +489,11 @@
       font-size: 14px;
     }
     input.text {
-        font-size: 14px;
-        line-height: 26px;
+        font-size: 16px;
         font-weight: normal;
         color: #555;
         padding: 7px;
-        line-height: 14px;
+        line-height: 28px;
     }
     li.bsdcd-error p {
       margin: 0;
@@ -493,4 +506,10 @@
     }
   }
 
+}
+.ie7 {
+    .bsdcd-form{
+        margin-top:0;
+        margin-bottom:0;
+    }
 }
