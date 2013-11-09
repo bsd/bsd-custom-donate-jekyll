@@ -173,6 +173,11 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         width:40px;
         margin-right:5px;
         text-indent: -999em;
+        .ie7 & {
+            text-indent:0;
+            font-size:0.1px;
+            color: white;
+        }
     }
   .hide-text{
     position:absolute;
