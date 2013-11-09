@@ -1,7 +1,9 @@
 
 
 
-
+input.text {
+    height:28px;
+}
 /*Custom Styles*/
 
 header{
@@ -51,7 +53,6 @@ li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_b
 .oldie footer{
     background-color: #00EBCA !important;
 }
-
 
 /*true sticky footer*/
 #container{

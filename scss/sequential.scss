@@ -229,7 +229,7 @@
     .sequential {
         input.text.bsdcd-error, select.bsdcd-error {
             border: 1px solid $error-field-border-color !important;
-            outline: 2px solid $error-field-border-color !important;
+            outline: 1px solid $error-field-border-color !important;
         }
     }
 }

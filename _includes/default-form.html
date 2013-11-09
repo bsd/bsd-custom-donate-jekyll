@@ -347,6 +347,23 @@
             });
 
         }(jQuery));
+        (function(n,d){
+            function C(k){return(d.cookie.match('(^|; )'+k+'=([^;]*)')||0)[2]}
+
+            var ua = n.userAgent.toLowerCase(),
+                android = /android/i.test(ua),
+                wasmobile = C('wasmobile') === "was",
+                ismobile  = android;
+
+                if(ismobile){
+                    d.cookie = "wasmobile=was";
+                }
+                else if (wasmobile){
+                    d.getElementsByName('viewport')[0].setAttribute('content','user-scalable=yes, maximum-scale=2');
+
+                }
+        }(navigator, document));
+
 
     </script>
 </div>

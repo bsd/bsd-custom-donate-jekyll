@@ -33,6 +33,24 @@
     }
 }
 
+@include respond-max( $widephone - 1px ){
+    .qd-login-links-section{
+        max-width:42%;
+        right:-8px;
+    }
+}
+
+@include respond-max( $phone - 1px ){
+    header h1.logo{
+        width:100px;
+        top:40px;
+    }
+    .qd-login-links-section{
+        max-width:100%;
+        right:0;
+    }
+}
+
 h1, h2, h3, h4, h5 {
 font-family: Helvetica, Arial;
 color: #707070;
