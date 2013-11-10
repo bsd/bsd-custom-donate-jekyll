@@ -25,11 +25,17 @@
     $label-bottom-margin: 5px; 
     $form-container-bottom-margin: 20px;
 
-    /*tricksy field calculations*/
+    /*input sizes */
+    $input-height: 28px; //FULL HEIGHT (as if box-sizing were border-box, even when it won't be)
+
     $input-border-width: 1px;
+    $input-vert-padding: 4px;
+    
     $input-side-padding: 7px;
     $between-field-gutter: 15px; //do yourself a favor and make sude this + section-total-width = an even number
 
+
+    /*tricksy field calculations*/
     $section-inner-width: $section-total-width - ($section-inner-side-padding * 2);
     $container-right-padding: ($input-border-width + $input-side-padding) * 2; //this is the extra space 100% fields will take up under content-box
     $full-width-field-container-width: $section-inner-width - $container-right-padding;

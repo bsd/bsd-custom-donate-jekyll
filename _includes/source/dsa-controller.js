@@ -19,8 +19,12 @@
         nomin = ( gup('nomin')==="1" ),
         touch  = !!('ontouchstart' in window) || !!('msmaxtouchpoints' in window.navigator);
 
-
-
+    //hopefully your site is testing for box-sizing via Modernizr, but if not, let's assume it is if it isn't an IE below v8... but actually not needed, as IE7 seems to use border-box on selects by default!
+    /*
+    if (!window.Modernizr || (typeof Modernizr.boxsizing === "undefined" && (document.documentMode === undefined || document.documentMode > 7) ) ){
+        $('html').addClass('boxsizing');
+    }
+    */
     if (nonsecure){
         console.log('WARNING: This form is on a nonsecure domain and can only work in test mode.');
         $('body').prepend('<div class="insecure-warning">This site is not running on a secure domain and is in test mode.</div>');

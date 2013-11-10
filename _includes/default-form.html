@@ -62,7 +62,7 @@
                     </ul><!--/#amounts-->
                 </li><!--/#amount_cont-->
             </ul>
-            <ul class="sequential_step step_2 clearfix">
+            <ul class="sequential_step step_2 clearfix inactive">
                 <li class="form_section_header_cont mobile-only firstname_related lastname_related qd_info_extra" id="contributor_header_cont">
                     <h2 class="form_section_header" id="contributor_header">Contributor</h2>
                 </li><!--/#form_section_header_cont-->
@@ -130,7 +130,7 @@
                 </li><!--/#occupation_cont-->
             {%endif%}
             </ul><!--/.sequential-setp-2-->
-            <ul class="sequential_step step_3 clearfix" id="sequential_payment_info">
+            <ul class="sequential_step step_3 clearfix inactive" id="sequential_payment_info">
                 <li class="form_section_header_cont mobile-only qd_info_extra cc_number_related cc_expir_group_related">
                     <h2 class="form_section_header" id="creditcard_header">Credit card</h2>
                 </li><!--/.form_section_header_cont-->
@@ -250,7 +250,7 @@
                 </li>
                 {%endif%}
                 {% if page.in-honor-of-section %}
-                <li class="in-honor-of form_field_cont full_dropdown_cont">
+                <li class="in-honor-of form_field_cont full_dropdown_cont{% if page.class-on-in-honor %} {{page.class-on-in-honor}}{%endif%}">
                     <h3 class="form_section_header">{% if page.in-honor-of-section-title %}{{page.in-honor-of-section-title}}{%else%}Honor Someone with Your Contribution <small>(Optional)</small>{%endif%}</h3>
                     {%if page.in-honor-of-section-intro%}<p>{{page.in-honor-of-section-intro}}</p>{%endif%}
                      <select class="honoree-select" name="honoree_in_memoriam" tabindex="20"><option value="-1" selected="selected">-- please choose --</option><option value="0">In honor of...</option><option value="1">In memory of...</option></select>
@@ -280,12 +280,12 @@
                 <li class="addr1_cont honoree_field_cont honoree_addr1_related form_field_cont">
                     <p class="honoree_addr1_error hidden bsdcd-error"></p>
                     <label for="{{page.id-prefix}}_honoree_addr1" class="honoree_addr1_related">Address (Optional)</label>
-                    <input type="text" class="text addr1" name="honoree_addr1" id="{{page.id-prefix}}_honoree_addr1" tabindex="25" required="required">
+                    <input type="text" class="text addr1" name="honoree_addr1" id="{{page.id-prefix}}_honoree_addr1" tabindex="25">
                 </li>
                 <li class="city_cont honoree_field_cont honoree_city_related form_field_cont">
                     <p class="honoree_city_error hidden bsdcd-error"></p>
                     <label for="{{page.id-prefix}}_honoree_city" class="honoree_city_related">City</label>
-                    <input type="text" class="text city" name="honoree_city" id="{{page.id-prefix}}_honoree_city" tabindex="26" required="required">
+                    <input type="text" class="text city" name="honoree_city" id="{{page.id-prefix}}_honoree_city" tabindex="26">
                 </li>
                 <li class="honoree_state_cd_cont honoree_field_cont honoree_state_cd_related form_field_cont">
                     <p class="honoree_state_cd_error hidden bsdcd-error"></p>
@@ -295,7 +295,7 @@
                 <li class="honoree_zip_cont honoree_field_cont honoree_zip_related form_field_cont">
                     <p class="honoree_zip_error hidden bsdcd-error"></p>
                     <label for="{{page.id-prefix}}_honoree_zip" class="honoree_zip_related">Postal Code</label>
-                    <input type="{%if page.default-country == "US" AND page.country-selection != true %}tel{%else%}text{%endif%}" class="text zip" name="honoree_zip" id="{{page.id-prefix}}_honoree_zip" maxlength="14" tabindex="28" required="required">
+                    <input type="{%if page.default-country == "US" AND page.country-selection != true %}tel{%else%}text{%endif%}" class="text zip" name="honoree_zip" id="{{page.id-prefix}}_honoree_zip" maxlength="14" tabindex="28">
                 </li>
                 {%endif%}
                 {% if page.tools-recurring-slug %}
@@ -347,23 +347,24 @@
             });
 
         }(jQuery));
-        (function(n,d){
-            function C(k){return(d.cookie.match('(^|; )'+k+'=([^;]*)')||0)[2]}
 
-            var ua = n.userAgent.toLowerCase(),
+        
+        (function(d){
+            function C(k){return(d.cookie.match('(^|; )'+k+'=([^;]*)')||0)[2];}
+
+            var ua = navigator.userAgent.toLowerCase(),
                 android = /android/i.test(ua),
                 wasmobile = C('wasmobile') === "was",
                 ismobile  = android;
 
-                if(ismobile){
+                if(ismobile && !wasmobile){
                     d.cookie = "wasmobile=was";
                 }
                 else if (wasmobile){
                     d.getElementsByName('viewport')[0].setAttribute('content','user-scalable=yes, maximum-scale=2');
-
                 }
-        }(navigator, document));
-
+        }(document));
+        
 
     </script>
 </div>

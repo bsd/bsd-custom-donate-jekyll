@@ -66,7 +66,7 @@ include-login-inline: false #if true, will include the login section above the f
 include-jquery: false #include a jquery, in case your wrapper hasn't called one yet. false if your wrapper already has one in the head
 top-node-is-outer: true #attach key handlers to outer element on bsdcd-outer-container instead of to the body element
 extra-classes-on-outer-container: #just a string of extra classes to add, just in case you need to
-
+class-on-in-honor: base #in-honor-of section title and intro can get a separate class, useful for sites that use .base
 
 ##debug
 no_minimum: false

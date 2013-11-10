@@ -26,7 +26,9 @@ There's a lot more to be done to make the core more flexible and customizable, b
 
 *Ruby, latest version of Jekyll (v1), etc.
 *Something to compile SASS with (Codekit, sass watch, etc.)
-*Your site MUST implement the .js .no-js method. Otherwise, there's no easy way to toggle sequential off when javascript is disabled
+*Your site MUST implement the .js .no-js method. Otherwise, there's no easy way to toggle the sequential js off when javascript is disabled
+
+I'd also highly advise making sure the includes and uses Modernizr & in particular, the box-sizing detect.  While everything should work without it, that's only because the code has a backup which assumes that everything BUT IE7 supports it, and adds the support class accordingly. While I don't know of any browsers we care about that aren't either IE7 or don't have boxsizing support, Modernizr's detect is more authentic/comprehensive, so more bulletproof.
 
 ##Setup: 
 

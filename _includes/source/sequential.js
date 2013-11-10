@@ -64,18 +64,21 @@ var sequential = {};
                     }else {
                         $topNode.addClass('sequential_step_' + step);
 
-                        
-
                         $newStep = $breadcrumbs.eq(step);
                         stepname = $newStep.data('stepname');
 
                         $newStep.addClass('active').prevAll().removeClass('step-error');
 
-                        sequential.settings.stepContainers.eq(step).addClass('active').removeClass('inactive').find('[required]').filter(function(){
-                            if($(this).val() === ""){
-                                return true;
-                            }
-                        }).first().focus();
+                        sequential.settings.stepContainers.eq(step).addClass('active').removeClass('inactive');
+
+                        //if not touch, focus on this steps first required field that is currently without a value
+                        if(!touch){
+                            sequential.settings.stepContainers.eq(step).find('input').find('[required]').filter(function(){
+                                if($(this).val() === ""){
+                                    return true;
+                                }
+                            }).first().focus();
+                        }
 
                         if(!silent){
                             report(

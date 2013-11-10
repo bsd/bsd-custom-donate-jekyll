@@ -75,31 +75,38 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     background: #f1f1f1;
     border: 1px solid #DEDEDE;
     border-radius: 3px;
-    font-size: 1.3em;
+    line-height: $input-height;
     width: 100%;
-    padding: 7px;
+    padding: $input-side-padding;
     -webkit-box-shadow: $core-box-shadow;
     box-shadow: $core-box-shadow; 
     &:focus{
         background: #f3f3f3;
     }
   }
+  input.text{
+    height: $input-height;  
+  }
   select {
     width: 95%;
     font-size: 16px;
     border-color: #ebebeb;
-    padding: 4px 6px;
+    padding: $input-vert-padding $input-side-padding;
     vertical-align: top;
-    line-height:28px;
-    height:32px;
+    line-height: $input-height;
+    height: $input-height + 4px;
     border-radius: 3px;
     background: #f8f8f8;
     border: 1px solid #DEDEDE;
     -webkit-box-shadow: $core-box-shadow;
     box-shadow: $core-box-shadow;
-    .boxsizing &{
-        @include border-box();
-        width:100%;
+    @include border-box(); //so, odd thing: IE7 doesn't support this, but acts like it does by default anyhow
+    width: 100%;
+    .no-boxsizing &{
+        width: 95%;
+    }
+    .ie7 &{
+        width:100%; //ie7 should keep the 100% rule even though it doesn't "support" border-box
     }
   }
     .form_field_cont{
@@ -287,7 +294,9 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 /*should be tablet only?*/
 .cvv-question-mark{
+    float:right !important;
     position:relative;
+    left:16px;
     border-radius:1em;
     cursor: pointer;
     height: 1em;
@@ -296,10 +305,17 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     background-color:$question-mark-background;
     color: $question-mark-color;
     &:hover:before{
-
+        content: '';
+        width:20px;
+        position:absolute;
+        height:70px;
+        left:0;
+        z-index:50;
+        margin-left:100%;
     }
     &:hover:after{
         z-index:40;
+        font-size:12px;
         position:absolute;
         content: attr(data-content);
         min-height:20px;
@@ -307,11 +323,12 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         color: black;
         margin-left:100%;
         padding:10px;
-        left: 0;
-        border-left: 20px solid transparent;
+        left: 20px;
+        outline: 2px dashed rgba(24,24,24,0.6);
+        box-shadow: 0 0 2px gray;
         box-sizing: border-box;
         background-clip: padding-box;
-        width: 400px;
+        width: 200px;
     }
 }
 
@@ -368,12 +385,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
   #submit {
     display: none;
   }
-}
-
-.ie8 {
-    .state_cd_cont select {
-        width:84%;
-    }
 }
 
 @include respond-min( $phone ){
@@ -492,13 +503,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     }
     label, p.bsdcd-error {
       font-size: 14px;
-    }
-    input.text {
-        font-size: 16px;
-        font-weight: normal;
-        color: #555;
-        padding: 7px;
-        line-height: 28px;
     }
     li.bsdcd-error p {
       margin: 0;
