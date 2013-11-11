@@ -55,7 +55,7 @@
                         {% if forloop.last %}
                         <li class="amount_cont amount_cont_{{ forloop.index | plus: 1 }} last {% cycle 'odd', 'even' %}">
                             <label for="{{page.id-prefix}}amount_other" id="other_amount_label" class="other_amount_label">Other amount:</label>
-                            <input type="text" class="text other_amount_input amount_other" name="amount_other" id="{{page.id-prefix}}amount_other" placeholder="Other amount" tabindex="2">
+                            <input type="tel" class="text other_amount_input amount_other" name="amount_other" id="{{page.id-prefix}}amount_other" placeholder="Other amount" tabindex="2">
                         </li>
                         {%endif%}
                         {% endfor %}
@@ -310,10 +310,10 @@
             <li id="sequential_general_error_cont">
                 <p class="sequential_error_message bsdcd-error"></p>
             </li>
-            <li id="sequential_next_cont"><p class="big_btn" id="sequential_next_btn_cont"><a href="#" id="sequential_next_btn" class="sequential_move_forward"><span id="sequential_next_btn_copy">Next</span><span id="sequential_donate_btn_copy">Donate</span></a></p></li>
+            <li id="sequential_next_cont"><p class="big_btn{% if page.button-classes %} {{page.button-classes}}{%endif%}" id="sequential_next_btn_cont"><a href="#" id="sequential_next_btn" class="sequential_move_forward"><span id="sequential_next_btn_copy">Next</span><span id="sequential_donate_btn_copy">Donate</span></a></p></li>
             <li id="submit_cont">
-                <p id="processing_indicator" class="bsdcd-submit-button">Processing...</p>
-                <input type="submit" value="Donate now" class="bsdcd-submit-button bid_btn" id="submit" tabindex="30">
+                <p id="processing_indicator" class="bsdcd-submit-button{% if page.button-classes %} {{page.button-classes}}{%endif%}">Processing...</p>
+                <input type="submit" value="Donate now" class="bsdcd-submit-button bid_btn {% if page.button-classes %} {{page.button-classes}}{%endif%}" id="submit" tabindex="30">
             </li>
         </ul><!--/#bsd_contribute_form_fields_cont-->
         <input type="hidden" name="slug" value="{{page.tools-slug}}">
@@ -348,23 +348,33 @@
 
         }(jQuery));
 
-        
-        (function(d){
-            function C(k){return(d.cookie.match('(^|; )'+k+'=([^;]*)')||0)[2];}
-
-            var ua = navigator.userAgent.toLowerCase(),
-                android = /android/i.test(ua),
-                wasmobile = C('wasmobile') === "was",
-                ismobile  = android;
-
-                if(ismobile && !wasmobile){
-                    d.cookie = "wasmobile=was";
-                }
-                else if (wasmobile){
-                    d.getElementsByName('viewport')[0].setAttribute('content','user-scalable=yes, maximum-scale=2');
-                }
-        }(document));
-        
-
     </script>
+            <script>
+(function(d){
+    //quick dookie checker
+    function C(k){return(d.cookie.match('(^|; )'+k+'=([^;]*)')||0)[2];}
+ 
+    var ua = navigator.userAgent, //get the user agent string
+        ismobile = / mobile/i.test(ua), //android and firefox mobile both use android in their UA, and both remove it from the UA in their "pretend desktop mode"
+        mgecko = !!( / gecko/i.test(ua) && / firefox\//i.test(ua)), //test for firefox
+        wasmobile = C('wasmobile') === "was", //save the fact that the browser once claimed to be mobile
+        desktopvp = 'user-scalable=yes, maximum-scale=2',
+        el;
+ 
+    if(ismobile && !wasmobile){
+        d.cookie = "wasmobile=was"; //if the browser claims to be mobile and doesn't yet have a session cookie saying so, set it
+    }
+    else if (!ismobile && wasmobile){
+        //if the browser once claimed to be mobile but has stopped doing so, change the viewport tag to allow scaling and then to max out at whatever makes sense for your site (could use an ideal max-width if there is one)
+        if (mgecko) {
+            el = d.createElement('meta');
+            el.setAttribute('content',desktopvp);
+            el.setAttribute('name','viewport');
+            d.getElementsByTagName('head')[0].appendChild( el );
+        }else{
+            d.getElementsByName('viewport')[0].setAttribute('content',desktopvp); //if not Gecko, we can just update the value directly
+        }
+    }
+}(document));
+        </script>
 </div>

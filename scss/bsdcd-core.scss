@@ -47,86 +47,89 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         width: 93%;
         margin: 0 auto;
     }
-  ul,ol {
-    list-style: none !important;
-    padding: 0;
-    margin:0;
-    li{
-        list-style: none;
-        .base &{
-            list-style: none !important;
+    ul,ol {
+        list-style: none !important;
+        padding: 0;
+        margin:0;
+        li{
+            list-style: none;
+            .base &{
+                list-style: none !important;
+            }
         }
     }
-  }
-  label {
-    font-size: 1.1em;
-    font-weight: bold;
-    display: block;
-    margin-bottom: $label-bottom-margin;
-    span{
-        float:left; //put the required asterisk on the left
-        margin-right:1px;
-        .oldie & { font-size:16px; }
-        //color: $dim-red;
-        .ie7 & {float:none;}
+    label {
+        font-size: 1.1em;
+        font-weight: bold;
+        display: block;
+        margin-bottom: $label-bottom-margin;
+        span{
+            float:left; //put the required asterisk on the left
+            margin-right:1px;
+            .oldie & { font-size:16px; }
+            .ie7 & { float:none; }
+            //color: $dim-red;
+        }
     }
-  }
-  input.text, textarea {
-    background: #f1f1f1;
-    border: 1px solid #DEDEDE;
-    border-radius: 3px;
-    line-height: $input-height;
-    width: 100%;
-    padding: $input-side-padding;
-    -webkit-box-shadow: $core-box-shadow;
-    box-shadow: $core-box-shadow; 
-    &:focus{
-        background: #f3f3f3;
+    .other_amount_label{
+        display:none;
     }
-  }
-  input.text{
-    height: $input-height;  
-  }
-  select {
-    width: 95%;
-    font-size: 16px;
-    border-color: #ebebeb;
-    padding: $input-vert-padding $input-side-padding;
-    vertical-align: top;
-    line-height: $input-height;
-    height: $input-height + 4px;
-    border-radius: 3px;
-    background: #f8f8f8;
-    border: 1px solid #DEDEDE;
-    -webkit-box-shadow: $core-box-shadow;
-    box-shadow: $core-box-shadow;
-    @include border-box(); //so, odd thing: IE7 doesn't support this, but acts like it does by default anyhow
-    width: 100%;
-    .no-boxsizing &{
-        width: 95%;
+    input.text, textarea {
+        background: #f1f1f1;
+        border: 1px solid #DEDEDE;
+        border-radius: 3px;
+        line-height: $input-height;
+        width: 100%;
+        padding: $input-side-padding;
+        -webkit-box-shadow: $core-box-shadow;
+        box-shadow: $core-box-shadow; 
+        &:focus{
+            background: #f3f3f3;
+        }
     }
-    .ie7 &{
-        width:100%; //ie7 should keep the 100% rule even though it doesn't "support" border-box
+    input.text{
+        height: $input-height;  
     }
-  }
+    select {
+        font-size: 16px;
+        border-color: #ebebeb;
+        padding: $input-vert-padding $input-side-padding;
+        vertical-align: top;
+        line-height: $input-height;
+        height: $input-height + 4px;
+        border-radius: 3px;
+        background: #f8f8f8;
+        border: 1px solid #DEDEDE;
+        -webkit-box-shadow: $core-box-shadow;
+        box-shadow: $core-box-shadow;
+        @include border-box(); //so, odd thing: IE7 doesn't support this, but acts like it does by default anyhow
+        width: 100%;
+        .no-boxsizing &{
+            width: 95%;
+        }
+        .ie7 &{
+            width:100%; //ie7 should keep the 100% rule even though it doesn't "support" border-box
+        }
+    }
     .form_field_cont{
         padding-right: $container-right-padding;
     }
-  li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_btn {
-    padding: 15px 5px;
-    display: block;
-    width: 95%;
-    background: $button-normal;
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(0, 0, 0, 0.1)), color-stop(1, rgba(255, 255, 255, 0.2)));
-    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
-    background-image:  -moz-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
-    border: 1px solid darken($button-normal, 10%);
-    border-radius: 3px;
-    //box-shadow: inset 0px 1px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px 1px darken($button-normal, 20%);
-    color: #fff;
-    font-size: 19px;
-    text-align: center;
-  }
+    li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_btn {
+        padding: 15px 5px;
+        display: block;
+        width: 95%;
+        background: $button-normal;
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(0, 0, 0, 0.1)), color-stop(1, rgba(255, 255, 255, 0.2)));
+        background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
+        background-image:  -moz-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
+
+        border: 1px solid darken($button-normal, 10%);
+        border-radius: 3px;
+        //box-shadow: inset 0px 1px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px 1px darken($button-normal, 20%);
+        color: #fff;
+        font-size: 19px;
+        text-align: center;
+    }
   .other_amount_radio {
     display: none;
   }
@@ -520,5 +523,15 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     .bsdcd-form{
         margin-top:0;
         margin-bottom:0;
+    }
+}
+
+/*these fields can't work right without js*/
+.no-js{
+    .in-honor-of, .honoree_field_cont, .recurring-checkbox-cont{
+        display:none;
+    }
+    &.oldie .other_amount_label{
+        display:block;
     }
 }

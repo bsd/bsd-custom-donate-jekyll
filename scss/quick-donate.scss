@@ -15,6 +15,7 @@
         a {
             @include inline-block();
             margin-top:15px;
+            line-height: 16px;
         }
     }
 }

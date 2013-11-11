@@ -27,11 +27,9 @@ var quickDonate = quickDonate || {};
                 loggedin = false,
                 spudfields = ['firstname', 'lastname', 'email', 'zip', 'phone', 'country','addr1', 'addr2', 'city', 'state_cd', 'occupation', 'employer'],
                 qdfields = ['cc_number','cc_expir_month','cc_expir_year'],
-                defaults, ccName, ccNumberFormatted, defaultQDFields, defaultResponseHandler, clearQDInfo, prefill, qdFail;
+                defaults, ccName, ccNumberFormatted, defaultResponseHandler, clearQDInfo, prefill, qdFail;
 
             quickDonate.settings = quickDonate.settings || {};
-
-            defaultQDFields = ["[name='bsd_form_quick_donate_populated']", "[name='cc_number']", "[name='cc_type_cd']", "[name='cc_type_cd']", "[name='cc_expir_month']", "[name='cc_expir_year']", "[name='firstname']", "[name='lastname']", "[name='addr1']", "[name='addr2']", "[name='country']", "[name='city']", "[name='state_cd']", "[name='zip']", "[name='email']", "[name='phone']", "[name='employer']", "[name='occupation']", "[name='quick_donate_populated']"];
 
 
             prefill = function(obj){
@@ -39,7 +37,7 @@ var quickDonate = quickDonate || {};
                 $.each(spudfields,function(i,v){
 
                     var $f = $form.find('[name="'+v+'"]'),
-                        //insert = decodeURIComponent(gup(v)).replace(/\+/g,' ') || obj[v]|| null; //prefill maybe not wanted on contrib pages
+                        //insert = decodeURIComponent(gup(v)).replace(/\+/g,' ') || obj[v]|| null; //prefill from url maybe not wanted on contrib pages?
                         insert = obj[v]|| null;
 
                     if (insert) {
@@ -191,6 +189,10 @@ var quickDonate = quickDonate || {};
 
                             $.Topic('data-update').publish( 'qd_populated' );
                             $.Topic('qd-status').publish( true );
+                            //if sequential we can skip to the last step if the user has already completed amounts.  We may want to move this check into sequential.js somehow
+                            $.Topic('change-step').publish(
+                                ( $('.sequential_breadcrumb_amount').hasClass('completed') )? 2 : 0
+                            );
 
                         } else {
 
@@ -255,8 +257,9 @@ var quickDonate = quickDonate || {};
                         $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
                     }
                     $.Topic('change-step').publish(1, true);
+
                     $.Topic('data-update').publish( 'qd_cleared' );
-                    $('.sequential_breadcrumb_2').removeClass('completed'); //back up completion measure
+                    $('.sequential_breadcrumb_name, .sequential_breadcrumb_payment').removeClass('completed'); //back up any completion measures
 
                     $('#sequential_next_cont').show();
 
@@ -399,7 +402,6 @@ var quickDonate = quickDonate || {};
             window.bQuery.bsd = window.bQuery.bsd || {};
             window.bQuery.bsd.quickDonate = function(){
                 loggedin = true;
-                $.Topic('change-step').publish(0);
                 quickDonate.tryToken();
             };
 

@@ -15,21 +15,26 @@
     font-weight: 400;
 }
 
-    input, select{
-        font-family: Minion, "Times New Roman", Times, serif;
-    }
-    .qd-login-links-section{
-        bottom: 30px;
-        position:absolute;
-        right:10px;
-        top:auto;
-    }
+input, select{
+    font-family: Minion, "Times New Roman", Times, serif;
+}
+.qd-login-links-section{
+    bottom: 30px;
+    position:absolute;
+    right:10px;
+    top:auto;
+}
 @include respond-min( $form-field-layout ){
-
     .qd-login-links-section{
         position:absolute;
         top:auto;
         right:20px;
+        bottom:50px;
+    }
+}
+@include respond-min( $desktop ){
+    .qd-login-links-section{
+        bottom:30px;
     }
 }
 
@@ -50,6 +55,12 @@
         right:0;
     }
 }
+@include respond-max( $form-field-layout - 1px ){
+    .bsdcd-outer-container .other_amount_input.amount_other{
+        padding: 15px 7px;
+        width:92%;
+    }
+}
 
 h1, h2, h3, h4, h5 {
 font-family: Helvetica, Arial;
@@ -64,6 +75,8 @@ font-weight: bold;
 .sequential .bsdcd-seq-breadcrumbs li{
   font-family: "Libre Baskerville", Georgia, "Times New Roman", Times, serif;
 }
+
+
 
 .bsdcd-top-section {
     h1 {

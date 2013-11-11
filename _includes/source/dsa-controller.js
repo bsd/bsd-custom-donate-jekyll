@@ -26,8 +26,8 @@
     }
     */
     if (nonsecure){
-        console.log('WARNING: This form is on a nonsecure domain and can only work in test mode.');
-        $('body').prepend('<div class="insecure-warning">This site is not running on a secure domain and is in test mode.</div>');
+        console.log('WARNING: nonsecure domain = test mode.');
+        $('body').prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>');
     }
 
     /*add pretty timeouts*/

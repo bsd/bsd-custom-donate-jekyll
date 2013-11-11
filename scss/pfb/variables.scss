@@ -26,11 +26,12 @@
     $form-container-bottom-margin: 20px;
 
     /*input sizes */
-    $input-border-width: 1px;
-    $input-side-padding: 7px;
-    $input-vert-padding: 4px;
-    $input-height: 16px;
+    $input-height: 28px; //FULL HEIGHT (as if box-sizing were border-box, even when it won't be)
 
+    $input-border-width: 1px;
+    $input-vert-padding: 4px;
+    
+    $input-side-padding: 7px;
     $between-field-gutter: 15px; //do yourself a favor and make sude this + section-total-width = an even number
 
 
