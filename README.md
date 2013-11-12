@@ -1,24 +1,25 @@
 bsd-custom-donate-jekyll
 ========================
 
-A Jekyll framework for locally developing/testing/listing custom donate pages using the donate API.  Simulates API calls and logins so that you can test the process without actually donating money.
+A Jekyll framework for locally developing/testing/listing custom donate pages using the donate API.  When run locally it can simulate API calls and logins so that you can test the actual functional js code as well as the look and feel process without actually donating any money or dealing with the tools.
 
-There are three main ways you can use this tool. 
+There are two main ways you can use this repo.
 
 1. Either you can simply create some plug-and-play custom donate form markup based on config variables and use that code in EE or the tools, include the js/css links to the library and then handle any extra client styling yourself, or
-2. You can create new jekyll wrappers/style types in the tool and compile/preview/test all the css/js on the local jekyll server.
-3. Canibalize the code
+2. or you can create complete wrappers/styled themes in the tool and compile/preview/test all the css/js on your local jekyll server until you're ready to install it on EE/the tools.
 
 Some things of note here:
-    *SASSified
-    *handles quick donate logins/logouts natively
-    *handles in honor of fields
-    *handles prefill of data from url parameters and spud
-    *credit card type auto-detection. (Currently Visa, Mastercard, Amex, Discover, Maestro)
-    *nomin=1 for testing extremely low dollar amounts
-    *sequential donate behavior is separated from the core
-    *built for content-box so that it can work with older sites.  Better(i.e., simpler) border-box support in progress if you don't need to support IE7
-    *But... core layout should support IE7
+    -css is now all SASSified
+    -core styles mostly separated from client styles
+    -handles quick donate logins/logouts natively
+    -handles in honor of fields
+    -handles prefill of data from spud if quick donte isn't available
+    -credit card type auto-detection. (Currently Visa, Mastercard, Amex, Discover, Maestro)
+    -nomin=1 for testing extremely low dollar amounts
+    -works with javascript disabled (and js-only things like sequential/recurring will be hidden)
+    -sequential donate behavior is separated from the core (remove the .sequential class and you have a normal donate form)
+    -built with box-sizing: content-box so that it can work with older sites.  Better(i.e., simpler) border-box support in progress if you don't need to support IE7
+    -But... core layout should support IE7 without extra work
 
 There's a lot more to be done to make the core more flexible and customizable, but you shouldn't need more than a couple of client-specific tweaks to get a nice looking, fully functional form.
 
@@ -26,9 +27,9 @@ There's a lot more to be done to make the core more flexible and customizable, b
 
 *Ruby, latest version of Jekyll (v1), etc.
 *Something to compile SASS with (Codekit, sass watch, etc.)
-*Your site MUST implement the .js .no-js method. Otherwise, there's no easy way to toggle the sequential js off when javascript is disabled
+*Your site MUST implement the .js .no-js html class method in some fashion. Otherwise, there's no easy way to toggle the sequential js off when javascript is disabled
 
-I'd also highly advise making sure the includes and uses Modernizr & in particular, the box-sizing detect.  While everything should work without it, that's only because the code has a backup which assumes that everything BUT IE7 supports it, and adds the support class accordingly. While I don't know of any browsers we care about that aren't either IE7 or don't have boxsizing support, Modernizr's detect is more authentic/comprehensive, so more bulletproof.
+I'd also highly advise making sure the includes and uses Modernizr & in particular, the box-sizing custom detect.
 
 ##Setup: 
 
@@ -74,26 +75,27 @@ It's best to use a minimal wrapper (no nav, clutter) and it's also best to avoid
 
 ##Creating new layouts
 
-At this point, you should basically have DrewT set this up for you.  It's quick, but not yet automated or intuitive. 
+At this point, you should basically have Drew set this up for you.  It's quick, but not yet automated or intuitive. 
 
 The basics though, involve creating
 
 1. a page layout template [layoutname].html (can use jekyll includes if you understand how to use them) that pulls in
 2. any necessary headers and footer wrappers, with their external assets (like images) tweaked to point at the client's production site (but don't go crazy: this is all just so that you can quickly test the styles/layout)
 3. a new folder [layoutname] in scss for the project that compiles the css into the /page/-/donate/[layoutname] folder
+4. Compiling your SASS from scss/theme into page/-/donate/theme
 
 
 ## Todo
 
-*allow quick donate to be turned completely off
-*separate structure from functionality even more, and split off style choices into discrete modules
+*allow quick donate to be turned completely off/removed from the markup and code
+*separate structure from functionality even more, and split off style choices like (box-sizing/button styles/step styles) into discrete modules
 *make the lack of a next button on the amounts step in sequential an option rather than a mandatory feature
 *arbitrary custom fields
 *additional stock layouts (more conventional text on the left/form on the right, layout for sidebar iframes, etc.)
 
 ### Minor things these scripts do that you might not notice at first, but are critical behavior
 
-*If users can ever select a country different from the US, then the zip field cannot be type="tel"  This would bring up the numbers only keypad on mobile phones, preventing users from entering any postal codes that include letters. We can't switch types dynamically because this breaks/throws security warnings in IEs.
+*If users can ever select a country different from the US, then the zip field CANNOT be type="tel"  This would bring up the numbers only keypad on mobile phones, preventing users from entering any international postal codes that include letters. We can't switch types dynamically because this breaks/throws security warnings in the IEs.
 *Likewise, if users can select different countries than the US, then state_cd needs to switch from a dropdown to a text field and back again.  The main form handles this already, and the in honor section simply leaves honoree_state_cd as a text field regardless because it always allows international addresses.
 
 

@@ -20,6 +20,7 @@ var sequential = {};
 
             var $topNode = $(this),
                 $form = $topNode.find('.bsdcd-form'),
+                $otheramt = $form.find('[name="amount_other"]'),
                 $breadcrumbs = $topNode.find('.sequential_breadcrumb');
 
 			sequential.currentStep = 0;
@@ -132,15 +133,15 @@ var sequential = {};
 
 			sequential.utilityFunctions.validateAmounts = function (){
 
-				var amountRadioGroupNumber, otherAmountNumber, amountIsSelected, amountIsUnderMaximum, amountIsOverMinimum, amount;
+				var amountRadioGroupNumber, otherAmountNumber, amountIsSelected, amountIsUnderMaximum, amountIsOverMinimum, amount, tmpamount = $otheramt.val();
 
 				$topNode.removeClass('sequential_error');
 
 				$('.sequential_error_message').text('');
 
-				amountRadioGroupNumber = parseFloat( $("input[name='amount']:checked").val() );
+				amountRadioGroupNumber = parseFloat( $form.find("input[name='amount']:checked").val() );
 
-				otherAmountNumber = parseFloat( $('[name="amount_other"]').val().replace(/\,/g, '') );
+				otherAmountNumber =  parseFloat( $otheramt.val( tmpamount.replace(/[^\d\.]/g,'') ).val() );
 
 				amountIsSelected = function(){
 
