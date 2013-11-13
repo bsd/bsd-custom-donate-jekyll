@@ -32,7 +32,6 @@ var sequential = {};
 			sequential.qd = false;
 			$.Topic('qd-status').subscribe(function(status){
 				sequential.qd = status;
-				//console.log('qd',status);
 			});
 
             /*if bsd reports errors, drop sequential styling*/
@@ -57,7 +56,7 @@ var sequential = {};
 
                     $topNode.removeClass('sequential_step_' + oldstep).find('.sequential_error_message').text('');
                     sequential.settings.stepContainers.eq(oldstep).addClass('inactive').removeClass('active');
-                    $breadcrumbs.eq(oldstep).removeClass('active').addClass('completed');
+                    $breadcrumbs.eq(oldstep).removeClass('active');
 
                     //if qd is populated and step 1 was valid, users should go right to the step 2 without adding step 1
                     if(step===1 && sequential.qd){
@@ -68,9 +67,8 @@ var sequential = {};
                         $newStep = $breadcrumbs.eq(step);
                         stepname = $newStep.data('stepname');
 
-                        $newStep.addClass('active').prevAll().removeClass('step-error');
-
-                        sequential.settings.stepContainers.eq(step).addClass('active').removeClass('inactive');
+                        $newStep.addClass('active').prevAll().removeClass('step-error').addClass('completed');
+                        sequential.settings.stepContainers.eq(step).addClass('active').removeClass('inactive').prevAll().addClass('completed');
 
                         //if not touch, focus on this steps first required field that is currently without a value
                         if(!touch){

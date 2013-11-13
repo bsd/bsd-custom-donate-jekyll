@@ -241,27 +241,12 @@ var quickDonate = quickDonate || {};
                     );
                 }
 
-                $.Topic('qd-status').publish( false );
-
                 if(method === 'nuclear'){
-                    
-                    
-                    $('#sequential_next_cont').hide(); //prevent any submission (soft) while we wait for changes
 
-                    $.each( spudfields.concat(qdfields, ['quick_donate_populated'] ), function(i,v){
+                    $.each( spudfields.concat(qdfields), function(i,v){
                         $form.find('[name="'+v+'"]').val('');
                     });
-
-                    $bothNodes.removeClass('qd_populated');
-                    if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
-                        $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
-                    }
-                    $.Topic('change-step').publish(1, true);
-
-                    $.Topic('data-update').publish( 'qd_cleared' );
                     $('.sequential_breadcrumb_name, .sequential_breadcrumb_payment').removeClass('completed'); //back up any completion measures
-
-                    $('#sequential_next_cont').show();
 
                     $.ajax({
                         "dataType": "jsonp",
@@ -279,16 +264,21 @@ var quickDonate = quickDonate || {};
                     });
                 }
                 else {
-                    $bothNodes.removeClass('qd_populated').addClass('qd_cleared');
-                    if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
-                        $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
-                    }
-                    $.Topic('change-step').publish(1, true); //go to now unhidden name step, but do it silently
-                    $.Topic('data-update').publish( 'qd_cleared' );
-                    $('.sequential_breadcrumb_2').removeClass('completed'); //back up completion measure
+                    $bothNodes.addClass('qd_cleared');
+                    $.each(qdfields, function(i,v){
+                        $form.find('[name="'+v+'"]').val('');
+                    });
+                    $('.sequential_breadcrumb_payment').removeClass('completed'); //back up completion measure
                 }
+                $.Topic('qd-status').publish( false );
                 $bothNodes.removeClass('qd_populated');
                 $form.find("[name='quick_donate_populated']").val('');
+                $form.find("[name='cc_type_cd']").filter(':checked').prop('checked',false);
+                if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
+                    $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
+                }
+                $.Topic('change-step').publish(1, true); //go to now unhidden name step, but do it silently
+                $.Topic('data-update').publish( 'qd_cleared' );
             };
 
             //set the default settings

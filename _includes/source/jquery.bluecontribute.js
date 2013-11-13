@@ -59,13 +59,18 @@ var blueContribute = {};
                 urlsource = gup('source')|| gup('fb_ref') || '',
                 $slugField = $form.find("[name='slug']"),
                 pagetitle = document.title,
-                wait = false;
+                wait = false,
+                msg = {
+                    "unknown":"We were unable to process your transaction at this time.",
+                    "invalid":"Your donation was not successful. Please correct the problems marked below.",
+                    "declined":"The transaction was declined. Please check that the address information is correct or else use a different card."
+                };
 
             //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
             $sourceField.val( defaultsource ? defaultsource + ',' + urlsource : urlsource );
 
 
-            var debug, defaultResponseHandler, defaults, defaultBeforePost, processingState;
+            var debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
 
             debug = function(message){
 
@@ -116,9 +121,13 @@ var blueContribute = {};
                 }
             };
 
+            genError = function(msg){
+               $genError.text(msg).removeClass('hidden');
+            };
+
             defaultResponseHandler = function(data){
 
-                var amt_error_only = false, i;
+                var amt_error_only = false, i, resobj;
 
                 //remove all existing errors
                 if(blueContribute.latestResponseObject){
@@ -135,15 +144,15 @@ var blueContribute = {};
                                 debug('reseting ' + blueContribute.latestResponseObject.field_errors[i].field);
 
                                 //wipe the error messages for each field
-                                $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').addClass('hidden');
+                                $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').addClass('hidden');
 
                                 //remove the error class to the related fields
-                                $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
+                                $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
 
                                 //remove the general errors message
-                                $genError.text('').removeClass('hidden');
+                                $genError.text('').addClass('hidden');
 
-                                $body.toggleClass('blue_contribute_error');
+                                $body.removeClass('blue_contribute_error');
 
                             }
 
@@ -151,13 +160,13 @@ var blueContribute = {};
 
                     } else {
 
-                        debug('there were no field errors on the latest repsonse object');
+                        debug('no field errors on the latest repsonse object');
 
                     }
 
                 } else {
 
-                    debug('the previous response object does not exist. this is the first submission');
+                    debug('this is the first submission');
 
                 }
 
@@ -174,35 +183,33 @@ var blueContribute = {};
 
                         responseIsValidJSON = false;
 
-                        debug('the response body from the api could not be parsed as json by jquery');
+                        debug('api response body invalid');
                     }
                 }else{
                     blueContribute.latestResponseObject = data;
                     responseIsValidJSON = true;
                 }
-
+                resobj = blueContribute.latestResponseObject;
                 //console.log('nowdata', blueContribute.latestResponseObject, data.status, data.responseText);
 
                 //to do: add other expected status codes here like 400 i think?
 
                 if(responseIsValidJSON === true){
 
-                    if(blueContribute.latestResponseObject.status === 'success'){
+                    if(resobj.status === 'success'){
 
                         //if there's no debug parameter or if the site is secure, go to the redirect url
-                        if(!gup('debug') || !nonsecure) { window.location = blueContribute.latestResponseObject.redirect_url; }
+                        if(!gup('debug') || !nonsecure) { window.location = resobj.redirect_url; }
 
                     } else {
 
                         debug('response was not a success status code');
 
-                        locked = false;
+                        if(resobj.code === 'noslug'  || resobj.code === 'invalidslug'){
 
-                        if(blueContribute.latestResponseObject.code === 'noslug'  || blueContribute.latestResponseObject.code === 'invalidslug'){
+                            genError(msg.unknown + ' [No slug]');
 
-                            window.alert("A BSD slug must be provided as a value in a hidden field named 'slug' on this form.");
-
-                        } else if(blueContribute.latestResponseObject.code === 'validation'){
+                        } else if(resobj.code === 'validation'){
 
                             debug('validation error');
 
@@ -211,73 +218,79 @@ var blueContribute = {};
                                 'donate_api_valiation_error'
                             );
 
-                            if( $.isArray(blueContribute.latestResponseObject.field_errors) ){
+                            if( resobj.field_errors && $.isArray(resobj.field_errors) && (resobj.field_errors.length > 0) ){
 
-                                if(blueContribute.latestResponseObject.field_errors.length > 0){
+                                    debug(resobj.field_errors);
 
-                                    debug(blueContribute.latestResponseObject.field_errors);
-
-                                    if (blueContribute.latestResponseObject.field_errors.length===1 && blueContribute.latestResponseObject.field_errors[0].field==="amount_group"){
+                                    if (resobj.field_errors.length===1 && resobj.field_errors[0].field==="amount_group"){
                                         amt_error_only = true;
                                     }
 
-                                    for(i = 0; i <= blueContribute.latestResponseObject.field_errors.length - 1; i++){
+                                    for(i = 0; i <= resobj.field_errors.length - 1; i++){
                                         
                                         //inject the error messages for each field
-                                        $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text(blueContribute.latestResponseObject.field_errors[i].message).removeClass('hidden');
+                                        $form.find('.' + resobj.field_errors[i].field + '_error').text(resobj.field_errors[i].message).removeClass('hidden');
 
                                         //add the error class to the related fields
-                                        $('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
-
-                                        //inject the general errors message
-                                        $genError.text('Your donation was not successful. Please correct the problems marked below.').removeClass('hidden');
+                                        $form.find('.' + resobj.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
 
                                     }
 
-                                } else {
-
-                                    debug('the field_errors property in the donate api response is an array, but has no items');
-
-                                }
+                                    //inject the general errors message
+                                    genError(msg.invalid);
 
                             } else {
 
-                                debug('the field_errors property in the donate api response is not an array');
+                                debug('invalid field_errors property in the donate api');
+                                genError(msg.unknown +' [Invalid Validaiton Repsonse]');
 
                             }
 
-                        } else if(blueContribute.latestResponseObject.code === 'gateway'){
+                        } else if(resobj.code === 'gateway'){
 
-                            debug('donate api response indicates that the gateway rejected the transaction');
-
-                            report(
-                                ['Donate API', 'Gateway Error', blueContribute.latestResponseObject.gateway_response.status],
-                                'donate_api_gateway_error'
-                            );
+                            debug('gateway rejected the transaction');
                             
                             //checking for a declined card
-                            if(blueContribute.latestResponseObject.gateway_response.status === "decline"){
+                            if(resobj.gateway_response && resobj.gateway_response.status === "decline"){
 
-                                $genError.text('The transaction was declined. Please check that the address information is correct or else use a different card.').removeClass('hidden');
+                                genError(msg.declined);
 
-                                debug('donate api response indicates that the gateway rejected the transaction because the bank declined the transaction');
+                                debug('bank declined');
+
+                                report(
+                                    ['Donate API', 'Gateway Error', resobj.gateway_response.status],
+                                    'donate_api_gateway_error'
+                                );
 
                             } else {
 
                                 //blueContribute.latestResponseObject.gateway_response.status === "unkown" ||
                                 //blueContribute.latestResponseObject.gateway_response.status === "error"
                                 //not sure why this would happen
-                                $genError.text('There was a problem with your submission. Please try again.').removeClass('hidden');
+                                genError(msg.unknown +' [Gateway]');
 
-                                debug('unknown error received from the donate api');
-
+                                debug('unknown error gateway error');
+                                report(
+                                    ['Donate API', 'Unknown Gateway Error', 'unknown or malformed'],
+                                    'donate_api_gateway_error'
+                                );
                             }
+
+                        }else {
+                            
+                            genError(msg.unknown +' [Code]');
+                            debug('truly unknown error from donate api');
+                            report(
+                                ['Donate API', 'Unknown Error', (resobj.code)?resobj.code:'unknown'],
+                                'donate_api_gateway_error'
+                            );
 
                         }
 
                         //adjust the dom so that the user can see the errors
                         $body.addClass('blue_contribute_error');
                         processingState(false);
+                        locked = false;
 
                         //alert others of the fail
                         //will currently blow away QD if the amount is wrong... that's wrong, I think
@@ -285,20 +298,19 @@ var blueContribute = {};
 
                         window.scrollTo(0, 0);
 
-                    }
+                    } //end else for valid error response 
 
                 } else {
-
+                    //invalid json
                     locked = false;
                     //adjust the dom so that the user can see the errors
                     $body.addClass('blue_contribute_error');  //toggle off the processing body class
                     processingState(false);
                     //alert others of the fail
-                    //will currently blow away QD if the amount is wrong... that's wrong, I think
                     if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
                     //to do: update dom with a general error message to indicate to the user that something is wrong
-                    debug('donate api response was not parsable by jquery/is not valid json--it is probably html');
-                    $genError.text('We are unable to process your transaction at this time.').removeClass('hidden');
+                    debug('donate api response not parsable');
+                    genError(msg.unknown +' [JSON]');
                 }
 
                 //behavior that happens on success or fail

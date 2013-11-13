@@ -4,6 +4,10 @@ permalink: /v1
 
 succeed: false
 
+validation: true
+
+noslug: true
+
 ---
 {%if page.succeed %}{
     "api_version": 1,
@@ -43,7 +47,7 @@ succeed: false
             "used_quick_donate": false
         }
     }
-}{% else %}{
+}{% else %}{%if page.validation == true %}{
     "api_version":1,
     "status":"fail",
     "code":"validation",
@@ -83,10 +87,14 @@ succeed: false
         {
             "field": "cc_type_cd_group",
             "message":"invalid or unsupported card type"
-        },
-        {
-            "field":"recurring_acknowledge",
-            "message":"You must check the box below to set up a recurring contribution."
         }
     ]
-}{% endif %}
+}{% else %}{%if page.noslug == true %}{
+    "api_version":1,
+    "status":"fail",
+    "code":"noslug"
+}{% else %}{ 
+"api_version":1, 
+"status":"fail", 
+"code":"confirm" 
+}{% endif %}{% endif %}{% endif %}
