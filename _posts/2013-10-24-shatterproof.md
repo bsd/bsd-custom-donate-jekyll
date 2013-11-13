@@ -36,7 +36,7 @@ optional-phone: true #phone is required by default, this overrides that
 require-cvv: false #this setting/field will not affect quick donate
 show-cvv-help: false #help tooltip: not ready for prime-time
 
-employer-and-occupation: false
+employer-and-occupation: true
 
 
 ##internationalization
@@ -57,7 +57,7 @@ accept-mastercard: true
 accept-amex: true
 accept-discover: true
 accept-maestro: false #shows up, but not tested
-accept-pay-pal: false  #not yet working
+accept-paypal: true  #not yet working
 
 #additional power options
 id-prefix: cd_ #id used in order to reduce collision with other elements on a page 

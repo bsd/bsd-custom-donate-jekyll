@@ -326,7 +326,7 @@ var sequential = {};
 
 			sequential.utilityFunctions.validatePersonalInfo = function(){
 
-				var numberOfInvalidFields, firstName, lastName, address, city, state, zip, email, phone, country, employer, occupation;
+				var numberOfInvalidFields, firstName, lastName, address, city, $state, zip, email, phone, country, employer, occupation, $zip;
 
 				numberOfInvalidFields = 0;
 
@@ -390,26 +390,23 @@ var sequential = {};
 
 				}
 
-				state = $("[name='state_cd']");
+				$state = $("[name='state_cd']");
 
-				if( (state.is('select') && state.val().length !== 2 ) || !state.val() ){
+				if( ($state.is('select') && $state.val().length !== 2 ) || !$state.val() ){
 
 					numberOfInvalidFields++;
 
-					state.addClass('bsdcd-error');
-
-					//console.log('state first');
+					$state.addClass('bsdcd-error');
 
 				} else {
 
-					state.removeClass('bsdcd-error');
-
-					//console.log('state second');
+					$state.removeClass('bsdcd-error');
 
 				}
 
 				//needs to not use US validation when it's not the US
-				zip = $topNode.find("[name='zip']").val();
+				$zip = $form.find("[name='zip']");
+                zip = $zip.val();
 
                 //console.log('zip',zip);
 				if( countryVal ==="US" ){
@@ -417,20 +414,20 @@ var sequential = {};
 				}
 
 				if( countryVal === "US" && zip.length >= 5 && zip.length <= 9 ){
-					$topNode.find("[name='zip']").removeClass('bsdcd-error');
-				} else if ( countryVal ==="GB" && zip.length >= 3 && zip.length <= 10 ){
-					$topNode.find("[name='zip']").removeClass('bsdcd-error');
+					$zip.removeClass('bsdcd-error');
+				} else if ( countryVal === "GB" && zip.length >= 3 && zip.length <= 10 ){
+					$zip.removeClass('bsdcd-error');
 				}else if ( countryVal !== "US" && countryVal !== "GB" && !!zip ){
-					$topNode.find("[name='zip']").removeClass('bsdcd-error');
+					$zip.removeClass('bsdcd-error');
 				}else {
 
 					numberOfInvalidFields++;
 
-					$topNode.find("[name='zip']").addClass('bsdcd-error');
+					$zip.addClass('bsdcd-error');
 
 				}
 
-				country = $topNode.find('[name="country"]');
+				country = $form.find('[name="country"]');
 
 				if(sequential.settings.requireCountry){
 
@@ -449,7 +446,7 @@ var sequential = {};
 
 				email = {};
 
-				email.input = $topNode.find("[name='email']");
+				email.input = $form.find("[name='email']");
 
 				email.address = email.input.val();
 
@@ -483,7 +480,7 @@ var sequential = {};
 
 				phone = {};
 
-				phone.input = $topNode.find("[name='phone']");
+				phone.input = $form.find("[name='phone']");
 
 				phone.number = phone.input.val();
 
@@ -515,7 +512,7 @@ var sequential = {};
 
 				}
 
-                employer = $topNode.find("[name='employer']");
+                employer = $form.find("[name='employer']");
 
                 if( employer.length && !employer.val() ){
 
@@ -529,7 +526,7 @@ var sequential = {};
 
                 }
 
-                occupation = $topNode.find("[name='occupation']");
+                occupation = $form.find("[name='occupation']");
 
                 if( occupation.length && !occupation.val() ){
 
@@ -566,41 +563,28 @@ var sequential = {};
 
 			sequential.utilityFunctions.validatePaymentInfo = function (){
 
-				var creditCard, expirationDate, invalidFields, cvv;
+				var creditCard, expirationDate, invalidFields, cvv, pp;
 
 				invalidFields = 0;
 
+                pp = $form.find('[name="cc_type_cd"]').filter(':checked').val() === "pp";
+
 				creditCard = {};
 
-				creditCard.field = $("[name='cc_number']");
+				creditCard.field = $form.find("[name='cc_number']");
 
 				creditCard.number = creditCard.field.val();
 
-				creditCard.isValid = function(){
 
-					var creditCardRegex = /[0-9]{13,19}|([0-9- ]{3,8}){3,6}/;
-
-					if(creditCardRegex.test(creditCard.number) || (sequential.qd && creditCard.number.indexOf('XXX')>-1 ) ){
-
-						return true;
-
-					} else {
-
-						return false;
-
-					}
-
-				};
-
-				if( creditCard.isValid() ){
+				if(/[0-9]{13,19}|([0-9- ]{3,8}){3,6}/.test(creditCard.number) || (sequential.qd && creditCard.number.indexOf('XXX')>-1 || pp) ){
 
 					creditCard.field.removeClass('bsdcd-error');
 
 				} else {
 
-					invalidFields++;
+                    invalidFields++;
 
-					creditCard.field.addClass('bsdcd-error');
+                    creditCard.field.addClass('bsdcd-error');
 
 				}
 
@@ -608,7 +592,7 @@ var sequential = {};
 
 				expirationDate.month = {};
 
-				expirationDate.month.field = $("[name='cc_expir_month']");
+				expirationDate.month.field = $form.find("[name='cc_expir_month']");
 
 				expirationDate.month.val = expirationDate.month.field.val();
 
@@ -616,7 +600,7 @@ var sequential = {};
 
 				expirationDate.month.isValid = function(){
 
-					if( expirationDate.month.regEx.test(expirationDate.month.val) ){
+					if( expirationDate.month.regEx.test(expirationDate.month.val) || pp){
 
 						return true;
 
@@ -641,49 +625,27 @@ var sequential = {};
 
 				expirationDate.year = {};
 
-				expirationDate.year.field = $("[name='cc_expir_year']");
+				expirationDate.year.field = $form.find("[name='cc_expir_year']");
 
 				expirationDate.year.val = parseInt( expirationDate.year.field.val(), 10 );
 
-				expirationDate.year.isValid = function(){
+				if( ( isNaN(expirationDate.year.val) || expirationDate.year.val < 2013) && !pp) {
 
-					if( isNaN(expirationDate.year.val) ) {
+                    expirationDate.year.field.addClass('bsdcd-error');
 
-						return false;
-
-					} else {
-
-						if( expirationDate.year.val >= 2013 ){
-
-							return true;
-
-						} else {
-
-							return false;
-
-						}
-
-					}
-
-				};
-
-				if( expirationDate.year.isValid() ){
-
-					expirationDate.year.field.removeClass('bsdcd-error');
+                    invalidFields++;
 
 				} else {
 
-					expirationDate.year.field.addClass('bsdcd-error');
-
-					invalidFields++;
+                    expirationDate.year.field.removeClass('bsdcd-error');
 
 				}
 
-                cvv = $topNode.find('[name="cc_cvv"]');
+                cvv = $form.find('[name="cc_cvv"]');
 
                 if(sequential.settings.requireCVV){
 
-                    if( sequential.qd || /^[0-9]{3,4}$/.test( cvv.val() ) ){
+                    if( pp || sequential.qd || /^[0-9]{3,4}$/.test( cvv.val() ) ){
 
                         cvv.removeClass('bsdcd-error');
 

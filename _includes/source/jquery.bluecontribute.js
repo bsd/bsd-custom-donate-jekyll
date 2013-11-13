@@ -183,9 +183,9 @@ var blueContribute = {};
 
                 //to do: add other expected status codes here like 400 i think?
 
-                if(responseIsValidJSON === true){
+                if(responseIsValidJSON === true && resobj){
 
-                    if(resobj.status === 'success'){
+                    if(resobj.status === "success" || resobj.status === "paypal"){
 
                         //if there's no debug parameter or if the site is secure, go to the redirect url
                         if(!gup('debug') || !nonsecure) { window.location = resobj.redirect_url; }
@@ -267,7 +267,7 @@ var blueContribute = {};
 
                         }else {
                             
-                            genError(msg.unknown +' [Code]');
+                            genError(msg.unknown +' [Code: '+((resobj.code)?resobj.code:'unknown')+']');
                             debug('truly unknown error from donate api');
                             report(
                                 ['Donate API', 'Unknown Error', (resobj.code)?resobj.code:'unknown'],
@@ -299,7 +299,7 @@ var blueContribute = {};
                     if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
                     //to do: update dom with a general error message to indicate to the user that something is wrong
                     debug('donate api response not parsable');
-                    genError(msg.unknown +' [JSON]');
+                    genError(msg.unknown +' [API DOWN]');
                 }
 
                 //behavior that happens on success or fail
