@@ -9,25 +9,25 @@ There are two main ways you can use this repo.
 2. or you can create complete wrappers/styled themes in the tool and compile/preview/test all the css/js on your local jekyll server until you're ready to install it on EE/the tools.
 
 Some things of note here:
-    -css is now all SASSified
-    -core styles mostly separated from client styles
-    -handles quick donate logins/logouts natively
-    -handles in honor of fields
-    -handles prefill of data from spud if quick donte isn't available
-    -credit card type auto-detection. (Currently Visa, Mastercard, Amex, Discover, Maestro)
-    -nomin=1 for testing extremely low dollar amounts
-    -works with javascript disabled (and js-only things like sequential/recurring will be hidden)
-    -sequential donate behavior is separated from the core (remove the .sequential class and you have a normal donate form)
-    -built with box-sizing: content-box so that it can work with older sites.  Better(i.e., simpler) border-box support in progress if you don't need to support IE7
-    -But... core layout should support IE7 without extra work
+- css is now all SASSified
+- core styles mostly separated from client styles
+- handles quick donate logins/logouts natively
+- handles in-honor of fields
+- handles prefill of data from spud if quick donte isn't available
+- credit card type auto-detection. (Currently Visa, Mastercard, Amex, Discover, Maestro)
+- nomin=1 for testing extremely low dollar amounts
+- works with javascript disabled (and js-only things like sequential/recurring will be hidden)
+- sequential donate behavior is separated from the core (remove the .sequential class and you have a normal donate form)
+- built with box-sizing: content-box so that it can work with older sites.  Better(i.e., simpler) border-box support in progress if you don't need to support IE7
+- But... core layout should support IE7 without extra work
 
 There's a lot more to be done to make the core more flexible and customizable, but you shouldn't need more than a couple of client-specific tweaks to get a nice looking, fully functional form.
 
 ##Requirements: 
 
-*Ruby, latest version of Jekyll (v1), etc.
-*Something to compile SASS with (Codekit, sass watch, etc.)
-*Your site MUST implement the .js .no-js html class method in some fashion. Otherwise, there's no easy way to toggle the sequential js off when javascript is disabled
+* Ruby, latest version of Jekyll (v1), etc.
+* Something to compile SASS with (Codekit, sass watch, etc.)
+* Your site MUST implement the .js .no-js html class method in some fashion. Otherwise, there's no easy way to toggle the sequential js off when javascript is disabled
 
 I'd also highly advise making sure the includes and uses Modernizr & in particular, the box-sizing custom detect.
 
@@ -64,8 +64,8 @@ Now test!
 ##Things you'll want to test
 
 1. Overriden styles: there's a trade-off in making bsdcd styles simpler/faster: existing client styles may override the core, breaking the plug-n-play nature of structure/look. However, there are a couple of very common culprits if things look wrong: 
-    *special padding and margins on ul/ol/li elements (often caused by over-specific rules).
-    *.base or #framework classes in the wrapper triggering a bunch of complex tools styles (just remove those from the wrapper in most cases)
+    * special padding and margins on ul/ol/li elements (often caused by over-specific rules).
+    * .base or #framework classes in the wrapper triggering a bunch of complex tools styles (just remove those from the wrapper in most cases)
 2. Do you have some means of getting the CSS in the <head>?  If not, the styles may flash on first load. A custom tools wrapper may be in order, or an includes/header.html conditinal that can call the styles as needed.
 3. Does the background image work at all browser sizes above tablet?  This can take some serious playing around with the code in bsdcd-backgrounds, as it really depends on what the image is, and what part of it you want to keep in view as the page scales, all without exposing the edges of the image.
 
@@ -87,15 +87,15 @@ The basics though, involve creating
 
 ## Todo
 
-*allow quick donate to be turned completely off/removed from the markup and code
-*separate structure from functionality even more, and split off style choices like (box-sizing/button styles/step styles) into discrete modules
-*make the lack of a next button on the amounts step in sequential an option rather than a mandatory feature
-*arbitrary custom fields
-*additional stock layouts (more conventional text on the left/form on the right, layout for sidebar iframes, etc.)
+* allow quick donate to be turned completely off/removed from the markup and code
+* separate structure from functionality even more, and split off style choices like (box-sizing/button styles/step styles) into discrete modules
+* make the lack of a next button on the amounts step in sequential an option rather than a mandatory feature
+* arbitrary custom fields
+* additional stock layouts (more conventional text on the left/form on the right, layout for sidebar iframes, etc.)
 
 ### Minor things these scripts do that you might not notice at first, but are critical behavior
 
-*If users can ever select a country different from the US, then the zip field CANNOT be type="tel"  This would bring up the numbers only keypad on mobile phones, preventing users from entering any international postal codes that include letters. We can't switch types dynamically because this breaks/throws security warnings in the IEs.
-*Likewise, if users can select different countries than the US, then state_cd needs to switch from a dropdown to a text field and back again.  The main form handles this already, and the in honor section simply leaves honoree_state_cd as a text field regardless because it always allows international addresses.
+* If users can ever select a country different from the US, then the zip field CANNOT be type="tel"  This would bring up the numbers only keypad on mobile phones, preventing users from entering any international postal codes that include letters. We can't switch types dynamically because this breaks/throws security warnings in the IEs.
+* Likewise, if users can select different countries than the US, then state_cd needs to switch from a dropdown to a text field and back again.  The main form handles this already, and the in honor section simply leaves honoree_state_cd as a text field regardless because it always allows international addresses.
 
 
