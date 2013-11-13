@@ -56,6 +56,13 @@ No: then you probably have to host the custom form in the Simple Pages module on
 At this point, you should have basically two steps to get things working (this will change, as we'll want to separate core stuff from client custom stuff)
 
 1. Upload the /donate/ folder in /page/-/ from jekyll to a folder /donate on your client's server.
+    * you actually only need these files to be present in the tools: 
+        - /page/-/donate/sequential-donate.js or /page/-/donate/donate-api-only.js (depending on whether or not you're using sequential donation)
+        - /page/-/donate/[-your-custom-style]/bsdcd-styles.css
+        - /page/-/donate/[-your-custom-style]/bsdcd-styles-desktop.css
+        - /page/-/donate/Credit_Card_Icons_m.png
+        - /page/-/donate/Credit_Card_Icons_m.svg
+        - /page/-/donate/ajax-loader.gif
 2. Put the form markup on EE or Simple Pages, inside some appropriate wrapper.  If you want jekyll to just output the inner markup, instead of any test wrapper you used locally, set the layout option to form-only and copy the source of the result.  Make sure to figure out whether you want it to simply print out the CSS links and/or login markup above the form, or whether you are going to put those elsewhere in your real, production wrapper. You can turn both off in the config (you can also turn them off to stick them elsewhere in your test layout wrapper if you have one, to more closely match production).
 3. If your site is not responsive, just link to the desktop stylesheet and ignore the main one.  Or, leave everything in place and set the sequential/form breakpoints to like 2px or something.
 
