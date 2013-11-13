@@ -64,30 +64,19 @@ var blueContribute = {};
                     "unknown":"We were unable to process your transaction at this time.",
                     "invalid":"Your donation was not successful. Please correct the problems marked below.",
                     "declined":"The transaction was declined. Please check that the address information is correct or else use a different card."
-                };
+                }, debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
 
             //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
-            $sourceField.val( defaultsource ? defaultsource + ',' + urlsource : urlsource );
-
-
-            var debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
+            if(urlsource) {
+                $sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
+            }
 
             debug = function(message){
-
                 if(blueContribute.settings.debug){
-
                     if(typeof console === 'object'){
-
                         window.console.log(message);
-
-                    } else {
-
-                        window.alert(message);
-
                     }
-
                 }
-
             };
 
             /*optional function could include additional _synchronous_ validation checks, but in the base install isn't needed*/
@@ -398,7 +387,7 @@ var blueContribute = {};
 
                         }).always(defaultResponseHandler);
 
-                        if(nonsecure){ console.log('form is on a non-secure domain, transaction results simulated'); }
+                        if(nonsecure){ console.log('non-secure domain, transaction results simulated'); }
 
                     });
 
@@ -409,18 +398,13 @@ var blueContribute = {};
             };
 
             $form.submit(function(e){
-
                 blueContribute.submitForm();
-                
                 e.preventDefault();
-
             });
 
             //initalization function
             if(typeof blueContribute.settings.afterInit === 'function'){
-
                 blueContribute.settings.afterInit();
-
             }
 
         }
@@ -428,4 +412,3 @@ var blueContribute = {};
     });
 
 }(jQuery));
-                    

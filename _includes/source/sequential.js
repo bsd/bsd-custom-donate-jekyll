@@ -116,7 +116,7 @@ var sequential = {};
                                 }
 							} else {
 								//console.log('step fail',sequential.currentStep);
-                                $('li.sequential_breadcrumb_' + sequential.currentStep).addClass('step-error');
+                                $('li.sequential_breadcrumb_' + sequential.currentStep).removeClass('completed').addClass('step-error');
 							}
 
 						}

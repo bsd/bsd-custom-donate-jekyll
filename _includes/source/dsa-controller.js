@@ -6,7 +6,7 @@
             name = name.replace(/(\[|\])/g,"\\$1");
             var regex = new RegExp("[\\?&]"+name+"=([^&#]*)"),
                 results = regex.exec( window.location.href );
-                if( results === null ){ return "";} else {return results[1];}
+                return ( results === null )?"":results[1];
         },
         report = function(ga,opt){
             window._gaq.push( ['_trackEvent'].concat(ga) );
