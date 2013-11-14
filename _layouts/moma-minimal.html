@@ -34,34 +34,36 @@
         wh = $w.height(),
         context = canvas.getContext('2d'),
         stars = [],
-        number = 520,
+        number = 3720,
         speed = 20,
         g;
 
     $canvas.attr({'width':ww,'height':wh});
 
-
+    $('.bsdcd-outer-container').fadeTo(500,0.2);
     $('body').on('mouseenter','#bsd_contribute_cont',function(){
         together = true;
+        $('.bsdcd-outer-container').fadeTo(500,1);
     }).on('mouseleave','#bsd_contribute_cont',function(){
         together = false;
+        $('.bsdcd-outer-container').fadeTo(500,0.2);
     });
 
 
 //start crazy
 
+
+
 var particles = [];
 var PULSATION = true;
 var PULSATION_PERIOD = 500;
-var PARTICLE_RADIUS = 5;
+var PARTICLE_RADIUS = 12;
 var partnum = 1600;
     total_area = ww * wh;
   single_particle_area = total_area / partnum;
   area_length = Math.sqrt(single_particle_area);
 
-for(var i = 1; i <= partnum; i++) {
-    particles.push(new particle(i));
-  }
+
 
   function particle(i) {
     this.r = 255; //Math.round(Math.random() * 255 | 0);
@@ -73,12 +75,15 @@ for(var i = 1; i <= partnum; i++) {
     this.y = (i * area_length) / ww * area_length;
 
 
-    /* randomize delta to make particles sparkling */
+    //randomize delta to make particles sparkling 
     this.deltaOffset = Math.random() * PULSATION_PERIOD | 4;
 
     this.radius = 0.1 + Math.random() * 0.1;
   }
-
+for(var i = 1; i <= partnum; i++) {
+    particles.push(new particle(i));
+  }
+  console.log(particles.length);
 
 var QUALITY = 3;
 var FANCY_FONT = "arial";
@@ -94,6 +99,7 @@ var GLOBAL_PULSATION = false;
 var tcanvas = document.createElement("canvas");
 var tctx = tcanvas.getContext("2d");
 var times = 0;
+var otherpos = [];
 
     tcanvas.width = ww;
     tcanvas.height = wh;
@@ -109,6 +115,7 @@ var times = 0;
 
     var image_data = tctx.getImageData(0, 0, ww, wh);
     var pixels = image_data.data;
+
     var positions = [];
 
     for(var i = 0; i < pixels.length; i = i + 4) {
@@ -120,9 +127,15 @@ var times = 0;
         positions.push(position);
       }
     }
-    console.log(positions);
+    console.log(positions.length);
+
+otherpos = positions.slice(0);
+
+console.log(positions.length, otherpos.length);
 
 function get_destinations() {
+    console.log('orig',positions.length);
+    var pa, nearest_position, po;
     for(var i = 0; i < particles.length; i++) {
       pa = particles[i];
       particles[i].alpha = 1;
@@ -153,8 +166,6 @@ function get_destinations() {
             positions.splice(n, 1);
           }
         }
-      } else {
-        //particles[i].alpha = 0;
       }
     }
   }
@@ -179,7 +190,7 @@ get_destinations();
     for(var i = 0; i < particles.length; i++) {
       p = particles[i];
 
-      /* in lower qualities there is not enough full pixels for all of  them - dirty hack*/
+      //in lower qualities there is not enough full pixels for all of  them - dirty hack
 
       if(isNaN(p.x)) continue
 
@@ -190,10 +201,10 @@ get_destinations();
 
       if(BLINK) context.globalAlpha = Math.sin(Math.PI * mod * 1.0);
 
-      if(!PULSATION) { /* this would be 0 -> 1 */
+      if(!PULSATION) { // this would be 0 -> 1 
                 var mod = ((GLOBAL_PULSATION ? 0 : p.deltaOffset) + now) % PULSATION_PERIOD / PULSATION_PERIOD;
 
-        /* lets make the value bouncing with sinus */
+        // lets make the value bouncing with sinus 
         mod = Math.sin(mod * Math.PI);
       } else var mod = 1;
 
@@ -207,17 +218,16 @@ get_destinations();
 
 
         if (!together){
-            p.x += 16 * Math.random() * (Math.random() < .5 ? -1 : 1);
-            p.y += 16 * Math.random() * (Math.random() < .5 ? -1 : 1);
+            p.x += 46 * Math.random() * (Math.random() < .5 ? -1 : 1);
+            p.y += 46 * Math.random() * (Math.random() < .5 ? -1 : 1);
         }else {
-            p.x += (p.dx - p.x) / 10;
-            p.y += (p.dy - p.y) / 10;
+            p.x += (p.dx - p.x) / 4;
+            p.y += (p.dy - p.y) / 2;
         }
     }
     times++;
     requestAnimationFrame(drawWord);
   }
-
 
   drawWord();
 
@@ -226,6 +236,42 @@ get_destinations();
 
 
 
+function starpredestination() {
+
+    console.log('what',stars.length, otherpos.length);
+    var pa,nearest_position,po;
+    for(var i = 0; i < stars.length; i++) {
+      pa = stars[i];
+      stars[i].alpha = 1;
+      var distance = [];
+      nearest_position = 0;
+      if(otherpos.length) {
+        for(var n = 0; n < otherpos.length; n++) {
+          po = otherpos[n];
+          distance[n] = Math.sqrt((pa.x - po.x) * (pa.x - po.x) + (pa.y - po.y) * (pa.y - po.y));
+          if(n > 0) {
+            if(distance[n] <= distance[nearest_position]) {
+              nearest_position = n;
+            }
+          }
+        }
+        stars[i].wdx = stars[nearest_position].x;
+        stars[i].wdy = stars[nearest_position].y;
+        stars[i].distance = distance[nearest_position];
+
+        var po1 = otherpos[nearest_position];
+        for(var n = 0; n < otherpos.length; n++) {
+          var po2 = otherpos[n];
+          distance = Math.sqrt((po1.x - po2.x) * (po1.x - po2.x) + (po1.y - po2.y) * (po1.y - po2.y));
+          if(distance <= 5) {
+            otherpos.splice(n, 1);
+          }
+        }
+      }
+    }
+  }
+
+//starpredestination();
 
     function create(){
         stars = [];
@@ -233,13 +279,13 @@ get_destinations();
             stars[i] = new Circle();
             stars[i].reset();
         }
-        draw();
+        //draw();
     }
   
     function draw() {
         var ln = stars.length-1;
 
-        //context.clearRect(0,0,ww,wh);
+        context.clearRect(0,0,ww,wh);
         
         while(on && --ln) {
             stars[ln].fade();
@@ -250,7 +296,7 @@ get_destinations();
     }
 
     function Circle() {
-        this.s = {ttl:8000, xmax:5, ymax:2, rmax:4, rt:1, xdef:960, ydef:540, xdrift:4, ydrift: 4, random:true, blink:true};
+        this.s = {ttl:8000, xmax:5, ymax:2, rmax:7, rt:1, xdef:960, ydef:540, xdrift:4, ydrift: 4, random:true, blink:true};
 
         this.reset = function() {
             this.x = (this.s.random ? ww*Math.random() : this.s.xdef);
@@ -271,30 +317,51 @@ get_destinations();
         }
 
         this.draw = function() {
-            if(this.s.blink && (this.rt <= 0 || this.rt >= this.hl)) this.s.rt = this.s.rt*-1;
-            else if(this.rt >= this.hl) this.reset();
-            var newo = 1-(this.rt/this.hl) || 0;
-            context.beginPath();
-            context.arc(this.x,this.y,this.r,0,Math.PI*2,true);
-            context.closePath();
+            if(this.s.blink && (this.rt <= 0 || this.rt >= this.hl)) { this.s.rt = this.s.rt*-1; }
+            else if(this.rt >= this.hl) { this.reset(); }
+            var newo = (Math.round(Math.abs(1-(this.rt/this.hl))*10)/10) || 0;
             var cr = this.r*newo;
-            g = context.createRadialGradient(this.x,this.y,0,this.x,this.y,(cr <= 0 ? 1 : cr));
-            g.addColorStop(0.0, 'rgba(255,255,255,'+newo+')');
-            g.addColorStop(this.stop, 'rgba(77,101,181,'+(newo*.6)+')');
-            g.addColorStop(1.0, 'rgba(77,101,181,0)');
-            context.fillStyle = g;
-            context.fill();
+            if(this.x<0){
+                this.x = 0;
+            } 
+            if (this.y<0){
+                this.y = 0;
+            }
+                context.beginPath();
+                context.arc(this.x,this.y,this.r,0,Math.PI*2,true);
+                context.closePath();
+                if(isNaN(newo) || newo<0 || newo>1){
+                    console.log('newo', newo);
+                    on = false;
+                }
+                if(isNaN(cr)){
+                    console.log('cr', cr);
+                    on = false;
+                }
+                g = context.createRadialGradient(this.x,this.y,0,this.x,this.y,(cr <= 0 ? 1 : cr));
+                g.addColorStop(0.0, 'rgba(255,255,255,'+newo+')');
+                g.addColorStop(this.stop, 'rgba(77,101,181,'+(newo*.6)+')');
+                g.addColorStop(1.0, 'rgba(77,101,181,0)');
+                context.fillStyle = g;
+                context.fill();
+
         }
 
         this.move = function() {
-            this.x += (this.rt/this.hl)*this.dx;
-            this.y += (this.rt/this.hl)*this.dy;
-            if(this.x > ww || this.x < 0) this.dx *= -1;
-            if(this.y > wh || this.y < 0) this.dy *= -1;
-        }
 
-        this.getX = function() { return this.x; }
-        this.getY = function() { return this.y; }
+            if(!together){
+                this.x += (this.rt/this.hl)*this.dx;
+                this.y += (this.rt/this.hl)*this.dy;
+                if(this.x > ww || this.x < 0) { this.dx *= -1; }
+                if(this.y > wh || this.y < 0) { this.dy *= -1; }
+            }
+            else {
+                //this.x += (this.wdx - this.x) / 4;
+                //this.y += (this.wdy - this.y) / 2;
+                //this.x = this.wdx;
+                //this.y = this.wdy;
+            }
+        }
     }
 
     $w.on('resize',function(){
