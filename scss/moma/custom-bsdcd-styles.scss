@@ -74,10 +74,13 @@
             }
         }
     }
+    .bsdcd-outer-container li.amount_cont label.preset_amount_label{
+        padding: 11px 5px;
+    }
     #stars{
         display:block;
         position:fixed;
-        height:100%;
-        width:100%;
+        //height:100%;
+        //width:100%;
     }
 }
