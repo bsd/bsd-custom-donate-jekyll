@@ -28,6 +28,7 @@ There's a lot more to be done to make the core more flexible and customizable, b
 * Ruby, latest version of Jekyll (v1), etc.
 * Something to compile SASS with (Codekit, sass watch, etc.)
 * Your site MUST implement the .js .no-js html class method in some fashion. Otherwise, there's no easy way to toggle the sequential js off when javascript is disabled.  If you're not using modernizr, the code is just this: <script>(function(dc){ dc.className = dc.className.replace("no-js","js"); }(document.documentElement));</script>
+* for IE9 and below, you'll want to make sure your site implements the placeholder polyfill in some fashion.  input classes are already applied in the markup, so you shouldn't need to worry about them
 
 I'd also highly advise making sure the includes and uses Modernizr & in particular, the box-sizing custom detect.
 
