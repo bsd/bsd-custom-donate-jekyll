@@ -411,8 +411,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     background: none;
     padding: 20px 0;
 
-    .bsdcd-top-section { 
-        text-align:left;
+    .bsdcd-top-section {
         width: $section-total-width - ($section-inner-side-padding * 2);
         background: #fff;
         padding: 10px $section-inner-side-padding;

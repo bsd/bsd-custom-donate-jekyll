@@ -1,0 +1,4 @@
+body{
+    background-color: $white;
+    @include respond-min( $form-field-layout ){ background-color: $dark-blue; }
+}
