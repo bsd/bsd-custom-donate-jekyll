@@ -44,7 +44,7 @@
     }
     @include respond-min( $form-field-layout ){
         position: absolute;
-        top: -40px;
+        top: -40px; 
     }
 }
 .qd_info_section{
@@ -86,6 +86,6 @@
     .qd-login-links-section{
         position:absolute;
         right:20px;
-        top:-40px;
+        //top:-40px; //figure out where this goes yourself, Drew
     }
 }

@@ -56,7 +56,8 @@ var blueContribute = {};
                 $sourceField = $form.find('[name="source_codes"]'),
                 defaultsource = $sourceField.val(),
                 $genError = $form.find('.bsdcd-general_error'),
-                urlsource = gup('source')|| gup('fb_ref') || '',
+                urlsource = gup('source')||gup('fb_ref'),
+                urlsubsource = gup('subsource'),
                 $slugField = $form.find("[name='slug']"),
                 pagetitle = document.title,
                 wait = false,
@@ -67,7 +68,9 @@ var blueContribute = {};
                 }, debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
 
             //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
-            if(urlsource) {
+
+            if(urlsource || urlsubsource) {
+                if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
                 $sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
             }
 
@@ -179,19 +182,22 @@ var blueContribute = {};
                     responseIsValidJSON = true;
                 }
                 resobj = blueContribute.latestResponseObject;
-                //console.log('nowdata', blueContribute.latestResponseObject, data.status, data.responseText);
-
-                //to do: add other expected status codes here like 400 i think?
 
                 if(responseIsValidJSON === true && resobj){
 
                     if(resobj.status === "success" || resobj.status === "paypal"){
-
-                        //if there's no debug parameter or if the site is secure, go to the redirect url
-                        if(!gup('debug') || !nonsecure) { window.location = resobj.redirect_url; }
+                        //if custom success is defined, fire it with the response object
+                        if (typeof blueContribute.settings.customSuccess === 'function'){
+                            processingState(false);
+                            blueContribute.settings.customSuccess(resobj);
+                        }
+                        //if there's no debug parameter and if the site is secure, go to the redirect url
+                        else if(!gup('debug') || !nonsecure) {
+                            window.location = resobj.redirect_url;
+                        }
 
                     } else {
-
+                        //we have some sort of failure to communicate
                         debug('response was not a success status code');
 
                         if(resobj.code === 'noslug'  || resobj.code === 'invalidslug'){
@@ -321,6 +327,8 @@ var blueContribute = {};
                 beforePost: defaultBeforePost,
 
                 responseHandler:  defaultResponseHandler,
+
+                customSuccess: null,
 
                 postdelay: 0, //artificially deplay the submission
 

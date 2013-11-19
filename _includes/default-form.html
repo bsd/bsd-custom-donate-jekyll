@@ -328,22 +328,16 @@
             var $topNode = $('#bsd_contribute_cont');
 {% if page.sequential %}
             $topNode.sequential({
-
-                debug: true
-
+                {% if page.debug %}debug: true{% endif %}
             });
 {%endif%}
             $topNode.find('form').blueContribute({
-
-                debug: true
-
+                {% if page.debug %}debug: true{% endif %}{% if page.debug AND page.custom-success %},{% endif %}{% if page.custom-success %}customSuccess: {{page.custom-success}}{% endif %}
             });
             $topNode.detectCCType();
             
-            $topNode.quickDonate({
-
-                debug: true
-
+            $topNode.quickDonate({ 
+                {% if page.debug %}debug: true{% endif %}
             });
 
         }(jQuery));

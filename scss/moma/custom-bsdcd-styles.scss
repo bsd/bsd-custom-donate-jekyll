@@ -32,7 +32,25 @@
 #stars{
     display:none;
 }
-
+.oldie{
+    .oldstars {
+        background-image: url(/page/-/donate/moma-minimal/stars.png);
+    }
+    .oldstars2 {
+        background-image: url(/page/-/donate/moma-minimal/stars2.png);
+    }
+    .oldstars{
+        background-position: 40% 30%;
+        position:absolute;
+        height:100%;
+        width:100%;
+        top:0;
+        left:0;
+    }
+    canvas {
+        display:none;
+    }
+}
 
 .bsdcd-outer-container li.amount_cont label.preset_amount_label, .bsdcd-outer-container #submit, .bsdcd-outer-container #processing_indicator, .bsdcd-outer-container .big_btn{
     background-image:none;

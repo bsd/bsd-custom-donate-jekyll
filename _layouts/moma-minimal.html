@@ -24,7 +24,7 @@
 
 <script>
 
-(function($,w){
+(function($,w, M){
     var on = false,
         together = false,
         canvas = document.getElementById('stars'),
@@ -36,6 +36,7 @@
         stars = [],
         number = 300,
         speed = 5,
+        started = false,
         g;
 
     $canvas.attr({'width':ww,'height':wh});
@@ -281,11 +282,11 @@ function starpredestination() {
     function create(){
         stars = [];
         for(var i = 0; i < number; i++) {
-            stars[i] = new Circle();
+            stars[i] = new Circle(ww,wh);
             stars[i].reset();
         }
-        starpredestination();
-        draw();
+        //starpredestination();
+        if (!started) { draw(); started = true; }
     }
   
     function draw() {
@@ -294,7 +295,6 @@ function starpredestination() {
         context.clearRect(0,0,ww,wh);      
         
         while(on && ln--) {
-            stars[ln].fade();
             stars[ln].move();
             stars[ln].draw();
         }
@@ -303,64 +303,56 @@ function starpredestination() {
         requestAnimationFrame(draw);
     }
 
-    function Circle() {
-        this.s = {ttl:28000, xmax:5, ymax:2, rmax:6, rt:1};
+    function Circle(www,wwh) {
+        this.s = {ttl:800, xmax:5, ymax:2, rmax:6, rt:1};
 
         this.reset = function() {
-            this.x = ww*Math.random();
-            this.y = wh*Math.random();
+            this.x = www*Math.random();
+            this.y = wwh*Math.random();
             this.r = ((this.s.rmax-1)*Math.random()) + 1;
             this.dx = (Math.random()*this.s.xmax) * (Math.random() < .5 ? -1 : 1);
             this.dy = (Math.random()*this.s.ymax) * (Math.random() < .5 ? -1 : 1);
             this.hl = (this.s.ttl/speed)*(this.r/this.s.rmax);
             this.rt = Math.random()*this.hl;
             this.s.rt = Math.random()+1;
-            this.stop = Math.random()*.2+.4;
-        }
-
-        this.fade = function() {
-            this.rt += this.s.rt;
-        }
-
-        this.draw = function() {
-            if(this.rt <= 0 || this.rt >= this.hl){ this.s.rt = this.s.rt*-1; this.rt += this.s.rt; }
-            var newo = 1-(this.rt/this.hl),
-                cr = this.r*newo;
-                context.beginPath();
-                context.arc(this.x,this.y,this.r,0,Math.PI*2,true);
-                context.closePath();
-                if(isNaN(newo) || newo<0 || newo>1){
-                    console.log('newo', newo);
-                    on = false;
-                }
-                if(isNaN(cr) || cr<0 || cr===-Infinity){
-                    console.log('cr', cr);
-                    on = false;
-                }
-                g = context.createRadialGradient(this.x, this.y, 0, this.x, this.y, cr);
-                //g = context.createRadialGradient(5, 5, 0, 15, 15, 40);
-                g.addColorStop(0.0, 'rgba(255,255,255,'+newo+')');
-                g.addColorStop(this.stop, 'rgba(77,101,181,'+(newo*0.6)+')');
-                g.addColorStop(1.0, 'rgba(77,101,181,0)');
-                context.fillStyle = g;
-                context.fill();
-
+            this.stop = Math.random()*.5+.3;
         }
 
         this.move = function() {
 
             if(true){
-                this.x += ((this.rt/this.hl)*this.dx) / 80;
-                this.y += (this.rt/this.hl)*0.2;
-                if(this.x > ww || this.x < 0) { this.dx *= -1; }
+                this.x += ((this.rt/this.hl)*this.dx) / 120;
+                this.y += (this.rt/this.hl)*0.1;
+                if(this.x > www || this.x < 0) { this.dx *= -1; }
                 if(this.y < 0) { this.dy *= -1; }
-                if(this.y > wh){  this.y = 0; }
+                if(this.y > wwh){  this.y = 0; }
             }
             else {
                 this.x += (this.wdx - this.x) / 4;
                 this.y += (this.wdy - this.y) / 2;
             }
         }
+
+        this.draw = function() {
+            this.rt += this.s.rt;
+
+            if(this.rt <= 0.1 || this.rt >= this.hl){ this.s.rt = this.s.rt*-1; this.rt += this.s.rt; }
+            var newo = Math.abs(Math.round(1-(this.rt/this.hl)*1000)/1000), cr;
+                //newo = (newo>1)?1:((newo<0)?0:newo);
+                cr = this.r*newo;
+                context.beginPath();
+                context.arc(this.x,this.y,this.r,0,Math.PI*2,true);
+                context.closePath();
+                g = context.createRadialGradient(this.x, this.y, 0, this.x, this.y, cr);
+                g.addColorStop(0.0, 'rgba(255,255,255,'+newo+')');
+                g.addColorStop(this.stop, 'rgba(86,101,181,'+(newo*0.6)+')');
+                g.addColorStop(1.0, 'rgba(86,101,181,0)');
+                context.fillStyle = g;
+                context.fill();
+
+        }
+
+
     }
 
     $w.on('resize',function(){
@@ -370,7 +362,8 @@ function starpredestination() {
         if(on){ create(); }
     }).trigger('resize');
 
-}(jQuery,window));
+
+}(jQuery,window, Math));
 </script>
     </body>
 </html>
