@@ -5,15 +5,16 @@
     body {
         background-image: $giant-background-image; //actual image defined in variables
         background-repeat: no-repeat;
-        background-size: 160% auto;
-        background-position: 75% 0;
+        background-size: 130% auto;
+        background-position: 55% 0;
         //background-attachment:fixed; noooooope
     }
 }
 
 @include respond-min( $desktop ){
     body {
-        background-size: cover
+        background-position: center 0;
+        background-size: cover;
     }
 }
 

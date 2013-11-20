@@ -271,7 +271,7 @@ var sequential = {};
 
 							//console.log('selected amount is over minimum');
 
-							$topNode.find('#sequential_donate_btn_copy').text('Donate ' + sequential.currency_symbol + amount);
+							$topNode.find('#sequential_donate_btn_copy').text('Donate ' + sequential.currency_symbol + amount.commafy());
 
 							return true;
 

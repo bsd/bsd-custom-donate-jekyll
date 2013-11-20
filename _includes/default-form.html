@@ -6,7 +6,7 @@
     <a href="#logout" class="qd-log-out-link">Log Out</a>
 </div>
 {% endif %}
-
+{{ 2 | commafy}}
 <div id="bsd_contribute_cont" class="bsdcd-outer-container clearfix {{page.extra-classes-on-outer-container}}{% if page.top-node-is-outer == true%} pre-first-click{% if page.sequential %} sequential sequential_step_0{%endif%}{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.default-currency-symbol}}">
     {% if page.header-section %}
     <div id="sequential_header" class="bsdcd-top-section base">
@@ -50,7 +50,7 @@
                         {% for amt in amounts %}
                         <li class="amount_cont amount_cont_{{ forloop.index }} {% cycle 'odd', 'even' %} {% if forloop.first %}first fis{%endif%}">
                             <input type="radio" class="radio preset_amount_input amount_{{amt}}" name="amount" value="{{amt}}" tabindex="1" id="{{page.id-prefix}}amount_{{amt}}" autocomplete="off">
-                            <label for="{{page.id-prefix}}amount_{{amt}}" class="preset_amount_label">{{page.default-currency-symbol]}}{{amt}}</label>
+                            <label for="{{page.id-prefix}}amount_{{amt}}" class="preset_amount_label">{{page.default-currency-symbol}}{{ amt | commafy }}</label>
                         </li>
                         {% if forloop.last %}
                         <li class="amount_cont amount_cont_{{ forloop.index | plus: 1 }} last {% cycle 'odd', 'even' %}">

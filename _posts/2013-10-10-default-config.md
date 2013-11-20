@@ -29,7 +29,7 @@ default-country: US # set to either US or GB or leave blank for international. C
 default-currency-symbol: "$"
 
 #form customization
-custom-amounts: [10, 20, 50, 100, 250, 500, 1000] #an array of 7 values for the donation amount
+custom-amounts: [10, 20, 50, 100, 250, 500, 1000] #an array of 7 values for the donation amount NO COMMAS IN THE NUMBERS
 min-donation: 2
 max-donation: 3000
 country-selection: true #whether to show a country selection dropdown

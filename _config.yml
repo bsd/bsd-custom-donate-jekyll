@@ -12,6 +12,5 @@ default-currency-symbol: "$"
 amounts: [15, 35, 50, 100, 250, 500, 1000]
 
 
-
 client: bsd
 author: BSD
