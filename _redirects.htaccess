@@ -1,3 +1,0 @@
-##Redirect /some-page /destination-page
-##Redirect 301 /different-page /destination-page
-##Redirect cool-page http://example.org/destination-page

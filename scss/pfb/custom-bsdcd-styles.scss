@@ -1,9 +1,0 @@
-#content{
-    position:relative;
-}
-
-@include respond-min( $tablet ){
-    .qd-login-links-section{
-        top:0;   
-    }
-}

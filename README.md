@@ -34,7 +34,7 @@ I'd also highly advise making sure the includes and uses Modernizr & in particul
 
 ##Setup: 
 
-1. Clone the reponsitory and cd into it
+1. Clone the reponsitory and cd into it, then cd into /webroot
 2. run "jekyll serve --w" from the command line
 3. navigate to http://localhost:4000 and you should see a list of pages built
 
