@@ -1,0 +1,14 @@
+---
+layout: default
+title: Custom Donation Forms
+---
+
+<div id="home">
+    <br><br>
+  <h1>Custom Donation Forms</h1>
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li class="{%if post.thumbnail%}with-thumbnail{%endif%}"><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{%if post.internal-title %}{{ post.internal-title }}{%else%}{{ post.page-title }}{%endif%}{%if post.thumbnail %}<span class="thumbnail" style="background-image:url(img/thumbnails/{{post.thumbnail}});"></span>{%endif%}</a>{%if post.author %}, by {{ post.author }}{%endif%}</li>
+    {% endfor %}
+  </ul>
+</div>

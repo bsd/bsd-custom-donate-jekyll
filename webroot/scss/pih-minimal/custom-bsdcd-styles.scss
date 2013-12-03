@@ -1,0 +1,187 @@
+/*custom styles*/
+
+@mixin Whitney{
+    font-family: 'Whitney 4r', 'Whitney A', 'Whitney B', 'Whitney', sans-serif;
+    font-style: normal;
+}
+
+.bsdcd-outer-container .form_section_header{
+    @include Whitney();
+    font-weight: 600;
+}
+
+.qd_info_section, li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_btn{
+    @include Whitney();
+    font-weight: 400;
+}
+
+input, select{
+    font-family: Minion, "Times New Roman", Times, serif;
+}
+.qd-login-links-section{
+    bottom: 30px;
+    position:absolute;
+    right:10px;
+    top:auto;
+}
+@include respond-min( $form-field-layout ){
+    .qd-login-links-section{
+        position:absolute;
+        top:auto;
+        right:20px;
+        bottom:50px;
+    }
+}
+@include respond-min( $desktop ){
+    .qd-login-links-section{
+        bottom:30px;
+    }
+}
+
+@include respond-max( $widephone - 1px ){
+    .qd-login-links-section{
+        max-width:42%;
+        right:-8px;
+    }
+}
+
+@include respond-max( $phone - 1px ){
+    header h1.logo{
+        width:100px;
+        top:40px;
+    }
+    .qd-login-links-section{
+        max-width:100%;
+        right:0;
+    }
+}
+@include respond-max( $form-field-layout - 1px ){
+    .bsdcd-outer-container .other_amount_input.amount_other{
+        padding: 15px 7px;
+        width:92%;
+    }
+}
+
+h1, h2, h3, h4, h5 {
+font-family: Helvetica, Arial;
+color: #707070;
+font-weight: bold;
+}
+
+.qd-personal-info{
+    color: $purple;
+}
+
+.sequential .bsdcd-seq-breadcrumbs li{
+  font-family: "Libre Baskerville", Georgia, "Times New Roman", Times, serif;
+}
+
+
+
+.bsdcd-top-section {
+    h1 {
+        margin: 0;
+        font-size: 26px !important;
+        color: #621A4B;
+        font-family: 'Whitney 4r', 'Whitney A', 'Whitney B', 'Whitney', sans-serif;
+        font-weight: 600;
+        font-style: normal;
+    }
+    h2 {
+        margin: 5px 0 0;
+        color: #621A4B;
+        font-weight:normal !important;
+        font-family: 'Whitney 4r', 'Whitney A', 'Whitney B', 'Whitney', sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+}
+/*Custom Styles*/
+
+
+@include respond-min( $form-field-layout ){
+    .bsdcd-outer-container{
+        margin-left:30px;
+        padding-bottom:0;
+    }
+    body{
+        background-color:black;
+    }
+    .bsdcd-top-section { 
+        background: #fff;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom: 1px solid #d8d8d8;
+        h1 {
+            margin-bottom: 10px;
+            font-size: 26px !important;
+            text-align:left;
+        }
+        h2 {
+            text-align:left;
+        }
+    }
+
+  header {
+    height:115px !important;
+    h1.logo{
+        width:190px;
+        top:28px !important;
+        left:30px;
+    }
+  }
+
+}
+
+
+
+.in-honor-of{
+    h3 { 
+        font-size:18px;
+        small{
+            font-size:10px;
+        }
+    }
+    p{
+        margin-top:0;
+    }
+}
+.recurring-checkbox-cont{
+    h3,p{display:none;}
+    small{
+        font-size:10px;
+    }
+}
+
+.oldie header h1.logo {
+    width: 190px;
+    top: 28px;
+    left: 30px;
+}
+.oldie header h1.logo {
+    background-image: url("https://donate.pih.org/page/-/img/header-logo.png/@mx_190") !important;
+}
+
+/*pih footer*/
+.dark-footer{
+    background-color:transparent;
+    margin:20px 0;
+    font-size:13px;
+    font-family: 'Whitney 4r', 'Whitney A', 'Whitney B', 'Whitney', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    p{
+        margin:0;
+    }
+    @include respond-min( $form-field-layout ){
+        width: $section-total-width - ( 25px * 2 ); 
+        margin-left:30px;
+        margin-top:0;
+        background-color: black;
+        background-color: rgba(0,0,0,0.8);
+        padding: 10px 25px;
+    }
+    .ie7 & {
+        background-color: black;
+    }
+}

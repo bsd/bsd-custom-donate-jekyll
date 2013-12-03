@@ -1,0 +1,80 @@
+
+// Possible breakpoints
+    $phone: 320px;
+    $widephone: 480px;
+    $tablet: 768px;
+    $desktop: 940px;
+    $widedesktop: 1200px;
+
+    // Assign a default size (for IE, or if the site is not responsive)
+        $default-viewport-size: $desktop;
+        $viewport-width: false !default;
+
+    //Core breakpoints: where certain structural behaviors start
+    $form-field-layout: $phone;
+    $sequential-breakpoint: $phone;
+
+
+/*sizes*/
+
+    /*main section*/
+    $section-total-width: 445px;  //do yourself a favor and make sude this + $between-field-gutter = an even number
+    $section-inner-side-padding: 30px;
+
+    /*form spacing*/
+    $label-bottom-margin: 5px; 
+    $form-container-bottom-margin: 20px;
+
+    /*input sizes */
+    $input-height: 28px; //FULL HEIGHT (as if box-sizing were border-box, even when it won't be)
+
+    $input-border-width: 1px;
+    $input-vert-padding: 4px;
+    
+    $input-side-padding: 7px;
+    $between-field-gutter: 15px; //do yourself a favor and make sude this + section-total-width = an even number
+
+
+    /*tricksy field calculations*/
+    $section-inner-width: $section-total-width - ($section-inner-side-padding * 2);
+    $container-right-padding: ($input-border-width + $input-side-padding) * 2; //this is the extra space 100% fields will take up under content-box
+    $full-width-field-container-width: $section-inner-width - $container-right-padding;
+    $half-width-field-container-width: floor( ($section-inner-width - $between-field-gutter) / 2) - $container-right-padding;
+    $fourth-width-field-container-width: floor((($half-width-field-container-width + $container-right-padding) - $between-field-gutter) / 2) - $container-right-padding;
+
+
+$tools-directory: "/page/-/donate/";
+
+/*colors*/
+
+$gray: #b8b8b8;
+$green: #197419;
+$red: #F00;
+$dim-red: #B40011;
+$weird-green: #69A8A3;
+$orange: #E86D1F;
+$purple: #621A4B;
+$dark-purple:#411934;
+
+
+/*Step UI Colors*/
+$step-inactive: #b8b8b8;
+$step-active: $weird-green; 
+
+/*Button UI*/
+$button-normal: $dim-red;
+$button-active: $weird-green;
+
+/*Validation*/
+$error-message-text-color: $dim-red;
+$error-field-border-color: $dim-red;
+
+/*MISC UI*/
+$question-mark-background: #666666;
+$question-mark-color: white;
+
+
+
+/*Images*/
+$giant-background-image-name: "";
+$giant-background-image: url(http://upload.wikimedia.org/wikipedia/commons/9/94/Freedom_to_Marry_in_2006_by_David_Shankbone.jpg);

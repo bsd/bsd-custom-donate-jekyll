@@ -1,0 +1,125 @@
+/* Labour styles */
+
+@import url("http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic");
+
+body {
+  font-family: "Libre Baskerville", Georgia, "Times New Roman", Times, serif;
+  color: #707070;
+  font-size: 1em;
+    line-height: 1.4;
+}
+
+@font-face {
+  font-family: 'NeoSansStd-Bold';
+  src: url('/page/-/wrapper/fonts/2846E8_0_0.eot');
+  src: url('/page/-/wrapper/fonts/2846E8_0_0.eot?#iefix') format('embedded-opentype'), url('/page/-/wrapper/fonts/2846E8_0_0.woff') format('woff'), url('/page/-/wrapper/fonts/2846E8_0_0.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'NeoSansStd-Regular';
+  src: url('/page/-/wrapper/fonts/2846E8_1_0.eot');
+  src: url('/page/-/wrapper/fonts/2846E8_1_0.eot?#iefix') format('embedded-opentype'), url('/page/-/wrapper/fonts/2846E8_1_0.woff') format('woff'), url('/page/-/wrapper/fonts/2846E8_1_0.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'NeoSansStd-Light';
+  src: url('/page/-/wrapper/fonts/2846E8_2_0.eot');
+  src: url('/page/-/wrapper/fonts/2846E8_2_0.eot?#iefix') format('embedded-opentype'), url('/page/-/wrapper/fonts/2846E8_2_0.woff') format('woff'), url('/page/-/wrapper/fonts/2846E8_2_0.ttf') format('truetype');
+}
+a {
+  color: #f12f15;
+}
+
+
+
+#bsd_contribute_cont li.amount_cont label.preset_amount_label, #bsd_contribute_cont #submit, #bsd_contribute_cont #processing_indicator, #bsd_contribute_cont .big_btn {
+background: #B70504;
+background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(0, 0, 0, 0.1)), color-stop(1, rgba(255, 255, 255, 0.2)));
+border: 1px solid #831149;
+border-radius: 3px;
+box-shadow: inset 0px 1px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px 1px #940302;
+font-family: "NeoSansStd-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+color: #FFF;
+font-size: 19px;
+font-weight: bold;
+text-align: center;
+}
+
+
+#bsd_contribute_cont h1, #bsd_contribute_cont h2, #bsd_contribute_cont h3, #bsd_contribute_cont h4, #bsd_contribute_cont h5 {
+text-align: center;
+color: #707070;
+font-weight: bold;
+font-size: 1.5em;
+}
+
+.bsdcd-top-section {
+  font-family: 'NeoSansStd-Regular';
+    color: #000;
+    padding: 10px 0;
+    margin-bottom: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 1px solid #000;
+    font-size: 13px;
+    border-bottom: 1px solid #d8d8d8;
+}
+.bsdcd-top-section h1 {
+      color: #000 !important;
+      font-family: 'NeoSansStd-Bold';
+      margin: 0;
+      font-size: 29px !important;
+}
+.bsdcd-top-section h2 {
+  margin: 5px 0 0;
+}
+
+  header {
+    padding: 20px;
+  }
+#footer {
+  margin-top: 2em;
+  background: #000;
+  background: rgba(0,0,0,.7);
+  font-size: 12px;
+  padding: 1.5em;
+}
+#footer p {
+  margin: 0;
+}
+.container {
+  background: #ffffff;
+  width: auto;
+  @include respond-min ($desktop){
+    height: 94px;
+  }
+  @include respond-min ($desktop){
+    height: 134px;
+  }
+}
+#compliance {
+  text-align: center;
+}
+@include respond-max($tablet){
+    .other_amount_input{
+        width: 80% !important;
+    }
+}
+header {
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  @include respond-min($tablet){
+    padding: 38px 0;
+  }
+}
+header h1 {
+    @include inline-block();
+    margin: 0;
+}
+
+.qd-login-links-section{
+padding-top:10px;
+text-align:Right;
+@include respond-min( $tablet ){
+        bottom: 33px;
+    }
+}

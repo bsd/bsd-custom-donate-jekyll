@@ -1,0 +1,44 @@
+---
+
+permalink: /GetToken
+succeed: true
+
+---
+{%if page.succeed %}{
+    "version":"0.1.2",
+    "enabled":true,
+    "cons_id":"445754",
+    "token":"HkdFXARGXBYdQasdFAKEFAKEFAKEFAKEasdasdasdasd6VV9AQ0cJQ1AJAQAWShg",
+    "token_info":{
+        "account_last_four":"1111",
+        "cc_type_cd":"mc",
+        "cc_expir_month":"3",
+        "cc_expir_year":"2016",
+        "firstname":"Drew",
+        "lastname":"Fakemonster",
+        "addr1":"1436 Meridian Place NW #204",
+        "addr2":"",
+        "city":"Washington",
+        "state_cd":"AZ",
+        "zip":"20010",
+        "country":"US",
+        "email":"dtipson@gmail.com",
+        "phone":"2025279643",
+        "employer":"BSD",
+        "occupation":"retweeter"
+    },
+    "token_expires":2381352406,
+    "expired":false,
+    "hpc":0.44
+}{% else %}{
+    "version":"0.1.2",
+    "enabled":false,
+    "cons_id":null,
+    "token":null,
+    "token_info":[
+        
+    ],
+    "token_expires":0,
+    "expired":null,
+    "hpc":0
+}{% endif %}

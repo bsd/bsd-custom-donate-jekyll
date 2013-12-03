@@ -1,0 +1,211 @@
+a, a:visited, a:link, a:active{
+    color: $dim-blue;
+}
+
+
+.bsdcd-outer-container{
+    font-family: "helveticaneue", "helvetica neue", helvetica, arial, sans-serif;
+    color: $dark-blue;
+    margin: 0 auto;
+    @include respond-min( $form-field-layout ){
+        padding-top:80px;
+    }
+    input.text{
+        border-color:$dark-blue;
+        background: $white;
+        border-radius:0;
+        color: $dark-blue;
+    }
+    @include placeholder($dim-blue);
+}
+
+.bsdcd-top-section{
+    background:$white;
+    color: $dark-blue;
+    text-align:center;
+    h1{
+        font-weight:900;
+        margin-bottom: 15px;
+    }
+    h2 {
+        font-size:14px;
+        line-height:18px;
+        font-weight:normal;
+        margin-bottom: 1.67em;
+        margin-top: 0;
+    }
+    border:0;
+}
+
+.bsdcd-form{
+    background:$white;
+}
+
+#stars{
+    display:none;
+}
+.oldie{
+    .oldstars {
+        background-image: url(/page/-/donate/moma-minimal/stars.png);
+    }
+    body {
+        background: #002245 url(/page/-/donate/moma-minimal/stars2.png) repeat;
+    }
+    .oldstars{
+        background-position: 40% 30%;
+        position:absolute;
+        height:100%;
+        width:100%;
+        top:0;
+        left:0;
+    }
+    canvas {
+        display:none;
+    }
+}
+
+.bsdcd-outer-container li.amount_cont label.preset_amount_label, .bsdcd-outer-container #submit, .bsdcd-outer-container #processing_indicator, .bsdcd-outer-container .big_btn{
+    background-image:none;
+    color: $dark-blue;
+    border-color: $dark-blue;
+    border-radius:0;
+}
+
+
+header {
+    display:none;
+    width:100%;
+    background: #002245;
+    img {
+        width:100%;
+        height:auto;
+    }
+}
+.qd-login-links-section{
+    display:none;
+    .qd_load_failed &{
+        display:none;
+    }
+}
+.bsdcd-submit-button{
+    color: $white !important;
+    background-color: $dark-blue !important;
+}
+
+#footer{
+    padding-bottom: 40px;
+    text-align:center;
+    width:100%;
+    font-size: 13px;
+    font-family: "helveticaneue", "helvetica neue", helvetica, arial, sans-serif;
+}
+
+@include respond-max( $form-field-layout - 1px){
+    #footer {
+        padding-top:50px;
+
+    }
+    .other_amount_input{
+        width:80% !important;
+    }
+}
+
+@include respond-min( $form-field-layout ){
+    .bsdcd-outer-container input.other_amount_input{
+        height: 30px;
+    }
+    #footer {
+        clear:both;
+        opacity:0.4;
+        color:white;
+        a{
+            color:white !important;
+        }
+    }
+    header {
+        display:block;
+        background: transparent;
+        h1 {margin:0;}
+        img{
+            min-height:125px;
+        }
+        margin-bottom:50px;
+    }
+    .js .sequential input.text.bsdcd-error{
+        border-color: $error-field-border-color;
+    }
+    .js .sequential { 
+        #sequential_next_btn{
+            color: $white;
+            background-color: $dark-blue;
+        }
+    }
+    .js .sequential .bsdcd-seq-breadcrumbs{
+        border:0;
+        background:$dim-blue;
+        li{
+            hr {
+                border:0;
+                border-top:3px dotted $dark-blue;
+                margin-top:11px;
+                margin-left: 1px;
+                qd_populated & {
+                    margin-left: 3px;
+                }
+            }
+            a{
+                color: $dark-blue;
+                span{
+                    color: $dark-blue;
+                    border:1px solid $dark-blue;
+                    background:transparent;
+                    line-height:29px;
+                    margin-top:10px;
+                    background: #405F7E;
+                }
+            }
+
+            &.active, &.completed{
+                a { 
+                    color: $white;
+                }
+                span{
+                    color: $white;
+                    border:1px solid $white;
+                    background: #405F7E;
+                }
+            }
+        }
+    }
+    .bsdcd-outer-container li.amount_cont label.preset_amount_label{
+        padding: 11px 5px;
+    }
+    #stars{
+        display:block;
+        position:fixed;
+        //height:100%;
+        //width:100%;
+    }
+    .qd-login-links-section{
+        display:block;
+        a {color:white;text-decoration:none;}
+    }
+}
+
+
+
+::-webkit-input-placeholder {
+   font-weight:bold;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   font-weight:bold;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   font-weight:bold;
+}
+
+:-ms-input-placeholder {  
+   font-weight:bold; 
+}

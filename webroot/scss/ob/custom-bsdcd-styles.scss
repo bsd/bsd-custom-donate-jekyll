@@ -1,0 +1,45 @@
+#content{
+    position:relative;
+}
+
+@include respond-min( $tablet ){
+    .qd-login-links-section{
+        top:0;   
+    }
+}
+
+
+.amounts label{
+    display:block !important;
+}
+.bsdcd-outer-container .other_amount_label{
+    display:none !important;
+}
+
+
+.button:hover {
+    background-color: #D60024;
+
+}
+
+#ft.simple .disclaimer-license {
+padding: 40px 20px 10px;
+}
+
+h1 {
+        font-size: 2.4em;
+}
+
+.recurring-checkbox-cont{
+    h3 {
+        display:none;
+    }
+}
+
+#ft {
+    float:left;clear:left;
+}
+
+.bsdcd-outer-container{
+    float:right;
+}
