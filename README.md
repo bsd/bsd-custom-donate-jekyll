@@ -41,11 +41,11 @@ I'd also highly advise making sure the includes and uses Modernizr & in particul
 
 # Repo Guide
 
-/js - minified js libraries to use in production
-/webroot - jekyll site for testing the code, markup, and styles
-    /webroot/scss - individual site styles are in named folders, along with the core css.
-    /webroot/_posts - create a new entry by cloning the default config here and giving it a new filename based on the date
-    /webroot/page/-/donate/ - basically a local mirror of the file structure that will be in the tools. scss styles should compile to named directories here
+- /js - minified js libraries to use in production
+- /webroot - jekyll site for testing the code, markup, and styles
+-    /webroot/scss - individual site styles are in named folders, along with the core css.
+-    /webroot/_posts - create a new entry by cloning the default config here and giving it a new filename based on the date
+-    /webroot/page/-/donate/ - basically a local mirror of the file structure that will be in the tools. scss styles should compile to named directories here
 
 
 ##Creating new pages in jekyll
