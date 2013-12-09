@@ -11,8 +11,8 @@
         $viewport-width: false !default;
 
     //Core breakpoints: where certain structural behaviors start
-    $form-field-layout: $phone;
-    $sequential-breakpoint: $phone;
+    $form-field-layout: $tablet;
+    $sequential-breakpoint: $tablet;
 
 
 /*sizes*/
@@ -22,7 +22,7 @@
     $section-inner-side-padding: 30px;
 
     /*form spacing*/
-    $label-bottom-margin: 5px; 
+    $label-bottom-margin: 5px;
     $form-container-bottom-margin: 20px;
 
     /*input sizes */
@@ -30,7 +30,7 @@
 
     $input-border-width: 1px;
     $input-vert-padding: 4px;
-    
+
     $input-side-padding: 7px;
     $between-field-gutter: 15px; //do yourself a favor and make sude this + section-total-width = an even number
 
@@ -59,7 +59,7 @@ $dark-purple:#411934;
 
 /*Step UI Colors*/
 $step-inactive: #b8b8b8;
-$step-active: $weird-green; 
+$step-active: $weird-green;
 
 /*Button UI*/
 $button-normal: $dim-red;
