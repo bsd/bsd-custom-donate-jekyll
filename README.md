@@ -97,18 +97,20 @@ At this point, you should basically have Drew set this up for you.  It's quick, 
 
 The basics though, involve creating
 
-1. a page layout template [layoutname].html (can use jekyll includes if you understand how to use them) that pulls in
+1. a page layout template /webroot/_layouts/[layoutname].html (can use jekyll includes if you understand how to use them) that pulls in...
 2. any necessary headers and footer wrappers, with their external assets (like images) tweaked to point at the client's production site (but don't go crazy: this is all just so that you can quickly test the styles/layout)
-3. a new folder [layoutname] in scss for the project that compiles the css into the /page/-/donate/[layoutname] folder
-4. Compiling your SASS from scss/theme into page/-/donate/theme
+3. a new folder [layoutname] in /webroot/scss for the project that compiles the css into the /webroot/page/-/donate/[layoutname] folder
+4. Compiling your SASS from /webroot/scss/[layoutname] into /webroot/page/-/donate/[layoutname]
 
 
 ## Todo
 
 * allow quick donate to be turned completely off/removed from the markup and code
+* better default layout for extended name fields, if the donate api can use them
+* support for employer address fields, if the donate api can use them
 * separate structure from functionality even more, and split off style choices like (box-sizing/button styles/step styles) into discrete modules
-* make the lack of a next button on the amounts step in sequential an option rather than a mandatory feature
-* arbitrary custom fields
+* make the lack of a next button on the amounts step in sequential an option rather than a mandatory feature (done already?)
+* arbitrary custom fields (done already? see moma config file)
 * additional stock layouts (more conventional text on the left/form on the right, layout for sidebar iframes, etc.)
 
 ### Minor things these scripts do that you might not notice at first, but are critical behavior
