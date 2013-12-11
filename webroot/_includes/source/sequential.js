@@ -24,7 +24,7 @@ var sequential = {};
                 $breadcrumbs = $topNode.find('.sequential_breadcrumb');
 
 			sequential.currentStep = 0;
-			sequential.currency_symbol = $topNode.find('[data-currency-symbol]').data('data-currency-symbol')||"$";
+			sequential.currency_symbol = $topNode.find('[data-currency-symbol]').data('currency-symbol')||"$";
 
             var countryVal = "US";
 

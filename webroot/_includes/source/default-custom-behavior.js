@@ -3,7 +3,7 @@
 
 (function($){
 
-    var $body = $('#bsd_contribute_cont')||$('body'),
+    var $body = $('body'),
         $form = $body.find('form'),
         $presetBtns = $form.find('.preset_amount_label'),
         $presetInputs = $form.find('.preset_amount_input'),
@@ -18,7 +18,11 @@
         $zip_label = $form.find('label.zip_related'),
         $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').removeClass('hidden').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
         $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
-        countryVal = $form.data('default-country');
+        countryVal = $form.data('default-country'),
+        min = $form.data('max-donation')||null,
+        max = $form.data('min-donation')||null,
+        symbol = $('body').find('[data-currency-symbol]').data('currency-symbol')||"$",
+        custom_amounts = gup('amounts');
 
 	$('.other_amount_label').hide();
 
@@ -27,6 +31,23 @@
     if(nomin){
         $('<input/>',{'type':'hidden','name':'nomin','value':'1'}).appendTo($form);
     }
+
+    function customAmounts(cas){
+        if (!cas || typeof cas !== "string"){ return false; }
+        var ca_array = cas.split('x'),
+            btn = 0;
+        if(ca_array && ca_array.length){
+            $.each(ca_array,function(i,v){
+                var amt = parseFloat(v);
+                if(amt && $presetBtns.eq(btn).length){
+                    $presetBtns.eq(btn).html(symbol+(amt.commafy()) );
+                    $presetInputs.eq(btn).val(amt);
+                    btn++;
+                }
+            });
+        }
+    }
+    customAmounts(custom_amounts);
 
     //toggle honeree select areas open and toggle between memorial or not
     $form.find('.honoree-select').on('change',function(){
