@@ -19,8 +19,8 @@
         $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').removeClass('hidden').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
         $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
         countryVal = $form.data('default-country'),
-        min = $form.data('max-donation')||null,
-        max = $form.data('min-donation')||null,
+        min = parseFloat($form.data('min-donation'))||0,
+        max = parseFloat($form.data('max-donation'))||Infinity,
         symbol = $('body').find('[data-currency-symbol]').data('currency-symbol')||"$",
         custom_amounts = gup('amounts');
 
@@ -30,8 +30,10 @@
 
     if(nomin){
         $('<input/>',{'type':'hidden','name':'nomin','value':'1'}).appendTo($form);
+        min = 0.01;
     }
 
+console.log(min,max);
     function customAmounts(cas){
         if (!cas || typeof cas !== "string"){ return false; }
         var ca_array = cas.split('x'),
@@ -39,7 +41,8 @@
         if(ca_array && ca_array.length){
             $.each(ca_array,function(i,v){
                 var amt = parseFloat(v);
-                if(amt && $presetBtns.eq(btn).length){
+                console.log(amt, min, amt>min);
+                if(amt && $presetBtns.eq(btn).length && amt>=min && amt<=max){
                     $presetBtns.eq(btn).html(symbol+(amt.commafy()) );
                     $presetInputs.eq(btn).val(amt);
                     btn++;
