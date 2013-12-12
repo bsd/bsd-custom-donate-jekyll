@@ -79,8 +79,8 @@
 	}).one('keydown','.amount_other',function(){
 		$body.removeClass('pre-first-click');
 	}).one('click','.preset_amount_label',function(){
-		$body.removeClass('pre-first-click');
-		$.Topic('change-step').publish(1);
+		if ($body.find('pre-first-click').length) { $.Topic('change-step').publish(1); }
+        $body.removeClass('pre-first-click');
 	});
 
 	function switchCountry(qd){

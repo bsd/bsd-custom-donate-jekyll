@@ -1,0 +1,12 @@
+
+.bsdcd-outer-container{
+    font-family: "helveticaneue", "helvetica neue", helvetica, arial, sans-serif;
+    @include respond-min( $tablet ){
+        padding-top:10px;
+    }
+}
+
+#main ul li{
+    background:none;
+    padding-left:0;
+}
