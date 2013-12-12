@@ -33,7 +33,6 @@
         min = 0.01;
     }
 
-console.log(min,max);
     function customAmounts(cas){
         if (!cas || typeof cas !== "string"){ return false; }
         var ca_array = cas.split('x'),
@@ -41,7 +40,6 @@ console.log(min,max);
         if(ca_array && ca_array.length){
             $.each(ca_array,function(i,v){
                 var amt = parseFloat(v);
-                console.log(amt, min, amt>min);
                 if(amt && $presetBtns.eq(btn).length && amt>=min && amt<=max){
                     $presetBtns.eq(btn).html(symbol+(amt.commafy()) );
                     $presetInputs.eq(btn).val(amt);
@@ -50,6 +48,7 @@ console.log(min,max);
             });
         }
     }
+    //maybe make this global at some point so it can be exposed to optimizely?
     customAmounts(custom_amounts);
 
     //toggle honeree select areas open and toggle between memorial or not
