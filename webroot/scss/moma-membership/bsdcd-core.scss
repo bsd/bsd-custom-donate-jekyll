@@ -1,0 +1,542 @@
+
+/*
+
+  Author: Kyle Rush, kylerrush@gmail.com
+  
+*/
+
+
+/*****************************************************************
+
+          CONFIGURATION SETTINGS
+
+*****************************************************************/
+/*amount and submit button */
+/* h1, h2, h3, & h4 */
+/*****************************************************************
+
+            BEGIN STYLES
+
+*****************************************************************/
+
+$core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
+
+/*limitation of current styles, should retest and refix */
+.bsdcd-outer-container *{
+    box-sizing:content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+
+.insecure-warning{
+    position:absolute;
+    top:0;
+    right:0;
+    padding:5px;
+    display:inline-block;
+    color: #aa0000;
+    background-color: #FFEEEE;
+    opacity: 0.4;
+    z-index:9999;
+    pointer-events:none;
+}
+
+.bsdcd-outer-container {
+    position:relative;
+    @include respond-max($form-field-layout - 1px){
+        width: 93%;
+        margin: 0 auto;
+    }
+    ul,ol {
+        list-style: none !important;
+        padding: 0;
+        margin:0;
+        li{
+            list-style: none;
+            .base &{
+                list-style: none !important;
+            }
+        }
+    }
+    label {
+        font-size: 1.1em;
+        font-weight: bold;
+        display: block;
+        margin-bottom: $label-bottom-margin;
+        span{
+            float:left; //put the required asterisk on the left
+            margin-right:1px;
+            .oldie & { font-size:16px; }
+            .ie7 & { float:none; }
+            //color: $dim-red;
+        }
+    }
+    .other_amount_label{
+        display:none;
+    }
+    input.text, textarea {
+        background: #f1f1f1;
+        border: 1px solid #DEDEDE;
+        border-radius: 3px;
+        line-height: $input-height;
+        width: 100%;
+        padding: $input-side-padding;
+        -webkit-box-shadow: $core-box-shadow;
+        box-shadow: $core-box-shadow; 
+        &:focus{
+            background: #f3f3f3;
+        }
+    }
+    input.text{
+        height: $input-height;  
+    }
+    select {
+        font-size: 16px;
+        border-color: #ebebeb;
+        padding: $input-vert-padding $input-side-padding;
+        vertical-align: top;
+        line-height: $input-height;
+        height: $input-height + 4px;
+        border-radius: 3px;
+        background: #f8f8f8;
+        border: 1px solid #DEDEDE;
+        -webkit-box-shadow: $core-box-shadow;
+        box-shadow: $core-box-shadow;
+        @include border-box(); //so, odd thing: IE7 doesn't support this, but acts like it does by default anyhow
+        width: 100%;
+        .no-boxsizing &{
+            width: 95%;
+        }
+        .ie7 &{
+            width:100%; //ie7 should keep the 100% rule even though it doesn't "support" border-box
+        }
+    }
+    .form_field_cont{
+        padding-right: $container-right-padding;
+    }
+    li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_btn {
+        padding: 15px 5px;
+        display: block;
+        width: 95%;
+        background: $button-normal;
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(0, 0, 0, 0.1)), color-stop(1, rgba(255, 255, 255, 0.2)));
+        background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
+        background-image:  -moz-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
+
+        border: 1px solid darken($button-normal, 10%);
+        border-radius: 3px;
+        //box-shadow: inset 0px 1px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px 1px darken($button-normal, 20%);
+        color: #fff;
+        font-size: 19px;
+        text-align: center;
+    }
+  .other_amount_radio {
+    display: none;
+  }
+  .amounts {
+    list-style:none !important;
+    margin:0 !important;
+  }
+  ul.amounts li.amount_cont {
+    margin-bottom:15px;
+    input.preset_amount_input {
+      display:none;
+    }
+    @mixin active-labels(){
+        z-index:1;
+        background: $button-active;
+        color: #fff;
+        border: 1px solid #fff;
+        box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+    //these otherwise identical styles are split because IE7 will break if they are extended normally
+    label.active{
+      @include active-labels();
+    }
+    input:checked + label {
+      @include active-labels();
+    }
+  }
+
+  .cc_month {
+    margin-bottom: 10px;
+  }
+  .cc_type_radio_cont label {
+    display: inline;
+  }
+  .accepted_ccs {
+    overflow:hidden;
+    position:relative;
+  }
+    .cc-img {
+        @include inline-block();
+        vertical-align:top;
+        height: 26px;
+        position:relative;
+        //fancypants non-modernizr svg fallback trick: http://pauginer.tumblr.com/post/36614680636/invisible-gradient-technique
+        background-image: url(/page/-/donate/Credit_Card_Icons_m.png);
+        background-repeat: no-repeat;
+        background-image: -webkit-linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons_m.svg);
+        background-image: linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons_m.svg);
+        overflow:hidden;
+        margin-top:0;
+        width:40px;
+        margin-right:5px;
+        text-indent: -999em;
+        .ie7 & {
+            text-indent:0;
+            font-size:0.1px;
+            color: white;
+        }
+    }
+  .hide-text{
+    position:absolute;
+    top:-50px;
+    left:-50px;
+  }
+  .accept-mc{
+    width: 37px;
+    background-position: 0 center;
+  }
+  .accept-ds{
+    background-position: -111px center;
+    width:38px;
+  }
+  .accept-ax{
+    width:25px;
+    background-position: -83px center;
+  }
+  .accept-vs{
+    background-position: -40px center;
+  }
+  .accept-ma{
+    background-position: -153px center;
+    width:37px;
+  }
+  .cc_type_cont{
+    margin-bottom:10px;
+  }
+  .cc_maestro_start_cont{
+    display:none;
+  }
+    .cc-is-ma .cc_maestro_start_cont {
+        display:block;
+    }
+
+    /*dimming cards when one is selected*/
+  .cc-cover {
+    .cc-img {
+        @include opacity(0.1);
+    }
+  }
+  .cc-is-vs{
+    .accept-vs{
+        @include opacity(1);
+    }
+  }
+  .cc-is-ax {
+    .accept-ax{
+        @include opacity(1);
+    }
+  }
+  .cc-is-mc {
+    .accept-mc{
+        @include opacity(1);
+    }
+  }
+  .cc-is-ds {
+    .accept-ds{
+        @include opacity(1);
+    }
+  }
+  .cc-is-ma {
+    .accept-ma{
+        @include opacity(1);
+    }
+  }
+  .paypal-text{
+    display:none;
+  }
+.cc-is-paypal{
+    .paypal_text_cont{
+        display:block;
+    }
+    .cc_number_cont, cc_maestro_start_cont, .cc_expiration_cont, .cc_cvv_cont{
+        display:none;
+    }
+}
+
+
+
+    .js & .honoree_field_cont{
+        display:none;
+    }
+    .honor-section .honoree_field_cont{
+        display:block;
+    }
+    .inmemory_field_cont{
+        display:none;
+    }
+    .memorial-section .inmemory_field_cont{
+        display:block;
+    }
+  #processing_indicator {
+    display: none;
+    cursor:wait;
+  }
+  .form_field_cont{
+    margin-bottom: $form-container-bottom-margin;
+  }
+  .form_section_header{
+    margin:10px 0;
+  }
+  .bsdcd-top-section{
+    padding:10px 0;
+  }
+}
+
+/*should be tablet only?*/
+.cvv-question-mark{
+    float:right !important;
+    position:relative;
+    left:16px;
+    border-radius:1em;
+    cursor: pointer;
+    height: 1em;
+    padding: 0 0.3em;
+    font-size:100%;
+    background-color:$question-mark-background;
+    color: $question-mark-color;
+    &:hover:before{
+        content: '';
+        width:20px;
+        position:absolute;
+        height:70px;
+        left:0;
+        z-index:50;
+        margin-left:100%;
+    }
+    &:hover:after{
+        z-index:40;
+        font-size:12px;
+        position:absolute;
+        content: attr(data-content);
+        min-height:20px;
+        background:white;
+        color: black;
+        margin-left:100%;
+        padding:10px;
+        left: 20px;
+        outline: 2px dashed rgba(24,24,24,0.6);
+        box-shadow: 0 0 2px gray;
+        box-sizing: border-box;
+        background-clip: padding-box;
+        width: 200px;
+    }
+}
+
+.cc_type_radio_cont {
+  display: none;
+}
+
+/* error state */
+
+#general_error{
+    display:none;
+}
+
+.blue_contribute_error {
+    li.form_field_cont.bsdcd-error, #general_error {
+        display:block;
+        background-color: #f2dede;
+        border:none;
+        border-color: #eed3d7;
+        padding: 5px ($container-right-padding + 5px) 5px 5px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        height:auto;
+    }
+    li.form_field_cont.bsdcd-error{
+        @include respond-min( $form-field-layout ){
+            margin-left:-10px;
+        }
+    }
+    li.form_field_cont.bsdcd-error.state_cd_cont {
+        padding-right:5px;
+    }
+    .state-text-input li.form_field_cont.bsdcd-error.state_cd_cont{
+        padding-right:21px;
+    }
+    .cc_type_radio_cont{
+        display:block;
+    }
+}
+
+.bsdcd-form p.bsdcd-error {
+  color: $error-message-text-color;
+  font-weight: bold;
+}
+
+/* processing state */
+
+.blue_contribute_processing {
+    cursor:wait;
+  #processing_indicator {
+    display: block;
+  }
+  #submit {
+    display: none;
+  }
+}
+
+@include respond-min( $phone ){
+    .amount_cont {
+        width:48%;
+        float:left;
+        &.odd{
+            margin-right:4%
+        }
+    }
+
+}
+
+/* configuration settings */
+
+@include respond-min( $form-field-layout ){
+
+  .bsdcd-outer-container {
+
+    width: $section-total-width;
+    background: none;
+    padding: 20px 0;
+
+    .bsdcd-top-section {
+        width: $section-total-width - ($section-inner-side-padding * 2);
+        background: #fff;
+        padding: 10px $section-inner-side-padding;
+        border-bottom: 1px solid #d8d8d8;
+    }
+    .bsdcd-form {
+      width: $section-total-width - ( $section-inner-side-padding * 2 );
+      background: #fff;
+      padding: $section-inner-side-padding;
+    }
+    .form_section_header {
+      text-align: left;
+    }
+    li {
+      &.amount_cont label.preset_amount_label {
+        width: 102px;
+        padding: 8px 5px;
+      }
+      &.amounts_cont {
+        overflow: hidden;
+        padding: 5px 5px 5px 7px;
+      }
+    }
+    label.preset_amount_label {
+      cursor: pointer;
+    }
+    .amount_cont {
+        margin: 0 14px 28px 0;
+        width: 115px;
+    }
+    .other_amount_label {
+      display: none;
+    }
+    .amount_cont_3, .amount_cont_6 {
+      margin-right: 0;
+    }
+    .amount_cont_8 {
+      width: 230px;
+    }
+    li.amount_cont_8 input.text {
+      padding: 8px 7px!important;
+    }
+    #contributor_header_cont {
+      clear: both;
+    }
+    .form_field_cont{
+        width: $full-width-field-container-width;
+        float:left;
+    }
+    .firstname_cont, .lastname_cont, .city_cont, .phone_cont, .email_cont, .employer_cont, .occupation_cont, .cc_month, .honoree_state_cd_cont, .honoree_zip_cont, .cc_cvv_cont {
+      width: $half-width-field-container-width;
+    }
+    .cc_year, .cc_month {
+        width: 123px !important;
+    }
+    .firstname_cont, .email_cont, .employer_cont, .cc_month, .city_cont, .state_cd_cont {
+      margin-right: 15px;
+    }
+    .addr1_cont, .country_cont, .email_cont, .employer_cont, .city_cont, .form_section_header_cont, .recurring-checkbox-cont, .honoree_zip_cont {
+      clear: both;
+    }
+    .extended-name-fields{
+        .firstname_cont, .lastname_cont{
+            width: $full-width-field-container-width;
+            margin-right:0;
+        }
+    }
+    select {
+      font-size: 16px;
+    }
+    .state_cd_cont {
+      width: $fourth-width-field-container-width + $container-right-padding;
+      padding-right:0;
+    }
+    .full_dropdown_cont{
+      width: $full-width-field-container-width + $container-right-padding;
+      padding-right:0;
+    }
+    .zip_cont {
+      width: $fourth-width-field-container-width;
+    }
+    //dealing with field size when state is a text input
+    .state-text-input, .blue_contribute_error .state-text-input{
+        li.form_field_cont.state_cd_cont{
+            width: $half-width-field-container-width;
+            padding-right: $container-right-padding;
+            margin-right:0;
+        }
+        .zip_cont{
+            clear:left;
+            width:140px;
+            .ie7 & { margin-right:140px; }
+        }
+    }
+    .state-text-input .state_cd_cont label{
+        width:107%;
+    }
+    label, p.bsdcd-error {
+      font-size: 14px;
+    }
+    li.bsdcd-error p {
+      margin: 0;
+    }
+    #submit_cont {
+      clear: both;
+    }
+    .bsdcd-submit-button {
+      width: $section-inner-width - 7px; //minus extra padding and possible border
+    }
+  }
+
+}
+.ie7 {
+    .bsdcd-form{
+        margin-top:0;
+        margin-bottom:0;
+    }
+}
+
+/*these fields can't work right without js*/
+.no-js{
+    .in-honor-of, .honoree_field_cont, .recurring-checkbox-cont{
+        display:none;
+    }
+    &.oldie .other_amount_label{
+        display:block;
+    }
+}
