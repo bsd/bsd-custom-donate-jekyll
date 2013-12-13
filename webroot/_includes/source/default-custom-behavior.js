@@ -23,7 +23,10 @@
         min = parseFloat($form.data('min-donation'))||0,
         max = parseFloat($form.data('max-donation'))||Infinity,
         symbol = $('[data-currency-symbol]').data('currency-symbol')||"$",
-        custom_amounts = gup('amounts');
+        custom_amounts = gup('amounts'),
+        default_amount = gup('default_amt'),
+        skip = parseFloat(gup('skip'))||false;
+        console.log(skip);
 
 	$('.other_amount_label').hide();
 
@@ -83,6 +86,12 @@
 		if ($('body').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
         $body.removeClass('pre-first-click');
 	});
+
+    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
+        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+
+        if(skip && skip===1 ){ $.wait(3).done(function(){ $.Topic('change-step').publish(1); console.log('skip'); });   }
+    }
 
 	function switchCountry(qd){
         var val = $country.val(),

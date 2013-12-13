@@ -275,7 +275,8 @@ var sequential = {};
 
 							//console.log('selected amount is over minimum');
 
-							$topNode.find('#sequential_donate_btn_copy').text('Donate ' + sequential.currency_symbol + amount.commafy());
+							//$topNode.find('#sequential_donate_btn_copy').text('Donate ' + sequential.currency_symbol + amount.commafy());
+                            $topNode.find('#sequential_donate_btn_copy').text('Purchase Membership');
 
 							return true;
 
@@ -330,13 +331,28 @@ var sequential = {};
 
 			sequential.utilityFunctions.validatePersonalInfo = function(){
 
-				var numberOfInvalidFields, firstName, lastName, address, city, $state, zip, email, phone, country, employer, occupation, $zip;
+				var numberOfInvalidFields, $prefix, firstName, lastName, address, city, $state, zip, email, phone, country, employer, occupation, $zip;
 
 				numberOfInvalidFields = 0;
 
 				$topNode.removeClass('sequential_error');
 
 				$('.sequential_error_message').text('');
+
+
+                $prefix = $form.find("[name='prefix']");
+
+                if( !$prefix.val() ){
+
+                    numberOfInvalidFields++;
+
+                    $prefix.addClass('bsdcd-error');
+
+                } else {
+
+                    $prefix.removeClass('bsdcd-error');
+
+                }
 
 				firstName = $("[name='firstname']");
 
