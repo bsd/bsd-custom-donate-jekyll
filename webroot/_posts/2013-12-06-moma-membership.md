@@ -20,7 +20,7 @@ sequential: true
 quick-donate: false
 
 ##top-section
-header-section: true
+header-section: false
 title: Support MoMA
 subtitle: Your generosity enables MoMA to enrich and inspire millions with the very best of modern and contemporary art. From children&rsquo;s educational programs to world-class exhibitions, you make MoMA a source of discovery for all.
 html-above-header: '<header><h1><a href="http://www.moma.org/" target="_blank"><img src="https://donate.moma.org/page/-/donate/moma-minimal/MoMA_glow_logo_lgk3_500.png" alt="MoMA"></a></h1></header>'
@@ -63,8 +63,8 @@ custom-two-label: In Honor Of (Optional)
 
 extended-name-fields: true #boolean to add class for styling all extended name fields at once
 name-prefix: true #boolean prefix dropdown?
-name-middle: true #boolean middle name?
-name-suffix: true #boolean suffix?
+name-middle: false #boolean middle name?
+name-suffix: false #boolean suffix?
 
 #creditcards accepted
 accept-visa: true
