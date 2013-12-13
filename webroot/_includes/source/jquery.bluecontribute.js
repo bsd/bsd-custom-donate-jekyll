@@ -64,7 +64,8 @@ var blueContribute = {};
                 msg = {
                     "unknown":"We were unable to process your transaction at this time.",
                     "invalid":"Your donation was not successful. Please correct the problems marked below.",
-                    "declined":"The transaction was declined. Please check that the address information is correct or else use a different card."
+                    "declined":"The transaction was declined. Please check that the address information is correct or else use a different card.",
+                    "review":"Your transaction is under review, there is no need to resubmit at this time."
                 }, debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
 
             //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
@@ -184,8 +185,7 @@ var blueContribute = {};
                 resobj = blueContribute.latestResponseObject;
 
                 if(responseIsValidJSON === true && resobj){
-
-                    if(resobj.status === "success" || resobj.status === "paypal"){
+                    if(resobj.status && (resobj.status === "success" || resobj.status === "paypal"  ) ){
                         //if custom success is defined, fire it with the response object
                         if (typeof blueContribute.settings.customSuccess === 'function'){
                             processingState(false);
@@ -257,7 +257,15 @@ var blueContribute = {};
                                     'donate_api_gateway_error'
                                 );
 
-                            } else {
+                            } else if ( resobj.gateway_response && resobj.gateway_response.status==="review" ){
+                                genError(msg.review +' [Gateway]');
+
+                                debug('transaction under review');
+                                report(
+                                    ['Donate API', 'Gateway Error', 'review'],
+                                    'donate_api_gateway_error'
+                                );
+                            }else {
 
                                 //blueContribute.latestResponseObject.gateway_response.status === "unkown" ||
                                 //blueContribute.latestResponseObject.gateway_response.status === "error"

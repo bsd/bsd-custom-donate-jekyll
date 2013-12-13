@@ -12,7 +12,7 @@ which: success  #success
 #which: paypal #what you get if you try to paypal
 #which: serverfail #server returns a weird response
 #which: dupe #duplicate submission error, resubmit with dupe_ok=1, but even getting this error may require a unique form id, which we don't use
-
+which: review
 ---
 {%if page.which == "success" %}{
     "api_version": 1,
@@ -94,6 +94,15 @@ which: success  #success
             "message":"invalid or unsupported card type"
         }
     ]
+}{% endif %}{%if page.which == "review" %}{
+   "api_version":1,
+   "status":"fail",
+   "code":"gateway",
+   "gateway_response":{
+       "status":"review",
+       "code":"4",
+       "message":"Your order has been received. Thank you for your business!"
+   }
 }{% endif %}{%if page.which == "allinvalid" %}{
     "api_version":1,
     "status":"fail",
