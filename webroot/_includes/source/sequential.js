@@ -139,7 +139,7 @@ var sequential = {};
 
 				amountRadioGroupNumber = parseFloat( $form.find("input[name='amount']:checked").val() );
 
-				otherAmountNumber =  parseFloat( $otheramt.val( tmpamount.replace(/[^\d\.]/g,'') ).val() );
+				if (tmpamount) { otherAmountNumber =  parseFloat( $otheramt.val( tmpamount.replace(/[^\d\.]/g,'') ).val() ); }
 
 				amountIsSelected = function(){
 

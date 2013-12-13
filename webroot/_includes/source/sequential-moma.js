@@ -143,7 +143,7 @@ var sequential = {};
 
 				amountRadioGroupNumber = parseFloat( $form.find("input[name='amount']:checked").val() );
 
-				otherAmountNumber =  parseFloat( $otheramt.val( tmpamount.replace(/[^\d\.]/g,'') ).val() );
+				if (tmpamount) { otherAmountNumber =  parseFloat( $otheramt.val( tmpamount.replace(/[^\d\.]/g,'') ).val() ); }
 
 				amountIsSelected = function(){
 
@@ -548,7 +548,7 @@ var sequential = {};
 
 					$topNode.addClass('sequential_error');
 
-					$topNode.find('.sequential_error_message').text('Please correct the problems shown above.');
+					$topNode.find('.sequential_error_message').text('').last().text('Please correct the problems shown above.');
 
                     report(
                         ['Sequential donate', 'Personal Info validation errors', numberOfInvalidFields],

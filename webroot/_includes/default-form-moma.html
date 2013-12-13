@@ -53,10 +53,7 @@
                             <label for="{{page.id-prefix}}amount_{{amt}}" class="preset_amount_label">{{page.default-currency-symbol}}{{ amt | commafy }}</label>
                         </li>
                         {% if forloop.last %}
-                        <li class="amount_cont amount_cont_{{ forloop.index | plus: 1 }} last {% cycle 'odd', 'even' %}">
-                            <label for="{{page.id-prefix}}amount_other" id="other_amount_label" class="other_amount_label">Other amount:</label>
-                            <input type="tel" class="text other_amount_input amount_other" name="amount_other" id="{{page.id-prefix}}amount_other" placeholder="Other amount" tabindex="2" autocomplete="off">
-                        </li>
+                       
                         {%endif%}
                         {% endfor %}
                     </ul><!--/#amounts-->
