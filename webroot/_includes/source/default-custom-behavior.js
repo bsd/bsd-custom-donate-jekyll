@@ -3,6 +3,7 @@
 
 (function($){
 
+    //need to decouple this first value: all this behavior should be plugin-y
     var $body = $('#bsd_contribute_cont')||$('body'),
         $form = $body.find('form'),
         $presetBtns = $form.find('.preset_amount_label'),

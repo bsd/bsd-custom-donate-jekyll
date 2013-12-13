@@ -59,8 +59,8 @@ var sequential = {};
                     $breadcrumbs.eq(oldstep).removeClass('active');
 
                     //if qd is populated and step 1 was valid, users should go right to the step 2 without adding step 1
-                    if(step===1 && sequential.qd){
-                        sequential.utilityFunctions.goToStep(2);
+                    if(step===4 && sequential.qd){ //shoul dnever happen now
+                        sequential.utilityFunctions.goToStep(1);
                     }else {
                         $topNode.addClass('sequential_step_' + step);
 
@@ -101,7 +101,7 @@ var sequential = {};
                             //this still allows us to skip from step 1 to step 3, past an invalid step 2....
 							if( sequential.settings.validationFunctions[sequential.currentStep]() ){
 
-                                if( sequential.currentStep === (sequential.settings.stepContainers.length - 1) ){
+                                if( sequential.currentStep === 1 ){
 
                                     //last step so submit the form
                                     blueContribute.submitForm();
