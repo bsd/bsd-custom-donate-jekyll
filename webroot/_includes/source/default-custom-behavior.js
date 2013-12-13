@@ -3,7 +3,7 @@
 
 (function($){
 
-    var $body = $('body'),
+    var $body = $('#bsd_contribute_cont')||$('body'),
         $form = $body.find('form'),
         $presetBtns = $form.find('.preset_amount_label'),
         $presetInputs = $form.find('.preset_amount_input'),
@@ -21,7 +21,7 @@
         countryVal = $form.data('default-country'),
         min = parseFloat($form.data('min-donation'))||0,
         max = parseFloat($form.data('max-donation'))||Infinity,
-        symbol = $('body').find('[data-currency-symbol]').data('currency-symbol')||"$",
+        symbol = $('[data-currency-symbol]').data('currency-symbol')||"$",
         custom_amounts = gup('amounts');
 
 	$('.other_amount_label').hide();
@@ -79,7 +79,7 @@
 	}).one('keydown','.amount_other',function(){
 		$body.removeClass('pre-first-click');
 	}).one('click','.preset_amount_label',function(){
-		if ($body.find('pre-first-click').length) { $.Topic('change-step').publish(1); }
+		if ($('body').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
         $body.removeClass('pre-first-click');
 	});
 
