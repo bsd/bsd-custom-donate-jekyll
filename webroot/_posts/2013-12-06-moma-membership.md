@@ -10,7 +10,7 @@ client: MOMA
 #Page Title, if used in your imported header
 page-title: Membership
 
-tools-slug: default #default exists on most clients, but remember: you'll need to configure the custom form to match the options of whatever tools form you use
+tools-slug: moma-membership #default exists on most clients, but remember: you'll need to configure the custom form to match the options of whatever tools form you use
 tools-recurring-slug: #reccur  #leave blank for no recurring. This will need to be a _separate_ toolsform set to take recurring donations
 default-source-codes: sequential-donate #source code baked into the page, to identify it for analytics purposes
 
@@ -20,7 +20,7 @@ sequential: true
 quick-donate: false
 
 ##top-section
-header-section: true
+header-section: false
 title: Support MoMA
 subtitle: Your generosity enables MoMA to enrich and inspire millions with the very best of modern and contemporary art. From children&rsquo;s educational programs to world-class exhibitions, you make MoMA a source of discovery for all.
 html-above-header: '<header><h1><a href="http://www.moma.org/" target="_blank"><img src="https://donate.moma.org/page/-/donate/moma-minimal/MoMA_glow_logo_lgk3_500.png" alt="MoMA"></a></h1></header>'
@@ -30,7 +30,7 @@ default-country: US # set to either US or GB or leave blank for international. C
 default-currency-symbol: "$"
 
 #form customization
-custom-amounts: [25000, 10000, 7500, 5000, 2500, 1000, 500] #an array of 7 values for the donation amount
+custom-amounts: [85, 140, 175, 360, 600, 1200, 1750] #an array of 7 values for the donation amount
 min-donation: 5
 max-donation: 500000
 country-selection: true #whether to show a country selection dropdown
@@ -58,13 +58,13 @@ custom-one: true
 custom-one-label: Member ID (Optional)
 
 custom-two: true
-custom-two-label: In Honor Of (Optional)
+custom-two-label: Additional Cardholder names
 
 
 extended-name-fields: true #boolean to add class for styling all extended name fields at once
 name-prefix: true #boolean prefix dropdown?
-name-middle: true #boolean middle name?
-name-suffix: true #boolean suffix?
+name-middle: false #boolean middle name?
+name-suffix: false #boolean suffix?
 
 #creditcards accepted
 accept-visa: true
