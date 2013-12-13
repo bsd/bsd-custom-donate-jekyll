@@ -53,7 +53,16 @@
         }
     }
     //maybe make this global at some point so it can be exposed to optimizely?
+    window.BSDcustomAmounts = customAmounts;
     customAmounts(custom_amounts);
+
+    //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
+    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
+        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+
+        //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
+        if(skip && skip===1 ){ $.wait(3).done(function(){ $.Topic('change-step').publish(1); console.log('skip'); });   }
+    }
 
     //toggle honeree select areas open and toggle between memorial or not
     $form.find('.honoree-select').on('change',function(){
@@ -86,12 +95,6 @@
 		if ($('body').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
         $body.removeClass('pre-first-click');
 	});
-
-    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
-        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
-
-        if(skip && skip===1 ){ $.wait(3).done(function(){ $.Topic('change-step').publish(1); console.log('skip'); });   }
-    }
 
 	function switchCountry(qd){
         var val = $country.val(),
