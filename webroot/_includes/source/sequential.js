@@ -49,6 +49,8 @@ var sequential = {};
 
 				isPreviousStep = step < sequential.currentStep;
 
+                if (step>0){$topNode.removeClass('pre-first-click');}
+
 				changeStep = function(){
 
 					//console.log('step',step, silent);

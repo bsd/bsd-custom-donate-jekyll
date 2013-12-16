@@ -37,6 +37,7 @@
         min = 0.01;
     }
 
+    //accept an 'x' separated string of amounts, validate each, and assign them to buttons 
     function customAmounts(cas){
         if (!cas || typeof cas !== "string"){ return false; }
         var ca_array = cas.split('x'),
@@ -61,7 +62,10 @@
         $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
 
         //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
-        if(skip && skip===1 ){ $.wait(3).done(function(){ $.Topic('change-step').publish(1); console.log('skip'); });   }
+        if(skip && skip===1 ){ $.wait(3).done(function(){
+            $.Topic('change-step').publish(1);
+            $body.removeClass('pre-first-click'); });
+        }
     }
 
     //toggle honeree select areas open and toggle between memorial or not
@@ -96,6 +100,7 @@
         $body.removeClass('pre-first-click');
 	});
 
+    //handles the simplest way to support international validation changes based on country
 	function switchCountry(qd){
         var val = $country.val(),
             $oldstate = $state_cdCont.hide().find('.state_cd');

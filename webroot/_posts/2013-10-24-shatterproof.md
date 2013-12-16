@@ -12,7 +12,7 @@ author: Drew Tipson
 page-title: Donate
 
 tools-slug: default
-tools-recurring-slug: #leave blank for no recurring
+tools-recurring-slug: #donate-to-shatterproof-recurr #leave blank for no recurring
 default-source-codes: sequential-donate
 
 ##
@@ -35,7 +35,7 @@ require-country: true #country selection must be true for this to work, of cours
 optional-phone: true #phone is required by default, this overrides that
 require-cvv: false #this setting/field will not affect quick donate
 show-cvv-help: false #help tooltip: not ready for prime-time
-
+extended-name-fields: false
 employer-and-occupation: false
 
 
@@ -69,6 +69,8 @@ top-node-is-outer: true #attach key handlers to outer element on bsdcd-outer-con
 extra-classes-on-outer-container: #just a string of extra classes to add, just in case you need to
 class-on-in-honor: base #in-honor-of section title and intro can get a separate class, useful for sites that use .base
 button-classes: button #additional classes to attach to submit button-like things
+
+step-one-html-after: '<li class="learn-stock" style="text-align: center;clear:left;"><hr><a href="http://www.shatterproof.org/pages/stock-gifts " target="_blank">Learn how to make a gift of stock</a></li>'
 
 ##debug
 no_minimum: false

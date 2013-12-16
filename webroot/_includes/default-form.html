@@ -61,8 +61,9 @@
                         {% endfor %}
                     </ul><!--/#amounts-->
                 </li><!--/#amount_cont-->
+                {%if page.step-one-html-after%}{{page.step-one-html-after}}{%endif%}
             </ul>
-            <ul class="sequential_step step_2 clearfix inactive{{% if page.extended-name-fields %}} extended-name-fields{{%endif%}}">
+            <ul class="sequential_step step_2 clearfix inactive{% if page.extended-name-fields %} extended-name-fields{%endif%}">
                 <li class="form_section_header_cont mobile-only firstname_related lastname_related qd_info_extra" id="contributor_header_cont">
                     <h2 class="form_section_header" id="contributor_header">Contributor</h2>
                 </li><!--/#form_section_header_cont-->

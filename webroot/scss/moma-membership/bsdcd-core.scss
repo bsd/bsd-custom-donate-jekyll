@@ -458,11 +458,11 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
       clear: both;
     }
     .form_field_cont{
-        width: $full-width-field-container-width;
+        width: 513px;
         float:left;
     }
     .firstname_cont, .lastname_cont, .city_cont, .phone_cont, .email_cont, .employer_cont, .occupation_cont, .cc_month, .honoree_state_cd_cont, .honoree_zip_cont, .cc_cvv_cont {
-      width: $half-width-field-container-width;
+      width: 274px;
     }
     .cc_year, .cc_month {
         width: 123px !important;
@@ -475,7 +475,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     }
     .extended-name-fields{
         .firstname_cont, .lastname_cont{
-            width: $full-width-field-container-width;
+            width: 273px;
             margin-right:0;
         }
     }
@@ -491,7 +491,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
       padding-right:0;
     }
     .zip_cont {
-      width: $fourth-width-field-container-width;
+      width: 103px;
     }
     //dealing with field size when state is a text input
     .state-text-input, .blue_contribute_error .state-text-input{

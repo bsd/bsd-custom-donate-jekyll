@@ -12,3 +12,52 @@
 }
 
 .blue_contribute_error .step_3 { display:none }
+
+
+.js .sequential .bsdcd-seq-breadcrumbs li.completed{
+    cursor:default;
+}
+
+.js .sequential .bsdcd-seq-breadcrumbs li.completed a{
+    color:  #dcdcdc !important;
+    cursor:default;
+}
+.js .sequential .bsdcd-seq-breadcrumbs li.completed a span{
+  background-color: #dcdcdc !important;
+  color: #ffffff !important;
+  cursor:default;
+}
+
+.js .sequential #sequential_next_btn_cont a{
+    font-size:14px;
+}
+
+.bsdcd-outer-container label.cc_number_related{
+    display:block !important;
+}
+.bsdcd-outer-container .full_dropdown_cont{
+    width:400px;
+}
+
+.bsdcd-outer-container .prefix_cont{
+    width:100px;
+}
+
+
+
+.bsdcd-outer-container .extended-name-fields .firstname_cont{
+    clear:left;
+}
+
+.bsdcd-outer-container .extended-name-fields .firstname_cont, .bsdcd-outer-container .extended-name-fields .lastname_cont{
+    width: 200px;
+}
+
+.bsdcd-outer-container .suffix_cont{
+    width:80px;
+}
+
+
+.bsdcd-outer-container .cc_number_cont{
+    width:300px;
+}

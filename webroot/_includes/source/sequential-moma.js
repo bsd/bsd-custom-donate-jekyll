@@ -339,7 +339,7 @@ var sequential = {};
 
 				$('.sequential_error_message').text('');
 
-
+                //assume prefix is required in this special case.  Will need to make it a config option later
                 $prefix = $form.find("[name='prefix']");
 
                 if( !$prefix.val() ){

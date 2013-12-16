@@ -1,5 +1,8 @@
 
-
+#content{
+    padding-left:0;
+    padding-right:0;
+}
 
 input.text {
     height:28px;
@@ -19,6 +22,20 @@ h1 {
 h2, .base h2{
     font-family: Arvo, Times, 'Times New Roman', serif;
     font-size: 16px;
+}
+
+.learn-stock {
+    clear:left;
+    text-align:center;
+}
+
+
+
+
+@include respond-max( $tablet - 1px ){
+    .bsdcd-outer-container input.other_amount_input {
+     width:85%;
+    } 
 }
 
 @include respond-min( $form-field-layout ){
@@ -43,6 +60,31 @@ h2, .base h2{
             display:none;
         }
     }
+
+    .learn-stock{
+        text-align: center;
+        position: relative;
+        top: 91px;
+        .pre-first-click & {
+            position:static;
+        }
+    }
+
+    .sequential_step_0 {
+        #sequential_general_error_cont, #sequential_next_cont{
+            position:relative;
+            top:-57px;
+        }
+        #sequential_next_cont{
+            top:-50px;
+        }
+        #sequential_general_error_cont{
+            .oldie & { height:21px; }
+            min-height:21px; 
+            display:block;
+        }
+    }
+
 }
 
 .no-account{
@@ -60,6 +102,17 @@ h2, .base h2{
 }
 li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_btn{
     font-family: Arvo, Times, 'Times New Roman', serif
+}
+
+
+.recurring-checkbox-cont{
+    h3 {display:none;}
+    input[type="checkbox"] {
+        vertical-align: baseline;
+        position: relative;
+        top: -1px;
+        margin-right: 7px;
+    }
 }
 
 .oldie footer{
