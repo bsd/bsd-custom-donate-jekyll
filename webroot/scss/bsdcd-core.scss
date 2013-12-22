@@ -75,7 +75,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         display:none;
     }
     input.text, textarea {
-        background: #f1f1f1;
+        background: $form-field-bg-color;
         border: 1px solid #DEDEDE;
         border-radius: 3px;
         line-height: $input-height;
@@ -84,7 +84,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         -webkit-box-shadow: $core-box-shadow;
         box-shadow: $core-box-shadow; 
         &:focus{
-            background: #f3f3f3;
+            background: $form-field-focus-bg-color;
         }
     }
     input.text{
@@ -98,7 +98,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         line-height: $input-height;
         height: $input-height + 4px;
         border-radius: 3px;
-        background: #f8f8f8;
+        background: $form-field-bg-color;
         border: 1px solid #DEDEDE;
         -webkit-box-shadow: $core-box-shadow;
         box-shadow: $core-box-shadow;
@@ -413,13 +413,13 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
     .bsdcd-top-section {
         width: $section-total-width - ($section-inner-side-padding * 2);
-        background: #fff;
+        background: $header-section-bg-color;
         padding: 10px $section-inner-side-padding;
         border-bottom: 1px solid #d8d8d8;
     }
     .bsdcd-form {
       width: $section-total-width - ( $section-inner-side-padding * 2 );
-      background: #fff;
+      background: $form-bg-color;
       padding: $section-inner-side-padding;
     }
     .form_section_header {

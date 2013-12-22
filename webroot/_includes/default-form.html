@@ -9,14 +9,13 @@
 <div id="bsd_contribute_cont" class="bsdcd-outer-container clearfix {{page.extra-classes-on-outer-container}}{% if page.top-node-is-outer == true%} {%if page.show-first-next-button != "true" %}pre-first-click{%endif%}{% if page.sequential %} sequential sequential_step_0{%endif%}{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.default-currency-symbol}}">
     {% if page.header-section %}
     {%if page.html-above-header %}{{page.html-above-header}}{%endif%}
-    <div id="sequential_header" class="bsdcd-top-section base">
-    {% if page.title %}<h1>{{page.title}}</h1>{%endif%}
-    {% if page.subtitle %}<h2>{{page.subtitle}}</h2>{%endif%}
+    <div id="sequential_header" class="bsdcd-top-section base">{% if page.above-header-html %}{{page.above-header-html}}{%else%}{% if page.title %}<h1>{{page.title}}</h1>{%endif%}
+    {% if page.subtitle %}<h2>{{page.subtitle}}</h2>{%endif%}{%endif%}
     </div>
     {%endif%}
     {% if page.sequential %}
     <ol class="bsdcd-seq-breadcrumbs clearfix">
-        <li class="sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0" data-stepname="amount"><a href="#step_1">Amount<span>1</span></a><hr></li><li class="sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1" data-stepname="personal_info"><a href="#step_2">Name<span>2</span></a></li><li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2" data-stepname="payment_info"><a href="#step_3">Payment<span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a></li>
+        <li class="sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0" data-step="0" data-stepname="amount"><a href="#step_1">Amount<span>1</span></a><hr></li><li class="sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1" data-step="1" data-stepname="personal_info"><a href="#step_2">Name<span>2</span></a></li><li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2" data-step="2" data-stepname="payment_info"><a href="#step_3">Payment<span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a></li>
     </ol>{%endif%}<form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
         <input name="quick_donate_populated" type="hidden" value="">
         <input name="source_codes" type="hidden" value="{% if page.default-source-codes %}{{page.default-source-codes}}{%endif%}">
@@ -362,9 +361,9 @@
                 </li>
                 {%endif%}
                 {% if page.tools-recurring-slug %}
-                <li class="recurring-checkbox-cont form_field_cont recurring_acknowledge_related">
+                <li class="recurring-checkbox-cont form_field_cont recurring_acknowledge_related{% if page.class-on-recurring %} {{page.class-on-recurring}}{%endif%}">
                     <p class="recurring_acknowledge_error hidden bsdcd-error"></p>
-                    <h3 class="form_section_header">{% if page.recurring-section-title %}{{page.recurring-section-title}}{%else%}Recurring Contribution <small>(optional)</small>{%endif%}</h3>
+                    <h3 class="form_section_header">{% if page.recurring-section-title %}{{page.recurring-section-title}}{%else%}Recurring Contribution <small>(Optional)</small>{%endif%}</h3>
                     {%if page.recurring-intro%}<p>{{page.recurring-intro}}</p>{%endif%}
                     <label id="recurring_acknowledge-label" for="{{page.id-prefix}}recurring_acknowledge"><input name="recurring_acknowledge" id="{{page.id-prefix}}recurring_acknowledge" type="checkbox" value="1" tabindex="35"> {%if page.recurring-label%}{{page.recurring-label}}{%else%}Make this a monthly recurring contribution{%endif%}</label>
                 </li>
@@ -373,7 +372,7 @@
             <li id="sequential_general_error_cont">
                 <p class="sequential_error_message bsdcd-error"></p>
             </li>
-            <li id="sequential_next_cont"><p class="big_btn{% if page.button-classes %} {{page.button-classes}}{%endif%}" id="sequential_next_btn_cont"><a href="#" id="sequential_next_btn" class="sequential_move_forward"><span id="sequential_next_btn_copy">Next</span><span id="sequential_donate_btn_copy">Donate</span></a></p></li>
+            <li id="sequential_next_cont"><p class="big_btn{% if page.button-classes %} {{page.button-classes}}{%endif%}" id="sequential_next_btn_cont"><a href="#" id="sequential_next_btn" class="sequential_move_forward"><span id="sequential_next_btn_copy">Next</span><span class="sequential-donate-btn-copy" id="sequential_donate_btn_copy">Donate</span></a></p></li>
             <li id="submit_cont">
                 <p id="processing_indicator" class="bsdcd-submit-button{% if page.button-classes %} {{page.button-classes}}{%endif%}">Processing...</p>
                 <input type="submit" value="Donate now" class="bsdcd-submit-button big_btn {% if page.button-classes %} {{page.button-classes}}{%endif%}" id="submit" tabindex="36">
@@ -381,7 +380,11 @@
             {% if page.compliance-html %}<li class="bsdcd-compliance-section">
                 {{page.compliance-html}}
             </li>{%endif%}
+            {% if page.content-after-button-html %}<li class="bsdcd-content-after-button">
+                {{page.content-after-button-html}}
+            </li>{%endif%}
         </ul><!--/#bsd_contribute_form_fields_cont-->
+
         <input type="hidden" name="slug" value="{{page.tools-slug}}">
     </form>
     {%if page.country-selection == true and page.default-country != "US"  %}<select class="state_cd us-state-dropdown hidden"><option value=""></option><option value="AK">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option><option value="--" disabled="disabled">---</option><option value="AA">AA</option><option value="AE">AE</option><option value="AP">AP</option><option value="AS">AS</option><option value="FM">FM</option><option value="GU">GU</option><option value="MH">MH</option><option value="MP">MP</option><option value="PR">PR</option><option value="PW">PW</option><option value="VI">VI</option></select>{%endif%}
@@ -394,7 +397,7 @@
             var $topNode = $('#bsd_contribute_cont');
 {% if page.sequential %}
             $topNode.sequential({
-                {% if page.debug %}debug: true{% endif %}
+                {% if page.seq_options %}{{page.seq_options}}{% else %}{% if page.debug %}debug: true{% endif %}{% endif %}
             });
 {%endif%}
             $topNode.find('form').blueContribute({

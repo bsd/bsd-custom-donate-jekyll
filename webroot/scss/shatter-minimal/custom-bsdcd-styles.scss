@@ -28,7 +28,9 @@ h2, .base h2{
     clear:left;
     text-align:center;
 }
-
+#recurring_acknowledge-label{
+    text-transform:none;
+}
 
 
 
@@ -60,30 +62,13 @@ h2, .base h2{
             display:none;
         }
     }
-
-    .learn-stock{
-        text-align: center;
-        position: relative;
-        top: 91px;
-        .pre-first-click & {
-            position:static;
+    
+    .sequential_step_1, .sequential_step_2 {
+        .bsdcd-content-after-button{
+            display:none;
         }
     }
-
-    .sequential_step_0 {
-        #sequential_general_error_cont, #sequential_next_cont{
-            position:relative;
-            top:-57px;
-        }
-        #sequential_next_cont{
-            top:-50px;
-        }
-        #sequential_general_error_cont{
-            .oldie & { height:21px; }
-            min-height:21px; 
-            display:block;
-        }
-    }
+    
 
 }
 
@@ -104,9 +89,7 @@ li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_b
     font-family: Arvo, Times, 'Times New Roman', serif
 }
 
-
 .recurring-checkbox-cont{
-    h3 {display:none;}
     input[type="checkbox"] {
         vertical-align: baseline;
         position: relative;

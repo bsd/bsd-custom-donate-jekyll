@@ -35,13 +35,12 @@
         .bsdcd-seq-breadcrumbs {
             width: $section-total-width - (10 * 2);
             overflow:hidden;
-            background: #fff;
             padding: 20px 10px 28px;
             margin: 0;
             border-bottom: 1px solid #000;
             font-size: 13px;
             border-bottom: 1px solid #d8d8d8;
-            background: #f2f2f2;
+            background: $step-container-bg-color;
             text-align:center;
             li {
                 @include inline-block();

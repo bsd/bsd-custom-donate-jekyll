@@ -371,8 +371,7 @@ var blueContribute = {};
 
                 debug('form submit attempt');
 
-                var beforePostReturnValue = true,
-                    apiRequest;
+                var beforePostReturnValue = true;
 
                 if(typeof blueContribute.settings.beforePost === 'function'){
 
@@ -387,7 +386,7 @@ var blueContribute = {};
                     $.wait(blueContribute.settings.postdelay).then(function(){
 
                         //send the donation api request
-                        apiRequest = $.ajax({
+                        $.ajax({
 
                             url: blueContribute.settings.postTo,
                             

@@ -29,7 +29,7 @@ var quickDonate = quickDonate || {};
                 qdfields = ['cc_number','cc_expir_month','cc_expir_year'],
                 defaults, ccName, ccNumberFormatted, defaultResponseHandler, clearQDInfo, prefill, qdFail;
 
-            quickDonate.settings = quickDonate.settings || {};
+            quickDonate.s = quickDonate.s || {};
 
 
             prefill = function(obj){
@@ -84,7 +84,7 @@ var quickDonate = quickDonate || {};
 
                     ){
 
-                        if(quickDonate.settings.debug === true){
+                        if(quickDonate.s.debug === true){
 
                             console.log('properties in response object are all the correct type');
 
@@ -138,9 +138,9 @@ var quickDonate = quickDonate || {};
                             $form.find("[name='quick_donate_populated']").val(t.token);
 
                             //put the qd info text into the dom elements
-                            $(quickDonate.settings.nameElement).text(t.token_info.firstname + ' ' + t.token_info.lastname);
-                            $(quickDonate.settings.addrElement).text(t.token_info.addr1 + ' ' + t.token_info.addr2);
-                            $(quickDonate.settings.locElement).text(t.token_info.city + ' ' + t.token_info.state_cd + ' ' + t.token_info.zip + ' ' + t.token_info.country);
+                            $(quickDonate.s.nameElement).text(t.token_info.firstname + ' ' + t.token_info.lastname);
+                            $(quickDonate.s.addrElement).text(t.token_info.addr1 + ' ' + t.token_info.addr2);
+                            $(quickDonate.s.locElement).text(t.token_info.city + ' ' + t.token_info.state_cd + ' ' + t.token_info.zip + ' ' + t.token_info.country);
 
                               //detach cvv
                             quickDonate.cvvHolder = $form.removeClass('cvv-input').find('#cc_cvv_cont').detach();
@@ -163,7 +163,7 @@ var quickDonate = quickDonate || {};
                                 ccName = 'DiscoverCard';
 
                             }
-                            $(quickDonate.settings.ccTypeElement).text(ccName);
+                            $(quickDonate.s.ccTypeElement).text(ccName);
 
                             //format the card number
                             if(t.token_info.cc_type_cd === 'ax'){
@@ -175,7 +175,7 @@ var quickDonate = quickDonate || {};
                                 ccNumberFormatted = '**** **** **** ' + t.token_info.account_last_four;
 
                             }
-                            $(quickDonate.settings.ccNumberElement).text(ccNumberFormatted);
+                            $(quickDonate.s.ccNumberElement).text(ccNumberFormatted);
                             //add the qd enabled body class for css
                             $bothNodes.addClass('qd_populated').removeClass('qd_loading qd_load_failed');
                             if(window.location.hash.indexOf('noquickd')>-1){
@@ -190,9 +190,11 @@ var quickDonate = quickDonate || {};
                             $.Topic('data-update').publish( 'qd_populated' );
                             $.Topic('qd-status').publish( true );
                             //if sequential we can skip to the last step if the user has already completed amounts.  We may want to move this check into sequential.js somehow
-                            $.Topic('change-step').publish(
-                                ( $('.sequential_breadcrumb_amount').hasClass('completed') )? 2 : 0
-                            );
+                            if(quickDonate.s.skiptoStep) {
+                                $.Topic('change-step').publish(
+                                    ( $('.sequential_breadcrumb_amount').hasClass('completed') )? quickDonate.s.skiptoStep : 0
+                                );
+                            }
 
                         } else {
 
@@ -202,7 +204,7 @@ var quickDonate = quickDonate || {};
 
                     } else {
 
-                        if(quickDonate.settings.debug === true){
+                        if(quickDonate.s.debug === true){
 
                             console.log('properties in response object are not the correct type');
 
@@ -216,7 +218,7 @@ var quickDonate = quickDonate || {};
                 } else {
 
                     //something was wrong with the response object
-                    if(quickDonate.settings.debug === true){
+                    if(quickDonate.s.debug === true){
                         console.log('something was wrong with the response object',responseObject, quickDonate.tokenRequest);
                     }
                     qdFail();
@@ -224,8 +226,8 @@ var quickDonate = quickDonate || {};
                 }
 
                 //run the callback object
-                if(typeof quickDonate.settings.callback === 'function'){
-                        quickDonate.settings.callback();
+                if(typeof quickDonate.s.callback === 'function'){
+                        quickDonate.s.callback();
                 }
                 firstTry = false;
             };
@@ -277,7 +279,7 @@ var quickDonate = quickDonate || {};
                 if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
                     $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
                 }
-                $.Topic('change-step').publish(1, true); //go to now unhidden name step, but do it silently
+                $.Topic('change-step').publish(1, true); //go to now unhidden name step, but do it silently 
                 $.Topic('data-update').publish( 'qd_cleared' );
             };
 
@@ -285,34 +287,28 @@ var quickDonate = quickDonate || {};
             defaults = {
 
                 tokenRequestPath: '/ctl/Contribution/Quick/GetToken',
-
                 nuclearElement: '#qd_nuclear',
-
                 differentInfoElement: '#qd_clear_info',
-
                 nameElement: '#qd_name',
                 addrElement: '#qd_address',
                 locElement: '#qd_location',
-
                 ccTypeElement: '#qd_cc_type',
-
                 ccNumberElement: '#qd_cc_number',
-
                 clearInfo: clearQDInfo,
-
+                skiptoStep: 2,
                 responseHandler: defaultResponseHandler
 
             };
             
             //consolidate both user defined and default functions
-            quickDonate.settings =  $.extend(true, defaults, options);
+            quickDonate.s =  $.extend(true, defaults, options);
 
             function requestToken(){
                 $bothNodes.addClass('qd_loading');
 
                 var tr = $.ajax({
 
-                    url: (hash.indexOf('noquickd')>-1 && firstTry)?'/':quickDonate.settings.tokenRequestPath,
+                    url: (hash.indexOf('noquickd')>-1 && firstTry)?'/':quickDonate.s.tokenRequestPath,
 
                     converters: { "text json": jQuery.parseJSON },
 
@@ -328,7 +324,7 @@ var quickDonate = quickDonate || {};
                 var obj = requestToken();
                 obj.always(function(d) {
                     quickDonate.tokenRequest = d;
-                    quickDonate.settings.responseHandler(obj, d);
+                    quickDonate.s.responseHandler(obj, d);
                 });
             }
 
@@ -352,15 +348,15 @@ var quickDonate = quickDonate || {};
               return resFilter($.ajax({url:'https://my.democrats.org/page/graph/me?callback=?&jsoncallback=?',dataType:'jsonp'}));
             }
 
-            $(quickDonate.settings.nuclearElement).click(function(e){
+            $(quickDonate.s.nuclearElement).click(function(e){
 
-                quickDonate.settings.clearInfo(e, 'nuclear');
+                quickDonate.s.clearInfo(e, 'nuclear');
 
             });
 
-            $(quickDonate.settings.differentInfoElement).click(function(e){
+            $(quickDonate.s.differentInfoElement).click(function(e){
 
-                quickDonate.settings.clearInfo(e, 'reveal');
+                quickDonate.s.clearInfo(e, 'reveal');
 
             });
 
@@ -377,13 +373,13 @@ var quickDonate = quickDonate || {};
             /*not currently exposed/used*/
             $( '.qd-log-out-link' ).click(function(e){
                 e.preventDefault();
-                quickDonate.settings.clearInfo(e, 'nuclear');
+                quickDonate.s.clearInfo(e, 'nuclear');
             });
 
             //clear quick donate if the blue validation had any other errors than just the amount
             $.Topic('bsd-validation-update').subscribe(function(ok, amt_error_only){
                 if (!ok && !amt_error_only){
-                    quickDonate.settings.clearInfo(0, 'reveal', true); //clear qd because user had errors, but don't report since it's assumed and not user initiated
+                    quickDonate.s.clearInfo(0, 'reveal', true); //clear qd because user had errors, but don't report since it's assumed and not user initiated
                 }
             });
 

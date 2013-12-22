@@ -24,7 +24,7 @@ var sequential = {};
                 $breadcrumbs = $topNode.find('.sequential_breadcrumb');
 
 			sequential.currentStep = 0;
-			sequential.currency_symbol = $topNode.find('[data-currency-symbol]').data('currency-symbol')||"$";
+			sequential.currency_symbol = $('[data-currency-symbol]').data('currency-symbol')||"$";
 
             var countryVal = "US";
 
@@ -57,7 +57,7 @@ var sequential = {};
                     sequential.currentStep = step;
 
                     $topNode.removeClass('sequential_step_' + oldstep).find('.sequential_error_message').text('');
-                    sequential.settings.stepContainers.eq(oldstep).addClass('inactive').removeClass('active');
+                    sequential.s.stepContainers.eq(oldstep).addClass('inactive').removeClass('active');
                     $breadcrumbs.eq(oldstep).removeClass('active');
 
                     //if qd is populated and step 1 was valid, users should go right to the step 2 without adding step 1
@@ -70,11 +70,11 @@ var sequential = {};
                         stepname = $newStep.data('stepname');
 
                         $newStep.addClass('active').prevAll().removeClass('step-error').addClass('completed');
-                        sequential.settings.stepContainers.eq(step).addClass('active').removeClass('inactive').prevAll().addClass('completed');
+                        sequential.s.stepContainers.eq(step).addClass('active').removeClass('inactive').prevAll().addClass('completed');
 
                         //if not touch, focus on this steps first required field that is currently without a value
                         if(!touch){
-                            sequential.settings.stepContainers.eq(step).find('input').find('[required]').filter(function(){
+                            sequential.s.stepContainers.eq(step).find('input').find('[required]').filter(function(){
                                 if($(this).val() === ""){
                                     return true;
                                 }
@@ -92,7 +92,7 @@ var sequential = {};
 
 				if( typeof step === 'number' ){
 
-					if( typeof sequential.settings.validationFunctions[sequential.currentStep] === 'function'){
+					if( typeof sequential.s.validationFunctions[sequential.currentStep] === 'function'){
 
 						if( isPreviousStep ){
 
@@ -101,13 +101,13 @@ var sequential = {};
 						} else if( sequential.currentStep !== step ) {
 
                             //this still allows us to skip from step 1 to step 3, past an invalid step 2....
-							if( sequential.settings.validationFunctions[sequential.currentStep]() ){
+							if( sequential.s.validationFunctions[sequential.currentStep]() ){
 
-                                if( sequential.currentStep === (sequential.settings.stepContainers.length - 1) ){
+                                if( sequential.currentStep === sequential.s.submitStep ){
 
                                     //last step so submit the form
                                     blueContribute.submitForm();
-                                    $topNode.find('#sequential_donate_btn_copy').text('Processing...');
+                                    $topNode.find('.sequential-donate-btn-copy').text('Processing...');
                                 }
                                 else if ( (step - sequential.currentStep) > 1){
                                     sequential.utilityFunctions.goToStep(sequential.currentStep+1);
@@ -131,13 +131,15 @@ var sequential = {};
 
 			$.Topic('change-step').subscribe(sequential.utilityFunctions.goToStep); //allow other modules to change steps 
 
+            sequential.utilityFunctions.validateAmountsAndPersonal = function(){
+                return sequential.utilityFunctions.validateAmounts() && sequential.utilityFunctions.validatePersonalInfo();
+            };
+
 			sequential.utilityFunctions.validateAmounts = function (){
 
 				var amountRadioGroupNumber, otherAmountNumber, amountIsSelected, amountIsUnderMaximum, amountIsOverMinimum, amount, tmpamount = $otheramt.val();
 
-				$topNode.removeClass('sequential_error');
-
-				$('.sequential_error_message').text('');
+				$topNode.removeClass('sequential_error').find('.sequential_error_message').text('');
 
 				amountRadioGroupNumber = parseFloat( $form.find("input[name='amount']:checked").val() );
 
@@ -171,8 +173,11 @@ var sequential = {};
 
 							//no amount is selected
 
-							//console.log('no amount selected');
-
+                            //console.log('no amount selected');
+                            report(
+                                ['Sequential donate', 'Amount error', 'no amount selected'],
+                                'sequential_amount_not_selected'
+                            );
 							return false;
 
 						}
@@ -183,13 +188,13 @@ var sequential = {};
 
 				amountIsUnderMaximum = function(amount){
 
-					if(typeof sequential.settings.donationAmountLimit === 'number'){
+					if(typeof sequential.s.donationAmountLimit === 'number'){
 
 						//console.log('donation amount minimum is set');
 
 						if(typeof amount === 'number'){
 
-							if( amount <= sequential.settings.donationAmountLimit ){
+							if( amount <= sequential.s.donationAmountLimit ){
 
 								//user selected amount is under maximum
 								return true;
@@ -224,11 +229,11 @@ var sequential = {};
 
 				amountIsOverMinimum = function(amount){
 
-					if(typeof sequential.settings.donationAmountMinimum === 'number'){
+					if(typeof sequential.s.donationAmountMinimum === 'number'){
 
 						if(typeof amount === 'number'){
 
-							if( amount >= sequential.settings.donationAmountMinimum || nomin){
+							if( amount >= sequential.s.donationAmountMinimum || nomin){
 
 								//user selected amount is over minimum
 								return true;
@@ -273,7 +278,7 @@ var sequential = {};
 
 							//console.log('selected amount is over minimum');
 
-							$topNode.find('#sequential_donate_btn_copy').text('Donate ' + sequential.currency_symbol + amount.commafy());
+							$topNode.find('.sequential-donate-btn-copy').text('Donate ' + sequential.currency_symbol + amount.commafy());
 
 							return true;
 
@@ -282,10 +287,12 @@ var sequential = {};
 							//amount is under minimum
 
 							//console.log('selected amount is NOT over minimum');
-
-							$topNode.addClass('sequential_error');
-
-							$('.sequential_error_message').text('The minimum amount is ' + sequential.currency_symbol + sequential.settings.donationAmountMinimum + '.');
+                            console.log(sequential.currency_symbol);
+							$topNode.addClass('sequential_error').find('.sequential_error_message').text(
+                                (sequential.s.customErrors.undermin) ?
+                                sequential.s.customErrors.undermin :
+                                ('The minimum amount is ' + sequential.currency_symbol + sequential.s.donationAmountMinimum + '.')
+                            );
 
 							return false;
 
@@ -297,28 +304,22 @@ var sequential = {};
 
 						//console.log('selected amount is NOT under maximum');
 
-						$topNode.addClass('sequential_error');
-
-						$('.sequential_error_message').text('The maximum amount is ' + sequential.currency_symbol + sequential.settings.donationAmountLimit + '.');
-
+                        $topNode.addClass('sequential_error').find('.sequential_error_message').text(
+                            (sequential.s.customErrors.overmax) ?
+                                sequential.s.customErrors.overmax :
+                                ('The maximum amount is ' + sequential.currency_symbol + sequential.s.donationAmountLimit.commafy() + '.')
+                            );
 						return false;
 
 					}
 
 				} else {
 
-					//no amount is selected
+                    //no amount is selected
 
 					//console.log('no amount is selected');
 
-					$topNode.addClass('sequential_error');
-
-					$('.sequential_error_message').text('Please select an amount.');
-
-                    report(
-                        ['Sequential donate', 'Amount error', 'no amount selected'],
-                        'sequential_amount_not_selected'
-                    );
+					$topNode.addClass('sequential_error').find('.sequential_error_message').text('Please select an amount.');
 
 					return false;
 
@@ -332,9 +333,7 @@ var sequential = {};
 
 				numberOfInvalidFields = 0;
 
-				$topNode.removeClass('sequential_error');
-
-				$('.sequential_error_message').text('');
+				$topNode.removeClass('sequential_error').find('.sequential_error_message').text('');
 
 				firstName = $("[name='firstname']");
 
@@ -431,7 +430,7 @@ var sequential = {};
 
 				country = $form.find('[name="country"]');
 
-				if(sequential.settings.requireCountry){
+				if(sequential.s.requireCountry){
 
 					if( !country.val() ){
 
@@ -502,7 +501,7 @@ var sequential = {};
 
 				};
 
-				if( (sequential.settings.optionalphone && !phone.number) || phone.isValid() ){
+				if( (sequential.s.optionalphone && !phone.number) || phone.isValid() ){
 
 					phone.input.removeClass('bsdcd-error');
 
@@ -645,7 +644,7 @@ var sequential = {};
 
                 cvv = $form.find('[name="cc_cvv"]');
 
-                if(sequential.settings.requireCVV){
+                if(sequential.s.requireCVV){
 
                     if( pp || sequential.qd || /^[0-9]{3,4}$/.test( cvv.val() ) ){
 
@@ -677,9 +676,7 @@ var sequential = {};
 
 				} else {
 
-					$topNode.removeClass('sequential_error');
-
-					$('.sequential_error_message').text('');
+					$topNode.removeClass('sequential_error').find('.sequential_error_message').text('');
 
 					return true;
 
@@ -689,7 +686,7 @@ var sequential = {};
 
 			var defaults = {
 
-				stepContainers: $('.sequential_step'),
+				stepContainers: $topNode.find('.sequential_step'),
 
 				donationAmountLimit: $form.data('max-donation')||null,
 
@@ -701,28 +698,32 @@ var sequential = {};
 
                 requireCVV: $form.data('require-cvv')||false,
 
+                submitStep: $topNode.find('.sequential_step').length-1||2, //default to the last step
+
+                customErrors: {},
+
 				validationFunctions: [sequential.utilityFunctions.validateAmounts, sequential.utilityFunctions.validatePersonalInfo, sequential.utilityFunctions.validatePaymentInfo]
 
 			};
 
 			//consolidate both user defined and default settings
-			sequential.settings = $.extend(true, defaults, options);
+			sequential.s = $.extend(true, defaults, options);
 
 			//add sequential body class
 			$topNode.addClass('sequential').addClass('sequential_step_' + sequential.currentStep);
 
-			if( sequential.settings.requireCountry ){
+			if( sequential.s.requireCountry ){
 
 				$topNode.addClass('sequential_country_field');
 
 			}
 
 			//show the first step
-			$(sequential.settings.stepContainers[0]).addClass('active');
+			$(sequential.s.stepContainers[0]).addClass('active');
 			$('li.sequential_breadcrumb_0').addClass('active');
 
 			//hide the others
-			$(sequential.settings.stepContainers).not( $(sequential.settings.stepContainers[sequential.currentStep]) ).addClass('inactive');
+			$(sequential.s.stepContainers).not( $(sequential.s.stepContainers[sequential.currentStep]) ).addClass('inactive');
 
             //enable next buttons
 			$topNode.on('click','.sequential_move_forward',function(e){
@@ -730,27 +731,12 @@ var sequential = {};
                 sequential.utilityFunctions.goToStep(sequential.currentStep + 1);
             });
 
-			$('.bsdcd-seq-breadcrumbs').on('click', 'a', function(e){
 
-				var clickedBreadcrumb = $(this).closest('li');
-
-				e.preventDefault();
-
-				if( clickedBreadcrumb.hasClass('sequential_breadcrumb_amount') ){
-
-					sequential.utilityFunctions.goToStep(0);
-
-				} else if( clickedBreadcrumb.hasClass('sequential_breadcrumb_name') ){
-
-					sequential.utilityFunctions.goToStep(1);
-
-				} else if( clickedBreadcrumb.hasClass('sequential_breadcrumb_payment') ){
-
-					sequential.utilityFunctions.goToStep(2);
-
-				}
-
-			});
+            $('.bsdcd-seq-breadcrumbs').on('click', 'a', function(e){
+                e.preventDefault();
+                var step = $(this).closest('li').data('step');
+                sequential.utilityFunctions.goToStep(step);
+            });
 
             return this;
         }

@@ -23,6 +23,7 @@ quick-donate: true
 header-section: true
 title: Your Donation Will Save Lives
 subtitle: Donate to Partners In Health
+above-header-html: #override the entire top section and use your own arbitrary html
 
 ##internationalization
 default-country: US # set to either US or GB or leave blank for international. Controls starting state of state_cd labels/country dropdown
@@ -69,6 +70,11 @@ include-plugin-code: true #if false, you'll need to write the plugin code into y
 top-node-is-outer: true #attach key handlers to outer element on bsdcd-outer-container instead of to the body element. Currently HAS to be true, sorry
 extra-classes-on-outer-container: #just a string of extra classes to add on the bsdcd-outer-container, just in case you need to for you convienience
 class-on-in-honor: #in-honor-of section title and intro can get a separate class, useful for sites that use .base, leave blank for nothing extra
+class-on-recurring: #reucrring title and intro can get a separate class, useful for sites that use .base
+button-classes: #additional classes to attach to submit button-like things
+seq_options: #'"customErrors":{"overmax":"The maximum amount is $10,000 per transaction. For gifts over $10,000, please complete multiple transactions."}'
+content-after-button-html: #arbitrary html after the buttons, potentially on all steps
+
 
 #wicked advanced: add a custom success function that's called when a user successfully donates instead of the standard redirect method
 custom-success: # something like function(resobj){ window.succeed(resobj); }

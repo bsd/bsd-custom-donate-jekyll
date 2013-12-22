@@ -63,9 +63,9 @@ input, select{
 }
 
 h1, h2, h3, h4, h5 {
-font-family: Helvetica, Arial;
-color: #707070;
-font-weight: bold;
+    font-family: Helvetica, Arial;
+    color: #707070;
+    font-weight: bold;
 }
 
 .qd-personal-info{
@@ -76,7 +76,10 @@ font-weight: bold;
   font-family: "Libre Baskerville", Georgia, "Times New Roman", Times, serif;
 }
 
-
+.recurring-checkbox-cont input {
+    position: relative;
+    top: -1px;
+}
 
 .bsdcd-top-section {
     h1 {
@@ -119,6 +122,8 @@ font-weight: bold;
         }
         h2 {
             text-align:left;
+            font-size:20px;
+            margin-bottom: 5px;
         }
     }
 
@@ -183,5 +188,58 @@ font-weight: bold;
     }
     .ie7 & {
         background-color: black;
+    }
+}
+
+
+.donate-stats{
+    margin-top: 0;
+    font-size: 17px;
+    line-height: 21px;
+    font-weight: bold;
+    color: #3d6080;
+    clear: both;
+    @include respond-max( $phone - 1px){
+        padding: 0 5px;
+    }
+    span {
+        float: left;
+        font-size: 52px;
+        margin: 12px;
+        @include respond-max( $widephone - 1px){
+            margin-bottom: 35px;
+        }
+        @include respond-max( $phone - 1px){
+            margin-bottom: 15px;
+            float:none;
+            display:block;
+            text-align:center;
+        }
+    }
+}
+
+.badge-text{
+    font-size: 12px;
+    color: #3D6080;
+    font-weight: bold;
+}
+
+.badge-section{
+    margin: 0 10px;
+    .donate-badges {
+        text-align:center;
+        img{
+            float:none;
+            display:inline;
+            padding: 0 5%;
+            height:auto;
+            max-width:28%;
+            @include respond-max( $widephone - 1px){
+                max-width: 40%; 
+            }
+        }
+        .comodo{
+            padding-left:5px;
+        }
     }
 }

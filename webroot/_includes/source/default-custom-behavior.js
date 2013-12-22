@@ -60,6 +60,7 @@
     //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
     if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
         $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+        $body.removeClass('pre-first-click'); //default amount should expose the next button
 
         //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
         if(skip && skip===1 ){

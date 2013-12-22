@@ -12,7 +12,7 @@ author: Drew Tipson
 page-title: Donate
 
 tools-slug: default
-tools-recurring-slug: #donate-to-shatterproof-recurr #leave blank for no recurring
+tools-recurring-slug: donate-to-shatterproof-recurr #leave blank for no recurring
 default-source-codes: sequential-donate
 
 ##
@@ -29,7 +29,7 @@ subtitle: Help us bring new energy, new resources, and a new commitment to preve
 #form customization
 custom-amounts: [10, 25, 50, 100, 250, 1000, 2500] #an array of 7 values for the donation amount
 min-donation: 5
-max-donation: 300000
+max-donation: 10000
 country-selection: true #whether to show a country selection dropdown
 require-country: true #country selection must be true for this to work, of course
 optional-phone: true #phone is required by default, this overrides that
@@ -45,7 +45,7 @@ default-currency-symbol: "$"
 
 #text sections
 recurring-intro: 
-recurring-label: Make This A Recurring Contribution (Optional)
+recurring-label: Make this a monthly contribution
 
 #in honor-of
 in-honor-of-section: true 
@@ -68,9 +68,12 @@ include-plugin-code: true #if false, you'll need to write the plugin code into y
 top-node-is-outer: true #attach key handlers to outer element on bsdcd-outer-container instead of to the body element
 extra-classes-on-outer-container: #just a string of extra classes to add, just in case you need to
 class-on-in-honor: base #in-honor-of section title and intro can get a separate class, useful for sites that use .base
+class-on-recurring: base #in-honor-of section title and intro can get a separate class, useful for sites that use .base
 button-classes: button #additional classes to attach to submit button-like things
+seq_options: '"customErrors":{"overmax":"The maximum amount is $10,000 per transaction. For gifts over $10,000, please complete multiple transactions."}'
+content-after-button-html: '<div class="learn-stock"><hr><a href="http://www.shatterproof.org/pages/stock-gifts " target="_blank">Learn how to make a gift of stock</a></div>'
 
-step-one-html-after: '<li class="learn-stock" style="text-align: center;clear:left;"><hr><a href="http://www.shatterproof.org/pages/stock-gifts " target="_blank">Learn how to make a gift of stock</a></li>'
+step-one-html-after: # content after the amounts but before the error and button
 
 ##debug
 no_minimum: false

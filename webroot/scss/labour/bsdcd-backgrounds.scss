@@ -5,7 +5,7 @@
 
 @include respond-min( $tablet ){
     body {
-        background-color: #444;
+        background-color: #fafafa;
         background-image: $giant-background-image; //actual image defined in variables
         background-repeat: no-repeat;
         background-size:cover;
