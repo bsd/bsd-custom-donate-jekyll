@@ -9,17 +9,10 @@
         background-image: $giant-background-image; //actual image defined in variables
         background-repeat: no-repeat;
         background-size:cover;
-        background-position: center auto;
+        background-position: center 50px;
     }
 }
 
-.container.header header, .bsdcd-outer-container{
-    margin-right: auto;
-    margin-left:auto;
-    @include respond-min( $tablet ){
-        width:768px;
-    }
-    @include respond-min( $desktop ){
-        width:940px;
-    }
+@include respond-min( $widedesktop ){
+    body { background-position: center top; }
 }

@@ -11,18 +11,18 @@ body {
 
 @font-face {
   font-family: 'NeoSansStd-Bold';
-  src: url('/page/-/wrapper/fonts/2846E8_0_0.eot');
-  src: url('/page/-/wrapper/fonts/2846E8_0_0.eot?#iefix') format('embedded-opentype'), url('/page/-/wrapper/fonts/2846E8_0_0.woff') format('woff'), url('/page/-/wrapper/fonts/2846E8_0_0.ttf') format('truetype');
+  src: url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_0_0.eot');
+  src: url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_0_0.eot?#iefix') format('embedded-opentype'), url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_0_0.woff') format('woff'), url('/page/-/wrapper/fonts/2846E8_0_0.ttf') format('truetype');
 }
 @font-face {
   font-family: 'NeoSansStd-Regular';
-  src: url('/page/-/wrapper/fonts/2846E8_1_0.eot');
-  src: url('/page/-/wrapper/fonts/2846E8_1_0.eot?#iefix') format('embedded-opentype'), url('/page/-/wrapper/fonts/2846E8_1_0.woff') format('woff'), url('/page/-/wrapper/fonts/2846E8_1_0.ttf') format('truetype');
+  src: url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_1_0.eot');
+  src: url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_1_0.eot?#iefix') format('embedded-opentype'), url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_1_0.woff') format('woff'), url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_1_0.ttf') format('truetype');
 }
 @font-face {
   font-family: 'NeoSansStd-Light';
-  src: url('/page/-/wrapper/fonts/2846E8_2_0.eot');
-  src: url('/page/-/wrapper/fonts/2846E8_2_0.eot?#iefix') format('embedded-opentype'), url('/page/-/wrapper/fonts/2846E8_2_0.woff') format('woff'), url('/page/-/wrapper/fonts/2846E8_2_0.ttf') format('truetype');
+  src: url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_2_0.eot');
+  src: url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_2_0.eot?#iefix') format('embedded-opentype'), url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_2_0.woff') format('woff'), url('https://donation.labour.org.uk/page/-/wrapper/fonts/2846E8_2_0.ttf') format('truetype');
 }
 a {
   color: #f12f15;
@@ -48,10 +48,10 @@ text-align: center;
 
 
 #bsd_contribute_cont h1, #bsd_contribute_cont h2, #bsd_contribute_cont h3, #bsd_contribute_cont h4, #bsd_contribute_cont h5 {
-text-align: center;
-color: #707070;
-font-weight: bold;
-font-size: 1.5em;
+    text-align: center;
+    color: #707070;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 
 .bsdcd-top-section {
@@ -83,7 +83,7 @@ font-size: 1.5em;
   background: #000;
   background: rgba(0,0,0,.7);
   font-size: 12px;
-  padding: 1.5em;
+  padding: 18px;
 }
 #footer p {
   margin: 0;
@@ -101,9 +101,15 @@ font-size: 1.5em;
 #compliance {
   text-align: center;
 }
-@include respond-max($tablet){
+@include respond-max($tablet - 1px){
     .other_amount_input{
         width: 80% !important;
+    }
+    .bsdcd-outer-container .qd_info_section{
+        padding-top:12px;
+    }
+    body{
+        background-color: $form-bg-color;
     }
 }
 header {
@@ -113,11 +119,38 @@ header {
   @include respond-min($tablet){
     padding: 38px 0;
   }
+  @include respond-max($widephone - 1px){
+    padding:10px;
+    img {
+        width:100%;
+    }
+  }
 }
 header h1 {
     @include inline-block();
     margin: 0;
 }
+
+
+.container.header header, .bsdcd-outer-container, #footer{
+    margin-right: auto;
+    margin-left:auto;
+    @include respond-min( $tablet ){
+        width:768px;
+    }
+    @include respond-min( $desktop ){
+        width:940px;
+    }
+}
+#footer{
+    @include respond-min( $tablet ){
+        width:732px;
+    }
+    @include respond-min( $desktop ){
+        width:904px;
+    }
+}
+
 
 .qd-login-links-section{
 padding-top:10px;

@@ -286,7 +286,7 @@
                 {% if page.require-cvv %}
                 <li class="qd_info_extra cc_cvv_cont cc_cvv_group_related form_field_cont">
                     <p class="cc_cvv_group_error hidden bsdcd-error"></p>
-                    <label for="{{page.id-prefix}}cc_cvv" class="cc_cvv_group_related">Card Security Code<span>*</span> {% if page.show-cvv-help %}<span class="tooltip cvv-question-mark" data-content="For Visa, Mastercard, or Discover, the three-digit CVV number is printed on the signature panel on the back of the card immediately after the card's account number. For American Express, the four-digit CVV number is printed on the front of the card above the card account number.">?</span>{%endif%}</label>
+                    <label for="{{page.id-prefix}}cc_cvv" class="cc_cvv_group_related">{% if page.custom-cvv-label %}{{page.custom-cvv-label}}{%else%}Card Security Code{%endif%}<span>*</span>{% if page.show-cvv-help %}{% if page.custom-cvv-help %}{{ page.custom-cvv-help }}{% else %}<span class="tooltip cvv-question-mark" data-content="For Visa, Mastercard, or Discover, the three-digit CVV number is printed on the signature panel on the back of the card immediately after the card's account number. For American Express, the four-digit CVV number is printed on the front of the card above the card account number.">?</span>{% endif %}{% endif %}</label>
                     <input size="4" maxlength="4" id="{{page.id-prefix}}cc_cvv" autocomplete="off" name="cc_cvv" type="tel" class="text" tabindex="24">
                 </li>
                 {%endif%}
