@@ -151,6 +151,12 @@ header h1 {
     }
 }
 
+@include respond-min($tablet){
+    .bsdcd-outer-container .bsdcd-top-section{
+        width: 405px;
+        padding: 10px 20px;
+    }
+}
 .qd-login-links-section{
 padding-top:10px;
 text-align:Right;
