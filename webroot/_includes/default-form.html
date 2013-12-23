@@ -401,7 +401,7 @@
             });
 {%endif%}
             $topNode.find('form').blueContribute({
-                {% if page.debug %}debug: true{% endif %}{% if page.debug AND page.custom-success %},{% endif %}{% if page.custom-success %}customSuccess: {{page.custom-success}}{% endif %}
+                {% if page.debug %}debug: true{% endif %}{% if page.debug and page.custom-success %},{% endif %}{% if page.custom-success %}customSuccess: {{page.custom-success}}{% endif %}
             });
             $topNode.detectCCType();
             

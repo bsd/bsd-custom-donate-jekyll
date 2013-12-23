@@ -205,6 +205,7 @@ h1, h2, h3, h4, h5 {
     span {
         float: left;
         font-size: 52px;
+        .ie7 & {line-height:52px;position:relative;top:-18px;}
         margin: 12px;
         @include respond-max( $widephone - 1px){
             margin-bottom: 35px;

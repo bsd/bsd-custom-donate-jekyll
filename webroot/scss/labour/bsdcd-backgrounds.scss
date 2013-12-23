@@ -2,7 +2,10 @@
 /*works best with a relatively huge image: we've been using 2000x1380 */
 
     
-
+body {
+        background-color: #fafafa;
+        background-attachment:fixed;
+}
 @include respond-min( $tablet ){
     body {
         background-color: #fafafa;
@@ -15,4 +18,12 @@
 
 @include respond-min( $widedesktop ){
     body { background-position: center top; }
+}
+
+.oldie{
+    body {
+        background-attachment: initial;
+        background-position: 50% 30px;
+        background-image: url(#{$bg-image}/@mx_1000);
+    }
 }

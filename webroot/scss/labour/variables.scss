@@ -83,6 +83,7 @@ $form-field-bg-color: #fff;
 $form-field-focus-bg-color: #fdfdfd;
 
 /*Images*/
+$bg-image: 'https://s.bsd.net/labouruk/default/page/-/Images/Donate%20page/ed_closeup_4.jpg';
 $giant-background-image: url(https://s.bsd.net/labouruk/default/page/-/Images/Donate%20page/ed_closeup_4.jpg);
 
 
@@ -178,7 +179,6 @@ body {
   margin: 0;
   height: 100%; 
   display: block;  
-  background-attachment: fixed;
 }
 /* ==========================================================================
    Links
