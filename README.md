@@ -33,7 +33,11 @@ There's a lot more to be done to make the core more flexible and customizable, b
 ```JavaScript
     <script>(function(dc){ dc.className = dc.className.replace("no-js","js"); }(document.documentElement));</script>
 ```
-* for IE9 and below, you'll want to make sure your site implements the placeholder polyfill in some fashion.  Input (like .text) css classes are already applied in the markup, so you shouldn't need to worry about adding them via javascript.
+* for IE9 and below, you'll want to make sure your site implements the placeholder polyfill in some fashion.  Input (like .text) css classes are already applied in the markup, so you shouldn't need to worry about adding them via javascript.  If you're not using our standard main.js code, use this:
+
+```HTML
+<!--[if lte IE 9]><script src="https://donation.labour.org.uk/page/-/donate/jquery.placeholder.js"></script><script>jQuery('input, textarea').placeholder();</script><![endif]-->
+```
 
 I'd also highly advise making sure the includes and uses Modernizr & in particular, the box-sizing custom detect.
 
