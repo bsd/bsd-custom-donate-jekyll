@@ -46,11 +46,11 @@ There are two main ways...
 -    /webroot/page/-/donate/ - basically a local mirror of the file structure that will be in the tools. scss styles should compile to named directories here
 
 ##SASS
-    While there's a codekit.json config file in the /webroot/scss folder, the basic way to compile your css is
-    /webroot/scss/STYLENAME/bsdcd-styles.scss - > /webroot/page/-/donate/STYLENAME/bsdcd-styles.scss
-    /webroot/scss/STYLENAME/bsdcd-styles-desktop.scss - > /webroot/page/-/donate/STYLENAME/bsdcd-styles-desktop.scss 
+While there's a codekit.json config file in the /webroot/scss folder, the basic way to compile your css is
+- /webroot/scss/STYLENAME/bsdcd-styles.scss - > /webroot/page/-/donate/STYLENAME/bsdcd-styles.scss
+- /webroot/scss/STYLENAME/bsdcd-styles-desktop.scss - > /webroot/page/-/donate/STYLENAME/bsdcd-styles-desktop.scss 
 
-    It's set up this way because you're most likely going to be hosting your custom donate styles at /page/-/donate/STYLENAME/ in the tools.
+It's set up this way because you're most likely going to be hosting your custom donate styles at /page/-/donate/STYLENAME/ in the tools.
 
 ##Creating new pages in jekyll
 
