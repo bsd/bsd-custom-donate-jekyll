@@ -345,7 +345,7 @@ var quickDonate = quickDonate || {};
                 return resFilter($.ajax({url:'/page/spud?type=getm&field=email,firstname,lastname,addr1,city,state_cd,zip,phone&jsonp=?',dataType:'jsonp'}));
             }
             function getGraph(){
-              return resFilter($.ajax({url:'https://my.democrats.org/page/graph/me?callback=?&jsoncallback=?',dataType:'jsonp'}));
+              return resFilter($.ajax({url:'/page/graph/me?callback=?&jsoncallback=?',dataType:'jsonp'}));
             }
 
             $(quickDonate.s.nuclearElement).click(function(e){

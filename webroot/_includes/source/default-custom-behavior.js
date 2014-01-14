@@ -57,31 +57,6 @@
     window.BSDcustomAmounts = customAmounts;
     customAmounts(custom_amounts);
 
-    //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
-    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
-        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
-        $body.removeClass('pre-first-click'); //default amount should expose the next button
-
-        //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
-        if(skip && skip===1 ){
-            $.wait(3).done(function(){
-                $.Topic('change-step').publish(1);
-            });
-        }
-    }
-
-    //toggle honeree select areas open and toggle between memorial or not
-    $form.find('.honoree-select').on('change',function(){
-        var $el = $(this), val = $el.val();
-        $form.removeClass('honor-section memorial-section');
-        if(val==="1"){
-            $form.addClass('honor-section memorial-section');
-        }
-        else if (val==="0"){
-            $form.addClass('honor-section');
-        }
-    });
-
 	//apply an active class to a label when amount is selected
 	$form.on('click','.preset_amount_label',function(e){
 		var $el = $(this);
@@ -95,12 +70,40 @@
 			$(this).prop('checked',false);
 		});
         $otherAmtRadio.prop('checked', true);
-	}).one('keydown','.amount_other',function(){
+	});
+
+    //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
+    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
+        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+        $body.removeClass('pre-first-click'); //default amount should expose the next button
+
+        //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
+        if(skip && skip===1 ){
+            $.wait(3).done(function(){
+                $.Topic('change-step').publish(1);
+            });
+        }
+    }
+
+    //now that we've dealt with pre-clicks, lets potentially bind the click behavior to change things on the first click
+    $form.one('keydown','.amount_other',function(){
 		$body.removeClass('pre-first-click');
 	}).one('click','.preset_amount_label',function(){
 		if ($('body').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
         $body.removeClass('pre-first-click');
 	});
+
+    //toggle honeree select areas open and toggle between memorial or not
+    $form.find('.honoree-select').on('change',function(){
+        var $el = $(this), val = $el.val();
+        $form.removeClass('honor-section memorial-section');
+        if(val==="1"){
+            $form.addClass('honor-section memorial-section');
+        }
+        else if (val==="0"){
+            $form.addClass('honor-section');
+        }
+    });
 
     //handles the simplest way to support international validation changes based on country
 	function switchCountry(qd){
