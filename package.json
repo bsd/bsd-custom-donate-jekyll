@@ -1,0 +1,42 @@
+{
+  "name": "bsd-custom-donate",
+  "version": "0.5.0",
+  "description": "Build customized donation forms, including sequential, that work with Blue State Digital's donate api",
+  "main": "js/sequential-donate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bsdstrategy/bsd-custom-donate-jekyll.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bsdstrategy/bsd-custom-donate-jekyll/issues"
+  },
+  "keywords": [
+    "custom",
+    "bsd",
+    "blue",
+    "state",
+    "digital",
+    "donate",
+    "sequential"
+  ],
+  "author": "Blue State Digital",
+  "license": "BSD",
+  "gitHead": "aa9304096a60ed6d0c8c855ffa3958fa76f2d7c9",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.3.0",
+    "grunt-contrib-sass": "~0.6.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-svg2png": "~0.2.1",
+    "grunt-svgmin": "~0.3.0",
+    "grunt-zip": "~0.10.2",
+    "load-grunt-tasks": "~0.2.1"
+  }
+}
