@@ -301,7 +301,7 @@ module.exports = function(grunt) {
     };
 
     // Default task(s).
-    grunt.registerTask('default', 'do a full compile, start a jekyll server at localhost:4000, then watch for changes with livereload enabled',function(){
+    grunt.registerTask('default', 'do a full compile, start a jekyll server at http://localhost:4000, then watch for changes with livereload enabled',function(){
         grunt.task.run([
             'concat',
             'jshint',
@@ -314,23 +314,22 @@ module.exports = function(grunt) {
         ]);
     });
 
-    grunt.registerTask('watchmsg', function() {
+    grunt.registerTask('watchmsg','.', function() {
       grunt.log.writeln('Starting the watch task. ^C should also cancel the jekyll server. If not use the PID kill command listed above, or use this command to find the PID: ps aux | grep jekyll');
     });
 
-    grunt.registerTask('zipdone', function(stylename) {
+    grunt.registerTask('zipdone', '.', function(stylename) {
       grunt.log.writeln('Zipfile '+stylename+'.zip available in /deploy. Upload and unzip this file to the BSD tools in page/-/donate');
     });
 
-    grunt.registerTask('allsass', 'compile all styles',function(){
+    grunt.registerTask('allsass', 'compile all styles once',function(){
         grunt.task.run([
             'sass:dev',
             'copy:jekyllcss'
         ]);
-        grunt.log.verbose.writeln('styles compiled and deployed to jekyll root');
     });
 
-    grunt.registerTask('polyandextras','compile and copy polyfills and extra files',function(){
+    grunt.registerTask('polyandextras','compile and copy polyfills and extra javascript files into jekyll webroot',function(){
         grunt.task.run([
         'uglify:poly',
         'uglify:extras',
@@ -339,7 +338,7 @@ module.exports = function(grunt) {
         grunt.log.verbose.writeln('deployed to jekyll root');
     });
 
-    grunt.registerTask('compressdeploy','compile and copy polyfills and extra files',function(stylename){
+    grunt.registerTask('compressdeploy','do a full compile and create zips suitable for upload to BSD tools at /page/-/donate/',function(stylename){
         if(typeof stylename ==="undefined"){
             grunt.log.writeln('Please specify a style folder to prepare: i.e. grunt build:stylename');
             return false;
