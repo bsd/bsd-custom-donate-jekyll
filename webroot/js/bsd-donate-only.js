@@ -1,1 +1,707 @@
-/*! 2014-01-19 */!function(a){window._gaq=window._gaq||[],window.optimizely=window.optimizely||[];{var b=function(a){a=a.replace(/(\[|\])/g,"\\$1");var b=new RegExp("[\\?&]"+a+"=([^&#]*)"),c=b.exec(window.location.href);return null===c?"":c[1]},c=function(a,b){window._gaq.push(["_trackEvent"].concat(a)),window.optimizely.push(["trackEvent"].concat(b))},d={},e=(window.location.hash.replace("#",""),-1===window.location.protocol.indexOf("s")),f="1"===b("nomin");!!("ontouchstart"in window)||!!("msmaxtouchpoints"in window.navigator)}String.prototype.commafy=function(){return this.replace(/(^|[^\w.])(\d{4,})/g,function(a,b,c){return b+c.replace(/\d(?=(?:\d\d\d)+(?!\d))/g,"$&,")})},Number.prototype.commafy=function(){return String(this).commafy()},e&&(console.log("WARNING: nonsecure domain = test mode."),a("body").prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>')),a.wait=function(b){return a.Deferred(function(a){setTimeout(a.resolve,b)})},a.Topic=function(b){var c,e=b&&d[b];return e||(c=a.Callbacks(),e={publish:c.fire,subscribe:c.add,unsubscribe:c.remove},b&&(d[b]=e)),e},function(a){a.fn.extend({detectCCType:function(){function b(){var a=j.val(),b=[];c.removeClass("cc-is-vs cc-is-ax cc-is-ds cc-is-mc cc-is-ma cc-is-qd cc-cover"),p.test(a)?c.addClass("cc-is-qd"):(d.prop("checked",!1),k.test(a)?b=e:l.test(a)?b=f:m.test(a)?b=g:n.test(a)?b=h:o.test(a)&&(b=i),b.length&&(b.prop("checked",!0),c.addClass("cc-cover cc-is-"+b.val())))}var c=a(this).find("form"),d=(c.find(".cc_type_cont"),c.find("[name='cc_type_cd']")),e=d.filter("[value='vs']"),f=d.filter("[value='ax']"),g=d.filter("[value='ds']"),h=d.filter("[value='mc']"),i=d.filter("[value='ma']"),j=c.find('[name="cc_number"]'),k=/^4/,l=/^3[47]/,m=/^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)/,n=/^5[1-5]/,o=/^(5018|5020|5038|6304|6759|676[1-3])/,p=/^x/i;return a.Topic&&a.Topic("data-update").subscribe(b),j.on("keyup change",function(){setTimeout(b,0)}),j.on("paste",function(){setTimeout(b,0)}),c.addClass("cc-type-detection-active"),this}})}(jQuery);var g={};!function(a){"use strict";a.fn.serializeObject=function(){var b={},c=this.serializeArray();return a.each(c,function(){void 0!==b[this.name]?(b[this.name].push||(b[this.name]=[b[this.name]]),b[this.name].push(this.value||"")):b[this.name]=this.value||""}),b},a.fn.extend({blueContribute:function(d){var f,h,i,j,k,l,m=a(this),n=a("body"),o=!1,p=m.find('[name="source_codes"]'),q=p.val(),r=m.find(".bsdcd-general_error"),s=b("source")||b("fb_ref"),t=b("subsource"),u=m.find("[name='slug']"),v=document.title,w=!1,x={unknown:"We were unable to process your transaction at this time.",invalid:"Your donation was not successful. Please correct the problems marked below.",declined:"The transaction was declined. Please check that the address information is correct or else use a different card.",review:"Your transaction is under review, there is no need to resubmit at this time."};return(s||t)&&(t&&(s=s?s+","+t:t),p.val(q?q+","+s:s)),f=function(a){g.settings.debug&&"object"==typeof console&&window.console.log(a)},j=function(){return!0},k=function(b){var c=1,d=["Processing",".Processing.","..Processing..","...Processing..."],e=d.length;w=b,b?(n.addClass("blue_contribute_processing"),function f(){a.wait(400).then(function(){document.title=d[c%e]+" | "+v,w?(c++,f()):document.title=v})}()):n.removeClass("blue_contribute_processing")},l=function(a){r.text(a).removeClass("hidden")},h=function(d){var h,i,j=!1;if(g.latestResponseObject)if(f("removing previous errors"),f(g.latestResponseObject.field_errors),a.isArray(g.latestResponseObject.field_errors)){if(g.latestResponseObject.field_errors.length>0)for(h=0;h<=g.latestResponseObject.field_errors.length-1;h++)f("reseting "+g.latestResponseObject.field_errors[h].field),m.find("."+g.latestResponseObject.field_errors[h].field+"_error").text("").addClass("hidden"),m.find("."+g.latestResponseObject.field_errors[h].field+"_related").removeClass("bsdcd-error"),r.text("").addClass("hidden"),n.removeClass("blue_contribute_error")}else f("no field errors on the latest repsonse object");else f("this is the first submission");var p=!1;if(d&&!d.api_version)try{g.latestResponseObject=jQuery.parseJSON(d.responseText)||d,p=!0}catch(q){p=!1,f("api response body invalid")}else g.latestResponseObject=d,p=!0;if(i=g.latestResponseObject,p===!0&&i)if(!i.status||"success"!==i.status&&"paypal"!==i.status){if(f("response was not a success status code"),"noslug"===i.code||"invalidslug"===i.code)l(x.unknown+" [No slug]");else if("validation"===i.code)if(f("validation error"),c(["Donate API","Validation Errors",g.latestResponseObject.field_errors.length],"donate_api_valiation_error"),i.field_errors&&a.isArray(i.field_errors)&&i.field_errors.length>0){for(f(i.field_errors),1===i.field_errors.length&&"amount_group"===i.field_errors[0].field&&(j=!0),h=0;h<=i.field_errors.length-1;h++)m.find("."+i.field_errors[h].field+"_error").text(i.field_errors[h].message).removeClass("hidden"),m.find("."+i.field_errors[h].field+"_related").addClass("bsdcd-error").removeClass("hidden");l(x.invalid)}else f("invalid field_errors property in the donate api"),l(x.unknown+" [Invalid Validaiton Repsonse]");else"gateway"===i.code?(f("gateway rejected the transaction"),i.gateway_response&&"decline"===i.gateway_response.status?(l(x.declined),f("bank declined"),c(["Donate API","Gateway Error",i.gateway_response.status],"donate_api_gateway_error")):i.gateway_response&&"review"===i.gateway_response.status?(l(x.review+" [Gateway]"),f("transaction under review"),c(["Donate API","Gateway Error","review"],"donate_api_gateway_error")):(l(x.unknown+" [Gateway]"),f("unknown error gateway error"),c(["Donate API","Unknown Gateway Error","unknown or malformed"],"donate_api_gateway_error"))):(l(x.unknown+" [Code: "+(i.code?i.code:"unknown")+"]"),f("truly unknown error from donate api"),c(["Donate API","Unknown Error",i.code?i.code:"unknown"],"donate_api_gateway_error"));n.addClass("blue_contribute_error"),k(!1),o=!1,a.Topic&&a.Topic("bsd-validation-update").publish(!1,j),window.scrollTo(0,0)}else"function"==typeof g.settings.customSuccess?(k(!1),g.settings.customSuccess(i)):b("debug")&&e||(window.location=i.redirect_url);else o=!1,n.addClass("blue_contribute_error"),k(!1),a.Topic&&a.Topic("bsd-validation-update").publish(!1,j),f("donate api response not parsable"),l(x.unknown+" [API DOWN]");"function"==typeof g.settings.afterPost&&g.settings.afterPost()},i={debug:!1,postTo:"/page/cde/Api/Charge/v1",beforePost:j,responseHandler:h,customSuccess:null,postdelay:0,slug:m.data("slug")||"default",recurSlug:m.data("recur-slug")||!1},g.settings=a.extend(!0,i,d),g.settings.recurSlug?m.on("click","[name='recurring_acknowledge']",function(){u.val(u.val()===g.settings.slug?g.settings.recurSlug:g.settings.slug)}):m.find("[name='recurring_acknowledge']").closest("li").remove(),g.submitForm=function(){f("form submit attempt");var b=!0;"function"==typeof g.settings.beforePost&&(b=g.settings.beforePost()),b&&!o?(o=!0,k(!0),a.wait(g.settings.postdelay).then(function(){a.ajax({url:g.settings.postTo,type:e?"GET":"POST",dataType:"json",converters:{"text json":jQuery.parseJSON},timeout:3e4,data:m.serializeObject()}).always(h),e&&console.log("non-secure domain, transaction results simulated")})):f("double submission detected")},m.submit(function(a){g.submitForm(),a.preventDefault()}),"function"==typeof g.settings.afterInit&&g.settings.afterInit(),this}})}(jQuery),function(a){function c(b){if(!b||"string"!=typeof b)return!1;var c=b.split("x"),d=0;c&&c.length&&a.each(c,function(a,b){var c=parseFloat(b);c&&h.eq(d).length&&c>=v&&w>=c&&(h.eq(d).html(x+c.commafy()),i.eq(d).val(c),d++)})}function d(){var a=l.val(),b=m.hide().find(".state_cd");"US"===a?(b.is("select")||(b.remove(),m.append(s.val(""))),g.removeClass("state-text-input"),n.html("State<span>*</span>"),r.html("ZIP<span>*</span>"),u="US"):(b.is("select")&&(b.remove(),m.append(t.val(""))),g.addClass("state-text-input"),n.html("GB"===a?"County<span>*</span>":"State/Region/Province<span>*</span>"),r.html("Postal Code<span>*</span>"),u="GB"===a?"GB":"INT"),m.show()}var e=a("#bsd_contribute_cont")||a("body"),g=e.find("form"),h=g.find(".preset_amount_label"),i=g.find(".preset_amount_input"),j=g.find(".amount_other"),k=g.find(".other_amount_radio"),l=g.find(".country"),m=g.find(".state_cd_cont").eq(0),n=m.find("label"),o=m.find("input,select").eq(0),p=o.attr("id"),q=o.attr("tabindex"),r=g.find("label.zip_related"),s=e.find(".us-state-dropdown").eq(0).clone().val("").addClass("state_cd").removeClass("hidden").attr("name","state_cd").attr("id",p).attr("tabindex",q),t=a("<input/>",{type:"text",name:"state_cd",id:p,"class":"text state_cd",tabindex:q}),u=g.data("default-country"),v=parseFloat(g.data("min-donation"))||0,w=parseFloat(g.data("max-donation"))||1/0,x=a("[data-currency-symbol]").data("currency-symbol")||"$",y=b("amounts"),z=b("default_amt"),A=parseFloat(b("skip"))||!1;console.log(A),a(".other_amount_label").hide(),g.find('[name="http_referrer"]').val(document.referrer),f&&(a("<input/>",{type:"hidden",name:"nomin",value:"1"}).appendTo(g),v=.01),window.BSDcustomAmounts=c,c(y),g.on("click",".preset_amount_label",function(){var b=a(this);h.removeClass("active"),b.addClass("active"),j.val(""),b.prev().prop("checked",!0)}).on("keydown",".amount_other",function(){h.removeClass("active"),i.each(function(){a(this).prop("checked",!1)}),k.prop("checked",!0)}),z&&parseFloat(z)&&i.filter(function(){return a(this).val()===z}).length>0&&(i.filter(function(){return a(this).val()===z}).eq(0).next("label").click(),e.removeClass("pre-first-click"),A&&1===A&&a.wait(3).done(function(){a.Topic("change-step").publish(1)})),g.one("keydown",".amount_other",function(){e.removeClass("pre-first-click")}).one("click",".preset_amount_label",function(){a("body").find(".pre-first-click").length&&a.Topic("change-step").publish(1),e.removeClass("pre-first-click")}),g.find(".honoree-select").on("change",function(){var b=a(this),c=b.val();g.removeClass("honor-section memorial-section"),"1"===c?g.addClass("honor-section memorial-section"):"0"===c&&g.addClass("honor-section")}),l.on("change",function(){d()})}(jQuery)}(jQuery,window);
+(function($,w){
+    window._gaq = window._gaq || [];
+    window.optimizely = window.optimizely || [];
+
+    var gup = function(name) {
+            name = name.replace(/(\[|\])/g,"\\$1");
+            var regex = new RegExp("[\\?&]"+name+"=([^&#]*)"),
+                results = regex.exec( window.location.href );
+                return ( results === null )?"":results[1];
+        },
+        report = function(ga,opt){
+            window._gaq.push( ['_trackEvent'].concat(ga) );
+            window.optimizely.push( ['trackEvent'].concat(opt) );
+            //console.log("ANALYTICS:", ga,opt);
+        },
+        topics = {},
+        hash = window.location.hash.replace("#",''),
+        nonsecure = ( window.location.protocol.indexOf('s')===-1 ),
+        nomin = ( gup('nomin')==="1" ),
+        touch  = !!('ontouchstart' in window) || !!('msmaxtouchpoints' in window.navigator);
+
+    String.prototype.commafy = function () {
+        return this.replace(/(^|[^\w.])(\d{4,})/g, function($0, $1, $2) {
+            return $1 + $2.replace(/\d(?=(?:\d\d\d)+(?!\d))/g, "$&,");
+        });
+    };
+
+    Number.prototype.commafy = function () {
+        return String(this).commafy();
+    };
+
+    if (nonsecure){
+        console.log('WARNING: nonsecure domain = test mode.');
+        $('body').prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>');
+    }
+
+    /*add pretty timeouts*/
+    $.wait = function(time) {
+      return $.Deferred(function(dfd) {
+        setTimeout(dfd.resolve, time);
+      });
+    };
+
+    /*add basic pub sub, for error-free behavior chains*/
+    $.Topic = function( id ) {
+        
+        var callbacks,
+            topic = id && topics[ id ];
+        if ( !topic ) {
+            callbacks = $.Callbacks();
+            topic = {
+                publish: callbacks.fire,
+                subscribe: callbacks.add,
+                unsubscribe: callbacks.remove
+            };
+            if ( id ) {
+                topics[ id ] = topic;
+            }
+        }
+        return topic;
+    };
+(function($){
+
+    $.fn.extend({
+        
+        detectCCType: function($container) {
+            
+            //radio selectors
+			var $form = $(this).find('form'),
+                $ccTypeSection = $form.find('.cc_type_cont'),
+                $ccArray = $form.find("[name='cc_type_cd']"),
+				$visa = $ccArray.filter("[value='vs']"),
+				$amex = $ccArray.filter("[value='ax']"),
+				$discover = $ccArray.filter("[value='ds']"),
+				$mastercard = $ccArray.filter("[value='mc']"),
+                $maestro = $ccArray.filter("[value='ma']"),
+				$ccNum = $form.find('[name="cc_number"]'),
+				visaRegEx = /^4/,
+				amexRegEx = /^3[47]/,
+				discoverRegEx = /^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)/,
+				masterCardRegEx = /^5[1-5]/,
+                maestroRegex = /^(5018|5020|5038|6304|6759|676[1-3])/,
+				quickDonateRegEx = /^x/i;
+			
+			function setCreditCardType(){
+                
+				var creditCardNumber = $ccNum.val(),
+					valid = [];
+
+				$form.removeClass('cc-is-vs cc-is-ax cc-is-ds cc-is-mc cc-is-ma cc-is-qd cc-cover');
+
+				/*if it's not quick donate, remove the checked state from all cardtypes then check to see if one is valid*/
+				if( !quickDonateRegEx.test(creditCardNumber) ){
+					
+                    $ccArray.prop('checked',false);
+                    
+					if(visaRegEx.test(creditCardNumber)){
+						valid = $visa;
+					} else if(amexRegEx.test(creditCardNumber)){
+						valid = $amex;
+					} else if(discoverRegEx.test(creditCardNumber)) {
+						valid = $discover;
+					} else if(masterCardRegEx.test(creditCardNumber)) {
+						valid = $mastercard;
+					} else if(maestroRegex.test(creditCardNumber)) {
+                        valid = $maestro;
+                    }
+
+                    if (valid.length){
+                        valid.prop('checked', true);
+                        $form.addClass('cc-cover cc-is-'+valid.val());
+                    }
+				}
+                else {
+                    $form.addClass('cc-is-qd');
+                }
+			}
+			
+            /*subscribe to any events that change the data, such as a QD token coming in*/
+            if ($.Topic) { $.Topic('data-update').subscribe( setCreditCardType ); }
+
+			/*bind the behavior to all events that might change the value*/
+			$ccNum.on('keyup change', function(){
+                setTimeout(setCreditCardType, 0);
+            });
+
+            $ccNum.on('paste', function(){
+                setTimeout(setCreditCardType, 0);
+            });
+
+			//apply class to parent indicating script is running correctly
+			$form.addClass('cc-type-detection-active');
+
+            return this;//chainability
+        }
+        
+    });
+
+})(jQuery);
+/*
+ * blueContribute.js 
+ *
+ * Author: Kyle Rush
+ * kylerrush@gmail.com
+ * kylerush.net
+ *
+ *
+ */
+var blueContribute = {};
+
+(function($){
+
+    "use strict";
+
+    //function to serialize form data into an object since jQuery doesn't natively do this -- UGH
+    $.fn.serializeObject = function(){
+
+        var o = {};
+
+        var a = this.serializeArray();
+
+        $.each(a, function() {
+
+            if (o[this.name] !== undefined) {
+
+                if (!o[this.name].push) {
+
+                    o[this.name] = [o[this.name]];
+
+                }
+
+                o[this.name].push(this.value || '');
+
+            } else {
+
+                o[this.name] = this.value || '';
+
+            }
+
+        });
+
+        return o;
+    };
+
+    //creat the blueContribute jQuery plugin
+    $.fn.extend({
+        
+        //pass the options variable to the function
+        blueContribute: function(options) {
+
+            var $form = $(this),
+                $body = $('body'),
+                locked = false,
+                $sourceField = $form.find('[name="source_codes"]'),
+                defaultsource = $sourceField.val(),
+                $genError = $form.find('.bsdcd-general_error'),
+                urlsource = gup('source')||gup('fb_ref'),
+                urlsubsource = gup('subsource'),
+                $slugField = $form.find("[name='slug']"),
+                pagetitle = document.title,
+                wait = false,
+                msg = {
+                    "unknown":"We were unable to process your transaction at this time.",
+                    "invalid":"Your donation was not successful. Please correct the problems marked below.",
+                    "declined":"The transaction was declined. Please check that the address information is correct or else use a different card.",
+                    "review":"Your transaction is under review, there is no need to resubmit at this time."
+                }, debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
+
+            //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
+
+            if(urlsource || urlsubsource) {
+                if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
+                $sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
+            }
+
+            debug = function(message){
+                if(blueContribute.settings.debug){
+                    if(typeof console === 'object'){
+                        window.console.log(message);
+                    }
+                }
+            };
+
+            /*optional function could include additional _synchronous_ validation checks, but in the base install isn't needed*/
+            defaultBeforePost = function(){
+
+                return true;
+
+            };
+
+            processingState = function(on){
+                var i = 1,
+                    states = ['Processing','.Processing.','..Processing..','...Processing...'],
+                    ln = states.length;
+                    wait = on; //cancels any outstanding timers
+                if (on){
+                    $body.addClass('blue_contribute_processing');
+                    (function processing(){
+                        $.wait(400).then(function(){
+                            document.title = states[i % ln] + " | " +pagetitle;
+                            if (wait){
+                                i++;
+                                processing();
+                            }
+                            else {
+                                document.title = pagetitle;
+                            }
+                        });
+                    }());
+                }else {
+                    $body.removeClass('blue_contribute_processing');
+                }
+            };
+
+            genError = function(msg){
+               $genError.text(msg).removeClass('hidden');
+            };
+
+            defaultResponseHandler = function(data){
+
+                var amt_error_only = false, i, resobj;
+
+                //remove all existing errors
+                if(blueContribute.latestResponseObject){
+
+                    debug('removing previous errors');
+                    debug(blueContribute.latestResponseObject.field_errors);
+
+                    if( $.isArray(blueContribute.latestResponseObject.field_errors) ){
+
+                        if(blueContribute.latestResponseObject.field_errors.length > 0){
+
+                            for(i = 0; i <= blueContribute.latestResponseObject.field_errors.length - 1; i++){
+
+                                debug('reseting ' + blueContribute.latestResponseObject.field_errors[i].field);
+
+                                //wipe the error messages for each field
+                                $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').addClass('hidden');
+
+                                //remove the error class to the related fields
+                                $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
+
+                                //remove the general errors message
+                                $genError.text('').addClass('hidden');
+
+                                $body.removeClass('blue_contribute_error');
+
+                            }
+
+                        }
+
+                    } else {
+
+                        debug('no field errors on the latest repsonse object');
+
+                    }
+
+                } else {
+
+                    debug('this is the first submission');
+
+                }
+
+                var responseIsValidJSON = false;
+
+                if(data && !data.api_version){
+                //try to parse the response body as json, if errors occur it is most likely because the json is invalid or because html was returned instead
+                    try {
+
+                        blueContribute.latestResponseObject = jQuery.parseJSON(data.responseText)||data;
+                        responseIsValidJSON = true;
+
+                    } catch(err) {
+
+                        responseIsValidJSON = false;
+
+                        debug('api response body invalid');
+                    }
+                }else{
+                    blueContribute.latestResponseObject = data;
+                    responseIsValidJSON = true;
+                }
+                resobj = blueContribute.latestResponseObject;
+
+                if(responseIsValidJSON === true && resobj){
+                    if(resobj.status && (resobj.status === "success" || resobj.status === "paypal"  ) ){
+                        //if custom success is defined, fire it with the response object
+                        if (typeof blueContribute.settings.customSuccess === 'function'){
+                            processingState(false);
+                            blueContribute.settings.customSuccess(resobj);
+                        }
+                        //if there's no debug parameter and if the site is secure, go to the redirect url
+                        else if(!gup('debug') || !nonsecure) {
+                            window.location = resobj.redirect_url;
+                        }
+
+                    } else {
+                        //we have some sort of failure to communicate
+                        debug('response was not a success status code');
+
+                        if(resobj.code === 'noslug'  || resobj.code === 'invalidslug'){
+
+                            genError(msg.unknown + ' [No slug]');
+
+                        } else if(resobj.code === 'validation'){
+
+                            debug('validation error');
+
+                            report(
+                                ['Donate API', 'Validation Errors', blueContribute.latestResponseObject.field_errors.length],
+                                'donate_api_valiation_error'
+                            );
+
+                            if( resobj.field_errors && $.isArray(resobj.field_errors) && (resobj.field_errors.length > 0) ){
+
+                                    debug(resobj.field_errors);
+
+                                    if (resobj.field_errors.length===1 && resobj.field_errors[0].field==="amount_group"){
+                                        amt_error_only = true;
+                                    }
+
+                                    for(i = 0; i <= resobj.field_errors.length - 1; i++){
+                                        
+                                        //inject the error messages for each field
+                                        $form.find('.' + resobj.field_errors[i].field + '_error').text(resobj.field_errors[i].message).removeClass('hidden');
+
+                                        //add the error class to the related fields
+                                        $form.find('.' + resobj.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
+
+                                    }
+
+                                    //inject the general errors message
+                                    genError(msg.invalid);
+
+                            } else {
+
+                                debug('invalid field_errors property in the donate api');
+                                genError(msg.unknown +' [Invalid Validaiton Repsonse]');
+
+                            }
+
+                        } else if(resobj.code === 'gateway'){
+
+                            debug('gateway rejected the transaction');
+                            
+                            //checking for a declined card
+                            if(resobj.gateway_response && resobj.gateway_response.status === "decline"){
+
+                                genError(msg.declined);
+
+                                debug('bank declined');
+
+                                report(
+                                    ['Donate API', 'Gateway Error', resobj.gateway_response.status],
+                                    'donate_api_gateway_error'
+                                );
+
+                            } else if ( resobj.gateway_response && resobj.gateway_response.status==="review" ){
+                                genError(msg.review +' [Gateway]');
+
+                                debug('transaction under review');
+                                report(
+                                    ['Donate API', 'Gateway Error', 'review'],
+                                    'donate_api_gateway_error'
+                                );
+                            }else {
+
+                                //blueContribute.latestResponseObject.gateway_response.status === "unkown" ||
+                                //blueContribute.latestResponseObject.gateway_response.status === "error"
+                                //not sure why this would happen
+                                genError(msg.unknown +' [Gateway]');
+
+                                debug('unknown error gateway error');
+                                report(
+                                    ['Donate API', 'Unknown Gateway Error', 'unknown or malformed'],
+                                    'donate_api_gateway_error'
+                                );
+                            }
+
+                        }else {
+                            
+                            genError(msg.unknown +' [Code: '+((resobj.code)?resobj.code:'unknown')+']');
+                            debug('truly unknown error from donate api');
+                            report(
+                                ['Donate API', 'Unknown Error', (resobj.code)?resobj.code:'unknown'],
+                                'donate_api_gateway_error'
+                            );
+
+                        }
+
+                        //adjust the dom so that the user can see the errors
+                        $body.addClass('blue_contribute_error');
+                        processingState(false);
+                        locked = false;
+
+                        //alert others of the fail
+                        //will currently blow away QD if the amount is wrong... that's wrong, I think
+                        if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
+
+                        window.scrollTo(0, 0);
+
+                    } //end else for valid error response 
+
+                } else {
+                    //invalid json
+                    locked = false;
+                    //adjust the dom so that the user can see the errors
+                    $body.addClass('blue_contribute_error');  //toggle off the processing body class
+                    processingState(false);
+                    //alert others of the fail
+                    if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
+                    //to do: update dom with a general error message to indicate to the user that something is wrong
+                    debug('donate api response not parsable');
+                    genError(msg.unknown +' [API DOWN]');
+                }
+
+                //behavior that happens on success or fail
+                if( typeof blueContribute.settings.afterPost === 'function' ){
+
+                    blueContribute.settings.afterPost();
+
+                }
+
+            };
+            
+            //Set the default settings
+            defaults = {
+
+                debug: false,
+
+                postTo: '/page/cde/Api/Charge/v1',
+
+                beforePost: defaultBeforePost,
+
+                responseHandler:  defaultResponseHandler,
+
+                customSuccess: null,
+
+                postdelay: 0, //artificially deplay the submission
+
+                slug: ($form.data('slug')||'default'),
+
+                recurSlug: ($form.data('recur-slug')||false)
+
+            };
+            
+            //consolidate both user defined and default functions
+            blueContribute.settings =  $.extend(true, defaults, options);
+
+            //if a recurring slug exists, allow it to switch the submit slug, or else remove it for safety's sake
+            if(blueContribute.settings.recurSlug){
+                $form.on('click', "[name='recurring_acknowledge']", function(e){
+
+                    if($slugField.val() === blueContribute.settings.slug){
+
+                        $slugField.val(blueContribute.settings.recurSlug);
+
+                    } else {
+
+                        $slugField.val(blueContribute.settings.slug);
+
+                    }
+                });
+            }else{
+                $form.find("[name='recurring_acknowledge']").closest('li').remove();
+            }
+
+            blueContribute.submitForm = function(){
+
+                debug('form submit attempt');
+
+                var beforePostReturnValue = true;
+
+                if(typeof blueContribute.settings.beforePost === 'function'){
+
+                    beforePostReturnValue = blueContribute.settings.beforePost();
+
+                }
+
+                if(beforePostReturnValue && !locked){
+                    locked = true;
+                    processingState(true);
+                    /*default wait is zero, but we can optionally increase it*/
+                    $.wait(blueContribute.settings.postdelay).then(function(){
+
+                        //send the donation api request
+                        $.ajax({
+
+                            url: blueContribute.settings.postTo,
+                            
+                            type: nonsecure?'GET':'POST',
+
+                            dataType: 'json',
+
+                            converters: { "text json": jQuery.parseJSON },
+
+                            timeout: 30000,
+
+                            data: $form.serializeObject()
+
+                        }).always(defaultResponseHandler);
+
+                        if(nonsecure){ console.log('non-secure domain, transaction results simulated'); }
+
+                    });
+
+                }else {
+                    debug('double submission detected');
+                }
+
+            };
+
+            $form.submit(function(e){
+                blueContribute.submitForm();
+                e.preventDefault();
+            });
+
+            //initalization function
+            if(typeof blueContribute.settings.afterInit === 'function'){
+                blueContribute.settings.afterInit();
+            }
+
+            return this;//chainability
+        }
+            
+    });
+
+}(jQuery));
+//global jQuery, dsa-controller
+//this library creates some core behaviors on donate forms if present, such as amount labels (for legacy support), internationalization, in-honor-of-fields
+
+(function($){
+
+    //need to decouple this first value: all this behavior should be plugin-y
+    var $body = $('#bsd_contribute_cont')||$('body'),
+        $form = $body.find('form'),
+        $presetBtns = $form.find('.preset_amount_label'),
+        $presetInputs = $form.find('.preset_amount_input'),
+        $otherAmt = $form.find('.amount_other'),
+        $otherAmtRadio = $form.find('.other_amount_radio'),
+        $country = $form.find('.country'),
+        $state_cdCont = $form.find('.state_cd_cont').eq(0),
+        $state_label = $state_cdCont.find('label'),
+        $state_cd = $state_cdCont.find('input,select').eq(0),
+        state_cd_id = $state_cd.attr('id'),
+        state_cd_tabindex = $state_cd.attr('tabindex'),
+        $zip_label = $form.find('label.zip_related'),
+        $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').removeClass('hidden').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
+        $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
+        countryVal = $form.data('default-country'),
+        min = parseFloat($form.data('min-donation'))||0,
+        max = parseFloat($form.data('max-donation'))||Infinity,
+        symbol = $('[data-currency-symbol]').data('currency-symbol')||"$",
+        custom_amounts = gup('amounts'),
+        default_amount = gup('default_amt'),
+        skip = parseFloat(gup('skip'))||false;
+        console.log(skip);
+
+	$('.other_amount_label').hide();
+
+    $form.find('[name="http_referrer"]').val(document.referrer);
+
+    if(nomin){
+        $('<input/>',{'type':'hidden','name':'nomin','value':'1'}).appendTo($form);
+        min = 0.01;
+    }
+
+    //accept an 'x' separated string of amounts, validate each, and assign them to buttons 
+    function customAmounts(cas){
+        if (!cas || typeof cas !== "string"){ return false; }
+        var ca_array = cas.split('x'),
+            btn = 0;
+        if(ca_array && ca_array.length){
+            $.each(ca_array,function(i,v){
+                var amt = parseFloat(v);
+                if(amt && $presetBtns.eq(btn).length && amt>=min && amt<=max){
+                    $presetBtns.eq(btn).html(symbol+(amt.commafy()) );
+                    $presetInputs.eq(btn).val(amt);
+                    btn++;
+                }
+            });
+        }
+    }
+    //maybe make this global at some point so it can be exposed to optimizely?
+    window.BSDcustomAmounts = customAmounts;
+    customAmounts(custom_amounts);
+
+	//apply an active class to a label when amount is selected
+	$form.on('click','.preset_amount_label',function(e){
+		var $el = $(this);
+		$presetBtns.removeClass('active');
+		$el.addClass('active');
+		$otherAmt.val('');
+        $el.prev().prop('checked', true);
+	}).on('keydown','.amount_other',function(){
+		$presetBtns.removeClass('active');
+		$presetInputs.each(function(){
+			$(this).prop('checked',false);
+		});
+        $otherAmtRadio.prop('checked', true);
+	});
+
+    //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
+    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
+        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+        $body.removeClass('pre-first-click'); //default amount should expose the next button
+
+        //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
+        if(skip && skip===1 ){
+            $.wait(3).done(function(){
+                $.Topic('change-step').publish(1);
+            });
+        }
+    }
+
+    //now that we've dealt with pre-clicks, lets potentially bind the click behavior to change things on the first click
+    $form.one('keydown','.amount_other',function(){
+		$body.removeClass('pre-first-click');
+	}).one('click','.preset_amount_label',function(){
+		if ($('body').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
+        $body.removeClass('pre-first-click');
+	});
+
+    //toggle honeree select areas open and toggle between memorial or not
+    $form.find('.honoree-select').on('change',function(){
+        var $el = $(this), val = $el.val();
+        $form.removeClass('honor-section memorial-section');
+        if(val==="1"){
+            $form.addClass('honor-section memorial-section');
+        }
+        else if (val==="0"){
+            $form.addClass('honor-section');
+        }
+    });
+
+    //handles the simplest way to support international validation changes based on country
+	function switchCountry(qd){
+        var val = $country.val(),
+            $oldstate = $state_cdCont.hide().find('.state_cd');
+		if(val === "US"){
+            if(!$oldstate.is('select')){
+                $oldstate.remove();
+                $state_cdCont.append($stateFrag.val(''));
+            }
+            $form.removeClass('state-text-input');
+            $state_label.html('State<span>*</span>');
+            $zip_label.html('ZIP<span>*</span>');
+            countryVal = "US";
+		}
+		else{
+            if($oldstate.is('select')){
+                $oldstate.remove();
+                $state_cdCont.append($stateInput.val(''));
+            }
+            $form.addClass('state-text-input');
+            $state_label.html((val==="GB")?'County<span>*</span>':'State/Region/Province<span>*</span>');
+            $zip_label.html('Postal Code<span>*</span>');
+            countryVal = (val==="GB")?'GB':'INT';
+		}
+		$state_cdCont.show();
+	}
+
+	$country.on('change',function(){
+		switchCountry();
+	});
+
+}(jQuery));}(jQuery,window));

@@ -6,7 +6,9 @@ module.exports = function(grunt) {
         js_source = docroot+'src/',
         js_dev = docroot+'dev/',
         js_dist = docroot+'js/',
-        jekyll_dist = docroot+'webroot/';
+        jekyll_dist = docroot +'webroot/',
+        dynamiccopy,
+        dynamiczip;
 
     // Project configuration.
     grunt.initConfig({
@@ -25,7 +27,7 @@ module.exports = function(grunt) {
                           js_source +'jquery.bluecontribute.js',
                           js_source +'jquery.sequential.js',
                           js_source +'default-custom-behavior.js'],
-                    dest: js_dev +'bsd-sequential-donate.js'
+                    dest: jekyll_dist +'js/bsd-sequential-donate.js'
                 }]
             },
             'quick-donate':{
@@ -40,7 +42,7 @@ module.exports = function(grunt) {
                           js_source +'jquery.detectCCType.js',
                           js_source +'jquery.bluecontribute.js',
                           js_source +'default-custom-behavior.js'],
-                    dest: js_dev +'bsd-quick-donate.js'
+                    dest: jekyll_dist +'js/bsd-quick-donate.js'
                 }]
             },
             'donate-only':{
@@ -54,7 +56,7 @@ module.exports = function(grunt) {
                           js_source +'jquery.detectCCType.js',
                           js_source +'jquery.bluecontribute.js',
                           js_source +'default-custom-behavior.js'],
-                    dest: js_dev +'bsd-donate-only.js'
+                    dest: jekyll_dist +'js/bsd-donate-only.js'
                 }]
             }
         },
@@ -95,9 +97,9 @@ module.exports = function(grunt) {
                 }
             },
             src: [
-                    js_dev + '/bsd-sequential-donate.js',
-                    js_dev + '/bsd-quick-donate.js',
-                    js_dev + '/bsd-donate-only.js'
+                    jekyll_dist +'js/bsd-sequential-donate.js',
+                    jekyll_dist +'js/bsd-quick-donate.js',
+                    jekyll_dist +'js/bsd-donate-only.js'
                 ]
             }
         },
@@ -108,13 +110,13 @@ module.exports = function(grunt) {
                     preserveComments: false
                 },
                 files: [{
-                    src: [js_dev + 'bsd-sequential-donate.js'],
+                    src: [jekyll_dist +'js/bsd-sequential-donate.js'],
                     dest: js_dist + 'bsd-sequential-donate.js'
                 },{
-                    src: [js_dev + 'bsd-quick-donate.js'],
+                    src: [jekyll_dist +'js/bsd-quick-donate.js'],
                     dest: js_dist + 'bsd-quick-donate.js'
                 },{
-                    src: [js_dev + 'bsd-donate-only.js'],
+                    src: [jekyll_dist +'js/bsd-donate-only.js'],
                     dest: js_dist + 'bsd-donate-only.js'
                 }]
             },
@@ -159,7 +161,7 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: jekyll_dist + 'scss',
                     src: '**/bsdcd-styles*.scss',
-                    dest: jekyll_dist + 'page/-/donate',
+                    dest: jekyll_dist + 'css',
                     ext: '.css'
                 }]
             }
@@ -213,20 +215,90 @@ module.exports = function(grunt) {
                 cmd: 'pkill -9 jekyll'//not likely needed, but here just in case
             }
         },
-        copy : {
-            tojekyll:{
+        compress:{
+            options:{
+                mode: 'zip'
+            },
+            main: {
+                options: {
+                  archive: docroot +'deploys/archive.zip'
+                },
+                files: [
+                  {expand: true, src: [jekyll_dist + 'page/-/donate/**/*',js_dist+'bsd-*.js'], filter: 'isFile'}, // makes all src relative to cwd
+                ]
+            }
+        },
+        copy:{
+            jekyllcss:{
                 files: [
                     {
                         expand: true,
-                        dest: jekyll_dist,
-                        src: js_dist + '**/*.js'
+                        cwd: jekyll_dist + 'css/',
+                        dest: jekyll_dist + 'page/-/donate/',
+                        src: '**/*'
                     }
                 ]
+            },
+            jekylljsextras:{
+                files: [
+                    {
+                        expand: true,
+                        cwd: js_dist+ 'extras',
+                        dest: jekyll_dist + 'js',
+                        src: '**/*.js'
+                    },
+                    {
+                        expand: true,
+                        cwd: js_dist+'polyfills',
+                        dest: jekyll_dist + 'js',
+                        src: '**/*.js'
+                    }
+                ]
+            }
+        },
+        clean: {
+            tempzip:{
+                src: ['deploys/tmp']
             }
         }
     });
 
     require('load-grunt-tasks')(grunt);
+
+
+    dynamiccopy = function(stylename){
+        return {
+            files: [
+                {
+                    expand: true,
+                    cwd: jekyll_dist + 'css/' + stylename +'/',
+                    src: '**',
+                    dest: (docroot + 'deploys/tmp/'+stylename+'/'+stylename+'/')
+                },{
+                    expand: true,
+                    cwd: js_dist,
+                    src: 'bsd-*.js',
+                    dest: docroot + 'deploys/tmp/'+stylename+'/',
+                },{
+                    expand: true,
+                    cwd: docroot + 'img/',
+                    src: '**',
+                    dest: docroot + 'deploys/tmp/'+stylename+'/',
+                }
+            ]
+        };
+    };
+    dynamiczip = function(stylename){
+        return {
+            options:{
+                mode: 'zip',
+                archive: docroot +'deploys/'+stylename+'.zip'
+            },
+            files: [
+                {expand: true, cwd: (docroot + 'deploys/tmp/'+stylename+'/'), src: '**/*', filter: 'isFile'}
+            ]
+        };
+    };
 
     // Default task(s).
     grunt.registerTask('default', 'do a full compile, start a jekyll server at localhost:4000, then watch for changes with livereload enabled',function(){
@@ -234,43 +306,67 @@ module.exports = function(grunt) {
             'concat',
             'jshint',
             'uglify:main',
-            'copy:tojekyll',
+            'sass:dev',
+            'copy:jekyllcss',
             'exec:jserve',
+            'watchmsg',
             'watch'
         ]);
     });
 
-    grunt.registerTask('sitesass', 'compile styles',function(){
-        grunt.task.run([
-            'sass:dev'
-        ]);
-        grunt.log.verbose.writeln('styles compiled and deployed to jekyll root');
+    grunt.registerTask('watchmsg', function() {
+      grunt.log.writeln('Starting the watch task. ^C should also cancel the jekyll server. If not use the PID kill command listed above, or use this command to find the PID: ps aux | grep jekyll');
     });
 
-    grunt.registerTask('copyto','copy /js to jekyll /js',function(){
+    grunt.registerTask('zipdone', function(stylename) {
+      grunt.log.writeln('Zipfile '+stylename+'.zip available in /deploy. Upload and unzip this file to the BSD tools in page/-/donate');
+    });
+
+    grunt.registerTask('allsass', 'compile all styles',function(){
         grunt.task.run([
-        'copy:tojekyll'
+            'sass:dev',
+            'copy:jekyllcss'
         ]);
-        grunt.log.verbose.writeln('copied /js to jekyll /js');
+        grunt.log.verbose.writeln('styles compiled and deployed to jekyll root');
     });
 
     grunt.registerTask('polyandextras','compile and copy polyfills and extra files',function(){
         grunt.task.run([
         'uglify:poly',
         'uglify:extras',
-        'copy:tojekyll'
+        'copy:jekylljsextras'
         ]);
         grunt.log.verbose.writeln('deployed to jekyll root');
     });
 
-    grunt.registerTask('build','do a full compile and create zips suitable for upload to BSD tools at /page/-/donate/',function(){
+    grunt.registerTask('compressdeploy','compile and copy polyfills and extra files',function(stylename){
+        if(typeof stylename ==="undefined"){
+            grunt.log.writeln('Please specify a style folder to prepare: i.e. grunt build:stylename');
+            return false;
+        }
+        grunt.config.set('copy.'+stylename, dynamiccopy(stylename) );
+        grunt.config.set('compress.'+stylename, dynamiczip(stylename) );
+        grunt.task.run([
+            'copy:'+stylename,
+            'compress:'+stylename,
+            'clean:tempzip',
+            'zipdone:'+stylename
+        ]);
+    });
+
+    grunt.registerTask('build','do a full compile and create zips suitable for upload to BSD tools at /page/-/donate/',function(stylename){
+        if(typeof stylename ==="undefined"){
+            grunt.log.writeln('Please specify a style folder to prepare: i.e. grunt build:stylename');
+            return false;
+        }
         grunt.task.run([
             'concat',
             'jshint',
             'uglify:main',
-            'copy:tojekyll'
+            'sass:dev',
+            'copy:jekyllcss',
+            'compressdeploy:'+stylename
         ]);
-        grunt.log.verbose.writeln('files are ready to deploy');
     });
 
 };
