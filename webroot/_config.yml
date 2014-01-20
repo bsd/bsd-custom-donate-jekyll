@@ -5,7 +5,6 @@ relative_permalinks: true
 permalink: /:year/:title.html
 
 include: [".htaccess","ctl"]
-exclude: ["_minjs"]
 
 #defaults for donate pages
 default-currency-symbol: "$"

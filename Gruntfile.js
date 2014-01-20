@@ -170,15 +170,26 @@ module.exports = function(grunt) {
             options:{
                 livereload: true
             },
+            site: {
+                options:{
+                    livereload: false
+                },
+                files: [jekyll_dist +'*.html',jekyll_dist +'*.md',jekyll_dist +'!_site/**/*'],
+                tasks: [
+                    'exec:jbuild'
+                ]
+            },
             js: {
                 options:{
                     livereload: false
                 },
                 files: [js_source +'*.js'],
                 tasks: [
-                    'concat:sequential',
+                    'concat',
+                    'jshint',
                     'uglify:main',
-                    'copy'
+                    'copy:jekylljs',
+                    'exec:jbuild'
                 ]
             },
             buildsass:{
@@ -187,7 +198,9 @@ module.exports = function(grunt) {
                 },
                 files: [jekyll_dist +'scss/**/*.scss'],
                 tasks: [
-                    'sass:dev'
+                    'sass:dev',
+                    'copy:jekyllcss',
+                    'exec:jbuild'
                 ]
             },
             css: {
@@ -206,7 +219,7 @@ module.exports = function(grunt) {
             },
             jserve: {
                 cwd: jekyll_dist,
-                cmd: 'jekyll serve --watch --detach',
+                cmd: 'jekyll serve --detach',
                 callback: function(){
                     return 'echo ' + this.version;
                 }
@@ -234,6 +247,16 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: jekyll_dist + 'css/',
+                        dest: jekyll_dist + 'page/-/donate/',
+                        src: '**/*'
+                    }
+                ]
+            },
+            jekylljs:{
+                files: [
+                    {
+                        expand: true,
+                        cwd: jekyll_dist + 'js/',
                         dest: jekyll_dist + 'page/-/donate/',
                         src: '**/*'
                     }
@@ -308,6 +331,7 @@ module.exports = function(grunt) {
             'uglify:main',
             'sass:dev',
             'copy:jekyllcss',
+            'copy:jekylljs',
             'exec:jserve',
             'watchmsg',
             'watch'

@@ -15,7 +15,7 @@ tools-recurring-slug: reccur  #leave blank for no recurring. This will need to b
 default-source-codes: custom-donate #comma separated list of source codes that will baked into the page by default, to identify it for analytics purposes
 
 ##Core Options
-layout: form-only  #use form-only if you want jekyll to only print out the core markup
+layout: default #use form-only if you want jekyll to only print out the core markup
 sequential: true
 quick-donate: true
 
