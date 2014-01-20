@@ -1,4 +1,142 @@
-/*global jQuery, quickDonate */
+(function($,w){
+    window._gaq = window._gaq || [];
+    window.optimizely = window.optimizely || [];
+
+    var gup = function(name) {
+            name = name.replace(/(\[|\])/g,"\\$1");
+            var regex = new RegExp("[\\?&]"+name+"=([^&#]*)"),
+                results = regex.exec( window.location.href );
+                return ( results === null )?"":results[1];
+        },
+        report = function(ga,opt){
+            window._gaq.push( ['_trackEvent'].concat(ga) );
+            window.optimizely.push( ['trackEvent'].concat(opt) );
+            //console.log("ANALYTICS:", ga,opt);
+        },
+        topics = {},
+        hash = window.location.hash.replace("#",''),
+        nonsecure = ( window.location.protocol.indexOf('s')===-1 ),
+        nomin = ( gup('nomin')==="1" ),
+        touch  = !!('ontouchstart' in window) || !!('msmaxtouchpoints' in window.navigator);
+
+    String.prototype.commafy = function () {
+        return this.replace(/(^|[^\w.])(\d{4,})/g, function($0, $1, $2) {
+            return $1 + $2.replace(/\d(?=(?:\d\d\d)+(?!\d))/g, "$&,");
+        });
+    };
+
+    Number.prototype.commafy = function () {
+        return String(this).commafy();
+    };
+
+    if (nonsecure){
+        console.log('WARNING: nonsecure domain = test mode.');
+        $('body').prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>');
+    }
+
+    /*add pretty timeouts*/
+    $.wait = function(time) {
+      return $.Deferred(function(dfd) {
+        setTimeout(dfd.resolve, time);
+      });
+    };
+
+    /*add basic pub sub, for error-free behavior chains*/
+    $.Topic = function( id ) {
+        
+        var callbacks,
+            topic = id && topics[ id ];
+        if ( !topic ) {
+            callbacks = $.Callbacks();
+            topic = {
+                publish: callbacks.fire,
+                subscribe: callbacks.add,
+                unsubscribe: callbacks.remove
+            };
+            if ( id ) {
+                topics[ id ] = topic;
+            }
+        }
+        return topic;
+    };
+(function($){
+
+    $.fn.extend({
+        
+        detectCCType: function($container) {
+            
+            //radio selectors
+			var $form = $(this).find('form'),
+                $ccTypeSection = $form.find('.cc_type_cont'),
+                $ccArray = $form.find("[name='cc_type_cd']"),
+				$visa = $ccArray.filter("[value='vs']"),
+				$amex = $ccArray.filter("[value='ax']"),
+				$discover = $ccArray.filter("[value='ds']"),
+				$mastercard = $ccArray.filter("[value='mc']"),
+                $maestro = $ccArray.filter("[value='ma']"),
+				$ccNum = $form.find('[name="cc_number"]'),
+				visaRegEx = /^4/,
+				amexRegEx = /^3[47]/,
+				discoverRegEx = /^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)/,
+				masterCardRegEx = /^5[1-5]/,
+                maestroRegex = /^(5018|5020|5038|6304|6759|676[1-3])/,
+				quickDonateRegEx = /^x/i;
+			
+			function setCreditCardType(){
+                
+				var creditCardNumber = $ccNum.val(),
+					valid = [];
+
+				$form.removeClass('cc-is-vs cc-is-ax cc-is-ds cc-is-mc cc-is-ma cc-is-qd cc-cover');
+
+				/*if it's not quick donate, remove the checked state from all cardtypes then check to see if one is valid*/
+				if( !quickDonateRegEx.test(creditCardNumber) ){
+					
+                    $ccArray.prop('checked',false);
+                    
+					if(visaRegEx.test(creditCardNumber)){
+						valid = $visa;
+					} else if(amexRegEx.test(creditCardNumber)){
+						valid = $amex;
+					} else if(discoverRegEx.test(creditCardNumber)) {
+						valid = $discover;
+					} else if(masterCardRegEx.test(creditCardNumber)) {
+						valid = $mastercard;
+					} else if(maestroRegex.test(creditCardNumber)) {
+                        valid = $maestro;
+                    }
+
+                    if (valid.length){
+                        valid.prop('checked', true);
+                        $form.addClass('cc-cover cc-is-'+valid.val());
+                    }
+				}
+                else {
+                    $form.addClass('cc-is-qd');
+                }
+			}
+			
+            /*subscribe to any events that change the data, such as a QD token coming in*/
+            if ($.Topic) { $.Topic('data-update').subscribe( setCreditCardType ); }
+
+			/*bind the behavior to all events that might change the value*/
+			$ccNum.on('keyup change', function(){
+                setTimeout(setCreditCardType, 0);
+            });
+
+            $ccNum.on('paste', function(){
+                setTimeout(setCreditCardType, 0);
+            });
+
+			//apply class to parent indicating script is running correctly
+			$form.addClass('cc-type-detection-active');
+
+            return this;//chainability
+        }
+        
+    });
+
+})(jQuery);
 /*
  * blueContribute.js 
  *
@@ -428,3 +566,142 @@ var blueContribute = {};
     });
 
 }(jQuery));
+//global jQuery, dsa-controller
+//this library creates some core behaviors on donate forms if present, such as amount labels (for legacy support), internationalization, in-honor-of-fields
+
+(function($){
+
+    //need to decouple this first value: all this behavior should be plugin-y
+    var $body = $('#bsd_contribute_cont')||$('body'),
+        $form = $body.find('form'),
+        $presetBtns = $form.find('.preset_amount_label'),
+        $presetInputs = $form.find('.preset_amount_input'),
+        $otherAmt = $form.find('.amount_other'),
+        $otherAmtRadio = $form.find('.other_amount_radio'),
+        $country = $form.find('.country'),
+        $state_cdCont = $form.find('.state_cd_cont').eq(0),
+        $state_label = $state_cdCont.find('label'),
+        $state_cd = $state_cdCont.find('input,select').eq(0),
+        state_cd_id = $state_cd.attr('id'),
+        state_cd_tabindex = $state_cd.attr('tabindex'),
+        $zip_label = $form.find('label.zip_related'),
+        $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').removeClass('hidden').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
+        $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
+        countryVal = $form.data('default-country'),
+        min = parseFloat($form.data('min-donation'))||0,
+        max = parseFloat($form.data('max-donation'))||Infinity,
+        symbol = $('[data-currency-symbol]').data('currency-symbol')||"$",
+        custom_amounts = gup('amounts'),
+        default_amount = gup('default_amt'),
+        skip = parseFloat(gup('skip'))||false;
+        console.log(skip);
+
+	$('.other_amount_label').hide();
+
+    $form.find('[name="http_referrer"]').val(document.referrer);
+
+    if(nomin){
+        $('<input/>',{'type':'hidden','name':'nomin','value':'1'}).appendTo($form);
+        min = 0.01;
+    }
+
+    //accept an 'x' separated string of amounts, validate each, and assign them to buttons 
+    function customAmounts(cas){
+        if (!cas || typeof cas !== "string"){ return false; }
+        var ca_array = cas.split('x'),
+            btn = 0;
+        if(ca_array && ca_array.length){
+            $.each(ca_array,function(i,v){
+                var amt = parseFloat(v);
+                if(amt && $presetBtns.eq(btn).length && amt>=min && amt<=max){
+                    $presetBtns.eq(btn).html(symbol+(amt.commafy()) );
+                    $presetInputs.eq(btn).val(amt);
+                    btn++;
+                }
+            });
+        }
+    }
+    //maybe make this global at some point so it can be exposed to optimizely?
+    window.BSDcustomAmounts = customAmounts;
+    customAmounts(custom_amounts);
+
+	//apply an active class to a label when amount is selected
+	$form.on('click','.preset_amount_label',function(e){
+		var $el = $(this);
+		$presetBtns.removeClass('active');
+		$el.addClass('active');
+		$otherAmt.val('');
+        $el.prev().prop('checked', true);
+	}).on('keydown','.amount_other',function(){
+		$presetBtns.removeClass('active');
+		$presetInputs.each(function(){
+			$(this).prop('checked',false);
+		});
+        $otherAmtRadio.prop('checked', true);
+	});
+
+    //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
+    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
+        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+        $body.removeClass('pre-first-click'); //default amount should expose the next button
+
+        //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
+        if(skip && skip===1 ){
+            $.wait(3).done(function(){
+                $.Topic('change-step').publish(1);
+            });
+        }
+    }
+
+    //now that we've dealt with pre-clicks, lets potentially bind the click behavior to change things on the first click
+    $form.one('keydown','.amount_other',function(){
+		$body.removeClass('pre-first-click');
+	}).one('click','.preset_amount_label',function(){
+		if ($('body').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
+        $body.removeClass('pre-first-click');
+	});
+
+    //toggle honeree select areas open and toggle between memorial or not
+    $form.find('.honoree-select').on('change',function(){
+        var $el = $(this), val = $el.val();
+        $form.removeClass('honor-section memorial-section');
+        if(val==="1"){
+            $form.addClass('honor-section memorial-section');
+        }
+        else if (val==="0"){
+            $form.addClass('honor-section');
+        }
+    });
+
+    //handles the simplest way to support international validation changes based on country
+	function switchCountry(qd){
+        var val = $country.val(),
+            $oldstate = $state_cdCont.hide().find('.state_cd');
+		if(val === "US"){
+            if(!$oldstate.is('select')){
+                $oldstate.remove();
+                $state_cdCont.append($stateFrag.val(''));
+            }
+            $form.removeClass('state-text-input');
+            $state_label.html('State<span>*</span>');
+            $zip_label.html('ZIP<span>*</span>');
+            countryVal = "US";
+		}
+		else{
+            if($oldstate.is('select')){
+                $oldstate.remove();
+                $state_cdCont.append($stateInput.val(''));
+            }
+            $form.addClass('state-text-input');
+            $state_label.html((val==="GB")?'County<span>*</span>':'State/Region/Province<span>*</span>');
+            $zip_label.html('Postal Code<span>*</span>');
+            countryVal = (val==="GB")?'GB':'INT';
+		}
+		$state_cdCont.show();
+	}
+
+	$country.on('change',function(){
+		switchCountry();
+	});
+
+}(jQuery));}(jQuery,window));

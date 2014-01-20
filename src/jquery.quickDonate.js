@@ -6,7 +6,7 @@
  * kylerrush@gmail.com
  * kylerush.net
  *
- *
+
  */
 var quickDonate = quickDonate || {};
 
