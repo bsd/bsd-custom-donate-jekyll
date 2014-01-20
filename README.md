@@ -1,27 +1,37 @@
-bsd-custom-donate-jekyll
+bsd-custom-donate
 ========================
 
-A Jekyll framework for locally developing/testing/listing custom donate pages using the donate API.  When run locally, it can simulate API calls and logins so that you can test the actual functional js code as well as the look and feel process without actually donating any money or dealing with the tools.  All the relative paths are set up such that they locally emulate being a page in our actual EE/tools sites.
+This repo contains:
+    * A set of scripts for interacting with Blue State Digital's [donate-api](https://github.com/bsdstrategy/donate-api), allowing you to reproduce much of the functionality available from BSD donation pages on a customized page
+    * A grunt & jekyll-based tool for quickly creating valid donation form markup and branded styles, including a sequential flow (amount, personal information, payment information), testing it in a simulated local environment, and creating assets to deploy.
+
+When run locally, the jekyll server can simulate API calls and logins so that you can test the actual functional js code as well as the look and feel process without actually donating any money  All the relative api and asset paths are set up to match what would be available on a BSD tools domain.
 
 ##Local Dev Requirements: 
 
-* Ruby, latest version of Jekyll (~v1.4.2 is current), etc.
-* Something to compile SASS with (Codekit, sass watch, etc.)
+* Ruby, latest version of Jekyll (~v1.4.2): http://jekyllrb.com/
+* Grunt & Node/NPM: http://gruntjs.com/getting-started
 
 ##Wrapper/Site Requirements
+* a way to host your custom donate page on the same secure subdomain as the donate module subdomain in the BSD tools (the Simple Pages module of the BSD tools is always an option)
 * a jQuery version of at least 1.8.2
-* Your site MUST implement the .js .no-js html class method in some fashion. Otherwise, there's no easy way to toggle the sequential js off when javascript is disabled.  If you're not using modernizr, the code is just this:
+* Your site MUST implement the .js/.no-js html class method in some fashion. Otherwise, there's no easy way to toggle javascript-only behaviors off when javascript is disabled.  That means that your html tag must include a class of no-js
 
-```JavaScript
-    <script>(function(dc){ dc.className = dc.className.replace("no-js","js"); }(document.documentElement));</script>
-```
-* for IE9 and below, you'll want to make sure your site implements the placeholder polyfill in some fashion.  Input (like .text) css classes are already applied in the markup, so you shouldn't need to worry about adding them via javascript.  If you're not using our standard main.js code, upload /js/jquery.placeholder.js to the tools and use this:
+    ```HTML
+    <html class="no-js">
+    ```
+    And if you're not using [Modernizr](http://modernizr.com/), you must include this script to toggle that class from no-js to js
+
+    ```JavaScript
+        <script>(function(dc){ dc.className = dc.className.replace("no-js","js"); }(document.documentElement));</script>
+    ```
+* for IE9 and below, you'll want to make sure your site implements the placeholder polyfill in some fashion.  There's a copy in /js/polyfills/jquery.placeholder.js that can be used like this:
 
 ```HTML
 <!--[if lte IE 9]><script src="/page/-/donate/jquery.placeholder.js"></script><script>jQuery('input, textarea').placeholder();</script><![endif]-->
 ```
 
-I'd also highly advise making sure the includes and uses Modernizr & in particular, the box-sizing custom detect.
+While not stricly necessary, I'd also highly advise making sure the includes and uses Modernizr & in particular, the box-sizing custom detect.
 
 ##Using this repo
 
@@ -30,6 +40,18 @@ There are two main ways...
 1. Either you can simply nab some plug-and-play custom donate form markup based on config variables and use that code in EE or the tools with the custom donate javascript and the basic css code...
 
 2. or you can create complete wrappers/styled themes here in the jekyll tool and then compile/preview/test all the css/js on your local jekyll server until you're ready to install it on EE/the tools. I HIGHLY RECOMMEND THIS SECOND METHOD 
+
+
+##Grunt
+
+1. Compile the javascript and Sass assets, start a jekyll server, and start a watch task which will recompile when source files change
+    
+    grunt
+
+1. Get a list of all available tasks
+
+    grunt -help
+
 
 ##Setup: 
 
@@ -40,17 +62,11 @@ There are two main ways...
 # Repo Guide
 
 - /js - minified js libraries to use in production
+- /src - unminified code
 - /webroot - jekyll site for testing the code, markup, and styles
 -    /webroot/scss - individual site styles are in named folders, along with the core css.
 -    /webroot/_posts - create a new entry by cloning the default config here and giving it a new filename based on the date
--    /webroot/page/-/donate/ - basically a local mirror of the file structure that will be in the tools. scss styles should compile to named directories here
-
-##SASS
-While there's a codekit.json config file in the /webroot/scss folder, the basic way to compile your css is
-- /webroot/scss/STYLENAME/bsdcd-styles.scss - > /webroot/page/-/donate/STYLENAME/bsdcd-styles.scss
-- /webroot/scss/STYLENAME/bsdcd-styles-desktop.scss - > /webroot/page/-/donate/STYLENAME/bsdcd-styles-desktop.scss 
-
-It's set up this way because you're most likely going to be hosting your custom donate styles at /page/-/donate/STYLENAME/ in the tools.
+-    /webroot/page/-/donate/ - basically a local mirror of the file structure that will be hosted in the BSD tools. 
 
 ##Creating new pages in jekyll
 

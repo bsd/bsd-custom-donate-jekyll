@@ -2,25 +2,25 @@
 
 ##Configuration options REVIEW AND CHANGE THESE PER DONATION FORM
 
-internal-title: Default Config
-internal-comment: This is the config to clone from
+internal-title: Default Config #Internal title of page for internal reference
+internal-comment: This is the config to clone from #internal comment
 
 client: NONE
 
-#Page Title, if used in your imported header
+#Public Page Title, if it is used in your imported header
 page-title: Give
 
-tools-slug: default #default exists on most clients, but remember: you'll need to configure the custom form to match the options of whatever tools form you use
-tools-recurring-slug: reccur  #leave blank for no recurring. This will need to be a _separate_ toolsform set to take recurring donations
-default-source-codes: sequential-donate #source code baked into the page, to identify it for analytics purposes
+tools-slug: default #default exists on most clients, but remember: you'll need to configure this custom form to match the options of whatever tools form you use or vice-versa
+tools-recurring-slug: reccur  #leave blank for no recurring. This will need to be a _separate_ tools form set to take only recurring donations, and otherwise configured the same way as the original form
+default-source-codes: custom-donate #comma separated list of source codes that will baked into the page by default, to identify it for analytics purposes
 
-##
+##Core Options
 layout: form-only  #use form-only if you want jekyll to only print out the core markup
 sequential: true
 quick-donate: true
 
 ##top-section
-header-section: true
+header-section: true #include an intro section
 title: Your Donation Will Save Lives
 subtitle: Donate to Partners In Health
 above-header-html: #override the entire top section and use your own arbitrary html
@@ -39,7 +39,7 @@ optional-phone: false #phone is required by default, this overrides that
 require-cvv: true #this setting/field will not affect quick donate
 show-cvv-help: false #help tooltip: not ready for prime-time
 
-employer-and-occupation: false
+employer-and-occupation: false #whether or not to show the employer and occupation fields
 
 
 #additional text sections
@@ -72,11 +72,11 @@ extra-classes-on-outer-container: #just a string of extra classes to add on the 
 class-on-in-honor: #in-honor-of section title and intro can get a separate class, useful for sites that use .base, leave blank for nothing extra
 class-on-recurring: #reucrring title and intro can get a separate class, useful for sites that use .base
 button-classes: #additional classes to attach to submit button-like things
-seq_options: #'"customErrors":{"overmax":"The maximum amount is $10,000 per transaction. For gifts over $10,000, please complete multiple transactions."}'
-content-after-button-html: #arbitrary html after the buttons, potentially on all steps
+seq_options: #JSON parsable string defining custom error messages for standard errors'"customErrors":{"overmax":"The maximum amount is $10,000 per transaction. For gifts over $10,000, please complete multiple transactions."}'
+content-after-button-html: #arbitrary html after the buttons, potentially shown on all steps (though this can be controlled with css)
 
 
-#wicked advanced: add a custom success function that's called when a user successfully donates instead of the standard redirect method
+#very advanced: add a custom success function that's called when a user successfully donates instead of the standard redirect method. resobj is the objection containing information about the successful donation as outlined in the example success response in the BSD donate api docs
 custom-success: # something like function(resobj){ window.succeed(resobj); }
 
 
