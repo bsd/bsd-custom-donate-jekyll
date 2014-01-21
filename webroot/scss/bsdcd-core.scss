@@ -114,7 +114,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     .form_field_cont{
         padding-right: $container-right-padding;
     }
-    li.amount_cont label.preset_amount_label, #submit, #processing_indicator, .big_btn {
+    li.amount_cont label.preset_amount_label, .bsdcd-submit-button, .processing_indicator, .big_btn {
         padding: 15px 5px;
         display: block;
         width: 95%;
@@ -280,7 +280,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     .memorial-section .inmemory_field_cont{
         display:block;
     }
-  #processing_indicator {
+  .processing_indicator {
     display: none;
     cursor:wait;
   }
@@ -382,10 +382,10 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 .blue_contribute_processing {
     cursor:wait;
-  #processing_indicator {
+  .processing_indicator {
     display: block;
   }
-  #submit {
+  .bsdcd-submit-button {
     display: none;
   }
 }
@@ -454,7 +454,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     li.amount_cont_8 input.text {
       padding: 8px 7px!important;
     }
-    #contributor_header_cont {
+    .contributor_header_cont {
       clear: both;
     }
     .form_field_cont{
@@ -515,7 +515,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     li.bsdcd-error p {
       margin: 0;
     }
-    #submit_cont {
+    .submit_cont {
       clear: both;
     }
     .bsdcd-submit-button {

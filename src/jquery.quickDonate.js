@@ -143,7 +143,7 @@ var quickDonate = quickDonate || {};
                             $(quickDonate.s.locElement).text(t.token_info.city + ' ' + t.token_info.state_cd + ' ' + t.token_info.zip + ' ' + t.token_info.country);
 
                               //detach cvv
-                            quickDonate.cvvHolder = $form.removeClass('cvv-input').find('#cc_cvv_cont').detach();
+                            quickDonate.cvvHolder = $form.removeClass('cvv-input').find('.cc_cvv_cont').detach();
 
                             /*need to verify that all of these values are correct */
                             if(t.token_info.cc_type_cd === 'vs'){
@@ -277,7 +277,7 @@ var quickDonate = quickDonate || {};
                 $form.find("[name='quick_donate_populated']").val('');
                 $form.find("[name='cc_type_cd']").filter(':checked').prop('checked',false);
                 if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
-                    $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
+                    $form.addClass('cvv-input').find('.cc_expiration_cont').after(quickDonate.cvvHolder);
                 }
                 $.Topic('change-step').publish(1, true); //go to now unhidden name step, but do it silently 
                 $.Topic('data-update').publish( 'qd_cleared' );
@@ -287,13 +287,13 @@ var quickDonate = quickDonate || {};
             defaults = {
 
                 tokenRequestPath: '/ctl/Contribution/Quick/GetToken',
-                nuclearElement: '#qd_nuclear',
-                differentInfoElement: '#qd_clear_info',
-                nameElement: '#qd_name',
-                addrElement: '#qd_address',
-                locElement: '#qd_location',
-                ccTypeElement: '#qd_cc_type',
-                ccNumberElement: '#qd_cc_number',
+                nuclearElement: '.qd_nuclear',
+                differentInfoElement: '.qd_clear_info',
+                nameElement: '.qd_name',
+                addrElement: '.qd_address',
+                locElement: '.qd_location',
+                ccTypeElement: '.qd_cc_type',
+                ccNumberElement: '.qd_cc_number',
                 clearInfo: clearQDInfo,
                 skiptoStep: 2,
                 responseHandler: defaultResponseHandler

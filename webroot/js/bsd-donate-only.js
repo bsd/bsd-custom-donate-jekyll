@@ -572,7 +572,7 @@ var blueContribute = {};
 (function($){
 
     //need to decouple this first value: all this behavior should be plugin-y
-    var $body = $('#bsd_contribute_cont')||$('body'),
+    var $body = $('.bsdcd-outer-container')||$('body'),
         $form = $body.find('form'),
         $presetBtns = $form.find('.preset_amount_label'),
         $presetInputs = $form.find('.preset_amount_input'),
@@ -585,7 +585,7 @@ var blueContribute = {};
         state_cd_id = $state_cd.attr('id'),
         state_cd_tabindex = $state_cd.attr('tabindex'),
         $zip_label = $form.find('label.zip_related'),
-        $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').removeClass('hidden').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
+        $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
         $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
         countryVal = $form.data('default-country'),
         min = parseFloat($form.data('min-donation'))||0,
@@ -594,7 +594,6 @@ var blueContribute = {};
         custom_amounts = gup('amounts'),
         default_amount = gup('default_amt'),
         skip = parseFloat(gup('skip'))||false;
-        console.log(skip);
 
 	$('.other_amount_label').hide();
 

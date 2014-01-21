@@ -171,10 +171,7 @@ module.exports = function(grunt) {
                 livereload: true
             },
             site: {
-                options:{
-                    livereload: false
-                },
-                files: [jekyll_dist +'*.html',jekyll_dist +'*.md',jekyll_dist +'!_site/**/*'],
+                files: [jekyll_dist +'**/*.html', jekyll_dist +'**/*.md', "!"+jekyll_dist +'_site/**/*'],
                 tasks: [
                     'exec:jbuild'
                 ]
@@ -301,6 +298,11 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: js_dist,
                     src: 'bsd-*.js',
+                    dest: docroot + 'deploys/tmp/'+stylename+'/',
+                },{
+                    expand: true,
+                    cwd: js_source+ '/vendor/',
+                    src: 'modernizr.js',
                     dest: docroot + 'deploys/tmp/'+stylename+'/',
                 },{
                     expand: true,

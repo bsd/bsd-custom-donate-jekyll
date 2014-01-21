@@ -203,7 +203,7 @@ var quickDonate = quickDonate || {};
                             $(quickDonate.s.locElement).text(t.token_info.city + ' ' + t.token_info.state_cd + ' ' + t.token_info.zip + ' ' + t.token_info.country);
 
                               //detach cvv
-                            quickDonate.cvvHolder = $form.removeClass('cvv-input').find('#cc_cvv_cont').detach();
+                            quickDonate.cvvHolder = $form.removeClass('cvv-input').find('.cc_cvv_cont').detach();
 
                             /*need to verify that all of these values are correct */
                             if(t.token_info.cc_type_cd === 'vs'){
@@ -337,7 +337,7 @@ var quickDonate = quickDonate || {};
                 $form.find("[name='quick_donate_populated']").val('');
                 $form.find("[name='cc_type_cd']").filter(':checked').prop('checked',false);
                 if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
-                    $form.addClass('cvv-input').find('#cc_expiration_cont').after(quickDonate.cvvHolder);
+                    $form.addClass('cvv-input').find('.cc_expiration_cont').after(quickDonate.cvvHolder);
                 }
                 $.Topic('change-step').publish(1, true); //go to now unhidden name step, but do it silently 
                 $.Topic('data-update').publish( 'qd_cleared' );
@@ -347,13 +347,13 @@ var quickDonate = quickDonate || {};
             defaults = {
 
                 tokenRequestPath: '/ctl/Contribution/Quick/GetToken',
-                nuclearElement: '#qd_nuclear',
-                differentInfoElement: '#qd_clear_info',
-                nameElement: '#qd_name',
-                addrElement: '#qd_address',
-                locElement: '#qd_location',
-                ccTypeElement: '#qd_cc_type',
-                ccNumberElement: '#qd_cc_number',
+                nuclearElement: '.qd_nuclear',
+                differentInfoElement: '.qd_clear_info',
+                nameElement: '.qd_name',
+                addrElement: '.qd_address',
+                locElement: '.qd_location',
+                ccTypeElement: '.qd_cc_type',
+                ccNumberElement: '.qd_cc_number',
                 clearInfo: clearQDInfo,
                 skiptoStep: 2,
                 responseHandler: defaultResponseHandler
@@ -972,7 +972,7 @@ var blueContribute = {};
 (function($){
 
     //need to decouple this first value: all this behavior should be plugin-y
-    var $body = $('#bsd_contribute_cont')||$('body'),
+    var $body = $('.bsdcd-outer-container')||$('body'),
         $form = $body.find('form'),
         $presetBtns = $form.find('.preset_amount_label'),
         $presetInputs = $form.find('.preset_amount_input'),
@@ -985,7 +985,7 @@ var blueContribute = {};
         state_cd_id = $state_cd.attr('id'),
         state_cd_tabindex = $state_cd.attr('tabindex'),
         $zip_label = $form.find('label.zip_related'),
-        $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').removeClass('hidden').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
+        $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
         $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
         countryVal = $form.data('default-country'),
         min = parseFloat($form.data('min-donation'))||0,
@@ -994,7 +994,6 @@ var blueContribute = {};
         custom_amounts = gup('amounts'),
         default_amount = gup('default_amt'),
         skip = parseFloat(gup('skip'))||false;
-        console.log(skip);
 
 	$('.other_amount_label').hide();
 

@@ -1,4 +1,4 @@
-#sequential_next_btn, .bsdcd-seq-breadcrumbs, #sequential_next_cont, #sequential_general_error_cont {
+.sequential_next_btn, .bsdcd-seq-breadcrumbs, .sequential_next_cont, .sequential_general_error_cont {
   display: none;
 }
 
@@ -7,7 +7,7 @@
     .step-error a{
         color: $error-message-text-color !important;
     }
-    #sequential_general_error_cont, #sequential_next_cont, .bsdcd-seq-breadcrumbs {
+    .sequential_general_error_cont, .sequential_next_cont, .bsdcd-seq-breadcrumbs {
         display: none;
     }
     .js .sequential {
@@ -16,7 +16,7 @@
                 display:none !important;
             }
         }
-        #sequential_next_cont, .bsdcd-seq-breadcrumbs {
+        .sequential_next_cont, .bsdcd-seq-breadcrumbs {
           display: block;
         }
         .bsdcd-form {
@@ -98,13 +98,13 @@
             width: 200%;
             margin-top:8px;
         }
-        #submit_cont, #sequential_donate_btn_copy {
+        .submit_cont, .sequential_donate_btn_copy {
             display: none;
         }
-        #sequential_next_cont {
+        .sequential_next_cont {
             width: 370px;
         }
-        #bsd_contribute_form_fields_cont {
+        .bsd_contribute_form_fields_cont {
             position: relative;
             margin: 0;
         }
@@ -112,7 +112,7 @@
             margin: 0;
             top:0;
         }
-        #sequential_next_btn {
+        .sequential_next_btn {
             text-decoration: none;
             text-align: left;
             padding-left: 35px;
@@ -122,13 +122,13 @@
             padding: 10px 40px 10px 40px;
             text-align: center;
         }
-        #sequential_next_btn_cont {
-            //border-radius: 4px 25px 25px 2px!important;
+        .sequential_next_btn_cont {
+            clear:both;
             width: 135px;
             margin: auto auto;
             padding: 0!important;
         }
-        #sequential_general_error_cont {
+        .sequential_general_error_cont {
             text-align: center;
             width: 100%;
             p{
@@ -155,7 +155,7 @@
                 z-index:0;
             }
         }
-        #sequential_payment_info {
+        .sequential_payment_info {
             padding: 0;
             //padding: 0 20px;
             .qd_populated &{
@@ -171,13 +171,13 @@
             box-shadow: $core-box-shadow, 0 0 0 1px $error-field-border-color !important;
         }
         &.sequential_step_2 .bsdcd-form {
-            #sequential_donate_btn_copy {
+            .sequential_donate_btn_copy {
                 display: block;
             }
-            #sequential_next_btn_copy {
+            .sequential_next_btn_copy {
                 display: none;
             }
-            #sequential_next_btn_cont {
+            .sequential_next_btn_cont {
                 width: 230px;
             }
             .bsdcd-compliance-section{
@@ -210,16 +210,16 @@
         margin:0 0 10px;
     }
 
-    .sequential_error  #sequential_general_error_cont {
+    .sequential_error  .sequential_general_error_cont {
         display:block;
     }
 
     //no next button to start on amount selection
-    .js .pre-first-click #sequential_next_cont {
+    .js .pre-first-click .sequential_next_cont {
         display:none;
     }
 
-    .blue_contribute_processing #sequential_next_btn {
+    .blue_contribute_processing .sequential_next_btn {
         cursor:wait;
     }
 }

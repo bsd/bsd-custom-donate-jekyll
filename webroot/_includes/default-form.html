@@ -1,15 +1,15 @@
-{% if page.custom-amounts %}{% assign amounts = page.custom-amounts %}{% else %}{% assign amounts = site.amounts %}{% endif %}{% if page.include-styles-inline %}<!--[if lte IE 8]><link rel="stylesheet" href="/page/-/donate/{% if page.layout %}{{page.layout}}/{%endif%}bsdcd-styles-desktop.css"><![endif]-->
-<!--[if gt IE 8]><!--><link rel="stylesheet" href="/page/-/donate/{% if page.layout %}{{page.layout}}/{%endif%}bsdcd-styles.css"><!--<![endif]-->
+{% if page.custom-amounts %}{% assign amounts = page.custom-amounts %}{% else %}{% assign amounts = site.amounts %}{% endif %}{% if page.include-styles-inline %}<!--[if lte IE 8]><link rel="stylesheet" href="/page/-/donate/{% if page.style %}{{page.style}}/{%endif%}bsdcd-styles-desktop.css"><![endif]-->
+<!--[if gt IE 8]><!--><link rel="stylesheet" href="/page/-/donate/{% if page.style %}{{page.style}}/{%endif%}bsdcd-styles.css"><!--<![endif]-->
 {% endif %}{% if page.include-login-inline %}
 <div class="qd-login-links-section">
     <a href="#login" class="qd-log-in-link">Use my saved payment information</a>
     <a href="#logout" class="qd-log-out-link">Log Out</a>
 </div>
 {% endif %}
-<div id="bsd_contribute_cont" class="bsdcd-outer-container clearfix {{page.extra-classes-on-outer-container}}{% if page.top-node-is-outer == true%} {%if page.show-first-next-button != "true" %}pre-first-click{%endif%}{% if page.sequential %} sequential sequential_step_0{%endif%}{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.default-currency-symbol}}">
+<div id="{{page.id-prefix}}_form_container" class="bsdcd-outer-container clearfix {{page.extra-classes-on-outer-container}} {%if page.show-first-next-button != "true" %}pre-first-click{%endif%}{% if page.sequential %} sequential sequential_step_0{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.currency-symbol}}">
     {% if page.header-section %}
     {%if page.html-above-header %}{{page.html-above-header}}{%endif%}
-    <div id="sequential_header" class="bsdcd-top-section base">{% if page.above-header-html %}{{page.above-header-html}}{%else%}{% if page.title %}<h1>{{page.title}}</h1>{%endif%}
+    <div class="bsdcd-top-section base">{% if page.above-header-html %}{{page.above-header-html}}{%else%}{% if page.title %}<h1>{{page.title}}</h1>{%endif%}
     {% if page.subtitle %}<h2>{{page.subtitle}}</h2>{%endif%}{%endif%}
     </div>
     {%endif%}
@@ -22,20 +22,20 @@
         {% if page.country-selection != true and page.default-country %}<input id="default_country" name="default_country" type="hidden" value="{{page.default-country}}">{%endif %}
         {% if page.no_minimum == true %}<input name="nomin" type="hidden" value="1">{%endif%}
         <input name="http_referer" type="hidden" value="">
-        <ul id="bsd_contribute_form_fields_cont" class="clearfix">
+        <ul id="bsd_contribute_form_fields_cont clearfix">
             <p class="bsdcd-general_error bsdcd-error" id="general_error"></p>
             <p class="qd_loading_spinner">Loading...</p>
             <ul class="qd_info_section">
                 <li class="qd_info qd-personal-info">
-                    <p id="qd_name_cont"><span id="qd_name" class="qd_header"></span> &nbsp;<a href="#" id="qd_nuclear">Not you?</a></p>
-                    <p><span id="qd_address"></span></p>
-                    <p><span id="qd_location"></span></p>
+                    <p class="qd_name_cont"><span id="qd_name qd_header"></span> &nbsp;<a href="#" class="qd_nuclear">Not you?</a></p>
+                    <p><span class="qd_address"></span></p>
+                    <p><span class="qd_location"></span></p>
                 </li>
                 <li class="qd_info qd-payment-info">
-                    <p id="qd_header" class="qd_header">Saved payment method</p>
-                    <p>Type: <span id="qd_cc_type"></span></p>
-                    <p>Number: <span id="qd_cc_number"></span></p>
-                    <p class="qd-options"><a href="#" id="qd_clear_info">Use different info</a> &nbsp;&nbsp;&nbsp; <a href="/ctl/Contribution/Quick/Manage" id="qd_manage_account" target="_blank">Manage your account</a></p>
+                    <p class="qd_header">Saved payment method</p>
+                    <p>Type: <span class="qd_cc_type"></span></p>
+                    <p>Number: <span class="qd_cc_number"></span></p>
+                    <p class="qd-options"><a href="#" class="qd_clear_info">Use different info</a> &nbsp;&nbsp;&nbsp; <a href="/ctl/Contribution/Quick/Manage" class="qd_manage_account" target="_blank">Manage your account</a></p>
                 </li>
             </ul>
             <ul class="sequential_step step_1 active clearfix">
@@ -49,7 +49,7 @@
                         {% for amt in amounts %}
                         <li class="amount_cont amount_cont_{{ forloop.index }} {% cycle 'odd', 'even' %} {% if forloop.first %}first fis{%endif%}">
                             <input type="radio" class="radio preset_amount_input amount_{{amt}}" name="amount" value="{{amt}}" tabindex="1" id="{{page.id-prefix}}amount_{{amt}}" autocomplete="off">
-                            <label for="{{page.id-prefix}}amount_{{amt}}" class="preset_amount_label">{{page.default-currency-symbol}}{{ amt | commafy }}</label>
+                            <label for="{{page.id-prefix}}amount_{{amt}}" class="preset_amount_label">{{page.currency-symbol}}{{ amt | commafy }}</label>
                         </li>
                         {% if forloop.last %}
                         <li class="amount_cont amount_cont_{{ forloop.index | plus: 1 }} last {% cycle 'odd', 'even' %}">
@@ -63,7 +63,7 @@
                 {%if page.step-one-html-after%}{{page.step-one-html-after}}{%endif%}
             </ul>
             <ul class="sequential_step step_2 clearfix inactive{% if page.extended-name-fields %} extended-name-fields{%endif%}">
-                <li class="form_section_header_cont mobile-only firstname_related lastname_related qd_info_extra" id="contributor_header_cont">
+                <li class="contributor_header_cont form_section_header_cont mobile-only firstname_related lastname_related qd_info_extra">
                     <h2 class="form_section_header" id="contributor_header">Contributor</h2>
                 </li><!--/#form_section_header_cont-->
                 {% if page.name-prefix %}
@@ -247,6 +247,7 @@
                         <option value="2011">2011</option>
                         <option value="2012">2012</option>
                         <option value="2013">2013</option>
+                        <option value="2014">2014</option>
                     </select>
                 </li>
                 {%endif%}
@@ -270,7 +271,6 @@
                     </select>
                     <select id="{{page.id-prefix}}cc_expir_year" class="cc_expir_year cc_year" autocomplete="off" name="cc_expir_year" tabindex="23" required="required">
                         <option value="">Year</option>
-                        <option value="2013">2013</option>
                         <option value="2014">2014</option>
                         <option value="2015">2015</option>
                         <option value="2016">2016</option>
@@ -281,6 +281,7 @@
                         <option value="2021">2021</option>
                         <option value="2022">2022</option>
                         <option value="2023">2023</option>
+                        <option value="2024">2024</option>
                     </select>
                 </li>
                 {% if page.require-cvv %}
@@ -369,13 +370,13 @@
                 </li>
                 {%endif%}
             </ul><!--/.sequential-step-3-->
-            <li id="sequential_general_error_cont">
+            <li class="sequential_general_error_cont">
                 <p class="sequential_error_message bsdcd-error"></p>
             </li>
-            <li id="sequential_next_cont"><p class="big_btn{% if page.button-classes %} {{page.button-classes}}{%endif%}" id="sequential_next_btn_cont"><a href="#" id="sequential_next_btn" class="sequential_move_forward"><span id="sequential_next_btn_copy">Next</span><span class="sequential-donate-btn-copy" id="sequential_donate_btn_copy">Donate</span></a></p></li>
-            <li id="submit_cont">
-                <p id="processing_indicator" class="bsdcd-submit-button{% if page.button-classes %} {{page.button-classes}}{%endif%}">Processing...</p>
-                <input type="submit" value="Donate now" class="bsdcd-submit-button big_btn {% if page.button-classes %} {{page.button-classes}}{%endif%}" id="submit" tabindex="36">
+            <li class="sequential_next_cont"><p class="sequential_next_btn_cont big_btn{% if page.button-classes %} {{page.button-classes}}{%endif%}"><a href="#" class="sequential_next_btn sequential_move_forward"><span class="sequential_next_btn_copy">Next</span><span class="sequential-donate-btn-copy sequential_donate_btn_copy">Donate</span></a></p></li>
+            <li class="submit_cont">
+                <p class="processing_indicator bsdcd-submit-button{% if page.button-classes %} {{page.button-classes}}{%endif%}">Processing...</p>
+                <input type="submit" value="Donate now" class="bsdcd-submit-button big_btn {% if page.button-classes %} {{page.button-classes}}{%endif%}" tabindex="36">
             </li>
             {% if page.compliance-html %}<li class="bsdcd-compliance-section">
                 {{page.compliance-html}}
@@ -387,14 +388,20 @@
 
         <input type="hidden" name="slug" value="{{page.tools-slug}}">
     </form>
-    {%if page.country-selection == true and page.default-country != "US"  %}<select class="state_cd us-state-dropdown hidden"><option value=""></option><option value="AK">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option><option value="--" disabled="disabled">---</option><option value="AA">AA</option><option value="AE">AE</option><option value="AP">AP</option><option value="AS">AS</option><option value="FM">FM</option><option value="GU">GU</option><option value="MH">MH</option><option value="MP">MP</option><option value="PR">PR</option><option value="PW">PW</option><option value="VI">VI</option></select>{%endif%}
+    <footer id="main-footer" class="dark-footer">
+        <div class="">
+            <p><a href="{{page.terms-of-service-link}}" target="_blank">Terms of Use</a> &bull; <a href="{{page.privacy-policy-link}}" target="_blank">Privacy Policy</a>
+            <p>&copy; {{page.copyright-start-year}} - {{ site.time | date: '%Y' }}
+        </div>
+    </footer>
+    {%if page.country-selection == true and page.default-country != "US"  %}<div style="display:none;"><select class="state_cd us-state-dropdown"><option value=""></option><option value="AK">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option><option value="--" disabled="disabled">---</option><option value="AA">AA</option><option value="AE">AE</option><option value="AP">AP</option><option value="AS">AS</option><option value="FM">FM</option><option value="GU">GU</option><option value="MH">MH</option><option value="MP">MP</option><option value="PR">PR</option><option value="PW">PW</option><option value="VI">VI</option></select></div>{%endif%}
 {% if page.simple-internal-footer %}{{page.simple-internal-footer}}{%endif%}
 {% if page.include-jquery %}<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>{%endif%}
 <script src="/page/-/donate/bsd-sequential-donate.js"></script>
 {% if page.include-plugin-code %}<script type="text/javascript">
 
         (function($){
-            var $topNode = $('#bsd_contribute_cont');
+            var $topNode = $('{% if page.outer-container-selector %}{{page.outer-container-selector}}{% else %}.bsdcd-outer-container{% endif %}');
 {% if page.sequential %}
             $topNode.sequential({
                 {% if page.seq_options %}{{page.seq_options}}{% else %}{% if page.debug %}debug: true{% endif %}{% endif %}
@@ -403,8 +410,9 @@
             $topNode.find('form').blueContribute({
                 {% if page.debug %}debug: true{% endif %}{% if page.debug and page.custom-success %},{% endif %}{% if page.custom-success %}customSuccess: {{page.custom-success}}{% endif %}
             });
+{% if page.detect-cc-type %}
             $topNode.detectCCType();
-            
+{%endif%}
             $topNode.quickDonate({ 
                 {% if page.debug %}debug: true{% endif %}
             });
