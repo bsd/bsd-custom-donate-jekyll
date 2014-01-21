@@ -143,7 +143,12 @@
         .sequential_step {
             width: $section-inner-width;
             opacity: 0;
-            @include transition2( opacity, .3s , ease, left, .3s , ease );
+            /*
+            position:relative;
+            left:0;
+            top:0;
+            */
+            @include transition2( opacity, .5s , ease, left, .3s , ease );
             &.active {
                 opacity: 1;
                 z-index: 1;

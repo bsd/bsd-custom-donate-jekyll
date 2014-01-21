@@ -406,20 +406,17 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 @include respond-min( $form-field-layout ){
 
   .bsdcd-outer-container {
-
+    overflow:hidden;
     width: $section-total-width;
     background: none;
-    padding: 20px 0;
 
     .bsdcd-top-section {
         width: $section-total-width - ($section-inner-side-padding * 2);
-        background: $header-section-bg-color;
         padding: 10px $section-inner-side-padding;
         border-bottom: 1px solid #d8d8d8;
     }
     .bsdcd-form {
       width: $section-total-width - ( $section-inner-side-padding * 2 );
-      background: $form-bg-color;
       padding: $section-inner-side-padding;
     }
     .form_section_header {

@@ -49,19 +49,25 @@ $tools-directory: "/page/-/donate/";
 /*colors*/
 
 $gray: #b8b8b8;
+$slate-gray: #2F4F4F;
+
 $green: #197419;
+$blue: #5F9F9F;
+
+$red: #F00;
 $dim-red: #C41230;
+
 $orange: #E86D1F;
 $purple: #621A4B;
 $dark-purple: #411934;
 
 
 /*Step UI Colors*/
-$step-inactive: #b8b8b8;
-$step-active: #E86D1F; //orange
+$step-inactive: $gray;
+$step-active: $slate-gray;
 
 /*Button UI*/
-$button-normal: $red;
+$button-normal: $blue;
 $button-active: $green;
 
 /*Validation*/

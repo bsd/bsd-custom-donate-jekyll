@@ -1,10 +1,19 @@
 /*custom styles*/
 
-
+.base{
+    h1{
+        font-size:20px;
+        margin-bottom:10px;
+    }
+    h2{
+        font-size:16px;
+    }
+}
 
 #main-footer{
     text-align: center;
 }
+
 
 .content-wrapper{
     @include respond-min( $form-field-layout ){
@@ -17,7 +26,27 @@
 
 @include respond-min( $form-field-layout ){
     .bsdcd-outer-container{
-        margin-left:30px;
         padding-bottom:0;
+        border: 1px solid #fafafa;
+        border-radius: 8px;
+    }
+    .bsdcd-top-section{
+        border-radius: 8px 8px 0 0;
+    }
+    .bsdcd-top-section, .bsdcd-form{
+        background: #fafafa;
+    }
+    #main-header{
+        background:#f0f0f0;
+        .centered{
+            margin:0 auto;
+            max-width:$desktop;
+            padding:40px 0;
+        }
+    }
+    #main-footer{
+        background: #F2F2F2;
+        border-radius: 0 0 8px 8px;
+        padding: 10px;
     }
 }
