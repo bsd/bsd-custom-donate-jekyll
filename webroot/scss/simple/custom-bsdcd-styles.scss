@@ -1,1 +1,23 @@
 /*custom styles*/
+
+
+
+#main-footer{
+    text-align: center;
+}
+
+.content-wrapper{
+    @include respond-min( $form-field-layout ){
+        margin:40px auto 20px;
+    }
+    @include respond-min( $desktop){
+        width:$desktop;
+    }
+}
+
+@include respond-min( $form-field-layout ){
+    .bsdcd-outer-container{
+        margin-left:30px;
+        padding-bottom:0;
+    }
+}
