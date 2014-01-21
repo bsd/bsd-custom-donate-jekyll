@@ -23,7 +23,7 @@
         {% if page.no_minimum == true %}<input name="nomin" type="hidden" value="1">{%endif%}
         <input name="http_referer" type="hidden" value="">
         <ul id="bsd_contribute_form_fields_cont clearfix">
-            <p class="bsdcd-general_error bsdcd-error" id="general_error"></p>
+            <p class="bsdcd-general_error bsdcd-error"></p>
             <p class="qd_loading_spinner">Loading...</p>
             <ul class="qd_info_section">
                 <li class="qd_info qd-personal-info">
@@ -52,7 +52,7 @@
                             <label for="{{page.id-prefix}}amount_{{amt}}" class="preset_amount_label">{{page.currency-symbol}}{{ amt | commafy }}</label>
                         </li>
                         {% if forloop.last %}
-                        <li class="amount_cont amount_cont_{{ forloop.index | plus: 1 }} last {% cycle 'odd', 'even' %}">
+                        <li class="amount_cont amount_other_cont amount_cont_{{ forloop.index | plus: 1 }} last {% cycle 'odd', 'even' %}">
                             <label for="{{page.id-prefix}}amount_other" id="other_amount_label" class="other_amount_label">Other amount:</label>
                             <input type="tel" class="text other_amount_input amount_other" name="amount_other" id="{{page.id-prefix}}amount_other" placeholder="Other amount" tabindex="2" autocomplete="off">
                         </li>

@@ -88,5 +88,8 @@ $form-field-bg-color: #f1f1f1;
 $form-field-focus-bg-color: #f3f3f3;
 
 /*Images*/
-$giant-background-image-name: "demo-bg.jpg";
-$giant-background-image: url(#{$tools-directory}#{$giant-background-image-name});
+//$giant-background-image-name: "demo-bg.jpg";
+//$giant-background-image: url(#{$tools-directory}#{$giant-background-image-name});
+
+$giant-background-image: url(http://placehold.it/2000x1400);
+

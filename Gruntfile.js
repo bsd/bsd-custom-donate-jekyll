@@ -155,7 +155,8 @@ module.exports = function(grunt) {
             dev:{
                 options: {
                     style: 'compressed',
-                    compass: 1
+                    compass: 1,
+                    noCache: true
                 },
                 files: [{
                     expand: true,

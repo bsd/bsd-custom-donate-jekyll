@@ -2,11 +2,15 @@
 
 permalink: /v1
 
-#uncomment out your poison
-which: success  #success
+###########
+# Simulate API responses
+# Uncomment out your poison
+####################
+
+#which: success  #success
 #which: gateway #gateway error, such as a card declined
 #which: invalid  #some field validation errors
-#which: allinvalid  #every possible field is wrong
+which: allinvalid  #every possible field is wrong
 #which: noslug #you didn't even specify a slug!?  
 #which: confirm #confirm option on in the target tools form. You'd resubmit with confirmed=1, but this may require a unique form id, which we don't use
 #which: paypal #what you get if you try to paypal

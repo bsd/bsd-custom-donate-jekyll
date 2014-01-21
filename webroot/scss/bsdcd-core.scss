@@ -1,7 +1,8 @@
 
 /*
 
-  Author: Kyle Rush, kylerrush@gmail.com
+  Authors:  Kyle Rush, kylerrush@gmail.com
+            Drew Tipson dtipson@bluestatedigital.com
   
 */
 
@@ -130,33 +131,36 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         font-size: 19px;
         text-align: center;
     }
-  .other_amount_radio {
-    display: none;
-  }
-  .amounts {
-    list-style:none !important;
-    margin:0 !important;
-  }
-  ul.amounts li.amount_cont {
-    margin-bottom:15px;
-    input.preset_amount_input {
-      display:none;
+    .amount_other_cont{
+        width:44%;
     }
-    @mixin active-labels(){
-        z-index:1;
-        background: $button-active;
-        color: #fff;
-        border: 1px solid #fff;
-        box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
+    .other_amount_radio {
+        display: none;
     }
-    //these otherwise identical styles are split because IE7 will break if they are extended normally
-    label.active{
-      @include active-labels();
+    .amounts {
+        list-style:none !important;
+        margin:0 !important;
     }
-    input:checked + label {
-      @include active-labels();
+    ul.amounts li.amount_cont {
+        margin-bottom:15px;
+        input.preset_amount_input {
+          display:none;
+        }
+        @mixin active-labels(){
+            z-index:1;
+            background: $button-active;
+            color: #fff;
+            border: 1px solid #fff;
+            box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
+        }
+        //these otherwise identical styles are split because IE7 will break if they are extended normally
+        label.active{
+          @include active-labels();
+        }
+        input:checked + label {
+          @include active-labels();
+        }
     }
-  }
 
   .cc_month {
     margin-bottom: 10px;
@@ -341,12 +345,12 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 /* error state */
 
-#general_error{
+.bsdcd-general_error{
     display:none;
 }
 
 .blue_contribute_error {
-    li.form_field_cont.bsdcd-error, #general_error {
+    li.form_field_cont.bsdcd-error, .bsdcd-general_error {
         display:block;
         background-color: #f2dede;
         border:none;
@@ -446,7 +450,8 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
       margin-right: 0;
     }
     .amount_cont_8 {
-      width: 230px;
+      width: 92%;
+      max-width: 220px;
     }
     li.amount_cont_8 input.text {
       padding: 8px 7px!important;

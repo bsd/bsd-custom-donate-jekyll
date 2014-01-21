@@ -1,3 +1,9 @@
+
+
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
 /* BSD team's approved mixins */
 
 @mixin opacity($opacity){

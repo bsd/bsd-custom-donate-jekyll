@@ -129,6 +129,7 @@
             padding: 0!important;
         }
         .sequential_general_error_cont {
+            clear:both;
             text-align: center;
             width: 100%;
             p{
@@ -158,6 +159,7 @@
                 opacity: 0;
                 left:-$section-total-width;
                 z-index:0;
+                pointer-events: none;
             }
         }
         .sequential_payment_info {
