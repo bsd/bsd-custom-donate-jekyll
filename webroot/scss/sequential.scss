@@ -211,15 +211,17 @@
                 }
             }
         }
+
+        .sequential_error_message{
+            margin:0 0 10px;
+        }
+
+        &.sequential_error  .sequential_general_error_cont {
+            display:block;
+        }
     }
 
-    .sequential_error_message{
-        margin:0 0 10px;
-    }
 
-    .sequential_error  .sequential_general_error_cont {
-        display:block;
-    }
 
     //no next button to start on amount selection
     .js .pre-first-click .sequential_next_cont {
