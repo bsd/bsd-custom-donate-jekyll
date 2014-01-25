@@ -72,9 +72,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
             //color: $dim-red;
         }
     }
-    .other_amount_label{
-        display:none;
-    }
     input.text, textarea {
         background: $form-field-bg-color;
         border: 1px solid #DEDEDE;
@@ -134,18 +131,12 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     .amount_other_cont{
         width:44%;
     }
-    .other_amount_radio {
-        display: none;
-    }
     .amounts {
         list-style:none !important;
         margin:0 !important;
     }
     ul.amounts li.amount_cont {
         margin-bottom:15px;
-        input.preset_amount_input {
-          display:none;
-        }
         @mixin active-labels(){
             z-index:1;
             background: $button-active;
@@ -193,36 +184,36 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
             color: white;
         }
     }
-  .hide-text{
-    position:absolute;
-    top:-50px;
-    left:-50px;
-  }
-  .accept-mc{
-    width: 37px;
-    background-position: 0 center;
-  }
-  .accept-ds{
-    background-position: -111px center;
-    width:38px;
-  }
-  .accept-ax{
-    width:25px;
-    background-position: -83px center;
-  }
-  .accept-vs{
-    background-position: -40px center;
-  }
-  .accept-ma{
-    background-position: -153px center;
-    width:37px;
-  }
-  .cc_type_cont{
-    margin-bottom:10px;
-  }
-  .cc_maestro_start_cont{
-    display:none;
-  }
+    .hide-text{
+        position:absolute;
+        top:-50px;
+        left:-50px;
+    }
+    .accept-mc{
+        width: 37px;
+        background-position: 0 center;
+    }
+    .accept-ds{
+        background-position: -111px center;
+        width:38px;
+    }
+    .accept-ax{
+        width:25px;
+        background-position: -83px center;
+    }
+    .accept-vs{
+        background-position: -40px center;
+    }
+    .accept-ma{
+        background-position: -153px center;
+        width:37px;
+    }
+    .cc_type_cont{
+        margin-bottom:10px;
+    }
+    .cc_maestro_start_cont{
+        display:none;
+    }
     .cc-is-ma .cc_maestro_start_cont {
         display:block;
     }
@@ -342,14 +333,8 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 }
 
 /* error state */
-
-.bsdcd-general_error{
-    display:none;
-}
-
 .blue_contribute_error {
     li.form_field_cont.bsdcd-error, .bsdcd-general_error {
-        display:block;
         background-color: #f2dede;
         border:none;
         border-color: #eed3d7;
@@ -370,9 +355,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     .state-text-input li.form_field_cont.bsdcd-error.state_cd_cont{
         padding-right:21px;
     }
-    .cc_type_radio_cont{
-        display:block;
-    }
 }
 
 .bsdcd-form p.bsdcd-error {
@@ -380,17 +362,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     font-weight: bold;
 }
 
-/* processing state */
 
-.blue_contribute_processing {
-    cursor:wait;
-    .processing_indicator {
-        display: block;
-    }
-    .bsdcd-submit-button {
-        display: none;
-    }
-}
 
 @include respond-min( $phone ){
     .amount_cont {
@@ -440,9 +412,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         .amount_cont {
             margin: 0 14px 28px 0;
             width: 115px;
-        }
-        .other_amount_label {
-            display: none;
         }
         .amount_cont_3, .amount_cont_6 {
             margin-right: 0;
@@ -528,15 +497,5 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     .bsdcd-form{
         margin-top:0;
         margin-bottom:0;
-    }
-}
-
-/*these fields can't work right without js*/
-.no-js{
-    .in-honor-of, .honoree_field_cont, .recurring-checkbox-cont{
-        display:none;
-    }
-    &.oldie .other_amount_label{
-        display:block;
     }
 }

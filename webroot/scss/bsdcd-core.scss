@@ -1,3 +1,67 @@
 /*
 Core Donate Styles
 */
+
+
+
+
+.bsdcd-outer-container {
+    .other_amount_label,.other_amount_radio{
+        display:none;
+    }
+    /*should this be core?  Maybe someone wants these radio buttons... */
+    ul.amounts li.amount_cont {
+        input.preset_amount_input {
+          display:none;
+        }
+    }
+}
+
+/* Error states */
+.bsdcd-general_error{
+    display:none;
+}
+.blue_contribute_error {
+    li.form_field_cont.bsdcd-error, .bsdcd-general_error {
+        display:block;
+    }
+    /* in the off chance that we got our CC type selection wrong, allow the user to select it directly now */
+    .cc_type_radio_cont{
+        display:block;
+    }
+}
+
+
+
+
+
+/* processing state */
+.blue_contribute_processing {
+    cursor:wait;
+    .processing_indicator {
+        display: block;
+    }
+    .bsdcd-submit-button {
+        display: none;
+    }
+}
+
+
+@include respond-min( $form-field-layout ){
+
+    .bsdcd-outer-container {
+        .other_amount_label {
+            display: none;
+        }
+    }
+}
+
+/*these fields can't work right without js*/
+.no-js{
+    .in-honor-of, .honoree_field_cont, .recurring-checkbox-cont{
+        display:none;
+    }
+    &.oldie .other_amount_label{
+        display:block;
+    }
+}
