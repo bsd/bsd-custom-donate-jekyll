@@ -60,12 +60,13 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         }
     }
     input.text, textarea {
+        font-size: $input-mobile-font-size;
         background: $form-field-bg-color;
         border: 1px solid #DEDEDE;
         border-radius: 3px;
         line-height: $input-height;
         width: 100%;
-        padding: $input-side-padding;
+        padding: $input-vertical-padding $input-side-padding;
         -webkit-box-shadow: $core-box-shadow;
         box-shadow: $core-box-shadow; 
         &:focus{
@@ -73,12 +74,13 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         }
     }
     input.text{
-        height: $input-height;  
+        height: $input-height;
+        padding: $input-vertical-padding $input-side-padding;
     }
     select {
-        font-size: 16px;
+        font-size: $input-font-size;
         border-color: #ebebeb;
-        padding: $input-vert-padding $input-side-padding;
+        padding: $input-vertical-padding $input-side-padding;
         vertical-align: top;
         line-height: $input-height;
         height: $input-height + 4px;
@@ -101,7 +103,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     }
     li.amount_cont label.preset_amount_label, .bsdcd-submit-button, .big_btn {
         -webkit-appearance:none;
-        padding: 15px 5px;
+        padding: $input-vertical-padding $input-side-padding;
         display: block;
         width: 95%;
         background: $button-normal;
@@ -112,6 +114,8 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         border-radius: 3px;
         color: #fff;
         font-size: 19px;
+        line-height:$input-height;
+        height:$input-height;
         text-align: center;
     }
     .amount_other_cont{
@@ -312,6 +316,12 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
                 width: $full-width-field-container-width;
                 margin-right:0;
             }
+        }
+        input.text, textarea{
+            font-size: $input-font-size;
+        }
+        input.text{
+            padding: ($input-vertical-padding - 10) $input-side-padding;
         }
         select {
             font-size: 16px;

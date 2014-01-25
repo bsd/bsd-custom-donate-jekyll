@@ -17,6 +17,17 @@ $tools-directory: "/page/-/donate/";
         $form-field-layout: $tablet;
         $sequential-breakpoint: $tablet;
 
+
+    /* form fields */
+    $input-height: 28px; //FULL HEIGHT (as if box-sizing were border-box, even when it won't be)
+
+    $input-border-width: 1px;
+    $input-vertical-padding: 15px;
+    $input-side-padding: 7px;
+
+    $input-mobile-font-size: 20px;
+    $input-font-size: 18px;
+
 /*colors*/
     $gray: #b8b8b8;
     $slate-gray: #2F4F4F;
