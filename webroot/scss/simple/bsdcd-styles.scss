@@ -1,6 +1,6 @@
+@import '../bsdcd-core-variables.scss';
 @import 'variables.scss';
 @import '../mixins.scss';
-
 
 @import '../boilerplate.scss';
 
@@ -8,6 +8,11 @@
 @import '../sequential.scss';
 @import '../quick-donate.scss';
 @import '../cc-detect-core.scss';
+
+/*floating box style*/
+@import 'floating-box/bsdcd-core.scss';
+@import 'floating-box/sequential.scss';
+@import 'floating-box/quick-donate.scss';
 
 @import 'bsdcd-backgrounds.scss';
 

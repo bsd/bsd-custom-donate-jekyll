@@ -373,10 +373,12 @@
             <li class="sequential_general_error_cont">
                 <p class="sequential_error_message bsdcd-error"></p>
             </li>
-            <li class="sequential_next_cont"><p class="sequential_next_btn_cont big_btn{% if page.button-classes %} {{page.button-classes}}{%endif%}"><a href="#" class="sequential_next_btn sequential_move_forward"><span class="sequential_next_btn_copy">Next</span><span class="sequential-donate-btn-copy sequential_donate_btn_copy">Donate</span></a></p></li>
+            <li class="sequential_next_cont"><button type="submit" class="sequential_next_btn sequential_move_forward big_btn {% if page.button-classes %} {{page.button-classes}}{%endif%}"><span class="sequential_next_btn_copy">Next</span><span class="sequential-donate-btn-copy sequential_donate_btn_copy">Donate</span></button></li>
             <li class="submit_cont">
-                <p class="processing_indicator bsdcd-submit-button{% if page.button-classes %} {{page.button-classes}}{%endif%}">Processing...</p>
-                <input type="submit" value="Donate now" class="bsdcd-submit-button big_btn {% if page.button-classes %} {{page.button-classes}}{%endif%}" tabindex="36">
+                <button type="submit" class="bsdcd-submit-button big_btn {% if page.button-classes %} {{page.button-classes}}{%endif%}" tabindex="36">
+                    <span class="processing_indicator">Processing...</span>
+                    <span>Donate now</span>
+                </button>
             </li>
             {% if page.compliance-html %}<li class="bsdcd-compliance-section">
                 {{page.compliance-html}}

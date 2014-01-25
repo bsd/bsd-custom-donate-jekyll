@@ -29,6 +29,9 @@ Core Sequential Styles
         .general_error, .qd_info_section {
             display: none;
         }
+        .general_error {
+            color: $error-message-text-color;
+        }
         .mobile-only {
             display: none;
         }
@@ -41,7 +44,7 @@ Core Sequential Styles
         .sequential_next_btn {
             display:block;
         }
-        .sequential_next_btn_cont,.sequential_general_error_cont {
+        .sequential_next_cont,.sequential_general_error_cont {
             clear:both;
         }
         .sequential_step {
@@ -91,6 +94,14 @@ Core Sequential Styles
         }
         &.sequential_error  .sequential_general_error_cont {
             display:block;
+        }
+        input.text.bsdcd-error{ //fixes ios7 ignoring shadows
+            -webkit-appearance: none;
+            box-shadow: $core-box-shadow, 0 0 0 2px $error-field-border-color !important;
+        }
+        select.bsdcd-error{ //ios7 again, but can't set selects to none
+            border: 1px solid $error-field-border-color;
+            box-shadow: $core-box-shadow, 0 0 0 1px $error-field-border-color !important;
         }
     }
 

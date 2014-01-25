@@ -8,6 +8,8 @@ module.exports = function(grunt) {
         js_dist = docroot+'js/',
         jekyll_dist = docroot +'webroot/',
         dynamiccopy,
+        jekyll_port = 4000,
+        screenshot_port = 4400,
         dynamiczip;
 
     // Project configuration.
@@ -277,11 +279,24 @@ module.exports = function(grunt) {
                 ]
             }
         },
+        localscreenshots: {
+                options: {
+                    path: jekyll_dist + 'img/screenshots',
+                    type: 'png',
+                    local : {
+                        path: 'webroot/_site',
+                        port: 4444
+                    },
+                    viewport: ['600x800', '768x1024', '1024x1024','1280x1024'],
+                },
+                src: [jekyll_dist + '_site/201*/*.html']
+        },
         clean: {
             tempzip:{
                 src: ['deploys/tmp']
             }
         }
+
     });
 
     require('load-grunt-tasks')(grunt);
