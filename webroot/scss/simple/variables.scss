@@ -1,19 +1,21 @@
 
-// Possible breakpoints
+$tools-directory: "/page/-/donate/";
+
+/* Possible breakpoints */
     $phone: 320px;
     $widephone: 480px;
     $tablet: 768px;
     $desktop: 1000px;
     $widedesktop: 1200px;
 
-    // Assign a default size (for IE, or if the site is not responsive)
+    /* Assign a default size (for IE, or if the site is not responsive) */
         $default-viewport-size: $desktop;
         $viewport-width: false !default;
 
-    //Core breakpoints: where certain structural behaviors start
-    //generally, sequential and form field breakpoints should be the same, but this is not a requirement
-    $form-field-layout: $tablet;
-    $sequential-breakpoint: $tablet;
+    /* Core breakpoints: where certain structural behaviors start */
+    /* generally, sequential and form field breakpoints should be the same, but this is not a requirement */
+        $form-field-layout: $tablet;
+        $sequential-breakpoint: $tablet;
 
 
 /*sizes*/
@@ -43,53 +45,53 @@
     $half-width-field-container-width: floor( ($section-inner-width - $between-field-gutter) / 2) - $container-right-padding;
     $fourth-width-field-container-width: floor((($half-width-field-container-width + $container-right-padding) - $between-field-gutter) / 2) - $container-right-padding;
 
-
-$tools-directory: "/page/-/donate/";
-
 /*colors*/
 
-$gray: #b8b8b8;
-$slate-gray: #2F4F4F;
+    $gray: #b8b8b8;
+    $slate-gray: #2F4F4F;
 
-$green: #197419;
-$blue: #5F9F9F;
+    $green: #197419;
+    $blue: #5F9F9F;
 
-$red: #F00;
-$dim-red: #C41230;
+    $red: #F00;
+    $dim-red: #C41230;
 
-$orange: #E86D1F;
-$purple: #621A4B;
-$dark-purple: #411934;
+    $orange: #E86D1F;
+    $purple: #621A4B;
+    $dark-purple: #411934;
 
 
-/*Step UI Colors*/
-$step-inactive: $gray;
-$step-active: $slate-gray;
+    /*Step UI Colors*/
+    $step-inactive: $gray;
+    $step-active: $slate-gray;
 
-/*Button UI*/
-$button-normal: $blue;
-$button-active: $green;
+    /*Button UI*/
+    $button-normal: $blue;
+    $button-active: $green;
 
-/*Validation*/
-$error-message-text-color: $dim-red;
-$error-field-border-color: $dim-red;
+    /*Validation*/
+    $error-message-text-color: $dim-red;
+    $error-field-border-color: $dim-red;
 
-/*MISC UI*/
-$question-mark-background: #666666;
-$question-mark-color: white;
+    /*MISC UI*/
+    $question-mark-background: #666666;
+    $question-mark-color: white;
 
-/*Sections*/
-$header-section-bg-color: #fff;
-$step-container-bg-color: #f2f2f2;
-$form-bg-color: #fff;
+    /*Sections*/
+    $header-section-bg-color: #fff;
+    $step-container-bg-color: #f2f2f2;
+    $form-bg-color: #fff;
 
-/*Form Fields*/
-$form-field-bg-color: #f1f1f1;
-$form-field-focus-bg-color: #f3f3f3;
+    /*Form Fields*/
+    $form-field-bg-color: #f1f1f1;
+    $form-field-focus-bg-color: #f3f3f3;
+
+/*Effects*/
+    $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 /*Images*/
-//$giant-background-image-name: "demo-bg.jpg";
-//$giant-background-image: url(#{$tools-directory}#{$giant-background-image-name});
+    //$giant-background-image-name: "demo-bg.jpg";
+    //$giant-background-image: url(#{$tools-directory}#{$giant-background-image-name});
 
-$giant-background-image: url(http://placehold.it/2000x1400);
+    $giant-background-image: url(http://placehold.it/2000x1400);
 

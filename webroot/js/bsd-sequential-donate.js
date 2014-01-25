@@ -1735,7 +1735,7 @@ window.sequential = sequential;
         $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
         $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
         countryVal = $form.data('default-country'),
-        min = parseFloat($form.data('min-donation'))||0,
+        min = parseFloat($form.data('min-donation'))||0.01,
         max = parseFloat($form.data('max-donation'))||Infinity,
         symbol = $('[data-currency-symbol]').data('currency-symbol')||"$",
         custom_amounts = gup('amounts'),
@@ -1802,8 +1802,8 @@ window.sequential = sequential;
     //now that we've dealt with pre-clicks, lets potentially bind the click behavior to change things on the first click
     $form.one('keydown','.amount_other',function(){
 		$body.removeClass('pre-first-click');
-	}).one('click','.preset_amount_label',function(){
-		if ($('body').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
+	}).one('click','.preset_amount_label,.preset_amount_input',function(){
+		if ($('html').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
         $body.removeClass('pre-first-click');
 	});
 

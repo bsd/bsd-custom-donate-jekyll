@@ -1,0 +1,163 @@
+@include respond-min( $sequential-breakpoint ){
+
+    .step-error a{
+        color: $error-message-text-color !important;
+    }
+    .js .sequential {
+        .bsdcd-form {
+          height: auto;
+          overflow: hidden;
+        }
+        .bsdcd-seq-breadcrumbs {
+            width: $section-total-width - (10 * 2);
+            overflow:hidden;
+            padding: 20px 10px 28px;
+            margin: 0;
+            border-bottom: 1px solid #000;
+            font-size: 13px;
+            border-bottom: 1px solid #d8d8d8;
+            background: $step-container-bg-color;
+            text-align:center;
+            li {
+                @include inline-block();
+                vertical-align:middle;
+                width: 110px;
+                list-style-type:none;
+                position: relative;
+                a {
+                    text-decoration: none;
+                    font-weight: bold;
+                    cursor: default;
+                    color: #b8b8b8;
+                    span {
+                      color: #fff;
+                    }
+                }
+                &.active a span, &.completed a span {
+                    text-decoration: none;
+                    font-weight: bold;
+                    cursor: pointer;
+                    color: #fff;
+                }
+                &.active a, &.completed a {
+                    cursor: pointer;
+                    color: #555;
+                }
+                span {
+                    display: block;
+                    background: $step-inactive;
+                    width: 30px;
+                    height:29px;
+                    line-height:30px;
+                    border-radius: 30px;
+                    font-weight: bold;
+                    margin: 0 auto;
+                    position:relative;
+                    padding-top:1px;
+                    .oldie & {
+                        padding-top:0;
+                    }
+                    z-index:40;
+                }
+                &.active span, &.completed span {
+                    background: $step-active;
+                }
+                hr {
+                    position: absolute;
+                    z-index:0;
+                }
+            }
+        }
+        .sequential_breadcrumb_amount hr {
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            margin-top:8px;
+        }
+        .sequential_next_cont {
+            width: 370px;
+        }
+        .bsd_contribute_form_fields_cont {
+            position: relative;
+            margin: 0;
+        }
+        .sequential_step {
+            margin: 0;
+            top:0;
+        }
+        .sequential_next_btn {
+            text-decoration: none;
+            text-align: left;
+            padding-left: 35px;
+            //background: url(/page/-/donate/right-arrow-white.png) center right no-repeat;
+            color: #fff;
+            padding: 10px 40px 10px 40px;
+            text-align: center;
+        }
+        .sequential_next_btn_cont {
+            width: 135px;
+            margin: auto auto;
+            padding: 0!important;
+        }
+        .sequential_general_error_cont {
+            text-align: center;
+            width: 100%;
+            p{
+                margin-top:0;
+            }
+        }
+        p.general_error {
+            color: $error-message-text-color;
+            font-weight: bold;
+            font-size: 17px;
+        }
+        .sequential_step {
+            width: $section-inner-width;
+        }
+        .sequential_payment_info {
+            padding: 0;
+            //padding: 0 20px;
+            .qd_populated &{
+                padding:20px 0 0;
+            }
+        }
+        input.text.bsdcd-error{ //fixes ios7 ignoring shadows
+            -webkit-appearance: none;
+            box-shadow: $core-box-shadow, 0 0 0 2px $error-field-border-color !important;
+        }
+        select.bsdcd-error{ //ios7 again, but can't set selects to none
+            border: 1px solid $error-field-border-color;
+            box-shadow: $core-box-shadow, 0 0 0 1px $error-field-border-color !important;
+        }
+        &.sequential_step_2 .bsdcd-form {
+            .sequential_next_btn_cont {
+                width: 230px;
+            }
+        }
+
+
+        //dealing with the second step when quick donate is active
+        &.qd_populated .bsdcd-seq-breadcrumbs li{
+            hr{
+                left:50%;
+                width:100%;
+            }
+        }
+
+        .sequential_error_message{
+            margin:0 0 10px;
+        }
+
+    }
+
+}
+
+/*Old IE styles*/
+.oldie.js {
+    .sequential {
+        input.text.bsdcd-error, select.bsdcd-error {
+            border: 1px solid $error-field-border-color !important;
+            outline: 1px solid $error-field-border-color !important;
+        }
+    }
+}

@@ -1,50 +1,11 @@
-/*quick-donate-related styles*/
-
-.qd_info_section{
-    a {
-      font-size: 13pt;
-      font-weight:500;
-
-    }
-    p {
-      margin: 0 0 0.4em;
-      line-height: 14px;
-    }
-    .qd-options{
-        margin-top:10px;
-        a {
-            @include inline-block();
-            margin-top:15px;
-            line-height: 16px;
-        }
-    }
-}
-
-.qd_header {
-    font-weight: bold;
-}
-
-.qd-personal-info{
-    padding-bottom:20px;
-}
-.qd-payment-info{
-    color: $green;
-    padding-bottom:10px;
-    border-bottom: 1px solid #ccc;
-    margin-bottom:20px;
-}
+/*
+Core Fucntional Quick Donate Styles
+*/
 
 .qd_loading_spinner {
     display: none;
-    background: url(/page/-/donate/ajax-loader.gif) left center no-repeat;
-    padding-left: 22px;
-    margin-left:5px;
     .qd_loading &{
         display:block;
-    }
-    @include respond-min( $form-field-layout ){
-        position: absolute;
-        top: -40px; 
     }
 }
 .qd_info_section{
@@ -78,14 +39,8 @@
     display:none;
 }
 
-
 @include respond-min( $form-field-layout ){
     .qd_populated.sequential_step_0 .qd_info_section{
         display: none !important;
-    }
-    .qd-login-links-section{
-        position:absolute;
-        right:20px;
-        //top:-40px; //figure out where this goes yourself, Drew
     }
 }
