@@ -135,8 +135,11 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         list-style:none !important;
         margin:0 !important;
     }
-    ul.amounts li.amount_cont {
+    .amounts .amount_cont {
         margin-bottom:15px;
+        input.preset_amount_input {
+          display:none;
+        }
         @mixin active-labels(){
             z-index:1;
             background: $button-active;
@@ -156,127 +159,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     .cc_month {
         margin-bottom: 10px;
     }
-    .cc_type_radio_cont label {
-        display: inline;
-    }
-    .accepted_ccs {
-        overflow:hidden;
-        position:relative;
-    }
-    .cc-img {
-        @include inline-block();
-        vertical-align:top;
-        height: 26px;
-        position:relative;
-        //fancypants non-modernizr svg fallback trick: http://pauginer.tumblr.com/post/36614680636/invisible-gradient-technique
-        background-image: url(/page/-/donate/Credit_Card_Icons_m.png);
-        background-repeat: no-repeat;
-        background-image: -webkit-linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons_m.svg);
-        background-image: linear-gradient(transparent, transparent), url(/page/-/donate/Credit_Card_Icons_m.svg);
-        overflow:hidden;
-        margin-top:0;
-        width:40px;
-        margin-right:5px;
-        text-indent: -999em;
-        .ie7 & {
-            text-indent:0;
-            font-size:0.1px;
-            color: white;
-        }
-    }
-    .hide-text{
-        position:absolute;
-        top:-50px;
-        left:-50px;
-    }
-    .accept-mc{
-        width: 37px;
-        background-position: 0 center;
-    }
-    .accept-ds{
-        background-position: -111px center;
-        width:38px;
-    }
-    .accept-ax{
-        width:25px;
-        background-position: -83px center;
-    }
-    .accept-vs{
-        background-position: -40px center;
-    }
-    .accept-ma{
-        background-position: -153px center;
-        width:37px;
-    }
-    .cc_type_cont{
-        margin-bottom:10px;
-    }
-    .cc_maestro_start_cont{
-        display:none;
-    }
-    .cc-is-ma .cc_maestro_start_cont {
-        display:block;
-    }
 
-    /*dimming cards when one is selected*/
-    .cc-cover {
-        .cc-img {
-            @include opacity(0.1);
-        }
-    }
-    .cc-is-vs{
-        .accept-vs{
-            @include opacity(1);
-        }
-    }
-    .cc-is-ax {
-        .accept-ax{
-            @include opacity(1);
-        }
-    }
-    .cc-is-mc {
-        .accept-mc{
-            @include opacity(1);
-        }
-    }
-    .cc-is-ds {
-        .accept-ds{
-            @include opacity(1);
-        }
-    }
-    .cc-is-ma {
-        .accept-ma{
-            @include opacity(1);
-        }
-    }
-    .paypal-text{
-        display:none;
-    }
-    .cc-is-paypal{
-        .paypal_text_cont{
-            display:block;
-        }
-        .cc_number_cont, cc_maestro_start_cont, .cc_expiration_cont, .cc_cvv_cont{
-            display:none;
-        }
-    }
-
-    .js & .honoree_field_cont{
-        display:none;
-    }
-    .honor-section .honoree_field_cont{
-        display:block;
-    }
-    .inmemory_field_cont{
-        display:none;
-    }
-    .memorial-section .inmemory_field_cont{
-        display:block;
-    }
-    .processing_indicator {
-        display: none;
-        cursor:wait;
-    }
     .form_field_cont{
         margin-bottom: $form-container-bottom-margin;
     }
@@ -326,10 +209,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         background-clip: padding-box;
         width: 200px;
     }
-}
-
-.cc_type_radio_cont {
-  display: none;
 }
 
 /* error state */

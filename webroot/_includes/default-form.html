@@ -16,7 +16,7 @@
     {% if page.sequential %}
     <ol class="bsdcd-seq-breadcrumbs clearfix">
         <li class="sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0" data-step="0" data-stepname="amount"><a href="#step_1">Amount<span>1</span></a><hr></li><li class="sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1" data-step="1" data-stepname="personal_info"><a href="#step_2">Name<span>2</span></a></li><li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2" data-step="2" data-stepname="payment_info"><a href="#step_3">Payment<span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a></li>
-    </ol>{%endif%}<form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
+    </ol>{%endif%}<form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.cc-detect %}bsd-cc-detect {%endif%}{% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
         <input name="quick_donate_populated" type="hidden" value="">
         <input name="source_codes" type="hidden" value="{% if page.default-source-codes %}{{page.default-source-codes}}{%endif%}">
         {% if page.country-selection != true and page.default-country %}<input id="default_country" name="default_country" type="hidden" value="{{page.default-country}}">{%endif %}
@@ -180,27 +180,27 @@
                     <div class="accepted_ccs"><span class="hide-text">We accept: </span>{% if page.accept-visa %}<span class="cc-img accept-vs"> Visa </span>{%endif%}{% if page.accept-mastercard %}<span class="cc-img accept-mc"> MasterCard </span>{%endif%}{% if page.accept-amex %}<span class="cc-img accept-ax"> American Express </span>{%endif%}{% if page.accept-discover %}<span class="cc-img accept-ds"> Discover </span>{%endif%}{% if page.accept-maestro %}<span class="cc-img accept-ma"> Maestro </span>{%endif%}{% if page.accept-paypal %}<span class="cc-img accept-pp"> Paypal </span>{%endif%}</div>
                     <ul class="cc_type_radio_cont">
                         {% if page.accept-visa == true %}<li>
-                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_mc" value="mc" name="cc_type_cd">
+                            <input type="radio" class="radio cc-radio" id="{{page.id-prefix}}cc_mc" value="mc" name="cc_type_cd">
                             <label for="{{page.id-prefix}}cc_mc">MasterCard</label>
                         </li>{%endif%}
                         {% if page.accept-mastercard == true %}<li>
-                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_vs" value="vs" name="cc_type_cd">
+                            <input type="radio" class="radio cc-radio" id="{{page.id-prefix}}cc_vs" value="vs" name="cc_type_cd">
                             <label for="{{page.id-prefix}}cc_vs">Visa</label>
                         </li>{%endif%}
                         {% if page.accept-amex == true %}<li>
-                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_ax" value="ax" name="cc_type_cd">
+                            <input type="radio" class="radio cc-radio" id="{{page.id-prefix}}cc_ax" value="ax" name="cc_type_cd">
                             <label for="{{page.id-prefix}}cc_ax">AmericanExpress</label>
                         </li>{%endif%}
                         {% if page.accept-discover == true %}<li>
-                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_ds" value="ds" name="cc_type_cd">
+                            <input type="radio" class="radio cc-radio" id="{{page.id-prefix}}cc_ds" value="ds" name="cc_type_cd">
                             <label for="{{page.id-prefix}}cc_ds">Discover</label>
                         </li>{%endif%}
                         {% if page.accept-maestro == true %}<li>
-                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_ma" value="ma" name="cc_type_cd">
+                            <input type="radio" class="radio cc-radio" id="{{page.id-prefix}}cc_ma" value="ma" name="cc_type_cd">
                             <label for="{{page.id-prefix}}cc_ma">Maestro</label>
                         </li>{%endif%}
                         {% if page.accept-paypal == true %}<li>
-                            <input type="radio" class="radio" id="{{page.id-prefix}}cc_pp" value="pp" name="cc_type_cd">
+                            <input type="radio" class="radio cc-radio" id="{{page.id-prefix}}cc_pp" value="pp" name="cc_type_cd">
                             <label for="{{page.id-prefix}}cc_pp">PayPal</label>
                         </li>{%endif%}
                     </ul><!--/#cc-type-radio-cont-->

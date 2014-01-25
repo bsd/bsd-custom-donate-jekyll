@@ -94,7 +94,7 @@ debug: true #prints more console messages
 # Power Options
 #############################
 
-
+cc-detect: true #automatically pick credit card based on number, and show cc images using the CC-detect plugin
 show-first-next-button: false #set to true if you don't want to intially hide the next button for the amount step
 id-prefix: cd_ #id prefix used in order to reduce collision with other elements on a page 
 include-styles-inline: false #if true, will include the css link blocks above the form

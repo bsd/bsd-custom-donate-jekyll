@@ -9,11 +9,21 @@ Core Donate Styles
     .other_amount_label,.other_amount_radio{
         display:none;
     }
-    /*should this be core?  Maybe someone wants these radio buttons... */
-    ul.amounts li.amount_cont {
-        input.preset_amount_input {
-          display:none;
-        }
+    .js & .honoree_field_cont{
+        display:none;
+    }
+    .honor-section .honoree_field_cont{
+        display:block;
+    }
+    .inmemory_field_cont{
+        display:none;
+    }
+    .memorial-section .inmemory_field_cont{
+        display:block;
+    }
+    .processing_indicator {
+        display: none;
+        cursor:wait;
     }
 }
 
@@ -32,9 +42,6 @@ Core Donate Styles
 }
 
 
-
-
-
 /* processing state */
 .blue_contribute_processing {
     cursor:wait;
@@ -46,14 +53,8 @@ Core Donate Styles
     }
 }
 
-
 @include respond-min( $form-field-layout ){
 
-    .bsdcd-outer-container {
-        .other_amount_label {
-            display: none;
-        }
-    }
 }
 
 /*these fields can't work right without js*/
