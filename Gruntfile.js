@@ -203,6 +203,10 @@ module.exports = function(grunt) {
                     'exec:jbuild'
                 ]
             },
+            localcss:{
+                files: [jekyll_dist+'localcss/*.css'],
+                tasks: ['exec:jbuild']
+            },
             css: {
                 options:{
                     livereload: true
@@ -283,13 +287,14 @@ module.exports = function(grunt) {
                 options: {
                     path: jekyll_dist + 'img/screenshots',
                     type: 'png',
+                    hash: '#noquickd',
                     local : {
                         path: 'webroot/_site',
                         port: 4444
                     },
-                    viewport: ['600x800', '768x1024', '1024x1024','1280x1024'],
+                    viewport: ['320x800','480x800', '768x1024', '1024x1024','1280x1024'],
                 },
-                src: [jekyll_dist + '_site/201*/*.html']
+                src: [jekyll_dist + '_site/examples/*.html']
         },
         clean: {
             tempzip:{

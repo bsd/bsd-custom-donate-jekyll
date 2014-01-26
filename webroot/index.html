@@ -1,6 +1,10 @@
 ---
 layout: demo-page-list
 title: Custom Donation Forms
+
+examples: ['default','traditional-two-column-form','floating-leftside-form']
+resolutions: ['320x800', '480x800', '768x1024', '1024x1024','1280x1024']
+
 ---
 <div id="home">
     <br><br>
@@ -12,9 +16,10 @@ title: Custom Donation Forms
   </ul>
 
 <h2> Examples </h2>
-  <p><a href="/examples/default.html">Default</a> - No built-in styles beyond functional requirements
-  <p><a href="/examples/traditional-two-column-form.html">Two Column</a> - A common two column form layout, non-sequential
-  <p><a href="/examples/floating-leftside-form.html">Sequential Box</a> - Left-side sequential form with room for a large, scaling background 
+{% for ex in page.examples %}
+  <p><a href="/examples/{{ex}}.html">{{ex}}</a>
+    {% for res in page.resolutions %}<img src="/img/screenshots/examples/{{ex}}-{{res}}.png" class="example-screenshots">{% endfor %}
+{% endfor %}
 </div>
 
 
