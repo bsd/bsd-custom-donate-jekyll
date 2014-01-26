@@ -63,6 +63,7 @@
                     background: $step-active;
                 }
                 hr {
+                    display:block;
                     position: absolute;
                     z-index:0;
                 }
@@ -115,10 +116,6 @@
         }
         .sequential_payment_info {
             padding: 0;
-            //padding: 0 20px;
-            .qd_populated &{
-                padding:20px 0 0;
-            }
         }
         input.text.bsdcd-error{ //fixes ios7 ignoring shadows
             -webkit-appearance: none;

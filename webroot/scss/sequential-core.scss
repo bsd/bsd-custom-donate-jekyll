@@ -25,6 +25,9 @@ Core Sequential Styles
             span{
                 @include inline-block();
             }
+            hr{
+                display:none;
+            }
         }
         .general_error, .qd_info_section {
             display: none;
@@ -49,12 +52,13 @@ Core Sequential Styles
         }
         .sequential_step {
             opacity: 0;
+            left:0;
             /*
             position:relative;
             left:0;
             top:0;
             */
-            @include transition2( opacity, .5s , ease, left, .3s , ease );
+            @include transition2( opacity, .5s , ease, left, .1s , ease );
             &.active {
                 opacity: 1;
                 z-index: 1;

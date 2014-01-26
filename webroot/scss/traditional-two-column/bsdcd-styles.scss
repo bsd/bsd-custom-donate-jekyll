@@ -2,14 +2,20 @@
 @import 'variables.scss';
 @import '../mixins.scss';
 
-
-//@import '../boilerplate.scss'; /*HTML5 boilerplate*/
+@import '../boilerplate.scss';
 
 @import '../bsdcd-core.scss';
 @import '../sequential-core.scss';
 @import '../quick-donate-core.scss';
 @import '../cc-detect-core.scss';
 
+/*floating box style*/
+@import 'floating-box/bsdcd-core.scss';
+@import 'floating-box/sequential.scss';
+@import 'floating-box/quick-donate.scss';
+
 @import 'bsdcd-backgrounds.scss';
 
 @import 'custom-bsdcd-styles.scss';
+
+@import '../utility.scss';

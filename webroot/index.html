@@ -10,6 +10,11 @@ title: Custom Donation Forms
       <li class="{%if post.thumbnail%}with-thumbnail{%endif%}"><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{%if post.internal-title %}{{ post.internal-title }}{%else%}{{ post.page-title }}{%endif%}{%if post.thumbnail %}<span class="thumbnail" style="background-image:url(img/thumbnails/{{post.thumbnail}});"></span>{%endif%}</a>{%if post.author %}, by {{ post.author }}{%endif%}</li>
     {% endfor %}
   </ul>
+
+<h2> Examples </h2>
+  <p><a href="/examples/default.html">Default</a> - No built-in styles beyond functional requirements
+  <p><a href="/examples/traditional-two-column-form.html">Two Column</a> - A common two column form layout, non-sequential
+  <p><a href="/examples/floating-leftside-form.html">Sequential Box</a> - Left-side sequential form with room for a large, scaling background 
 </div>
 
 

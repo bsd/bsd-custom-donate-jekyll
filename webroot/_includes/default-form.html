@@ -22,7 +22,7 @@
         {% if page.country-selection != true and page.default-country %}<input id="default_country" name="default_country" type="hidden" value="{{page.default-country}}">{%endif %}
         {% if page.no_minimum == true %}<input name="nomin" type="hidden" value="1">{%endif%}
         <input name="http_referer" type="hidden" value="">
-        <ul id="bsd_contribute_form_fields_cont clearfix">
+        <ul class="bsd_contribute_form_fields_cont clearfix">
             <p class="bsdcd-general_error bsdcd-error"></p>
             <p class="qd_loading_spinner">Loading...</p>
             <ul class="qd_info_section">
@@ -171,7 +171,7 @@
                 </li><!--/#occupation_cont-->
             {%endif%}
             </ul><!--/.sequential-setp-2-->
-            <ul class="sequential_step step_3 clearfix inactive" id="sequential_payment_info">
+            <ul class="sequential_step step_3 clearfix inactive">
                 <li class="form_section_header_cont mobile-only qd_info_extra cc_number_related cc_expir_group_related">
                     <h2 class="form_section_header" id="creditcard_header">Credit card</h2>
                 </li><!--/.form_section_header_cont-->

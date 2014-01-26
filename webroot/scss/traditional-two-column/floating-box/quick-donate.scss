@@ -35,47 +35,13 @@
 }
 
 .qd_loading_spinner {
-    display: none;
     background: url(/page/-/donate/ajax-loader.gif) left center no-repeat;
     padding-left: 22px;
     margin-left:5px;
-    .qd_loading &{
-        display:block;
-    }
     @include respond-min( $form-field-layout ){
         position: absolute;
         top: -40px; 
     }
-}
-.qd_info_section{
-    display:none;
-}
-.qd_populated {
-    .qd_info_extra, .personalized_info {
-      display: none !important;
-    }
-    .qd_info, .qd_info_section {
-      display: block !important;
-    }
-}
-
-/*qd login, logout links*/
-.qd-login-links-section{
-    display:none;
-    z-index:40;
-}
-
-.qd-login-links-section{
-    .qd_load_failed &{
-        display:block; 
-    }
-    .qd_not_enabled &{
-        display:none; 
-    }
-}
-
-.qd-log-out-link{
-    display:none;
 }
 
 
