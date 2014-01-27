@@ -90,8 +90,9 @@ $tools-directory: "/page/-/donate/";
     $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 /*Images*/
-    //$giant-background-image-name: "demo-bg.jpg";
-    //$giant-background-image: url(#{$tools-directory}#{$giant-background-image-name});
+    //$giant-background-image: url(http://placehold.it/2000x1400);
+    $giant-background-image-name: "demo-bg.jpg";
+    $giant-background-image: url(#{$tools-directory}#{$giant-background-image-name});
 
-    $giant-background-image: url(http://placehold.it/2000x1400);
+    
 

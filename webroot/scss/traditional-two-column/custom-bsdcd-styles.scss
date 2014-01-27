@@ -1,5 +1,42 @@
 /*custom styles*/
 
+body {
+    @include respond-min( $form-field-layout ){
+        background: #454545;
+    }
+}
+
+.background-white{
+    background:white;
+    position:relative;
+        border: 1px solid #f0f0f0;
+        border-radius: 8px;
+}
+
+.two-col-intro{
+    padding:20px;
+    @include respond-min( $form-field-layout ){
+        float:left;
+        position:sticky;
+        top:0;
+    }
+    .bsdcd-top-section{
+        @include respond-min( $form-field-layout ){
+            width:300px;
+        }
+        @include respond-min( $desktop ){
+            width:510px;
+        }
+    }
+    p{
+        margin:10px 0;
+    }
+    img {
+        display:block;
+        width:100%;
+    }
+}
+
 .base{
     h1{
         font-size:20px;
@@ -61,6 +98,14 @@ $logo-full-width: 200px;
 }
 
 
+.form_section_header{
+    font-size:16px;
+    font-weight:bold;
+    text-align:center;
+    padding-bottom:5px;
+    border-bottom: 1px dotted $slate-gray;
+}
+
 .content-wrapper{
     @include respond-min( $form-field-layout ){
         margin:40px auto 20px;
@@ -73,12 +118,11 @@ $logo-full-width: 200px;
 @include respond-min( $form-field-layout ){
     .bsdcd-outer-container{
         padding-bottom:0;
-        border: 1px solid #f0f0f0;
-        border-radius: 8px;
         float:right;
     }
-    .bsdcd-top-section, .bsdcd-form{
+    .bsdcd-form{
         background: #fafafa;
+        border-radius: 0 8px 8px 0;
     }
     #main-header{
         background:#f0f0f0;

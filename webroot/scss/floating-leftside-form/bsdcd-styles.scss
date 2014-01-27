@@ -10,9 +10,9 @@
 @import '../cc-detect-core.scss';
 
 /*floating box style*/
-@import 'floating-box/bsdcd-core.scss';
-@import 'floating-box/sequential.scss';
-@import 'floating-box/quick-donate.scss';
+@import '../plugins/floating-box/bsdcd-core.scss';
+@import '../plugins/floating-box/sequential.scss';
+@import '../plugins/floating-box/quick-donate.scss';
 
 @import 'bsdcd-backgrounds.scss';
 

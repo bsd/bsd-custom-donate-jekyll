@@ -1,0 +1,12 @@
+{% include wrappers/default-header.html %}
+        <div class="background-white clearfix">
+            {% include demo-two-col-intro.html %}
+            {% include {{page.form}} %}
+        </div><!--/.background-white-->
+    </div><!--/.content-wrapper-->
+</div><!--/#container-->
+<footer id="main-footer">
+        <p><a href="{{page.terms-of-service-link}}" target="_blank">Terms of Use</a> &bull; <a href="{{page.privacy-policy-link}}" target="_blank">Privacy Policy</a>
+        <p>&copy; {{page.copyright-start-year}} - {{ site.time | date: '%Y' }}
+</footer>
+</body></html>

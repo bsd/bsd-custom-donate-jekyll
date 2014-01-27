@@ -19,7 +19,7 @@ default-source-codes: custom-donate #a comma separated list of source codes that
 ##########
 # Core Page Layout/Style Options
 #############################
-layout: default #The wrapper. "default" is the default included wrapper
+layout: default-two-col #The wrapper. "default" is the default included wrapper
 form: default-form.html #The form layout engine. The standard included option is default-form.html but you can create your own as long as they are placed in _includes/
 style: traditional-two-column #default/form-only/or the slug of your custom style/layout
 
@@ -76,6 +76,7 @@ accept-pay-pal: false  #not yet implemented or tested
 header-section: false #include an intro section
 title: Donate Today
 subtitle: Help where it matters most
+intro-text: "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, quibusdam, blanditiis, nobis dicta repudiandae itaque dolorum rerum quia nam accusantium ducimus consequatur commodi dolor voluptatum quo explicabo nisi quis doloribus aliquid iure tempora odio fuga deleniti dolorem provident aperiam vitae ullam fugit distinctio dolores corrupti.</p>"
 above-header-html: #override the entire top section and use your own arbitrary html
 
 ##footer section

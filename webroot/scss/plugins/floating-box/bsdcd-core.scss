@@ -59,6 +59,14 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
             //color: $dim-red;
         }
     }
+    .cc_type_radio_cont{
+        input{
+            vertical-align:top;
+        }
+        label{
+            display:inline;
+        }
+    }
     input.text, textarea {
         font-size: $input-mobile-font-size;
         background: $form-field-bg-color;
@@ -261,9 +269,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         .bsdcd-form {
             width: $section-total-width - ( $section-inner-side-padding * 2 );
             padding: $section-inner-side-padding;
-        }
-        .form_section_header {
-            text-align: left;
         }
         li {
             &.amount_cont label.preset_amount_label {

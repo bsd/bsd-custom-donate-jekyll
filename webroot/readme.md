@@ -4,6 +4,8 @@ inner: true
 title: Readme
 ---
 
+#Readme
+
 This repo contains:
 * A set of scripts for interacting with Blue State Digital's [donate-api](https://github.com/bsdstrategy/donate-api), allowing you to reproduce much of the functionality available from BSD donation pages on a customized page
 * A grunt & jekyll-based tool for quickly creating valid donation form markup and branded styles, including a sequential flow (amount, personal information, payment information), testing it in a simulated local environment, and creating assets to deploy.
@@ -23,7 +25,7 @@ When run locally, the jekyll server can simulate API calls and logins so that yo
     `
         <html class="no-js">
     `
-And if you're not using [Modernizr](http://modernizr.com/), you must include this script to toggle that class from no-js to js
+* If you're not using [Modernizr](http://modernizr.com/), you must include this script to toggle that class from no-js to js
 
     `
         <script>(function(dc){ dc.className = dc.className.replace("no-js","js"); }(document.documentElement));</script>
@@ -34,4 +36,4 @@ And if you're not using [Modernizr](http://modernizr.com/), you must include thi
         <!--[if lte IE 9]><script src="/page/-/donate/jquery.placeholder.js"></script><script>jQuery('input, textarea').placeholder();</script><![endif]-->
     `
 
-While not stricly necessary, I'd also highly advise making sure the includes and uses Modernizr & in particular, the box-sizing custom detect.
+While not stricly necessary, we recommend using Modernizr and, in particular, the box-sizing custom detect.

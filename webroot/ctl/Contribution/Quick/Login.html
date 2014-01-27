@@ -1,5 +1,7 @@
 ---
-
+layout: demo-page-list
+inner: true
+no-nav: true
 permalink: /Login/index.html
 Content-Type: text/html
 
@@ -21,8 +23,9 @@ function fakeLogin(){
   window.close();
 }
 </script>
-
-Not a real login, but if you want to fake a Quick Donate login, <a href="javascript:fakeLogin();">click here</a>.
-
+<div class="center">
+    <h4>Clicking log in will simulate a user logging in and having saved payment information available.</h4>
+    <a class="btn btn-primary btn-lg" href="javascript:fakeLogin();">Log In</a>
+</div>
 </body>
 </html>

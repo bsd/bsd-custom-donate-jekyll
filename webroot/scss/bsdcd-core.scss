@@ -50,7 +50,7 @@ Core Donate Styles
     }
     /* in the off chance that we got our CC type selection wrong, allow the user to select it directly now */
     .cc_type_radio_cont{
-        display:block;
+        display:block !important;
     }
 }
 

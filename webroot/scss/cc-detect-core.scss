@@ -4,6 +4,9 @@ Core CC-detection styles
 
 
 .bsd-cc-detect {
+    .cc_type_label{
+        display:none;
+    }
     .cc_type_radio_cont label {
         display: inline;
     }
