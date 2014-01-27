@@ -79,6 +79,7 @@ subtitle: Help where it matters most
 above-header-html: #override the entire top section and use your own arbitrary html
 
 ##footer section
+footer-section: false #include a simple footer section directly after the main form
 privacy-policy-link: /page/terms-of-service # 
 terms-of-service-link: /page/privacy-policy #
 copyright-start-year: 2007

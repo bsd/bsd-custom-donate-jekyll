@@ -32,7 +32,7 @@ detect-cc-type: true
 
 
 ##internationalization
-default-country: GB # set to either US or GB or leave blank to default to international. This controls the default labels/toggling the US state dropdown
+default-country: US # set to either US or GB or leave blank to default to international. This controls the default labels/toggling the US state dropdown
 currency-symbol: "$" # Use "&pound;&thinsp;" for pounds
 country-selection: true #whether to show a country selection dropdown at all
 require-country: true #country selection must be true for this to work, of course
@@ -40,9 +40,9 @@ require-country: true #country selection must be true for this to work, of cours
 #form customization
 custom-amounts: [10, 20, 50, 100, 250, 500, 1000] #an array of 7 values for the donation amount DO NOT INCLUDE COMMAS IN THE NUMBERS
 min-donation: 2 #minimum donation amount allowed. Ensure that this matches the tools form
-max-donation: 3000 #maximum donation amount allowed. Ensure that this matches the tools form
+max-donation: 30000 #maximum donation amount allowed. Ensure that this matches the tools form
 optional-phone: false #phone is required by default unless this is set to true, which would make the phone field optional
-employer-and-occupation: false #whether or not to show the employer and occupation fields
+employer-and-occupation: true #whether or not to show the employer and occupation fields
 
 require-cvv: true #Show the CVV field for credit card information. This setting will not affect quick donate, which does not use CVV
 show-cvv-help: false #show a cvv help tooltip: not ready for prime-time
@@ -79,6 +79,7 @@ subtitle: Help where it matters most
 above-header-html: #override the entire top section and use your own arbitrary html
 
 ##footer section
+footer-section: false #include a simple footer section directly after the main form
 privacy-policy-link: /page/terms-of-service # 
 terms-of-service-link: /page/privacy-policy #
 copyright-start-year: 2007

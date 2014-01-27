@@ -13,7 +13,7 @@ page-description: Please Donate Today
 
 ## Destination Donate Page
 tools-slug: default #default exists on most clients, but remember: you'll need to configure this custom form to match the options of whatever tools form you use or vice-versa
-tools-recurring-slug: reccur #leave blank for no recurring. This will need to be the url slug of a second, _separate_ tools form that is set to take only recurring donations, but is otherwise configured the same way as the original form
+tools-recurring-slug: #leave blank for no recurring. This will need to be the url slug of a second, _separate_ tools form that is set to take only recurring donations, but is otherwise configured the same way as the original form
 default-source-codes: custom-donate #a comma separated list of source codes that will baked into the page by default, to identify it for analytics purposes
 
 ##########
@@ -27,15 +27,15 @@ style: traditional-two-column #default/form-only/or the slug of your custom styl
 # Core Feature Options
 #############################
 sequential: false
-quick-donate: true
+quick-donate: false
 detect-cc-type: true
 
 
 ##internationalization
-default-country: GB # set to either US or GB or leave blank to default to international. This controls the default labels/toggling the US state dropdown
+default-country: US # set to either US or GB or leave blank to default to international. This controls the default labels/toggling the US state dropdown
 currency-symbol: "$" # Use "&pound;&thinsp;" for pounds
-country-selection: true #whether to show a country selection dropdown at all
-require-country: true #country selection must be true for this to work, of course
+country-selection: false #whether to show a country selection dropdown at all
+require-country: false #country selection must be true for this to work, of course
 
 #form customization
 custom-amounts: [10, 20, 50, 100, 250, 500, 1000] #an array of 7 values for the donation amount DO NOT INCLUDE COMMAS IN THE NUMBERS
@@ -56,7 +56,7 @@ recurring-intro: We need your help all year round. Become a recurring donor to m
 recurring-label: Please Make This A Recurring Contribution <span>(Optional)</span>
 
 #in honor-of
-in-honor-of-section: false
+in-honor-of-section: true
 in-honor-of-section-title: Honor Someone with Your Contribution <span>(Optional)</span>
 in-honor-of-section-intro: "If you would like to make your gift in honor or in memory of someone, please fill out the form below. To send a notification of your thoughtful gift, please enter the recipient's contact information."
 
@@ -73,12 +73,13 @@ accept-pay-pal: false  #not yet implemented or tested
 #############################
 
 ##top-section
-header-section: true #include an intro section
+header-section: false #include an intro section
 title: Donate Today
 subtitle: Help where it matters most
 above-header-html: #override the entire top section and use your own arbitrary html
 
 ##footer section
+footer-section: false #include a simple footer section directly after the main form
 privacy-policy-link: /page/terms-of-service # 
 terms-of-service-link: /page/privacy-policy #
 copyright-start-year: 2007
