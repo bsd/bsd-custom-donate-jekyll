@@ -25,19 +25,19 @@ which: allinvalid  #every possible field is wrong
     "reporting_data": {
         "action_code": "BgpYQRENBEERWl9bbhVSBgYUAR8E",
         "td": {
-            "firstname": "Xiao",
-            "lastname": "Yu",
-            "email": "xiao@yu.name",
+            "firstname": "Drew",
+            "lastname": "Testname",
+            "email": "testuser@yu.name",
             "phone": "6177929000",
-            "addr1": "15 Howard St.",
+            "addr1": "135 Howard St.",
             "addr2": "Unit #3",
-            "city": "Cambridge",
-            "state": "MA",
-            "zip": "02139",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10023",
             "country": "US",
             "transaction_amt": 12.34,
             "is_recurring": "0",
-            "contribution_key": "HYrsBu_M-89u8TbI1c",
+            "contribution_key": "HYsrsBud_M-89u8TTrsc",
             "source": null,
             "subsource": null,
             "contribution_page_id": "1",
@@ -147,6 +147,10 @@ which: allinvalid  #every possible field is wrong
         {
             "field": "zip",
             "message":"required field"
+        },
+        {
+            "field": "amount_group",
+            "message":"total amount must be between $1 and $4,800"
         },
         {
             "field": "email",
