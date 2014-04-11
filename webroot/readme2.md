@@ -1,3 +1,9 @@
+---
+layout: demo-page-list
+inner: true
+title: Readme
+---
+
 #Readme
 
 This repo contains:
@@ -119,9 +125,9 @@ The basics though, involve creating...
 1. a page layout template /webroot/_layouts/[layoutname].html (can be broken up into more files with jekyll includes if you understand how to use them) that pulls in...
 2. any necessary headers and footer wrappers, with their external assets (like images) tweaked to point at the client's production site (but don't go crazy: this is all just so that you can quickly test the styles/layout)
 3. Including the core form markup in your layout in the appropriate place (check other layouts for examples)
-```
+`
 {% include default-form.html %}
-```
+`
 3. a new folder [layoutname] in /webroot/scss for the project with the same sorts of files all the others 
 4. Compiling your SASS from /webroot/scss/[layoutname] into /webroot/page/-/donate/[layoutname]
 

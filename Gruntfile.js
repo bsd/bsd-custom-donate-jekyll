@@ -281,6 +281,17 @@ module.exports = function(grunt) {
                         src: '**/*.js'
                     }
                 ]
+            },
+            readme: {
+                options: {
+                  process: function (content, srcpath) {
+                    return '---\nlayout: demo-page-list\ninner: true\ntitle: Readme\n---\n\n'+content.replace(/```/g,'`');
+                  }
+                },
+                files: [{
+                    src: 'readme.md',
+                    dest: jekyll_dist + 'readme2.md'
+                }]
             }
         },
         localscreenshots: {
@@ -355,6 +366,7 @@ module.exports = function(grunt) {
             'sass:dev',
             'copy:jekyllcss',
             'copy:jekylljs',
+            'copy:readme',
             'exec:jserve',
             'watchmsg',
             'watch'
@@ -363,6 +375,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask('watchmsg','.', function() {
       grunt.log.writeln('Starting the watch task. ^C should also cancel the jekyll server. If not use the PID kill command listed above, or use this command to find the PID: ps aux | grep jekyll');
+    });
+
+    grunt.registerTask('readme','move readme', function() {
+      grunt.task.run([
+            'copy:readme'
+        ]);
     });
 
     grunt.registerTask('zipdone', '.', function(stylename) {
@@ -411,6 +429,7 @@ module.exports = function(grunt) {
             'uglify:main',
             'sass:dev',
             'copy:jekyllcss',
+            'copy:readme',
             'compressdeploy:'+stylename
         ]);
     });
