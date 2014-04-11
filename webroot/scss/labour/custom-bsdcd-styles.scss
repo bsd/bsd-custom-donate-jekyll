@@ -1,12 +1,16 @@
 /* Labour styles */
 
-@import url("http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic");
+@import url("https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic");
+
+html, body {
+  height: 100%;
+}
 
 body {
   font-family: "Libre Baskerville", Georgia, "Times New Roman", Times, serif;
   color: #707070;
   font-size: 1em;
-    line-height: 1.4;
+  line-height: 1.4;
 }
 
 @font-face {
@@ -75,9 +79,23 @@ text-align: center;
   margin: 5px 0 0;
 }
 
-  header {
+header {
     padding: 20px;
-  }
+}
+
+/* Sticky Footer */
+.page-wrap {
+  min-height: 100%;
+  margin-bottom: -110px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+#footer, .page-wrap:after {
+  height: 50px;
+}
+
 #footer {
   margin-top: 2em;
   background: #000;
@@ -111,6 +129,10 @@ text-align: center;
     body{
         background-color: $form-bg-color;
     }
+    #footer {
+      height:85px;
+      margin-top:50px;
+    }
 }
 header {
   margin: 0 auto;
@@ -130,7 +152,6 @@ header h1 {
     @include inline-block();
     margin: 0;
 }
-
 
 .container.header header, .bsdcd-outer-container, #footer{
     margin-right: auto;
@@ -152,6 +173,11 @@ header h1 {
 }
 
 @include respond-min($tablet){
+
+  .bsdcd-outer-container .bsdcd-form { 
+    margin-bottom:25px;
+  }
+
     .bsdcd-outer-container .bsdcd-top-section{
         width: 405px;
         padding: 10px 20px;
@@ -159,7 +185,7 @@ header h1 {
 }
 .qd-login-links-section{
 padding-top:10px;
-text-align:Right;
+text-align:right;
 @include respond-min( $tablet ){
         bottom: 33px;
     }
