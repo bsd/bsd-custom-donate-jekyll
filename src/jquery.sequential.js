@@ -439,7 +439,7 @@ var sequential = {};
 				} else if ( countryVal === "GB" && zip.length >= 3 && zip.length <= 10 ){
 					$zip.removeClass('bsdcd-error');
 				}else if ( countryVal !== "US" && countryVal !== "GB" && !!zip ){
-					$zip.removeClass('bsdcd-error');
+					$zip.removeClass('bsdcd-error');//if international, just check for anything and let the server validate it
 				}else {
 
 					numberOfInvalidFields++;
