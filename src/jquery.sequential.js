@@ -405,6 +405,26 @@ var sequential = {};
 
 				}
 
+
+                country = $form.find('[name="country"]');
+                countryVal = country.val();
+
+                if(sequential.s.requireCountry){
+
+                    if( !country.val() ){
+
+                        numberOfInvalidFields++;
+
+                        country.addClass('bsdcd-error');
+
+                    }
+                    else {
+                        country.removeClass('bsdcd-error');
+                    }
+
+                }
+
+
 				//needs to not use US validation when it's not the US
 				$zip = $form.find("[name='zip']");
                 zip = $zip.val();
@@ -428,22 +448,7 @@ var sequential = {};
 
 				}
 
-				country = $form.find('[name="country"]');
 
-				if(sequential.s.requireCountry){
-
-					if( !country.val() ){
-
-						numberOfInvalidFields++;
-
-						country.addClass('bsdcd-error');
-
-					}
-                    else {
-                        country.removeClass('bsdcd-error');
-                    }
-
-				}
 
 				email = {};
 

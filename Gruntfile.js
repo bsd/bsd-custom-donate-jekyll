@@ -366,7 +366,7 @@ module.exports = function(grunt) {
             'sass:dev',
             'copy:jekyllcss',
             'copy:jekylljs',
-            'copy:readme',
+            //'copy:readme',
             'exec:jserve',
             'watchmsg',
             'watch'
@@ -429,7 +429,7 @@ module.exports = function(grunt) {
             'uglify:main',
             'sass:dev',
             'copy:jekyllcss',
-            'copy:readme',
+            //'copy:readme',
             'compressdeploy:'+stylename
         ]);
     });
