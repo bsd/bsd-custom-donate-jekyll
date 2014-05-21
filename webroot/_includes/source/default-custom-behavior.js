@@ -26,6 +26,7 @@
         custom_amounts = gup('amounts'),
         default_amount = gup('default_amt'),
         skip = parseFloat(gup('skip'))||false;
+        recur = parseFloat(gup('recur'))||false;
         console.log(skip);
 
 	$('.other_amount_label').hide();
@@ -71,6 +72,13 @@
 		});
         $otherAmtRadio.prop('checked', true);
 	});
+
+    //if there's a url parameter requesting reccuring to be checked by default
+    if(recur && recur===1 ){
+        // check recurring
+        $("input[name=recurring_acknowledge]").prop('checked', true);
+        $form.find("[name='slug']").val($form.data('recur-slug'));
+    }
 
     //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
     if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
