@@ -4,7 +4,7 @@ $tools-directory: "/page/-/donate/";
 /* Possible breakpoints */
     $phone: 320px;
     $widephone: 480px;
-    $tablet: 768px;
+    $tablet: 640px;
     $desktop: 1000px;
     $widedesktop: 1200px;
 
@@ -25,7 +25,7 @@ $tools-directory: "/page/-/donate/";
     $section-inner-side-padding: 30px;
 
     /*form spacing*/
-    $label-bottom-margin: 5px; 
+    $label-bottom-margin: 5px;
     $form-container-bottom-margin: 20px;
 
     /*input sizes */
@@ -94,5 +94,5 @@ $tools-directory: "/page/-/donate/";
     $giant-background-image-name: "demo-bg.jpg";
     $giant-background-image: url(#{$tools-directory}#{$giant-background-image-name});
 
-    
+
 

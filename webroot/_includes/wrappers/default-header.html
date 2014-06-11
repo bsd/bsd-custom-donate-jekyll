@@ -1,35 +1,328 @@
-<!DOCTYPE html>
-<!--[if lt IE 7 ]><html lang="en" class="no-js oldie ie6"><![endif]-->
-<!--[if IE 7 ]><html lang="en" class="no-js oldie ie7"><![endif]-->
-<!--[if IE 8 ]><html lang="en" class="no-js oldie ie8"><![endif]-->
-<!--[if IE 9 ]><html lang="en" class="no-js ie9"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>{{page.page-title}}</title>      
-    <meta property="og:title" content="{{page.page-title}}">
-    <meta name="description" content="{{page.page-description}}">
-    <meta property="og:description" content="{{page.page-description}}">
-                    
-    <meta property="og:image" content="{{page.page-meta-image}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="">
+<!--[if lte IE 8 ]>
+<html lang="en" class="no-js oldie ie8">
+<![endif]-->
+<!--[if IE 9 ]>
+<html lang="en" class="no-js ie9">
+<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
 
-    <!--[if lte IE 8]><link rel="stylesheet" href="/page/-/donate/{{page.style}}/bsdcd-styles-desktop.css"><![endif]-->
-    <!--[if gt IE 8]><!--><link rel="stylesheet" href="/page/-/donate/{{page.style}}/bsdcd-styles.css"><!--<![endif]-->
-    <script src="/page/-/donate/modernizr.js"></script>
-    </head>
-    <body class="full-width no-nav">
-        <div id="container">
-            <header id="main-header">
-                <div class="centered">
-                    <h1 class="logo"><a href="/" class="ir">{{page.client}}</a></h1>
-                    <div class="qd-login-links-section">
-                        <a href="#login" class="qd-log-in-link">Use my saved payment information</a>
-                        <a href="#logout" class="qd-log-out-link">Log Out</a>
-                    </div>
-                </div><!--/.centered-->
-            </header>
-            <div class="content-wrapper">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+	<meta name="referrer" content="always">
+
+	<title>{{page.page-title}}</title>
+	<meta property="og:title" content="{{page.page-title}}">
+	<meta name="description" content="{{page.page-description}}">
+	<meta property="og:description" content="{{page.page-description}}">
+	<meta property="og:image" content="http://uwsem.bsd.net/page/-/uwsem_v3/img/meta/meta-thumbnail-1200x630.jpg">
+
+	<!--[if IE]><link rel="shortcut icon" href=http://uwsem.bsd.net/page/-/uwsem_v3/img/meta/favicon.ico"><![endif]-->
+	<link rel="icon" href="http://uwsem.bsd.net//page/-/uwsem_v3/img/meta/favicon16.png" sizes="16x16">
+	<link rel="icon" href="http://uwsem.bsd.net/page/-/uwsem_v3/img/meta/favicon32.png" sizes="32x32">
+	<link rel="icon" href="http://uwsem.bsd.net/page/-/uwsem_v3/img/meta/favicon64.png" sizes="64x64">
+
+	<link rel="apple-touch-icon-precomposed" href="http://uwsem.bsd.net/page/-/uwsem_v3/img/meta/apple-touch-icon-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://uwsem.bsd.net/page/-/uwsem_v3/img/meta/apple-touch-icon-72x72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://uwsem.bsd.net/page/-/uwsem_v3/img/meta/apple-touch-icon-114x114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://uwsem.bsd.net/page/-/uwsem_v3/img/meta/apple-touch-icon-144x144-precomposed.png">
+	<meta name="apple-mobile-web-app-title" content="UWSEM">
+	<link rel="alternate" type="application/rss+xml" title="RSS" href="http://uwsem.bsd.net/blog/rss">
+
+	<link rel="stylesheet" href="http://uwsem.bsd.net/styles/index.css">
+	<link rel="stylesheet" href="http://uwsem.bsd.net/page/-/uwsem_v3/fonts/symbolset.css">
+
+	<!-- Sequential Donation Styles -->
+	<link rel="stylesheet" href="/page/-/donate/{{page.style}}/bsdcd-styles.css">
+
+	<script src="//use.typekit.net/tsp4fhl.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/page/-/uwsem_v3/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+
+	<script src="http://uwsem.bsd.net/js/source-min.js"></script>
+	<script src="http://uwsem.bsd.net/js/main.js"></script>
+
+</head>
+
+<body id="sequential-donate" class="interior wrapper-simple">
+
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+	<aside class="left-off-canvas-menu">
+		<ul id="off-canvas-main-menu" class="off-canvas-menu">
+	<li class="node_the-challenge level_1 first_child">
+			<a href="http://uwsem.bsd.net/the-challenge">The Challenge</a>
+			</li>
+	<li class="node_what-we-do level_1 has_children active">
+			<a href="http://uwsem.bsd.net/what-we-do">What We Do</a>
+			<ul>
+		<li class="node_mission level_2 first_child">
+			<a href="http://uwsem.bsd.net/what-we-do/mission">Mission</a>
+				</li>
+		<li class="node_approach level_2">
+			<a href="http://uwsem.bsd.net/what-we-do/our-approach">Approach</a>
+				</li>
+		<li class="node_solutions level_2">
+			<a href="http://uwsem.bsd.net/what-we-do/solutions">Solutions</a>
+				</li>
+		<li class="node_stories level_2">
+			<a href="http://uwsem.bsd.net/stories">Stories</a>
+				</li>
+		<li class="node_where-we-work level_2">
+			<a href="http://uwsem.bsd.net/what-we-do/where-we-work">Where We Work</a>
+				</li>
+		<li class="node_results level_2 last_child">
+			<a href="http://uwsem.bsd.net/what-we-do/results">Results</a>
+				</li>
+	</ul>
+	</li>
+	<li class="node_get-involved level_1 has_children">
+			<a href="http://uwsem.bsd.net/get-involved">Get Involved</a>
+			<ul>
+		<li class="node_give level_2 first_child">
+			<a href="#">Give</a>
+				</li>
+		<li class="node_advocate level_2">
+			<a href="http://uwsem.bsd.net/advocate">Advocate</a>
+				</li>
+		<li class="node_volunteer level_2">
+			<a href="http://uwsem.bsd.net/volunteer">Volunteer</a>
+				</li>
+		<li class="node_become-an-ambassador level_2 last_child">
+			<a href="http://uwsem.bsd.net/get-involved/become-an-ambassador">Become an Ambassador</a>
+				</li>
+	</ul>
+	</li>
+	<li class="node_get-help level_1">
+			<a href="http://uwsem.bsd.net/get-help">Get Help</a>
+			</li>
+	<li class="node_donate level_1 last_child">
+			<a href="#">Donate</a>
+			</li>
+</ul>
+
+
+		<ul id="off-canvas-connect" class="off-canvas-menu level-offset">
+			<li class="level_1 has_children"><span class="expand-children">Connect</span>
+			<ul>
+	<li class="node_blog level_1 first_child">
+			<a href="http://uwsem.bsd.net/blog">Blog</a>
+				</li>
+	<li class="node_contact level_1">
+			<a href="http://liveunitedsem.org/page/s/contact_us">Contact</a>
+				</li>
+	<li class="node_offices level_1">
+			<a href="http://uwsem.bsd.net/about/offices">Offices</a>
+				</li>
+	<li class="node_tour-our-hq level_1 last_child">
+			<a href="http://uwsem.bsd.net/about/tour-our-headquarters">Tour our HQ</a>
+				</li>
+</ul>
+
+			</li>
+		</ul>
+
+		<ul id="off-canvas-about" class="off-canvas-menu level-offset">
+			<li class="level_1 has_children"><span class="expand-children">About</span>
+			<ul>
+	<li class="node_history level_1 first_child">
+			<a href="http://uwsem.bsd.net/history">History</a>
+				</li>
+	<li class="node_leadership-staff level_1">
+			<a href="http://uwsem.bsd.net/about/leadership-staff">Leadership &amp; Staff</a>
+				</li>
+	<li class="node_board level_1">
+			<a href="http://uwsem.bsd.net/about/board">Board</a>
+				</li>
+	<li class="node_annual-campaign-cabinet level_1">
+			<a href="http://uwsem.bsd.net/about/annual-campaign-cabinet">2014 Campaign Cabinet</a>
+				</li>
+	<li class="node_partners level_1">
+			<a href="http://uwsem.bsd.net/about/partners">Partners</a>
+				</li>
+	<li class="node_financials level_1">
+			<a href="http://uwsem.bsd.net/about/financials">Financials</a>
+				</li>
+	<li class="node_press level_1">
+			<a href="http://uwsem.bsd.net/press">Press</a>
+				</li>
+	<li class="node_careers level_1 last_child">
+			<a href="http://uwsem.bsd.net/careers">Careers</a>
+				</li>
+</ul>
+
+			</li>
+		</ul>
+
+		<ul id="off-canvas-resources" class="off-canvas-menu level-offset">
+			<li class="level_1 has_children"><span class="expand-children">Resources</span>
+			<ul>
+	<li class="node_partner-resources level_1 first_child">
+			<a href="http://uwsem.bsd.net/resources/partner-resources">Partner Resources</a>
+				</li>
+	<li class="node_fundraiser-toolkit level_1">
+			<a href="http://uwsem.bsd.net/resources/fundraiser-toolkit">Fundraiser Toolkit</a>
+				</li>
+	<li class="node_media-toolkit level_1">
+			<a href="http://uwsem.bsd.net/resources/media-toolkit">Media Toolkit</a>
+				</li>
+	<li class="node_social-media-toolkit level_1 last_child">
+			<a href="http://uwsem.bsd.net/resources/social-media-toolkit">Social Media Toolkit</a>
+				</li>
+</ul>
+
+			</li>
+		</ul>
+
+		<section class="signup-form">
+	<h3>Get Email Updates</h3>
+	<form class="off-canvas-signup signup row" method="post" action="http://uwsem.bsd.net/page/s/Stay_Informed" role="form">
+		<fieldset class="email-fieldset small-6 columns">
+			<label for="off-canvas-signup-email" class="visually-hidden">Email Address</label>
+			<input type="email" name="email" title="Email Address" placeholder="email address" maxlength="254" id="off-canvas-signup-email" class="text signup-email" required="required">
+		</fieldset>
+		<fieldset class="zip-fieldset small-3 columns">
+			<label for="off-canvas-signup-zip" class="visually-hidden">Zip Code</label>
+			<input type="tel" name="zip" title="Zip Code" placeholder="zip code" id="off-canvas-signup-zip" class="text signup-zip" maxlength="5" required="required" pattern="^\d{5}(-\d{4})?$">
+		</fieldset>
+		<fieldset class="submit-fieldset small-3 columns">
+			<button name="submit-btn" type="submit" class="btn-orange hover-dark">Sign Up</button>
+		</fieldset>
+	</form>
+</section> <!--/.signup-form-->
+<section class="search-form">
+	<h3>Search the Site</h3>
+	<form method="get" action="http://uwsem.bsd.net/pages/search-results" class="search">
+		<label for="cse-off-canvas-search" class="visually-hidden">Search</label>
+		<i class="ss-icon ss-standard ss-search"></i>
+		<input type="text" name="q" id="cse-off-canvas-search" class="text">
+		<button type="submit" class="off-canvas-search-button search-button btn-orange hover-dark">Search</button>
+	</form>
+</section> <!--/.search-form-->
+
+		<ul class="off-canvas-social">
+			<li class="section-title"><h3>Follow Us</h3></li>
+
+			<li class="oc-instagram"><a href="http://instagram.com/unitedwaysem" class="share-link ss-icon" target="_blank">Instagram</a></li>
+
+
+			<li class="oc-facebook"><a href="https://www.facebook.com/UnitedWaySEM" class="share-link ss-icon" target="_blank">Facebook</a></li>
+
+
+			<li class="oc-twitter"><a href="https://twitter.com/unitedwaySEM" class="share-link ss-icon" target="_blank">Twitter</a></li>
+
+
+			<li class="oc-youtube"><a href="https://www.youtube.com/user/unitedwaysemich" class="share-link ss-icon" target="_blank">Youtube</a></li>
+
+		</ul>
+	</aside>
+
+	<header class="header" id="sticky-header" role="banner">
+
+		<div class="main-logo">
+			<a href="/">United Way for Southeastern Michigan Logo</a>
+		</div>
+
+		<nav class="main-nav" role="navigation">
+			<ul class="header-main-menu">
+	<li class="node_the-challenge level_1 first_child">
+				<a href="http://uwsem.bsd.net/the-challenge">The Challenge</a>
+				</li>
+	<li class="node_what-we-do level_1 has_children active">
+				<a href="http://uwsem.bsd.net/what-we-do">What We Do</a>
+				<ul>
+		<li class="node_mission level_2 first_child">
+				<a href="http://uwsem.bsd.net/what-we-do/mission">Mission</a>
+					</li>
+		<li class="node_approach level_2">
+				<a href="http://uwsem.bsd.net/what-we-do/our-approach">Approach</a>
+					</li>
+		<li class="node_solutions level_2">
+				<a href="http://uwsem.bsd.net/what-we-do/solutions">Solutions</a>
+					</li>
+		<li class="node_stories level_2">
+				<a href="http://uwsem.bsd.net/stories">Stories</a>
+					</li>
+		<li class="node_where-we-work level_2">
+				<a href="http://uwsem.bsd.net/what-we-do/where-we-work">Where We Work</a>
+					</li>
+		<li class="node_results level_2 last_child">
+				<a href="http://uwsem.bsd.net/what-we-do/results">Results</a>
+					</li>
+	</ul>
+	</li>
+	<li class="node_get-involved level_1 has_children">
+				<a href="http://uwsem.bsd.net/get-involved">Get Involved</a>
+				<ul>
+		<li class="node_give level_2 first_child">
+				<a href="#">Give</a>
+					</li>
+		<li class="node_advocate level_2">
+				<a href="http://uwsem.bsd.net/advocate">Advocate</a>
+					</li>
+		<li class="node_volunteer level_2">
+				<a href="http://uwsem.bsd.net/volunteer">Volunteer</a>
+					</li>
+		<li class="node_become-an-ambassador level_2 last_child">
+				<a href="http://uwsem.bsd.net/get-involved/become-an-ambassador">Become an Ambassador</a>
+					</li>
+	</ul>
+	</li>
+	<li class="node_get-help level_1">
+				<a href="http://uwsem.bsd.net/get-help">Get Help</a>
+				</li>
+	<li class="node_donate level_1 last_child">
+				<a href="#">Donate</a>
+				</li>
+</ul>
+
+		</nav> <!-- /.main-nav -->
+
+		<div class="menu-toggle">
+			<a class="left-off-canvas-toggle" href="#"><span>Menu</span></a>
+		</div>
+
+		<aside class="header-aside">
+			<ul>
+				<li><a href="/blog" class="blog-link">Blog</a></li>
+				<li><a href="http://instagram.com/unitedwaysem" class="share-link ss-icon" target="_blank">Instagram</a></li>
+				<li><a href="https://www.facebook.com/UnitedWaySEM" class="share-link ss-icon" target="_blank">Facebook</a></li>
+				<li><a href="https://twitter.com/unitedwaySEM" class="share-link ss-icon" target="_blank">Twitter</a></li>
+				<li><a href="https://www.youtube.com/user/unitedwaysemich" class="share-link ss-icon" target="_blank">Youtube</a></li>
+				<li><a href="#" id="expose-header-signup" class="share-link ss-icon">Email</a></li>
+			</ul>
+			<form class="header-signup row" method="POST" action="http://uwsem.bsd.net/page/s/Stay_Informed">
+				<fieldset class="large-6 columns">
+					<label for="qs-email" class="visually-hidden">Email address</label>
+					<input type="email" name="email" id="qs-email" class="text" placeholder="email address">
+				</fieldset>
+				<fieldset class="large-3 columns">
+					<label for="qs-zip" class="visually-hidden">Zip</label>
+					<input type="text" name="zip" id="qs-zip" class="text" maxlength="5" placeholder="zip code">
+				</fieldset>
+				<fieldset class="large-3 columns">
+					<button type="submit" name="qs-submit" id="qs-submit" class="signup-submit btn-orange">Sign Up</button>
+				</fieldset>
+			</form>
+		</aside> <!-- /.header-aside -->
+
+		<a href="/" class="mobile-logo">
+			<span class="inlinesvg-img">
+				<img src="http://uwsem.bsd.net/page/-/uwsem_v3/img/logo-mobile.svg" alt="United Way for Southeastern Michigan Logo">
+			</span>
+			<span class="inlinesvg-fallback">
+				<img src="http://uwsem.bsd.net/page/-/uwsem_v3/img/logo-mobile.png" alt="United Way for Southeastern Michigan Logo">
+			</span>
+		</a>
+
+	</header>
+
+
+	<main id="container" class="sd-main" role="main">
+
+		<article id="content">
