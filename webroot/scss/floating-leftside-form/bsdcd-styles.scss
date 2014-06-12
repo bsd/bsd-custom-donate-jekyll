@@ -1,9 +1,14 @@
+@import "compass";
+@import "compass/css3";
+
+@import "../mixins";
+
 @import "../uwsem/functions";
 @import "../uwsem/variables";
+@import "../uwsem/buttons";
 
 @import "../bsdcd-core-variables.scss";
 @import "variables";
-@import "../mixins";
 
 @import "../bsdcd-core";
 @import "../sequential-core";
@@ -15,5 +20,3 @@
 @import "../plugins/floating-box/quick-donate";
 
 @import "uwsem-bsdcd-styles";
-
-// @import '../utility';

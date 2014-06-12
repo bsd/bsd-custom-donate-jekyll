@@ -1,6 +1,6 @@
 name: Donate
 highlighter: true
-#relative_permalinks: true
+relative_permalinks: true
 
 permalink: /:year/:title.html
 

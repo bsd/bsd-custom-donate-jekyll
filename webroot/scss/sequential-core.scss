@@ -100,12 +100,12 @@ Core Sequential Styles
             display:block;
         }
         input.text.bsdcd-error{ //fixes ios7 ignoring shadows
-            -webkit-appearance: none;
-            box-shadow: $core-box-shadow, 0 0 0 2px $error-field-border-color !important;
+            // -webkit-appearance: none;
+            // box-shadow: $core-box-shadow, 0 0 0 2px $error-field-border-color !important;
         }
         select.bsdcd-error{ //ios7 again, but can't set selects to none
-            border: 1px solid $error-field-border-color;
-            box-shadow: $core-box-shadow, 0 0 0 1px $error-field-border-color !important;
+            // border: 1px solid $error-field-border-color;
+            // box-shadow: $core-box-shadow, 0 0 0 1px $error-field-border-color !important;
         }
     }
 

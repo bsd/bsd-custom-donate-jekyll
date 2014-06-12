@@ -158,7 +158,8 @@ module.exports = function(grunt) {
                 options: {
                     style: 'compressed',
                     compass: 1,
-                    noCache: true
+                    noCache: true,
+                    sourcemap: true
                 },
                 files: [{
                     expand: true,

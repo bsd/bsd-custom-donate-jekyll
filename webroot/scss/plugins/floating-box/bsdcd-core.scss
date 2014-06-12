@@ -20,7 +20,7 @@
 
 *****************************************************************/
 
-$core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
+$core-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
 
 /*limitation of current styles, should retest and refix */
 .bsdcd-outer-container *{
@@ -45,7 +45,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 	}
 	label {
 		font-size: 1.1em;
-		font-weight: bold;
 		display: block;
 		margin-bottom: $label-bottom-margin;
 		span{
@@ -64,16 +63,15 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 			display:inline;
 		}
 	}
-	input.text, textarea {
+	input.text,
+	textarea {
 		font-size: $input-mobile-font-size;
-		background: $form-field-bg-color;
-		border: 1px solid #DEDEDE;
-		border-radius: 3px;
+		// background: $form-field-bg-color;
+		// border: 1px solid #DEDEDE;
 		line-height: $input-height;
 		width: 100%;
 		padding: $input-vertical-padding $input-side-padding;
-		-webkit-box-shadow: $core-box-shadow;
-		box-shadow: $core-box-shadow;
+
 		&:focus{
 			background: $form-field-focus-bg-color;
 		}
@@ -83,47 +81,37 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 		padding: $input-vertical-padding $input-side-padding;
 	}
 	select {
-		font-size: $input-font-size;
-		border-color: #ebebeb;
-		padding: $input-vertical-padding $input-side-padding;
-		vertical-align: top;
-		line-height: $input-height;
-		height: $input-height + 4px;
-		border-radius: 3px;
-		background: $form-field-bg-color;
-		border: 1px solid #DEDEDE;
-		-webkit-box-shadow: $core-box-shadow;
-		box-shadow: $core-box-shadow;
-		@include border-box(); //so, odd thing: IE7 doesn't support this, but acts like it does by default anyhow
-		width: 100%;
-		.no-boxsizing &{
+		// font-size: $input-font-size;
+		// padding: $input-vertical-padding $input-side-padding;
+		// vertical-align: top;
+		// line-height: $input-height;
+		// height: $input-height + 4px;
+		// background: $form-field-bg-color;
+		// width: 100%;
+		// -webkit-appearance: inherit;
+
+		.no-boxsizing & {
 			width: 95%;
 		}
-		.ie7 &{
+		.ie7 & {
 			width:100%; //ie7 should keep the 100% rule even though it doesn't "support" border-box
 		}
 	}
 	.form_field_cont{
 		padding-right: $container-right-padding;
 	}
-	li.amount_cont label.preset_amount_label, .bsdcd-submit-button, .big_btn {
+	li.amount_cont label.preset_amount_label,
+	.bsdcd-submit-button,
+	.big_btn {
 		-webkit-appearance:none;
 		padding: $input-vertical-padding $input-side-padding;
 		display: block;
-		width: 95%;
-		background: $button-normal;
-		background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(0, 0, 0, 0.1)), color-stop(1, rgba(255, 255, 255, 0.2)));
-		background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
-		background-image:  -moz-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
-		border: 1px solid darken($button-normal, 10%);
-		border-radius: 3px;
-		color: #fff;
 		font-size: 19px;
-		line-height:$input-height;
-		height:$input-height;
+		line-height: $input-height;
+		height: $input-height;
 		text-align: center;
 	}
-	.amount_other_cont{
+	.amount_other_cont {
 		width:44%;
 	}
 	.amounts {
@@ -138,9 +126,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 		@mixin active-labels(){
 			z-index:1;
 			background: $button-active;
-			color: #fff;
-			border: 1px solid #fff;
-			box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
 		}
 		//these otherwise identical styles are split because IE7 will break if they are extended normally
 		label.active{
@@ -168,10 +153,9 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 /*should be >tablet only?*/
 .cvv-question-mark{
-	float:right !important;
+	float: right !important;
 	position:relative;
 	left:16px;
-	border-radius:1em;
 	cursor: pointer;
 	height: 1em;
 	padding: 0 0.3em;
@@ -199,7 +183,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 		padding:10px;
 		left: 20px;
 		outline: 2px dashed rgba(24,24,24,0.6);
-		box-shadow: 0 0 2px gray;
 		box-sizing: border-box;
 		background-clip: padding-box;
 		width: 200px;
@@ -213,9 +196,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 		border:none;
 		border-color: #eed3d7;
 		padding: 5px ($container-right-padding + 5px) 5px 5px;
-		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-		-webkit-border-radius: 4px;
-		border-radius: 4px;
 		height:auto;
 	}
 	li.form_field_cont.bsdcd-error{
@@ -233,7 +213,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 .bsdcd-form p.bsdcd-error {
 	color: $error-message-text-color;
-	font-weight: bold;
 }
 
 
@@ -261,21 +240,20 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 		.bsdcd-top-section {
 			width: $section-total-width - ($section-inner-side-padding * 2);
 			padding: 10px $section-inner-side-padding;
-			border-bottom: 1px solid #d8d8d8;
 		}
 		.bsdcd-form {
 			width: $section-total-width - ( $section-inner-side-padding * 2 );
 			padding: $section-inner-side-padding;
 		}
 		li {
-			&.amount_cont label.preset_amount_label {
-				width: 102px;
-				padding: 8px 5px;
-			}
-			&.amounts_cont {
-				overflow: hidden;
-				padding: 5px 5px 5px 7px;
-			}
+			// &.amount_cont label.preset_amount_label {
+			// 	width: 102px;
+			// 	padding: 8px 5px;
+			// }
+			// &.amounts_cont {
+			// 	overflow: hidden;
+			// 	padding: 5px 5px 5px 7px;
+			// }
 		}
 		label.preset_amount_label {
 			cursor: pointer;
@@ -292,20 +270,20 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 		  max-width: 220px;
 		}
 		li.amount_cont_8 input.text {
-			padding: 8px 7px!important;
+			// padding: 8px 7px!important;
 		}
 		.contributor_header_cont {
 			clear: both;
 		}
 		.form_field_cont{
-			width: $full-width-field-container-width;
-			float:left;
+			// width: $full-width-field-container-width;
+			float: left;
 		}
 		.firstname_cont, .lastname_cont, .city_cont, .phone_cont, .email_cont, .employer_cont, .occupation_cont, .cc_month, .honoree_state_cd_cont, .honoree_zip_cont, .cc_cvv_cont {
 			width: $half-width-field-container-width;
 		}
 		.cc_year, .cc_month {
-			width: 123px !important;
+			// width: 123px !important;
 		}
 		.firstname_cont, .email_cont, .employer_cont, .cc_month, .city_cont, .state_cd_cont {
 			margin-right: 15px;
@@ -364,14 +342,14 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 		.submit_cont {
 			clear: both;
 		}
-		.bsdcd-submit-button {
-			width: $section-inner-width - 7px; //minus extra padding and possible border
-		}
+		// .bsdcd-submit-button {
+		// 	width: $section-inner-width - 7px; //minus extra padding and possible border
+		// }
 	}
 
 }
 .ie7 {
-	.bsdcd-form{
+	.bsdcd-form {
 		margin-top:0;
 		margin-bottom:0;
 	}

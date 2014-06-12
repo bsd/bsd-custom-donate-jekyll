@@ -21,7 +21,6 @@
 }
 
 .qd_header {
-    font-weight: bold;
 }
 
 .qd-personal-info{
@@ -40,7 +39,7 @@
     margin-left:5px;
     @include respond-min( $form-field-layout ){
         position: absolute;
-        top: -40px; 
+        top: -40px;
     }
 }
 

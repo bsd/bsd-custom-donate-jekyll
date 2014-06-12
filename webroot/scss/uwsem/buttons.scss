@@ -1,0 +1,132 @@
+//
+// UWSEM Button Styles
+// ---------------------
+%btn {
+	color: white;
+	display: inline-block;
+	font-family: $sans;
+	padding: 0.6em 1.2em 0.4em 0.9em;
+	outline: none;
+	overflow: hidden;
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+	-webkit-backface-visibility: hidden;
+	-webkit-font-smoothing: $font-smoothing;
+	@include font-size(17, 1);
+	@include transition(0.1s);
+
+	&:hover,
+	&:active {
+		color: white;
+	}
+
+	&:before,
+	&:after {
+		content: '';
+		display: block;
+		height: 125%;
+		right: -10px;
+		position: absolute;
+		width: 20px;
+		-webkit-backface-visibility: hidden;
+	}
+	&:before {
+		top: -25%;
+		@include rotate(-20deg);
+	}
+	&:after {
+		bottom: -25%;
+		@include rotate(20deg);
+	}
+
+	@media #{$large-up} {
+		@include font-size(22, 1);
+		padding: 0.8em 1.6em 0.6em 1.2em;
+
+		&:before,
+		&:after {
+			content: '';
+			display: block;
+			height: 125%;
+			right: -10px;
+			position: absolute;
+			width: 20px;
+			@include rotate(0deg);
+		}
+		&:before,
+		&:after {
+			@include transition(0.1s);
+		}
+		&:before {
+			top: -25%;
+		}
+		&:after {
+			bottom: -25%;
+		}
+
+		&:hover {
+
+			&:before {
+				@include rotate(-20deg);
+			}
+			&:after {
+				@include rotate(20deg);
+			}
+		}
+		&:focus,
+		&:active {
+
+			&:before,
+			&:after {
+				right: -14px;
+			}
+		}
+	}
+}
+%btn-active {
+	&:before {
+		@include rotate(-20deg);
+	}
+	&:after {
+		@include rotate(20deg);
+	}
+}
+.btn-orange {
+	@extend %btn;
+	background: $orange;
+
+	&:before,
+	&:after {
+		background: $orange-light;
+	}
+	&.hover-dark {
+		&:hover,
+		&:active,
+		&:focus {
+			background: $orange;
+		}
+	}
+	@media #{$medium-up} {
+		&.hover-dark:hover,
+		&.hover-dark:active,
+		&.hover-dark:focus {
+			background: $orange-burnt;
+
+			&:before,
+			&:after {
+				background: $orange-burnt-light;
+			}
+		}
+	}
+}
+.btn-dark-orange {
+	@extend %btn;
+	background: $orange-burnt;
+
+	&:before,
+	&:after {
+		background: $orange-burnt-light;
+	}
+}
+

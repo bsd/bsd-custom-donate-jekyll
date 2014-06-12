@@ -29,20 +29,19 @@ $tools-directory: "/page/-/donate/";
     $input-font-size: 18px;
 
 /*colors*/
-    $gray: #b8b8b8;
+    $gray: #777;
     $slate-gray: #2F4F4F;
 
     $green: #197419;
-
     $red: #F00;
     $dim-red: #C41230;
 
     /*Step UI Colors*/
     $step-inactive: $gray;
-    $step-active: $green; 
+    $step-active: $green;
 
     /*Button UI*/
-    $button-normal: $gray; 
+    $button-normal: $gray;
     $button-active: $green;
 
     /*Validation*/
@@ -66,7 +65,7 @@ $tools-directory: "/page/-/donate/";
     $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 /*Images*/
-    $giant-background-image-name: ""; 
+    $giant-background-image-name: "";
     $giant-background-image: url(#{$tools-directory}#{$giant-background-image-name});
 
 
