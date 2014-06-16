@@ -12,8 +12,8 @@ page-title: Give | United Way for Southeastern Michigan
 page-description: Support United Way for Southeastern Michigan Today
 
 ## Destination Donate Page
-tools-slug: default #default exists on most clients, but remember: you'll need to configure this custom form to match the options of whatever tools form you use or vice-versa
-tools-recurring-slug: reccur #leave blank for no recurring. This will need to be the url slug of a second, _separate_ tools form that is set to take only recurring donations, but is otherwise configured the same way as the original form
+tools-slug: dev-sd-onetime #default exists on most clients, but remember: you'll need to configure this custom form to match the options of whatever tools form you use or vice-versa
+tools-recurring-slug: dev-sd-recurring #leave blank for no recurring. This will need to be the url slug of a second, _separate_ tools form that is set to take only recurring donations, but is otherwise configured the same way as the original form
 default-source-codes: custom-donate #a comma separated list of source codes that will baked into the page by default, to identify it for analytics purposes
 
 ##########
@@ -21,7 +21,7 @@ default-source-codes: custom-donate #a comma separated list of source codes that
 #############################
 layout: default #The wrapper. "default" is the default included wrapper
 form: default-form.html #The form layout engine. The standard included option is default-form.html but you can create your own as long as they are placed in _includes/
-style: floating-leftside-form #default/form-only/or the slug of your custom style/layout
+style: uwsem #default/form-only/or the slug of your custom style/layout
 
 ##########
 # Core Feature Options
@@ -41,7 +41,7 @@ require-country: true #country selection must be true for this to work, of cours
 custom-amounts: [15, 25, 50, 100, 250, 500, 1000] #an array of 7 values for the donation amount DO NOT INCLUDE COMMAS IN THE NUMBERS
 min-donation: 2 #minimum donation amount allowed. Ensure that this matches the tools form
 max-donation: 30000 #maximum donation amount allowed. Ensure that this matches the tools form
-optional-phone: false #phone is required by default unless this is set to true, which would make the phone field optional
+optional-phone: true #phone is required by default unless this is set to true, which would make the phone field optional
 employer-and-occupation: false #whether or not to show the employer and occupation fields
 
 require-cvv: true #Show the CVV field for credit card information. This setting will not affect quick donate, which does not use CVV

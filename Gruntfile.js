@@ -164,7 +164,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: jekyll_dist + 'scss',
-                    src: '**/bsdcd-styles*.scss',
+                    src: '**/bsdcd-styles.scss',
                     dest: jekyll_dist + 'css',
                     ext: '.css'
                 }]

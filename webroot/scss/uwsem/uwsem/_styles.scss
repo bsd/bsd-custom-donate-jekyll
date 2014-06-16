@@ -1,11 +1,13 @@
 body#sequential-donate {
-	background: white;
+	background-color: white;
 	font-size: 16px;
 
+	@media #{$small-only} {
+		background-image: none !important;
+	}
 	@media #{$medium-up} {
 		background-attachment: fixed;
 		background-color: $gray-darker;
-		background-image: url(https://uwsem.bsd.net/page/-/uwsem_v3/img/donate-background.jpg);
 		background-size: cover;
 		min-height: 800px;
 	}
@@ -140,7 +142,7 @@ body#sequential-donate {
 				&.completed.active {
 					span:before,
 					span:after {
-						background: $blue-bright;
+						background: lighten($gray-lighter, 10%);
 						display: block;
 					}
 				}
@@ -165,10 +167,17 @@ body#sequential-donate {
 		}
 		.sequential_step_0 {
 			.sequential_breadcrumb.sequential_breadcrumb_1.completed {
+
+				a {
+					color: $gray-light;
+				}
+				span {
+					color: $gray-light;
+					background: lighten($gray-lighter, 10%);
+				}
 				span:before,
 				span:after {
-					background: lighten($gray-lighter, 10%);
-					display: block;
+					display: none;
 				}
 			}
 		}
@@ -240,6 +249,12 @@ body#sequential-donate {
 				&:active {
 					background: lighten($gray-lighter, 15%);
 				}
+			}
+			select {
+				background: lighten($gray-lighter, 15%);
+				border: 1px solid lighten($gray-lighter, 15%);
+				color: $gray-darker;
+				height: 48px;
 			}
 		}
 		.hidden {
@@ -420,7 +435,7 @@ body#sequential-donate {
 						width: 55%;
 
 						select {
-							width: 45%;
+							width: 40%;
 						}
 					}
 				}
