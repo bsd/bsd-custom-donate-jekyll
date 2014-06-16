@@ -1,6 +1,6 @@
 /*global jQuery, quickDonate */
 /*
- * blueContribute.js 
+ * blueContribute.js
  *
  * Author: Kyle Rush
  * kylerrush@gmail.com
@@ -12,419 +12,415 @@ var blueContribute = {};
 
 (function($){
 
-    "use strict";
-
-    //function to serialize form data into an object since jQuery doesn't natively do this -- UGH
-    $.fn.serializeObject = function(){
-
-        var o = {};
-
-        var a = this.serializeArray();
-
-        $.each(a, function() {
-
-            if (o[this.name] !== undefined) {
-
-                if (!o[this.name].push) {
-
-                    o[this.name] = [o[this.name]];
+	"use strict";
+
+	//function to serialize form data into an object since jQuery doesn't natively do this -- UGH
+	$.fn.serializeObject = function(){
+
+		var o = {};
+
+		var a = this.serializeArray();
 
-                }
+		$.each(a, function() {
 
-                o[this.name].push(this.value || '');
+			if (o[this.name] !== undefined) {
 
-            } else {
+				if (!o[this.name].push) {
 
-                o[this.name] = this.value || '';
+					o[this.name] = [o[this.name]];
 
-            }
+				}
 
-        });
+				o[this.name].push(this.value || '');
 
-        return o;
-    };
+			} else {
 
-    //creat the blueContribute jQuery plugin
-    $.fn.extend({
-        
-        //pass the options variable to the function
-        blueContribute: function(options) {
+				o[this.name] = this.value || '';
 
-            var $form = $(this),
-                $body = $('body'),
-                locked = false,
-                $sourceField = $form.find('[name="source_codes"]'),
-                defaultsource = $sourceField.val(),
-                $genError = $form.find('.bsdcd-general_error'),
-                urlsource = gup('source')||gup('fb_ref'),
-                urlsubsource = gup('subsource'),
-                $slugField = $form.find("[name='slug']"),
-                pagetitle = document.title,
-                wait = false,
-                msg = {
-                    "unknown":"We were unable to process your transaction at this time.",
-                    "invalid":"Your donation was not successful. Please correct the problems marked below.",
-                    "declined":"The transaction was declined. Please check that the address information is correct or else use a different card.",
-                    "review":"Your transaction is under review, there is no need to resubmit at this time."
-                }, debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
+			}
 
-            //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
+		});
 
-            if(urlsource || urlsubsource) {
-                if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
-                $sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
-            }
+		return o;
+	};
 
-            debug = function(message){
-                if(blueContribute.settings.debug){
-                    if(typeof console === 'object'){
-                        window.console.log(message);
-                    }
-                }
-            };
+	//creat the blueContribute jQuery plugin
+	$.fn.extend({
 
-            /*optional function could include additional _synchronous_ validation checks, but in the base install isn't needed*/
-            defaultBeforePost = function(){
+		//pass the options variable to the function
+		blueContribute: function(options) {
 
-                return true;
+			var $form = $(this),
+				$body = $('body'),
+				locked = false,
+				$sourceField = $form.find('[name="source_codes"]'),
+				defaultsource = $sourceField.val(),
+				$genError = $form.find('.bsdcd-general_error'),
+				urlsource = gup('source')||gup('fb_ref'),
+				urlsubsource = gup('subsource'),
+				$slugField = $form.find("[name='slug']"),
+				pagetitle = document.title,
+				wait = false,
+				msg = {
+					"unknown":"We were unable to process your transaction at this time.",
+					"invalid":"Your donation was not successful. Please correct the problems marked below.",
+					"declined":"The transaction was declined. Please check that the address information is correct or else use a different card.",
+					"review":"Your transaction is under review, there is no need to resubmit at this time."
+				}, debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
 
-            };
+			//transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
 
-            processingState = function(on){
-                var i = 1,
-                    states = ['Processing','.Processing.','..Processing..','...Processing...'],
-                    ln = states.length;
-                    wait = on; //cancels any outstanding timers
-                if (on){
-                    $body.addClass('blue_contribute_processing');
-                    (function processing(){
-                        $.wait(400).then(function(){
-                            document.title = states[i % ln] + " | " +pagetitle;
-                            if (wait){
-                                i++;
-                                processing();
-                            }
-                            else {
-                                document.title = pagetitle;
-                            }
-                        });
-                    }());
-                }else {
-                    $body.removeClass('blue_contribute_processing');
-                }
-            };
+			if(urlsource || urlsubsource) {
+				if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
+				$sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
+			}
 
-            genError = function(msg){
-               $genError.text(msg).removeClass('hidden');
-            };
+			debug = function(message){
+				if(blueContribute.settings.debug){
+					if(typeof console === 'object'){
+						window.console.log(message);
+					}
+				}
+			};
 
-            defaultResponseHandler = function(data){
+			/*optional function could include additional _synchronous_ validation checks, but in the base install isn't needed*/
+			defaultBeforePost = function(){
 
-                var amt_error_only = false, i, resobj;
+				return true;
 
-                //remove all existing errors
-                if(blueContribute.latestResponseObject){
+			};
 
-                    debug('removing previous errors');
-                    debug(blueContribute.latestResponseObject.field_errors);
+			processingState = function(on){
+				var i = 1,
+					states = ['Processing','.Processing.','..Processing..','...Processing...'],
+					ln = states.length;
+					wait = on; //cancels any outstanding timers
+				if (on){
+					$body.addClass('blue_contribute_processing');
+					(function processing(){
+						$.wait(400).then(function(){
+							document.title = states[i % ln] + " | " +pagetitle;
+							if (wait){
+								i++;
+								processing();
+							}
+							else {
+								document.title = pagetitle;
+							}
+						});
+					}());
+				}else {
+					$body.removeClass('blue_contribute_processing');
+				}
+			};
 
-                    if( $.isArray(blueContribute.latestResponseObject.field_errors) ){
+			genError = function(msg){
+				$genError.text(msg).removeClass('hidden');
+			};
 
-                        if(blueContribute.latestResponseObject.field_errors.length > 0){
+			defaultResponseHandler = function(data){
 
-                            for(i = 0; i <= blueContribute.latestResponseObject.field_errors.length - 1; i++){
+				var amt_error_only = false, i, resobj;
 
-                                debug('reseting ' + blueContribute.latestResponseObject.field_errors[i].field);
+				//remove all existing errors
+				if(blueContribute.latestResponseObject){
 
-                                //wipe the error messages for each field
-                                $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').addClass('hidden');
+					debug('removing previous errors');
+					debug(blueContribute.latestResponseObject.field_errors);
 
-                                //remove the error class to the related fields
-                                $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
+					if( $.isArray(blueContribute.latestResponseObject.field_errors) ){
 
-                                //remove the general errors message
-                                $genError.text('').addClass('hidden');
+						if(blueContribute.latestResponseObject.field_errors.length > 0){
 
-                                $body.removeClass('blue_contribute_error');
+							for(i = 0; i <= blueContribute.latestResponseObject.field_errors.length - 1; i++){
 
-                            }
+								debug('reseting ' + blueContribute.latestResponseObject.field_errors[i].field);
 
-                        }
+								//wipe the error messages for each field
+								$form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').addClass('hidden');
 
-                    } else {
+								//remove the error class to the related fields
+								$form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
 
-                        debug('no field errors on the latest repsonse object');
+								//remove the general errors message
+								$genError.text('').addClass('hidden');
 
-                    }
+								$body.removeClass('blue_contribute_error');
 
-                } else {
+							}
 
-                    debug('this is the first submission');
+						}
 
-                }
+					} else {
 
-                var responseIsValidJSON = false;
+						debug('no field errors on the latest repsonse object');
 
-                if(data && !data.api_version){
-                //try to parse the response body as json, if errors occur it is most likely because the json is invalid or because html was returned instead
-                    try {
+					}
 
-                        blueContribute.latestResponseObject = jQuery.parseJSON(data.responseText)||data;
-                        responseIsValidJSON = true;
+				} else {
 
-                    } catch(err) {
+					debug('this is the first submission');
 
-                        responseIsValidJSON = false;
+				}
 
-                        debug('api response body invalid');
-                    }
-                }else{
-                    blueContribute.latestResponseObject = data;
-                    responseIsValidJSON = true;
-                }
-                resobj = blueContribute.latestResponseObject;
+				var responseIsValidJSON = false;
 
-                if(responseIsValidJSON === true && resobj){
-                    if(resobj.status && (resobj.status === "success" || resobj.status === "paypal"  ) ){
-                        //if custom success is defined, fire it with the response object
-                        if (typeof blueContribute.settings.customSuccess === 'function'){
-                            processingState(false);
-                            blueContribute.settings.customSuccess(resobj);
-                        }
-                        //if there's no debug parameter and if the site is secure, go to the redirect url
-                        else if(!gup('debug') || !nonsecure) {
-                            window.location = resobj.redirect_url;
-                        }
+				if(data && !data.api_version){
+				//try to parse the response body as json, if errors occur it is most likely because the json is invalid or because html was returned instead
+					try {
 
-                    } else {
-                        //we have some sort of failure to communicate
-                        debug('response was not a success status code');
+						blueContribute.latestResponseObject = jQuery.parseJSON(data.responseText)||data;
+						responseIsValidJSON = true;
 
-                        if(resobj.code === 'noslug'  || resobj.code === 'invalidslug'){
+					} catch(err) {
 
-                            genError(msg.unknown + ' [No slug]');
+						responseIsValidJSON = false;
 
-                        } else if(resobj.code === 'validation'){
+						debug('api response body invalid');
+					}
+				}else{
+					blueContribute.latestResponseObject = data;
+					responseIsValidJSON = true;
+				}
+				resobj = blueContribute.latestResponseObject;
 
-                            debug('validation error');
+				if(responseIsValidJSON === true && resobj){
+					if(resobj.status && (resobj.status === "success" || resobj.status === "paypal"  ) ){
+						//if custom success is defined, fire it with the response object
+						if (typeof blueContribute.settings.customSuccess === 'function'){
+							processingState(false);
+							blueContribute.settings.customSuccess(resobj);
+						}
+						//if there's no debug parameter and if the site is secure, go to the redirect url
+						else if(!gup('debug') || !nonsecure) {
+							window.location = resobj.redirect_url;
+						}
 
-                            report(
-                                ['Donate API', 'Validation Errors', blueContribute.latestResponseObject.field_errors.length],
-                                'donate_api_valiation_error'
-                            );
+					} else {
+						//we have some sort of failure to communicate
+						debug('response was not a success status code');
 
-                            if( resobj.field_errors && $.isArray(resobj.field_errors) && (resobj.field_errors.length > 0) ){
+						if(resobj.code === 'noslug'  || resobj.code === 'invalidslug'){
 
-                                    debug(resobj.field_errors);
+							genError(msg.unknown + ' [No slug]');
 
-                                    if (resobj.field_errors.length===1 && resobj.field_errors[0].field==="amount_group"){
-                                        amt_error_only = true;
-                                    }
+						} else if(resobj.code === 'validation'){
 
-                                    for(i = 0; i <= resobj.field_errors.length - 1; i++){
-                                        
-                                        //inject the error messages for each field
-                                        $form.find('.' + resobj.field_errors[i].field + '_error').text(resobj.field_errors[i].message).removeClass('hidden');
+							debug('validation error');
 
-                                        //add the error class to the related fields
-                                        $form.find('.' + resobj.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
+							report(
+								['Donate API', 'Validation Errors', blueContribute.latestResponseObject.field_errors.length],
+								'donate_api_valiation_error'
+							);
 
-                                    }
+							if( resobj.field_errors && $.isArray(resobj.field_errors) && (resobj.field_errors.length > 0) ){
 
-                                    //inject the general errors message
-                                    genError(msg.invalid);
+									debug(resobj.field_errors);
 
-                            } else {
+									if (resobj.field_errors.length===1 && resobj.field_errors[0].field==="amount_group"){
+										amt_error_only = true;
+									}
 
-                                debug('invalid field_errors property in the donate api');
-                                genError(msg.unknown +' [Invalid Validaiton Repsonse]');
+									for(i = 0; i <= resobj.field_errors.length - 1; i++){
 
-                            }
+										//inject the error messages for each field
+										$form.find('.' + resobj.field_errors[i].field + '_error').text(resobj.field_errors[i].message).removeClass('hidden');
 
-                        } else if(resobj.code === 'gateway'){
+										//add the error class to the related fields
+										$form.find('.' + resobj.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
 
-                            debug('gateway rejected the transaction');
-                            
-                            //checking for a declined card
-                            if(resobj.gateway_response && resobj.gateway_response.status === "decline"){
+									}
 
-                                genError(msg.declined);
+									//inject the general errors message
+									genError(msg.invalid);
 
-                                debug('bank declined');
+							} else {
 
-                                report(
-                                    ['Donate API', 'Gateway Error', resobj.gateway_response.status],
-                                    'donate_api_gateway_error'
-                                );
+								debug('invalid field_errors property in the donate api');
+								genError(msg.unknown +' [Invalid Validaiton Repsonse]');
 
-                            } else if ( resobj.gateway_response && resobj.gateway_response.status==="review" ){
-                                genError(msg.review +' [Gateway]');
+							}
 
-                                debug('transaction under review');
-                                report(
-                                    ['Donate API', 'Gateway Error', 'review'],
-                                    'donate_api_gateway_error'
-                                );
-                            }else {
+						} else if(resobj.code === 'gateway'){
 
-                                //blueContribute.latestResponseObject.gateway_response.status === "unkown" ||
-                                //blueContribute.latestResponseObject.gateway_response.status === "error"
-                                //not sure why this would happen
-                                genError(msg.unknown +' [Gateway]');
+							debug('gateway rejected the transaction');
 
-                                debug('unknown error gateway error');
-                                report(
-                                    ['Donate API', 'Unknown Gateway Error', 'unknown or malformed'],
-                                    'donate_api_gateway_error'
-                                );
-                            }
+							//checking for a declined card
+							if(resobj.gateway_response && resobj.gateway_response.status === "decline"){
 
-                        }else {
-                            
-                            genError(msg.unknown +' [Code: '+((resobj.code)?resobj.code:'unknown')+']');
-                            debug('truly unknown error from donate api');
-                            report(
-                                ['Donate API', 'Unknown Error', (resobj.code)?resobj.code:'unknown'],
-                                'donate_api_gateway_error'
-                            );
+								genError(msg.declined);
 
-                        }
+								debug('bank declined');
 
-                        //adjust the dom so that the user can see the errors
-                        $body.addClass('blue_contribute_error');
-                        processingState(false);
-                        locked = false;
+								report(
+									['Donate API', 'Gateway Error', resobj.gateway_response.status],
+									'donate_api_gateway_error'
+								);
 
-                        //alert others of the fail
-                        //will currently blow away QD if the amount is wrong... that's wrong, I think
-                        if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
+							} else if ( resobj.gateway_response && resobj.gateway_response.status==="review" ){
+								genError(msg.review +' [Gateway]');
 
-                        window.scrollTo(0, 0);
+								debug('transaction under review');
+								report(
+									['Donate API', 'Gateway Error', 'review'],
+									'donate_api_gateway_error'
+								);
+							}else {
 
-                    } //end else for valid error response 
+								//blueContribute.latestResponseObject.gateway_response.status === "unkown" ||
+								//blueContribute.latestResponseObject.gateway_response.status === "error"
+								//not sure why this would happen
+								genError(msg.unknown +' [Gateway]');
 
-                } else {
-                    //invalid json
-                    locked = false;
-                    //adjust the dom so that the user can see the errors
-                    $body.addClass('blue_contribute_error');  //toggle off the processing body class
-                    processingState(false);
-                    //alert others of the fail
-                    if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
-                    //to do: update dom with a general error message to indicate to the user that something is wrong
-                    debug('donate api response not parsable');
-                    genError(msg.unknown +' [API DOWN]');
-                }
+								debug('unknown error gateway error');
+								report(
+									['Donate API', 'Unknown Gateway Error', 'unknown or malformed'],
+									'donate_api_gateway_error'
+								);
+							}
 
-                //behavior that happens on success or fail
-                if( typeof blueContribute.settings.afterPost === 'function' ){
+						}else {
 
-                    blueContribute.settings.afterPost();
+							genError(msg.unknown +' [Code: '+((resobj.code)?resobj.code:'unknown')+']');
+							debug('truly unknown error from donate api');
+							report(
+								['Donate API', 'Unknown Error', (resobj.code)?resobj.code:'unknown'],
+								'donate_api_gateway_error'
+							);
 
-                }
+						}
 
-            };
-            
-            //Set the default settings
-            defaults = {
+						//adjust the dom so that the user can see the errors
+						$body.addClass('blue_contribute_error');
+						processingState(false);
+						locked = false;
 
-                debug: false,
+						//alert others of the fail
+						//will currently blow away QD if the amount is wrong... that's wrong, I think
+						if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
 
-                postTo: '/page/cde/Api/Charge/v1',
+						window.scrollTo(0, 0);
 
-                beforePost: defaultBeforePost,
+					} //end else for valid error response
 
-                responseHandler:  defaultResponseHandler,
+				} else {
+					//invalid json
+					locked = false;
+					//adjust the dom so that the user can see the errors
+					$body.addClass('blue_contribute_error');  //toggle off the processing body class
+					processingState(false);
+					//alert others of the fail
+					if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
+					//to do: update dom with a general error message to indicate to the user that something is wrong
+					debug('donate api response not parsable');
+					genError(msg.unknown +' [API DOWN]');
+				}
 
-                customSuccess: null,
+				//behavior that happens on success or fail
+				if( typeof blueContribute.settings.afterPost === 'function' ){
 
-                postdelay: 0, //artificially deplay the submission
+					blueContribute.settings.afterPost();
 
-                slug: ($form.data('slug')||'default'),
+				}
 
-                recurSlug: ($form.data('recur-slug')||false)
+			};
 
-            };
-            
-            //consolidate both user defined and default functions
-            blueContribute.settings =  $.extend(true, defaults, options);
+			//Set the default settings
+			defaults = {
 
-            //if a recurring slug exists, allow it to switch the submit slug, or else remove it for safety's sake
-            if(blueContribute.settings.recurSlug){
-                $form.on('click', "[name='recurring_acknowledge']", function(e){
+				debug: false,
 
-                    if($slugField.val() === blueContribute.settings.slug){
+				postTo: '/page/cde/Api/Charge/v1',
 
-                        $slugField.val(blueContribute.settings.recurSlug);
+				beforePost: defaultBeforePost,
 
-                    } else {
+				responseHandler:  defaultResponseHandler,
 
-                        $slugField.val(blueContribute.settings.slug);
+				customSuccess: null,
 
-                    }
-                });
-            }else{
-                $form.find("[name='recurring_acknowledge']").closest('li').remove();
-            }
+				postdelay: 0, //artificially deplay the submission
 
-            blueContribute.submitForm = function(){
+				slug: ($form.data('slug')||'default'),
 
-                debug('form submit attempt');
+				recurSlug: ($form.data('recur-slug')||false)
 
-                var beforePostReturnValue = true;
+			};
 
-                if(typeof blueContribute.settings.beforePost === 'function'){
+			//consolidate both user defined and default functions
+			blueContribute.settings =  $.extend(true, defaults, options);
 
-                    beforePostReturnValue = blueContribute.settings.beforePost();
+			//if a recurring slug exists, allow it to switch the submit slug, or else remove it for safety's sake
+			if(blueContribute.settings.recurSlug){
+				$form.on('click', "[name='recurring_acknowledge']", function(e){
+					$slugField.val(blueContribute.settings.recurSlug);
+					$form.addClass('recurring-selected').removeClass('onetime-selected');
+				});
+				$form.on('click', "[name='recurring_no-thanks']", function(e){
+					$slugField.val(blueContribute.settings.slug);
+					$form.addClass('onetime-selected').removeClass('recurring-selected');
+				});
+			} else {
+				$form.find("[name='recurring_acknowledge']").closest('li').remove();
+			}
 
-                }
+			blueContribute.submitForm = function(){
 
-                if(beforePostReturnValue && !locked){
-                    locked = true;
-                    processingState(true);
-                    /*default wait is zero, but we can optionally increase it*/
-                    $.wait(blueContribute.settings.postdelay).then(function(){
+				debug('form submit attempt');
 
-                        //send the donation api request
-                        $.ajax({
+				var beforePostReturnValue = true;
 
-                            url: blueContribute.settings.postTo,
-                            
-                            type: nonsecure?'GET':'POST',
+				if(typeof blueContribute.settings.beforePost === 'function'){
 
-                            dataType: 'json',
+					beforePostReturnValue = blueContribute.settings.beforePost();
 
-                            converters: { "text json": jQuery.parseJSON },
+				}
 
-                            timeout: 30000,
+				if(beforePostReturnValue && !locked){
+					locked = true;
+					processingState(true);
+					/*default wait is zero, but we can optionally increase it*/
+					$.wait(blueContribute.settings.postdelay).then(function(){
 
-                            data: $form.serializeObject()
+						//send the donation api request
+						$.ajax({
 
-                        }).always(defaultResponseHandler);
+							url: blueContribute.settings.postTo,
 
-                        if(nonsecure){ console.log('non-secure domain, transaction results simulated'); }
+							type: nonsecure?'GET':'POST',
 
-                    });
+							dataType: 'json',
 
-                }else {
-                    debug('double submission detected');
-                }
+							converters: { "text json": jQuery.parseJSON },
 
-            };
+							timeout: 30000,
 
-            $form.submit(function(e){
-                blueContribute.submitForm();
-                e.preventDefault();
-            });
+							data: $form.serializeObject()
 
-            //initalization function
-            if(typeof blueContribute.settings.afterInit === 'function'){
-                blueContribute.settings.afterInit();
-            }
+						}).always(defaultResponseHandler);
 
-            return this;//chainability
-        }
-            
-    });
+						if(nonsecure){ console.log('non-secure domain, transaction results simulated'); }
+
+					});
+
+				}else {
+					debug('double submission detected');
+				}
+
+			};
+
+			$form.submit(function(e){
+				blueContribute.submitForm();
+				e.preventDefault();
+			});
+
+			//initalization function
+			if(typeof blueContribute.settings.afterInit === 'function'){
+				blueContribute.settings.afterInit();
+			}
+
+			return this;//chainability
+		}
+
+	});
 
 }(jQuery));

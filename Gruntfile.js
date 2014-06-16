@@ -158,13 +158,12 @@ module.exports = function(grunt) {
                 options: {
                     style: 'compressed',
                     compass: 1,
-                    noCache: true,
-                    sourcemap: true
+                    noCache: true
                 },
                 files: [{
                     expand: true,
                     cwd: jekyll_dist + 'scss',
-                    src: '**/bsdcd-styles.scss',
+                    src: '**/bsdcd-styles*.scss',
                     dest: jekyll_dist + 'css',
                     ext: '.css'
                 }]

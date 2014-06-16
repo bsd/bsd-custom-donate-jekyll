@@ -34,7 +34,7 @@
 
 	-->
 
-	<form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.detect-cc-type %}bsd-cc-detect {%endif%}{% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer %} employer-input{%endif%}{% if page.occupation %} occupation-input {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}{if lv_sd_recurring_slug} data-recur-slug="{{page.tools-recurring-slug}}"{/if}{%endif%}>
+	<form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form onetime-selected {% if page.detect-cc-type %}bsd-cc-detect {%endif%}{% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer %}employer-input {%endif%}{% if page.occupation %}occupation-input {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}{if lv_sd_recurring_slug} data-recur-slug="{{page.tools-recurring-slug}}"{/if}{%endif%}>
 
 		<input name="quick_donate_populated" type="hidden" value="">
 		<input name="source_codes" type="hidden" value="{% if page.default-source-codes %}{{page.default-source-codes}}{%endif%}">
@@ -77,6 +77,24 @@
 						</li>
 						{%endif%}
 						{% endfor %}
+						{% if page.tools-recurring-slug %}
+						<li class="recurring-checkbox-cont form_field_cont recurring_acknowledge_related{% if page.class-on-recurring %} {{page.class-on-recurring}}{%endif%}">
+							<span class="recurring-prompt">
+								<p class="recurring_acknowledge_error hidden bsdcd-error"></p>
+								{%if page.recurring-intro%}
+									<p>{{page.recurring-intro}}</p>
+								{%endif%}
+								<label id="recurring_acknowledge-label" for="{{page.id-prefix}}recurring_acknowledge">
+									<input name="recurring_acknowledge" id="{{page.id-prefix}}recurring_acknowledge" type="checkbox" value="1">
+									<span>Yes!</span>
+								</label>
+								<label id="recurring_no-thanks-label" for="{{page.id-prefix}}recurring_no-thanks">
+									<input name="recurring_no-thanks" id="{{page.id-prefix}}recurring_no-thanks" type="checkbox" value="1">
+									<span>No, thanks.</span>
+								</label>
+							</span> <!--/.recurring-prompt-->
+						</li>
+						{%endif%}
 					</ul><!--/#amounts-->
 				</li><!--/#amount_cont-->
 				{%if page.step-one-html-after%}{{page.step-one-html-after}}{%endif%}
@@ -383,14 +401,6 @@
 					<input type="{%if page.default-country == "US" AND page.country-selection != true %}tel{%else%}text{%endif%}" class="text zip" name="honoree_zip" id="{{page.id-prefix}}_honoree_zip" maxlength="14" tabindex="34">
 				</li>
 				{%endif%}
-				{% if page.tools-recurring-slug %}
-				<li class="recurring-checkbox-cont form_field_cont recurring_acknowledge_related{% if page.class-on-recurring %} {{page.class-on-recurring}}{%endif%}">
-					<p class="recurring_acknowledge_error hidden bsdcd-error"></p>
-					<h3 class="form_section_header">{% if page.recurring-section-title %}{{page.recurring-section-title}}{%else%}Recurring Contribution <small>(Optional)</small>{%endif%}</h3>
-					{%if page.recurring-intro%}<p>{{page.recurring-intro}}</p>{%endif%}
-					<label id="recurring_acknowledge-label" for="{{page.id-prefix}}recurring_acknowledge"><input name="recurring_acknowledge" id="{{page.id-prefix}}recurring_acknowledge" type="checkbox" value="1" tabindex="35"> {%if page.recurring-label%}{{page.recurring-label}}{%else%}Make this a monthly recurring contribution{%endif%}</label>
-				</li>
-				{%endif%}
 			</ul><!--/.sequential-step-3-->
 			<li class="sequential_general_error_cont">
 				<p class="sequential_error_message bsdcd-error"></p>
@@ -410,7 +420,7 @@
 			</li>{%endif%}
 		</ul><!--/#bsd_contribute_form_fields_cont-->
 
-		<input type="hidden" name="slug" value="{{page.tools-slug}}">
+		<input type="hidden" name="slug" id="form_slug" value="{{page.tools-slug}}">
 	</form>
 	{% if page.footer-section %}
 	<footer id="main-footer">

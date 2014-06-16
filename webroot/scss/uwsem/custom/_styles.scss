@@ -540,4 +540,75 @@ body#sequential-donate {
 		display: none;
 	}
 
+
+	//
+	// New Recurring Prompt
+	//
+	.recurring-checkbox-cont {
+		display: none;
+		text-align: center;
+
+		&, * {
+			-webkit-backface-visibility: hidden;
+		}
+
+		p {
+			font-style: italic;
+			margin: 0.5em 0 0.5em;
+		}
+	}
+	#recurring_acknowledge-label,
+	#recurring_no-thanks-label {
+		color: $blue;
+		display: inline-block;
+		font-size: 20px;
+		line-height: 20px;
+		margin: 0 20px;
+		padding: 0;
+
+		span:before {
+			content: '';
+			background: lighten($gray-lighter, 8%);
+			border: 4px solid lighten($gray-lighter, 8%);
+			display: block;
+			height: 22px;
+			left: -30px;
+			position: absolute;
+			width: 22px;
+			@include border-radius(50%);
+		}
+
+		input {
+			position: absolute;
+			left: -99em;
+		}
+	}
+	.onetime-selected #recurring_no-thanks-label span:before,
+	.recurring-selected #recurring_acknowledge-label span:before {
+		background: $blue;
+	}
+	#recurring_acknowledge-label {
+
+	}
+	#recurring_no-thanks-label {
+		clear: both;
+		display: block;
+		font-size: 17px;
+		text-align: center;
+	}
+	.pre-first-click {
+		#recurring_acknowledge-label,
+		#recurring_no-thanks-label {
+			span:before {
+				display: none;
+			}
+		}
+		#recurring_acknowledge-label {
+			@extend .btn-orange;
+			@extend %btn-active;
+			margin: 0 10px;
+		}
+		#recurring_no-thanks-label {
+		}
+	}
 }

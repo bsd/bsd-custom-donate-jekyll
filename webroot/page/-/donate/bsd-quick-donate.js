@@ -538,7 +538,7 @@ var quickDonate = quickDonate || {};
 
 })(jQuery);
 /*
- * blueContribute.js 
+ * blueContribute.js
  *
  * Author: Kyle Rush
  * kylerrush@gmail.com
@@ -550,420 +550,416 @@ var blueContribute = {};
 
 (function($){
 
-    "use strict";
-
-    //function to serialize form data into an object since jQuery doesn't natively do this -- UGH
-    $.fn.serializeObject = function(){
-
-        var o = {};
-
-        var a = this.serializeArray();
-
-        $.each(a, function() {
-
-            if (o[this.name] !== undefined) {
-
-                if (!o[this.name].push) {
-
-                    o[this.name] = [o[this.name]];
+	"use strict";
+
+	//function to serialize form data into an object since jQuery doesn't natively do this -- UGH
+	$.fn.serializeObject = function(){
+
+		var o = {};
+
+		var a = this.serializeArray();
 
-                }
+		$.each(a, function() {
 
-                o[this.name].push(this.value || '');
+			if (o[this.name] !== undefined) {
 
-            } else {
+				if (!o[this.name].push) {
 
-                o[this.name] = this.value || '';
+					o[this.name] = [o[this.name]];
 
-            }
+				}
 
-        });
+				o[this.name].push(this.value || '');
 
-        return o;
-    };
+			} else {
 
-    //creat the blueContribute jQuery plugin
-    $.fn.extend({
-        
-        //pass the options variable to the function
-        blueContribute: function(options) {
+				o[this.name] = this.value || '';
 
-            var $form = $(this),
-                $body = $('body'),
-                locked = false,
-                $sourceField = $form.find('[name="source_codes"]'),
-                defaultsource = $sourceField.val(),
-                $genError = $form.find('.bsdcd-general_error'),
-                urlsource = gup('source')||gup('fb_ref'),
-                urlsubsource = gup('subsource'),
-                $slugField = $form.find("[name='slug']"),
-                pagetitle = document.title,
-                wait = false,
-                msg = {
-                    "unknown":"We were unable to process your transaction at this time.",
-                    "invalid":"Your donation was not successful. Please correct the problems marked below.",
-                    "declined":"The transaction was declined. Please check that the address information is correct or else use a different card.",
-                    "review":"Your transaction is under review, there is no need to resubmit at this time."
-                }, debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
+			}
 
-            //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
+		});
 
-            if(urlsource || urlsubsource) {
-                if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
-                $sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
-            }
+		return o;
+	};
 
-            debug = function(message){
-                if(blueContribute.settings.debug){
-                    if(typeof console === 'object'){
-                        window.console.log(message);
-                    }
-                }
-            };
+	//creat the blueContribute jQuery plugin
+	$.fn.extend({
 
-            /*optional function could include additional _synchronous_ validation checks, but in the base install isn't needed*/
-            defaultBeforePost = function(){
+		//pass the options variable to the function
+		blueContribute: function(options) {
 
-                return true;
+			var $form = $(this),
+				$body = $('body'),
+				locked = false,
+				$sourceField = $form.find('[name="source_codes"]'),
+				defaultsource = $sourceField.val(),
+				$genError = $form.find('.bsdcd-general_error'),
+				urlsource = gup('source')||gup('fb_ref'),
+				urlsubsource = gup('subsource'),
+				$slugField = $form.find("[name='slug']"),
+				pagetitle = document.title,
+				wait = false,
+				msg = {
+					"unknown":"We were unable to process your transaction at this time.",
+					"invalid":"Your donation was not successful. Please correct the problems marked below.",
+					"declined":"The transaction was declined. Please check that the address information is correct or else use a different card.",
+					"review":"Your transaction is under review, there is no need to resubmit at this time."
+				}, debug, defaultResponseHandler, defaults, defaultBeforePost, processingState, genError;
 
-            };
+			//transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
 
-            processingState = function(on){
-                var i = 1,
-                    states = ['Processing','.Processing.','..Processing..','...Processing...'],
-                    ln = states.length;
-                    wait = on; //cancels any outstanding timers
-                if (on){
-                    $body.addClass('blue_contribute_processing');
-                    (function processing(){
-                        $.wait(400).then(function(){
-                            document.title = states[i % ln] + " | " +pagetitle;
-                            if (wait){
-                                i++;
-                                processing();
-                            }
-                            else {
-                                document.title = pagetitle;
-                            }
-                        });
-                    }());
-                }else {
-                    $body.removeClass('blue_contribute_processing');
-                }
-            };
+			if(urlsource || urlsubsource) {
+				if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
+				$sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
+			}
 
-            genError = function(msg){
-               $genError.text(msg).removeClass('hidden');
-            };
+			debug = function(message){
+				if(blueContribute.settings.debug){
+					if(typeof console === 'object'){
+						window.console.log(message);
+					}
+				}
+			};
 
-            defaultResponseHandler = function(data){
+			/*optional function could include additional _synchronous_ validation checks, but in the base install isn't needed*/
+			defaultBeforePost = function(){
 
-                var amt_error_only = false, i, resobj;
+				return true;
 
-                //remove all existing errors
-                if(blueContribute.latestResponseObject){
+			};
 
-                    debug('removing previous errors');
-                    debug(blueContribute.latestResponseObject.field_errors);
+			processingState = function(on){
+				var i = 1,
+					states = ['Processing','.Processing.','..Processing..','...Processing...'],
+					ln = states.length;
+					wait = on; //cancels any outstanding timers
+				if (on){
+					$body.addClass('blue_contribute_processing');
+					(function processing(){
+						$.wait(400).then(function(){
+							document.title = states[i % ln] + " | " +pagetitle;
+							if (wait){
+								i++;
+								processing();
+							}
+							else {
+								document.title = pagetitle;
+							}
+						});
+					}());
+				}else {
+					$body.removeClass('blue_contribute_processing');
+				}
+			};
 
-                    if( $.isArray(blueContribute.latestResponseObject.field_errors) ){
+			genError = function(msg){
+				$genError.text(msg).removeClass('hidden');
+			};
 
-                        if(blueContribute.latestResponseObject.field_errors.length > 0){
+			defaultResponseHandler = function(data){
 
-                            for(i = 0; i <= blueContribute.latestResponseObject.field_errors.length - 1; i++){
+				var amt_error_only = false, i, resobj;
 
-                                debug('reseting ' + blueContribute.latestResponseObject.field_errors[i].field);
+				//remove all existing errors
+				if(blueContribute.latestResponseObject){
 
-                                //wipe the error messages for each field
-                                $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').addClass('hidden');
+					debug('removing previous errors');
+					debug(blueContribute.latestResponseObject.field_errors);
 
-                                //remove the error class to the related fields
-                                $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
+					if( $.isArray(blueContribute.latestResponseObject.field_errors) ){
 
-                                //remove the general errors message
-                                $genError.text('').addClass('hidden');
+						if(blueContribute.latestResponseObject.field_errors.length > 0){
 
-                                $body.removeClass('blue_contribute_error');
+							for(i = 0; i <= blueContribute.latestResponseObject.field_errors.length - 1; i++){
 
-                            }
+								debug('reseting ' + blueContribute.latestResponseObject.field_errors[i].field);
 
-                        }
+								//wipe the error messages for each field
+								$form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_error').text('').addClass('hidden');
 
-                    } else {
+								//remove the error class to the related fields
+								$form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
 
-                        debug('no field errors on the latest repsonse object');
+								//remove the general errors message
+								$genError.text('').addClass('hidden');
 
-                    }
+								$body.removeClass('blue_contribute_error');
 
-                } else {
+							}
 
-                    debug('this is the first submission');
+						}
 
-                }
+					} else {
 
-                var responseIsValidJSON = false;
+						debug('no field errors on the latest repsonse object');
 
-                if(data && !data.api_version){
-                //try to parse the response body as json, if errors occur it is most likely because the json is invalid or because html was returned instead
-                    try {
+					}
 
-                        blueContribute.latestResponseObject = jQuery.parseJSON(data.responseText)||data;
-                        responseIsValidJSON = true;
+				} else {
 
-                    } catch(err) {
+					debug('this is the first submission');
 
-                        responseIsValidJSON = false;
+				}
 
-                        debug('api response body invalid');
-                    }
-                }else{
-                    blueContribute.latestResponseObject = data;
-                    responseIsValidJSON = true;
-                }
-                resobj = blueContribute.latestResponseObject;
+				var responseIsValidJSON = false;
 
-                if(responseIsValidJSON === true && resobj){
-                    if(resobj.status && (resobj.status === "success" || resobj.status === "paypal"  ) ){
-                        //if custom success is defined, fire it with the response object
-                        if (typeof blueContribute.settings.customSuccess === 'function'){
-                            processingState(false);
-                            blueContribute.settings.customSuccess(resobj);
-                        }
-                        //if there's no debug parameter and if the site is secure, go to the redirect url
-                        else if(!gup('debug') || !nonsecure) {
-                            window.location = resobj.redirect_url;
-                        }
+				if(data && !data.api_version){
+				//try to parse the response body as json, if errors occur it is most likely because the json is invalid or because html was returned instead
+					try {
 
-                    } else {
-                        //we have some sort of failure to communicate
-                        debug('response was not a success status code');
+						blueContribute.latestResponseObject = jQuery.parseJSON(data.responseText)||data;
+						responseIsValidJSON = true;
 
-                        if(resobj.code === 'noslug'  || resobj.code === 'invalidslug'){
+					} catch(err) {
 
-                            genError(msg.unknown + ' [No slug]');
+						responseIsValidJSON = false;
 
-                        } else if(resobj.code === 'validation'){
+						debug('api response body invalid');
+					}
+				}else{
+					blueContribute.latestResponseObject = data;
+					responseIsValidJSON = true;
+				}
+				resobj = blueContribute.latestResponseObject;
 
-                            debug('validation error');
+				if(responseIsValidJSON === true && resobj){
+					if(resobj.status && (resobj.status === "success" || resobj.status === "paypal"  ) ){
+						//if custom success is defined, fire it with the response object
+						if (typeof blueContribute.settings.customSuccess === 'function'){
+							processingState(false);
+							blueContribute.settings.customSuccess(resobj);
+						}
+						//if there's no debug parameter and if the site is secure, go to the redirect url
+						else if(!gup('debug') || !nonsecure) {
+							window.location = resobj.redirect_url;
+						}
 
-                            report(
-                                ['Donate API', 'Validation Errors', blueContribute.latestResponseObject.field_errors.length],
-                                'donate_api_valiation_error'
-                            );
+					} else {
+						//we have some sort of failure to communicate
+						debug('response was not a success status code');
 
-                            if( resobj.field_errors && $.isArray(resobj.field_errors) && (resobj.field_errors.length > 0) ){
+						if(resobj.code === 'noslug'  || resobj.code === 'invalidslug'){
 
-                                    debug(resobj.field_errors);
+							genError(msg.unknown + ' [No slug]');
 
-                                    if (resobj.field_errors.length===1 && resobj.field_errors[0].field==="amount_group"){
-                                        amt_error_only = true;
-                                    }
+						} else if(resobj.code === 'validation'){
 
-                                    for(i = 0; i <= resobj.field_errors.length - 1; i++){
-                                        
-                                        //inject the error messages for each field
-                                        $form.find('.' + resobj.field_errors[i].field + '_error').text(resobj.field_errors[i].message).removeClass('hidden');
+							debug('validation error');
 
-                                        //add the error class to the related fields
-                                        $form.find('.' + resobj.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
+							report(
+								['Donate API', 'Validation Errors', blueContribute.latestResponseObject.field_errors.length],
+								'donate_api_valiation_error'
+							);
 
-                                    }
+							if( resobj.field_errors && $.isArray(resobj.field_errors) && (resobj.field_errors.length > 0) ){
 
-                                    //inject the general errors message
-                                    genError(msg.invalid);
+									debug(resobj.field_errors);
 
-                            } else {
+									if (resobj.field_errors.length===1 && resobj.field_errors[0].field==="amount_group"){
+										amt_error_only = true;
+									}
 
-                                debug('invalid field_errors property in the donate api');
-                                genError(msg.unknown +' [Invalid Validaiton Repsonse]');
+									for(i = 0; i <= resobj.field_errors.length - 1; i++){
 
-                            }
+										//inject the error messages for each field
+										$form.find('.' + resobj.field_errors[i].field + '_error').text(resobj.field_errors[i].message).removeClass('hidden');
 
-                        } else if(resobj.code === 'gateway'){
+										//add the error class to the related fields
+										$form.find('.' + resobj.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
 
-                            debug('gateway rejected the transaction');
-                            
-                            //checking for a declined card
-                            if(resobj.gateway_response && resobj.gateway_response.status === "decline"){
+									}
 
-                                genError(msg.declined);
+									//inject the general errors message
+									genError(msg.invalid);
 
-                                debug('bank declined');
+							} else {
 
-                                report(
-                                    ['Donate API', 'Gateway Error', resobj.gateway_response.status],
-                                    'donate_api_gateway_error'
-                                );
+								debug('invalid field_errors property in the donate api');
+								genError(msg.unknown +' [Invalid Validaiton Repsonse]');
 
-                            } else if ( resobj.gateway_response && resobj.gateway_response.status==="review" ){
-                                genError(msg.review +' [Gateway]');
+							}
 
-                                debug('transaction under review');
-                                report(
-                                    ['Donate API', 'Gateway Error', 'review'],
-                                    'donate_api_gateway_error'
-                                );
-                            }else {
+						} else if(resobj.code === 'gateway'){
 
-                                //blueContribute.latestResponseObject.gateway_response.status === "unkown" ||
-                                //blueContribute.latestResponseObject.gateway_response.status === "error"
-                                //not sure why this would happen
-                                genError(msg.unknown +' [Gateway]');
+							debug('gateway rejected the transaction');
 
-                                debug('unknown error gateway error');
-                                report(
-                                    ['Donate API', 'Unknown Gateway Error', 'unknown or malformed'],
-                                    'donate_api_gateway_error'
-                                );
-                            }
+							//checking for a declined card
+							if(resobj.gateway_response && resobj.gateway_response.status === "decline"){
 
-                        }else {
-                            
-                            genError(msg.unknown +' [Code: '+((resobj.code)?resobj.code:'unknown')+']');
-                            debug('truly unknown error from donate api');
-                            report(
-                                ['Donate API', 'Unknown Error', (resobj.code)?resobj.code:'unknown'],
-                                'donate_api_gateway_error'
-                            );
+								genError(msg.declined);
 
-                        }
+								debug('bank declined');
 
-                        //adjust the dom so that the user can see the errors
-                        $body.addClass('blue_contribute_error');
-                        processingState(false);
-                        locked = false;
+								report(
+									['Donate API', 'Gateway Error', resobj.gateway_response.status],
+									'donate_api_gateway_error'
+								);
 
-                        //alert others of the fail
-                        //will currently blow away QD if the amount is wrong... that's wrong, I think
-                        if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
+							} else if ( resobj.gateway_response && resobj.gateway_response.status==="review" ){
+								genError(msg.review +' [Gateway]');
 
-                        window.scrollTo(0, 0);
+								debug('transaction under review');
+								report(
+									['Donate API', 'Gateway Error', 'review'],
+									'donate_api_gateway_error'
+								);
+							}else {
 
-                    } //end else for valid error response 
+								//blueContribute.latestResponseObject.gateway_response.status === "unkown" ||
+								//blueContribute.latestResponseObject.gateway_response.status === "error"
+								//not sure why this would happen
+								genError(msg.unknown +' [Gateway]');
 
-                } else {
-                    //invalid json
-                    locked = false;
-                    //adjust the dom so that the user can see the errors
-                    $body.addClass('blue_contribute_error');  //toggle off the processing body class
-                    processingState(false);
-                    //alert others of the fail
-                    if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
-                    //to do: update dom with a general error message to indicate to the user that something is wrong
-                    debug('donate api response not parsable');
-                    genError(msg.unknown +' [API DOWN]');
-                }
+								debug('unknown error gateway error');
+								report(
+									['Donate API', 'Unknown Gateway Error', 'unknown or malformed'],
+									'donate_api_gateway_error'
+								);
+							}
 
-                //behavior that happens on success or fail
-                if( typeof blueContribute.settings.afterPost === 'function' ){
+						}else {
 
-                    blueContribute.settings.afterPost();
+							genError(msg.unknown +' [Code: '+((resobj.code)?resobj.code:'unknown')+']');
+							debug('truly unknown error from donate api');
+							report(
+								['Donate API', 'Unknown Error', (resobj.code)?resobj.code:'unknown'],
+								'donate_api_gateway_error'
+							);
 
-                }
+						}
 
-            };
-            
-            //Set the default settings
-            defaults = {
+						//adjust the dom so that the user can see the errors
+						$body.addClass('blue_contribute_error');
+						processingState(false);
+						locked = false;
 
-                debug: false,
+						//alert others of the fail
+						//will currently blow away QD if the amount is wrong... that's wrong, I think
+						if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
 
-                postTo: '/page/cde/Api/Charge/v1',
+						window.scrollTo(0, 0);
 
-                beforePost: defaultBeforePost,
+					} //end else for valid error response
 
-                responseHandler:  defaultResponseHandler,
+				} else {
+					//invalid json
+					locked = false;
+					//adjust the dom so that the user can see the errors
+					$body.addClass('blue_contribute_error');  //toggle off the processing body class
+					processingState(false);
+					//alert others of the fail
+					if ($.Topic) { $.Topic('bsd-validation-update').publish( false, amt_error_only ); }
+					//to do: update dom with a general error message to indicate to the user that something is wrong
+					debug('donate api response not parsable');
+					genError(msg.unknown +' [API DOWN]');
+				}
 
-                customSuccess: null,
+				//behavior that happens on success or fail
+				if( typeof blueContribute.settings.afterPost === 'function' ){
 
-                postdelay: 0, //artificially deplay the submission
+					blueContribute.settings.afterPost();
 
-                slug: ($form.data('slug')||'default'),
+				}
 
-                recurSlug: ($form.data('recur-slug')||false)
+			};
 
-            };
-            
-            //consolidate both user defined and default functions
-            blueContribute.settings =  $.extend(true, defaults, options);
+			//Set the default settings
+			defaults = {
 
-            //if a recurring slug exists, allow it to switch the submit slug, or else remove it for safety's sake
-            if(blueContribute.settings.recurSlug){
-                $form.on('click', "[name='recurring_acknowledge']", function(e){
+				debug: false,
 
-                    if($slugField.val() === blueContribute.settings.slug){
+				postTo: '/page/cde/Api/Charge/v1',
 
-                        $slugField.val(blueContribute.settings.recurSlug);
+				beforePost: defaultBeforePost,
 
-                    } else {
+				responseHandler:  defaultResponseHandler,
 
-                        $slugField.val(blueContribute.settings.slug);
+				customSuccess: null,
 
-                    }
-                });
-            }else{
-                $form.find("[name='recurring_acknowledge']").closest('li').remove();
-            }
+				postdelay: 0, //artificially deplay the submission
 
-            blueContribute.submitForm = function(){
+				slug: ($form.data('slug')||'default'),
 
-                debug('form submit attempt');
+				recurSlug: ($form.data('recur-slug')||false)
 
-                var beforePostReturnValue = true;
+			};
 
-                if(typeof blueContribute.settings.beforePost === 'function'){
+			//consolidate both user defined and default functions
+			blueContribute.settings =  $.extend(true, defaults, options);
 
-                    beforePostReturnValue = blueContribute.settings.beforePost();
+			//if a recurring slug exists, allow it to switch the submit slug, or else remove it for safety's sake
+			if(blueContribute.settings.recurSlug){
+				$form.on('click', "[name='recurring_acknowledge']", function(e){
+					$slugField.val(blueContribute.settings.recurSlug);
+					$form.addClass('recurring-selected').removeClass('onetime-selected');
+				});
+				$form.on('click', "[name='recurring_no-thanks']", function(e){
+					$slugField.val(blueContribute.settings.slug);
+					$form.addClass('onetime-selected').removeClass('recurring-selected');
+				});
+			} else {
+				$form.find("[name='recurring_acknowledge']").closest('li').remove();
+			}
 
-                }
+			blueContribute.submitForm = function(){
 
-                if(beforePostReturnValue && !locked){
-                    locked = true;
-                    processingState(true);
-                    /*default wait is zero, but we can optionally increase it*/
-                    $.wait(blueContribute.settings.postdelay).then(function(){
+				debug('form submit attempt');
 
-                        //send the donation api request
-                        $.ajax({
+				var beforePostReturnValue = true;
 
-                            url: blueContribute.settings.postTo,
-                            
-                            type: nonsecure?'GET':'POST',
+				if(typeof blueContribute.settings.beforePost === 'function'){
 
-                            dataType: 'json',
+					beforePostReturnValue = blueContribute.settings.beforePost();
 
-                            converters: { "text json": jQuery.parseJSON },
+				}
 
-                            timeout: 30000,
+				if(beforePostReturnValue && !locked){
+					locked = true;
+					processingState(true);
+					/*default wait is zero, but we can optionally increase it*/
+					$.wait(blueContribute.settings.postdelay).then(function(){
 
-                            data: $form.serializeObject()
+						//send the donation api request
+						$.ajax({
 
-                        }).always(defaultResponseHandler);
+							url: blueContribute.settings.postTo,
 
-                        if(nonsecure){ console.log('non-secure domain, transaction results simulated'); }
+							type: nonsecure?'GET':'POST',
 
-                    });
+							dataType: 'json',
 
-                }else {
-                    debug('double submission detected');
-                }
+							converters: { "text json": jQuery.parseJSON },
 
-            };
+							timeout: 30000,
 
-            $form.submit(function(e){
-                blueContribute.submitForm();
-                e.preventDefault();
-            });
+							data: $form.serializeObject()
 
-            //initalization function
-            if(typeof blueContribute.settings.afterInit === 'function'){
-                blueContribute.settings.afterInit();
-            }
+						}).always(defaultResponseHandler);
 
-            return this;//chainability
-        }
-            
-    });
+						if(nonsecure){ console.log('non-secure domain, transaction results simulated'); }
+
+					});
+
+				}else {
+					debug('double submission detected');
+				}
+
+			};
+
+			$form.submit(function(e){
+				blueContribute.submitForm();
+				e.preventDefault();
+			});
+
+			//initalization function
+			if(typeof blueContribute.settings.afterInit === 'function'){
+				blueContribute.settings.afterInit();
+			}
+
+			return this;//chainability
+		}
+
+	});
 
 }(jQuery));
 //global jQuery, dsa-controller
@@ -971,58 +967,58 @@ var blueContribute = {};
 
 (function($){
 
-    //need to decouple this first value: all this behavior should be plugin-y
-    var $body = $('.bsdcd-outer-container')||$('body'),
-        $form = $body.find('form'),
-        $presetBtns = $form.find('.preset_amount_label'),
-        $presetInputs = $form.find('.preset_amount_input'),
-        $otherAmt = $form.find('.amount_other'),
-        $otherAmtRadio = $form.find('.other_amount_radio'),
-        $country = $form.find('.country'),
-        $state_cdCont = $form.find('.state_cd_cont').eq(0),
-        $state_label = $state_cdCont.find('label'),
-        $state_cd = $state_cdCont.find('input,select').eq(0),
-        state_cd_id = $state_cd.attr('id'),
-        state_cd_tabindex = $state_cd.attr('tabindex'),
-        $zip_label = $form.find('label.zip_related'),
-        $stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
-        $stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
-        countryVal = $form.data('default-country'),
-        min = parseFloat($form.data('min-donation'))||0.01,
-        max = parseFloat($form.data('max-donation'))||Infinity,
-        symbol = $('[data-currency-symbol]').data('currency-symbol')||"$",
-        custom_amounts = gup('amounts'),
-        default_amount = gup('default_amt'),
-        skip = parseFloat(gup('skip'))||false;
+	//need to decouple this first value: all this behavior should be plugin-y
+	var $body = $('.bsdcd-outer-container')||$('body'),
+		$form = $body.find('form'),
+		$presetBtns = $form.find('.preset_amount_label'),
+		$presetInputs = $form.find('.preset_amount_input'),
+		$otherAmt = $form.find('.amount_other'),
+		$otherAmtRadio = $form.find('.other_amount_radio'),
+		$country = $form.find('.country'),
+		$state_cdCont = $form.find('.state_cd_cont').eq(0),
+		$state_label = $state_cdCont.find('label'),
+		$state_cd = $state_cdCont.find('input,select').eq(0),
+		state_cd_id = $state_cd.attr('id'),
+		state_cd_tabindex = $state_cd.attr('tabindex'),
+		$zip_label = $form.find('label.zip_related'),
+		$stateFrag = $body.find('.us-state-dropdown').eq(0).clone().val('').addClass('state_cd').attr('name','state_cd').attr('id',state_cd_id).attr('tabindex',state_cd_tabindex),
+		$stateInput = $('<input/>',{'type':'text','name':'state_cd','id':state_cd_id,'class':'text state_cd', 'tabindex':state_cd_tabindex}),
+		countryVal = $form.data('default-country'),
+		min = parseFloat($form.data('min-donation'))||0.01,
+		max = parseFloat($form.data('max-donation'))||Infinity,
+		symbol = $('[data-currency-symbol]').data('currency-symbol')||"$",
+		custom_amounts = gup('amounts'),
+		default_amount = gup('default_amt'),
+		skip = parseFloat(gup('skip'))||false;
 
 	$('.other_amount_label').hide();
 
-    $form.find('[name="http_referrer"]').val(document.referrer);
+	$form.find('[name="http_referrer"]').val(document.referrer);
 
-    if(nomin){
-        $('<input/>',{'type':'hidden','name':'nomin','value':'1'}).appendTo($form);
-        min = 0.01;
-    }
+	if(nomin){
+		$('<input/>',{'type':'hidden','name':'nomin','value':'1'}).appendTo($form);
+		min = 0.01;
+	}
 
-    //accept an 'x' separated string of amounts, validate each, and assign them to buttons 
-    function customAmounts(cas){
-        if (!cas || typeof cas !== "string"){ return false; }
-        var ca_array = cas.split('x'),
-            btn = 0;
-        if(ca_array && ca_array.length){
-            $.each(ca_array,function(i,v){
-                var amt = parseFloat(v);
-                if(amt && $presetBtns.eq(btn).length && amt>=min && amt<=max){
-                    $presetBtns.eq(btn).html(symbol+(amt.commafy()) );
-                    $presetInputs.eq(btn).val(amt);
-                    btn++;
-                }
-            });
-        }
-    }
-    //maybe make this global at some point so it can be exposed to optimizely?
-    window.BSDcustomAmounts = customAmounts;
-    customAmounts(custom_amounts);
+	//accept an 'x' separated string of amounts, validate each, and assign them to buttons
+	function customAmounts(cas){
+		if (!cas || typeof cas !== "string"){ return false; }
+		var ca_array = cas.split('x'),
+			btn = 0;
+		if(ca_array && ca_array.length){
+			$.each(ca_array,function(i,v){
+				var amt = parseFloat(v);
+				if(amt && $presetBtns.eq(btn).length && amt>=min && amt<=max){
+					$presetBtns.eq(btn).html(symbol+(amt.commafy()) );
+					$presetInputs.eq(btn).val(amt);
+					btn++;
+				}
+			});
+		}
+	}
+	//maybe make this global at some point so it can be exposed to optimizely?
+	window.BSDcustomAmounts = customAmounts;
+	customAmounts(custom_amounts);
 
 	//apply an active class to a label when amount is selected
 	$form.on('click','.preset_amount_label',function(e){
@@ -1030,71 +1026,74 @@ var blueContribute = {};
 		$presetBtns.removeClass('active');
 		$el.addClass('active');
 		$otherAmt.val('');
-        $el.prev().prop('checked', true);
+		$el.prev().prop('checked', true);
 	}).on('keydown','.amount_other',function(){
 		$presetBtns.removeClass('active');
 		$presetInputs.each(function(){
 			$(this).prop('checked',false);
 		});
-        $otherAmtRadio.prop('checked', true);
+		$otherAmtRadio.prop('checked', true);
 	});
 
-    //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
-    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
-        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
-        $body.removeClass('pre-first-click'); //default amount should expose the next button
+	//if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
+	if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
+		$presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+		$body.removeClass('pre-first-click'); //default amount should expose the next button
 
-        //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
-        if(skip && skip===1 ){
-            $.wait(3).done(function(){
-                $.Topic('change-step').publish(1);
-            });
-        }
-    }
+		//if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
+		if(skip && skip===1 ){
+			$.wait(3).done(function(){
+				$.Topic('change-step').publish(1);
+			});
+		}
+	}
 
-    //now that we've dealt with pre-clicks, lets potentially bind the click behavior to change things on the first click
-    $form.one('keydown','.amount_other',function(){
-		$body.removeClass('pre-first-click');
+	//now that we've dealt with pre-clicks, lets potentially bind the click behavior to change things on the first click
+	$form.one('keydown','.amount_other',function(){
+		$form.find('.recurring-checkbox-cont').show();
 	}).one('click','.preset_amount_label,.preset_amount_input',function(){
-		if ($('html').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
-        $body.removeClass('pre-first-click');
+		$form.find('.recurring-checkbox-cont').show();
+	});
+	$form.one('click', "[name='recurring_acknowledge'], .recurr-no-thanks", function(e) {
+		$.Topic('change-step').publish(1);
+		e.preventDefault();
 	});
 
-    //toggle honeree select areas open and toggle between memorial or not
-    $form.find('.honoree-select').on('change',function(){
-        var $el = $(this), val = $el.val();
-        $form.removeClass('honor-section memorial-section');
-        if(val==="1"){
-            $form.addClass('honor-section memorial-section');
-        }
-        else if (val==="0"){
-            $form.addClass('honor-section');
-        }
-    });
+	//toggle honeree select areas open and toggle between memorial or not
+	$form.find('.honoree-select').on('change',function(){
+		var $el = $(this), val = $el.val();
+		$form.removeClass('honor-section memorial-section');
+		if(val==="1"){
+			$form.addClass('honor-section memorial-section');
+		}
+		else if (val==="0"){
+			$form.addClass('honor-section');
+		}
+	});
 
-    //handles the simplest way to support international validation changes based on country
+	//handles the simplest way to support international validation changes based on country
 	function switchCountry(qd){
-        var val = $country.val(),
-            $oldstate = $state_cdCont.hide().find('.state_cd');
+		var val = $country.val(),
+			$oldstate = $state_cdCont.hide().find('.state_cd');
 		if(val === "US"){
-            if(!$oldstate.is('select')){
-                $oldstate.remove();
-                $state_cdCont.append($stateFrag.val(''));
-            }
-            $form.removeClass('state-text-input');
-            $state_label.html('State<span>*</span>');
-            $zip_label.html('ZIP<span>*</span>');
-            countryVal = "US";
+			if(!$oldstate.is('select')){
+				$oldstate.remove();
+				$state_cdCont.append($stateFrag.val(''));
+			}
+			$form.removeClass('state-text-input');
+			$state_label.html('State<span>*</span>');
+			$zip_label.html('ZIP<span>*</span>');
+			countryVal = "US";
 		}
 		else{
-            if($oldstate.is('select')){
-                $oldstate.remove();
-                $state_cdCont.append($stateInput.val(''));
-            }
-            $form.addClass('state-text-input');
-            $state_label.html((val==="GB")?'County<span>*</span>':'State/Region/Province<span>*</span>');
-            $zip_label.html('Postal Code<span>*</span>');
-            countryVal = (val==="GB")?'GB':'INT';
+			if($oldstate.is('select')){
+				$oldstate.remove();
+				$state_cdCont.append($stateInput.val(''));
+			}
+			$form.addClass('state-text-input');
+			$state_label.html((val==="GB")?'County<span>*</span>':'State/Region/Province<span>*</span>');
+			$zip_label.html('Postal Code<span>*</span>');
+			countryVal = (val==="GB")?'GB':'INT';
 		}
 		$state_cdCont.show();
 	}
