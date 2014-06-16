@@ -25,7 +25,17 @@
 	{% if page.sequential %}
 	<ol class="bsdcd-seq-breadcrumbs clearfix">
 		<li class="sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0" data-step="0" data-stepname="amount"><a href="#step_1"><em>Amount</em><span>1</span></a><hr></li><li class="sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1" data-step="1" data-stepname="personal_info"><a href="#step_2"><em>Name</em><span>2</span></a></li><li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2" data-step="2" data-stepname="payment_info"><a href="#step_3"><em>Payment</em><span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a></li>
-	</ol>{%endif%}<form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.detect-cc-type %}bsd-cc-detect {%endif%}{% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
+	</ol>{%endif%}
+
+	<!--
+
+	BEGIN SEQUENTIAL DONATE FORM
+	Template: includes/.sequential-donate-form.html
+
+	-->
+
+	<form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.detect-cc-type %}bsd-cc-detect {%endif%}{% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer %} employer-input{%endif%}{% if page.occupation %} occupation-input {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}{if lv_sd_recurring_slug} data-recur-slug="{{page.tools-recurring-slug}}"{/if}{%endif%}>
+
 		<input name="quick_donate_populated" type="hidden" value="">
 		<input name="source_codes" type="hidden" value="{% if page.default-source-codes %}{{page.default-source-codes}}{%endif%}">
 		{% if page.country-selection != true and page.default-country %}<input id="default_country" name="default_country" type="hidden" value="{{page.default-country}}">{%endif %}
@@ -166,14 +176,16 @@
 					<label for="{{page.id-prefix}}signup_optin" class="signup_optin_related"><input id="{{page.id-prefix}}signup_optin" name="signup_optin" type="checkbox" value="1"> Sign up for the mailing list</label>
 				</li><!--/#phone-->
 				{%endif%}
-			{% if page.employer-and-occupation %}
+			{% if page.employer %}
 				<li class="form_section_header_cont mobile-only qd_info_extra">
 					<h2 class="form_section_header employment_header">Employment</h2>
 				</li><!--/.form_section_header_cont-->
 				<li class="personalized_info employer_cont employer_related form_field_cont">
-					<label for="{{page.id-prefix}}employer" class="employer_related">Employer<span>*</span></label>
-					<input type="text" class="employer text" name="employer" id="{{page.id-prefix}}employer" tabindex="15" required="required">
+					<label for="{{page.id-prefix}}employer" class="employer_related">Employer</label>
+					<input type="text" class="employer text" name="employer" id="{{page.id-prefix}}employer" tabindex="15">
 				</li><!--/#employer_cont-->
+			{%endif%}
+			{% if page.occupation %}
 				<li class="personalized_info occupation_cont occupation_related form_field_cont">
 					<label for="{{page.id-prefix}}occupation" class="occupation_related">Occupation<span>*</span></label>
 					<input type="text" class="occupation text" name="occupation" id="{{page.id-prefix}}occupation" tabindex="16" required="required">
@@ -438,8 +450,15 @@
 </script>
 {%endif%}
 
+<!--
+
+END SEQUENTIAL DONATE FORM
+
+-->
+
 {%if page.html-below-form %}
 	{{page.html-below-form}}
 {%endif%}
+
 
 </div> <!-- /#{{page.id-prefix}}_form_container -->

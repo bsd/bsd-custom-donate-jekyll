@@ -3,11 +3,11 @@
 
 @import "core/mixins";
 
-@import "uwsem/functions";
-@import "uwsem/variables";
-@import "uwsem/buttons";
-@import "core/bsdcd-core-variables.scss";
-@import "uwsem/bsdcd-variables";
+@import "custom/functions";
+@import "custom/variables";
+@import "custom/buttons";
+@import "core/bsdcd-core-variables";
+@import "custom/bsdcd-variables";
 
 @import "core/bsdcd-core";
 @import "core/sequential-core";
@@ -18,4 +18,4 @@
 @import "plugins/floating-box/sequential";
 @import "plugins/floating-box/quick-donate";
 
-@import "uwsem/styles";
+@import "custom/styles";
