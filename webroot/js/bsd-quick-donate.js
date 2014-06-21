@@ -1004,7 +1004,7 @@ var blueContribute = {};
         min = 0.01;
     }
 
-    //accept an 'x' separated string of amounts, validate each, and assign them to buttons 
+    //accept an 'x' separated string of amounts, validate each, and assign them to buttons
     function customAmounts(cas){
         if (!cas || typeof cas !== "string"){ return false; }
         var ca_array = cas.split('x'),
@@ -1025,7 +1025,7 @@ var blueContribute = {};
     customAmounts(custom_amounts);
 
 	//apply an active class to a label when amount is selected
-	$form.on('click','.preset_amount_label',function(e){
+	$form.on('click touchstart','.preset_amount_label',function(e){
 		var $el = $(this);
 		$presetBtns.removeClass('active');
 		$el.addClass('active');

@@ -14,7 +14,7 @@ var sequential = {};
 
 	//creat the Quick Donate jQuery plugin
     $.fn.extend({
-        
+
         //pass the options variable to the function
         sequential: function(options) {
 
@@ -129,7 +129,7 @@ var sequential = {};
 
 			};
 
-			$.Topic('change-step').subscribe(sequential.utilityFunctions.goToStep); //allow other modules to change steps 
+			$.Topic('change-step').subscribe(sequential.utilityFunctions.goToStep); //allow other modules to change steps
 
             sequential.utilityFunctions.validateAmountsAndPersonal = function(){
                 return sequential.utilityFunctions.validateAmounts() && sequential.utilityFunctions.validatePersonalInfo();
@@ -520,17 +520,17 @@ var sequential = {};
 
                 employer = $form.find("[name='employer']");
 
-                if( employer.length && !employer.val() ){
+                // if( employer.length && !employer.val() ){
 
-                    numberOfInvalidFields++;
+                //     numberOfInvalidFields++;
 
-                    employer.addClass('bsdcd-error');
+                //     employer.addClass('bsdcd-error');
 
-                } else {
+                // } else {
 
-                    employer.removeClass('bsdcd-error');
+                //     employer.removeClass('bsdcd-error');
 
-                }
+                // }
 
                 occupation = $form.find("[name='occupation']");
 

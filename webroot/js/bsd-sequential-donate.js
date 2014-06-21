@@ -981,7 +981,7 @@ var sequential = {};
 
 	//creat the Quick Donate jQuery plugin
     $.fn.extend({
-        
+
         //pass the options variable to the function
         sequential: function(options) {
 
@@ -1096,7 +1096,7 @@ var sequential = {};
 
 			};
 
-			$.Topic('change-step').subscribe(sequential.utilityFunctions.goToStep); //allow other modules to change steps 
+			$.Topic('change-step').subscribe(sequential.utilityFunctions.goToStep); //allow other modules to change steps
 
             sequential.utilityFunctions.validateAmountsAndPersonal = function(){
                 return sequential.utilityFunctions.validateAmounts() && sequential.utilityFunctions.validatePersonalInfo();
@@ -1487,17 +1487,17 @@ var sequential = {};
 
                 employer = $form.find("[name='employer']");
 
-                if( employer.length && !employer.val() ){
+                // if( employer.length && !employer.val() ){
 
-                    numberOfInvalidFields++;
+                //     numberOfInvalidFields++;
 
-                    employer.addClass('bsdcd-error');
+                //     employer.addClass('bsdcd-error');
 
-                } else {
+                // } else {
 
-                    employer.removeClass('bsdcd-error');
+                //     employer.removeClass('bsdcd-error');
 
-                }
+                // }
 
                 occupation = $form.find("[name='occupation']");
 
@@ -1756,7 +1756,7 @@ window.sequential = sequential;
         min = 0.01;
     }
 
-    //accept an 'x' separated string of amounts, validate each, and assign them to buttons 
+    //accept an 'x' separated string of amounts, validate each, and assign them to buttons
     function customAmounts(cas){
         if (!cas || typeof cas !== "string"){ return false; }
         var ca_array = cas.split('x'),
@@ -1777,7 +1777,7 @@ window.sequential = sequential;
     customAmounts(custom_amounts);
 
 	//apply an active class to a label when amount is selected
-	$form.on('click','.preset_amount_label',function(e){
+	$form.on('click touchstart','.preset_amount_label',function(e){
 		var $el = $(this);
 		$presetBtns.removeClass('active');
 		$el.addClass('active');
