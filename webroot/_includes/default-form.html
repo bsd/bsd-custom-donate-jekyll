@@ -1,29 +1,77 @@
-{% if page.custom-amounts %}{% assign amounts = page.custom-amounts %}{% else %}{% assign amounts = site.amounts %}{% endif %}{% if page.include-styles-inline %}<!--[if lte IE 8]><link rel="stylesheet" href="/page/-/donate/{% if page.style %}{{page.style}}/{%endif%}bsdcd-styles-desktop.css"><![endif]-->
-<!--[if gt IE 8]><!--><link rel="stylesheet" href="/page/-/donate/{% if page.style %}{{page.style}}/{%endif%}bsdcd-styles.css"><!--<![endif]-->
-{% endif %}{% if page.include-login-inline %}
+{% if page.custom-amounts %}
+	{% assign amounts = page.custom-amounts %}
+{% else %}
+	{% assign amounts = site.amounts %}
+{% endif %}
+
+{% if page.include-styles-inline %}
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="/page/-/donate/{% if page.style %}{{page.style}}/{%endif%}bsdcd-styles-desktop.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<link rel="stylesheet" href="/page/-/donate/{% if page.style %}{{page.style}}/{%endif%}bsdcd-styles.css">
+<!--<![endif]-->
+{% endif %}
+
+{% if page.include-login-inline %}
 <div class="qd-login-links-section">
 	<a href="#login" class="qd-log-in-link">Use my saved payment information</a>
 	<a href="#logout" class="qd-log-out-link">Log Out</a>
 </div>
 {% endif %}
+
 <div id="{{page.id-prefix}}_form_container" class="bsdcd-outer-container clearfix {{page.extra-classes-on-outer-container}} {%if page.show-first-next-button != "true" %}pre-first-click{%endif%}{% if page.sequential %} sequential sequential_step_0{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.currency-symbol}}">
+
 	{% if page.header-section %}
-	{%if page.html-above-header %}{{page.html-above-header}}{%endif%}
-	<div class="bsdcd-top-section base">{% if page.above-header-html %}{{page.above-header-html}}{%else%}{% if page.title %}<h1>{{page.title}}</h1>{%endif%}
-	{% if page.subtitle %}<h2>{{page.subtitle}}</h2>{%endif%}{%endif%}
-	</div>
+
+		{%if page.html-above-header %}
+			{{page.html-above-header}}
+		{%endif%}
+
+		<div class="bsdcd-top-section base">
+			{% if page.above-header-html %}
+				{{page.above-header-html}}
+			{%else%}
+				{% if page.title %}<h1>{{page.title}}</h1>{%endif%}
+				{% if page.subtitle %}<h2>{{page.subtitle}}</h2>{%endif%}
+			{%endif%}
+		</div>
+
 	{%endif%}
+
 	{% if page.sequential %}
 	<ol class="bsdcd-seq-breadcrumbs clearfix">
-		<li class="sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0" data-step="0" data-stepname="amount"><a href="#step_1">Amount<span>1</span></a><hr></li><li class="sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1" data-step="1" data-stepname="personal_info"><a href="#step_2">Name<span>2</span></a></li><li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2" data-step="2" data-stepname="payment_info"><a href="#step_3">Payment<span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a></li>
-	</ol>{%endif%}<form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.detect-cc-type %}bsd-cc-detect {%endif%}{% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
+		<li class="sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0" data-step="0" data-stepname="amount">
+			<a href="#step_1">Amount<span>1</span></a>
+			<hr>
+		</li>
+		<li class="sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1" data-step="1" data-stepname="personal_info">
+			<a href="#step_2">Name<span>2</span></a></li>
+		<li class="sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2" data-step="2" data-stepname="payment_info">
+			<a href="#step_3">Payment<span class="qd-pay-step-num">2</span><span class="no-qd-pay-step-num">3</span></a>
+		</li>
+	</ol>
+	{%endif%}
+
+	<form action="/page/cde/Contribution/Charge" method="POST" novalidate="novalidate" id="bsd_contribute_form" class="clearfix bsdcd-form {% if page.detect-cc-type %}bsd-cc-detect {%endif%}{% if page.tools-recurring-slug %}recurring-checkbox-field {%endif%}{% if page.employer-and-occupation %}employer-and-occupation-inputs {%endif%}{% if page.country-selection %}country-selection {%endif%}{% if page.require-cvv %}cvv-input {%endif%}{% if page.default-country != "US" %}state-text-input{%endif%}" data-require-cvv="{% if page.require-cvv %}true{%else%}false{%endif%}" {% if page.optional-phone %}data-optional-phone="true"{%endif%} data-require-country="{% if page.require-country and page.country-selection %}true{%else%}false{%endif%}" data-min-donation="{{page.min-donation}}" data-max-donation="{{page.max-donation}}" data-slug="{{page.tools-slug}}" {% if page.tools-recurring-slug %}data-recur-slug="{{page.tools-recurring-slug}}"{%endif%}>
+
 		<input name="quick_donate_populated" type="hidden" value="">
 		<input name="source_codes" type="hidden" value="{% if page.default-source-codes %}{{page.default-source-codes}}{%endif%}">
-		{% if page.country-selection != true and page.default-country %}<input id="default_country" name="default_country" type="hidden" value="{{page.default-country}}">{%endif %}
-		{% if page.no_minimum == true %}<input name="nomin" type="hidden" value="1">{%endif%}
+
+		{% if page.country-selection != true and page.default-country %}
+			<input id="default_country" name="default_country" type="hidden" value="{{page.default-country}}">
+		{%endif %}
+
+		{% if page.no_minimum == true %}
+			<input name="nomin" type="hidden" value="1">
+		{%endif%}
+
 		<input name="http_referer" type="hidden" value="">
+
 		<ul class="bsd_contribute_form_fields_cont clearfix">
 			<p class="bsdcd-general_error bsdcd-error"></p>
+
+			<!-- Quick Donate -->
 			<p class="qd_loading_spinner">Loading...</p>
 			<ul class="qd_info_section">
 				<li class="qd_info qd-personal-info">
@@ -38,15 +86,23 @@
 					<p class="qd-options"><a href="#" class="qd_clear_info">Use different info</a> &nbsp;&nbsp;&nbsp; <a href="/ctl/Contribution/Quick/Manage" class="qd_manage_account" target="_blank">Manage your account</a></p>
 				</li>
 			</ul>
+
+			<!--
+
+			STEP ONE
+
+			-->
 			<ul class="sequential_step step_1 active clearfix">
+
 				<li class="section_header_cont mobile-only amount_group_related" id="select_amount_header">
 					<h2 class="form_section_header amount_header">Select an amount</h2>
 				</li><!--/.form_section_header_cont-->
+
 				<li class="amount_group_related amounts_cont">
 					<p class="amount_group_error hidden bsdcd-error"></p>
 					<input type="radio" name="amount" value="other" class="other_amount_radio" checked>
 					<ul class="amounts">
-						{% for amt in amounts %}
+					{% for amt in amounts %}
 						<li class="amount_cont amount_cont_{{ forloop.index }} {% cycle 'odd', 'even' %} {% if forloop.first %}first fis{%endif%}">
 							<input type="radio" class="radio preset_amount_input amount_{{amt}}" name="amount" value="{{amt}}" tabindex="1" id="{{page.id-prefix}}amount_{{amt}}" autocomplete="off">
 							<label for="{{page.id-prefix}}amount_{{amt}}" class="preset_amount_label">{{page.currency-symbol}}{{ amt | commafy }}</label>
@@ -57,41 +113,40 @@
 							<input type="tel" class="text other_amount_input amount_other" name="amount_other" id="{{page.id-prefix}}amount_other" placeholder="Other amount" tabindex="2" autocomplete="off">
 						</li>
 						{%endif%}
-						{% endfor %}
+					{% endfor %}
 					</ul><!--/#amounts-->
 				</li><!--/#amount_cont-->
-				{%if page.step-one-html-after%}{{page.step-one-html-after}}{%endif%}
+				{%if page.step-one-html-after%}
+					{{page.step-one-html-after}}
+				{%endif%}
 			</ul>
+
+			<!--
+
+			STEP TWO
+
+			-->
 			<ul class="sequential_step step_2 clearfix inactive{% if page.extended-name-fields %} extended-name-fields{%endif%}">
 				<li class="contributor_header_cont form_section_header_cont mobile-only firstname_related lastname_related qd_info_extra">
 					<h2 class="form_section_header contributor_header">Contributor</h2>
 				</li><!--/#form_section_header_cont-->
+
 				{% if page.name-prefix %}
 				<li class="personalized_info full_dropdown_cont prefix_cont prefix_related form_field_cont">
 					<p class="prefix_error hidden bsdcd-error"></p>
 					<label for="{{page.id-prefix}}prefix" class="prefix_related">Prefix</label>
 					<select id="{{page.id-prefix}}prefix" name="prefix" tabindex="3" class="name-prefix" >
-						<option value=""></option>
-						<option value="Baron">Baron</option>
-						<option value="Bro.">Bro.</option>
-						<option value="Dr.">Dr.</option>
-						<option value="Hon.">Hon.</option>
-						<option value="Judge">Judge</option>
-						<option value="Miss">Miss</option>
-						<option value="Mr.">Mr.</option>
-						<option value="Mrs.">Mrs.</option>
-						<option value="Ms.">Ms.</option>
-						<option value="Prof.">Prof.</option>
-						<option value="Rabbi">Rabbi</option>
-						<option value="Rev.">Rev.</option>
+						{% include form-fields/name-prefix-options.html %}
 					</select>
 				</li><!--/#prefix_cont-->
 				{%endif%}
+
 				<li class="personalized_info firstname_cont firstname_related form_field_cont">
 					<p class="firstname_error hidden bsdcd-error"></p>
 					<label for="{{page.id-prefix}}firstname" class="firstname_related">First name<span>*</span></label>
 					<input type="text" class="text firstname" name="firstname" id="{{page.id-prefix}}firstname" tabindex="4" required="required">
 				</li><!--/#firstname_cont-->
+
 				{% if page.name-middle %}
 				<li class="personalized_info middlename_cont middlename_related form_field_cont">
 					<p class="middlename_error hidden bsdcd-error"></p>
@@ -99,11 +154,13 @@
 					<input type="text" class="text" name="middlename" id="{{page.id-prefix}}middlename" tabindex="5">
 				</li><!--/#middle_cont-->
 				{%endif%}
+
 				<li class="personalized_info lastname_cont lastname_related form_field_cont">
 					<p class="lastname_error hidden bsdcd-error"></p>
 					<label for="{{page.id-prefix}}lastname" class="lastname_related">Last name<span>*</span></label>
 					<input type="text" class="text" name="lastname" id="{{page.id-prefix}}lastname" tabindex="6" required="required">
 				</li><!--/#lastname_cont-->
+
 				{% if page.name-suffix %}
 				<li class="personalized_info suffix_cont suffix_related form_field_cont">
 					<p class="suffix_error hidden bsdcd-error"></p>
@@ -111,6 +168,7 @@
 					<input type="text" class="text" name="suffix" id="{{page.id-prefix}}suffix" tabindex="7">
 				</li><!--/#firstname_cont-->
 				{%endif%}
+
 				{% if page.country-selection %}
 				<li class="personalized_info country_cont form_field_cont full_dropdown_cont country_related">
 					<p class="country_error hidden bsdcd-error"></p>
@@ -120,11 +178,13 @@
 					</select>
 				</li>
 				{%endif%}
+
 				<li class="personalized_info addr1_cont addr1_related form_field_cont">
 					<p class="addr1_error hidden bsdcd-error"></p>
 					<label for="{{page.id-prefix}}addr1" class="addr1_related">Address<span>*</span></label>
 					<input type="text" class="text addr1" name="addr1" id="{{page.id-prefix}}addr1" tabindex="9" required="required">
 				</li><!--/#addr1_cont-->
+
 				<li class="personalized_info city_cont city_related form_field_cont">
 					<p class="city_error hidden bsdcd-error"></p>
 					<label for="{{page.id-prefix}}city" class="city_related">City<span>*</span></label>
@@ -133,33 +193,40 @@
 
 				<li class="personalized_info state_cd_cont state_cd_related form_field_cont">
 					<p class="state_cd_error hidden bsdcd-error"></p>
-					<label for="{{page.id-prefix}}state_cd" class="state_cd_related">{%if page.default-country =="US" %}State<span>*</span>{% elsif page.default-country =="GB"%}County<span>*</span>{%else%}*State/Region/Province<span>*</span>{%endif%}</label>
-
+					<label for="{{page.id-prefix}}state_cd" class="state_cd_related">
+						{%if page.default-country =="US" %}
+							State<span>*</span>
+						{% elsif page.default-country =="GB"%}
+							County<span>*</span>
+						{%else%}
+							*State/Region/Province<span>*</span>
+						{%endif%}
+					</label>
 					{%if page.default-country !="US" %}
-
-					<input type="text" class="text state_cd" id="{{page.id-prefix}}state_cd" name="state_cd" tabindex="11" required="required">
-
+						<input type="text" class="text state_cd" id="{{page.id-prefix}}state_cd" name="state_cd" tabindex="11" required="required">
 					{%elsif page.default-country =="US"%}
-
-					<select name="state_cd" id="{{page.id-prefix}}state_cd" class="state_cd us-state-dropdown" tabindex="11" required="required">
-						{% include form-fields/state-options.html %}
-					</select>
-
+						<select name="state_cd" id="{{page.id-prefix}}state_cd" class="state_cd us-state-dropdown" tabindex="11" required="required">
+							{% include form-fields/state-options.html %}
+						</select>
 					{%endif%}
 				</li><!--/#state_cd-cont-->
+
 				<li class="personalized_info zip_cont zip_related form_field_cont">
 					<p class="zip_error hidden bsdcd-error"></p>
 					<label for="{{page.id-prefix}}zip" class="zip_related">{%if page.default-country == "US" %}ZIP{%else%}Postal Code{%endif%}<span>*</span></label>
 					<input type="{%if page.default-country == "US" and page.country-selection != true %}tel{%else%}text{%endif%}" class="zip text" name="zip" id="{{page.id-prefix}}zip" maxlength="14" tabindex="12" required="required">
 				</li><!--/#zip-cont-->
+
 				<li class="personalized_info email_cont email_related form_field_cont">
 					<p class="email_error hidden bsdcd-error"></p>
 					<label for="{{page.id-prefix}}email" class="email_related">Email<span>*</span></label>
 					<input type="email" class="email text" name="email" maxlength="256" id="{{page.id-prefix}}email" tabindex="13" required="required">
 				</li><!--/#email-->
+
 				<li class="personalized_info phone_cont phone_related form_field_cont">
 					<p class="phone_error hidden bsdcd-error"></p>
-					<label for="{{page.id-prefix}}phone" class="phone_related">Phone{% if page.optional-phone %}{%else%}<span>*</span>{%endif%}</label>
+					<label for="{{page.id-prefix}}phone" class="phone_related">
+						Phone{% if page.optional-phone %}{%else%}<span>*</span>{%endif%}</label>
 					<input type="tel" class="phone text" name="phone" id="{{page.id-prefix}}phone" tabindex="14" required="required">
 				</li><!--/#phone-->
 				{% if page.signup_optin %}
