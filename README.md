@@ -8,7 +8,7 @@ When run locally, the jekyll server can simulate API calls and logins so that yo
 
 ##Local Dev Requirements:
 
-* Ruby, latest version of Jekyll (~v1.4.2): http://jekyllrb.com/
+* Ruby, latest version of Jekyll (~v2.0.3): http://jekyllrb.com/
 * Node, Grunt, & NPM: http://gruntjs.com/getting-started
 
 ##Wrapper/Site Requirements
