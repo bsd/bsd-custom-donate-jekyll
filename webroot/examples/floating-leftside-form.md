@@ -80,7 +80,7 @@ above-header-html: #override the entire top section and use your own arbitrary h
 
 ##footer section
 footer-section: false #include a simple footer section directly after the main form
-privacy-policy-link: /page/terms-of-service # 
+privacy-policy-link: /page/terms-of-service #
 terms-of-service-link: /page/privacy-policy #
 copyright-start-year: 2007
 
@@ -97,7 +97,7 @@ debug: true #prints more console messages
 
 cc-detect: true #automatically pick credit card based on number, and show cc images using the CC-detect plugin
 show-first-next-button: false #set to true if you don't want to intially hide the next button for the amount step
-id-prefix: cd_ #id prefix used in order to reduce collision with other elements on a page 
+id-prefix: cd_ #id prefix used in order to reduce collision with other elements on a page
 include-styles-inline: false #if true, will include the css link blocks above the form
 include-login-inline: false #if true, will include the login section above the form
 include-jquery: true #include a jquery, in case your wrapper hasn't called one yet. false if your wrapper already has one in the head
