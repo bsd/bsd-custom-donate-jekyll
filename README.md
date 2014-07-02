@@ -16,19 +16,28 @@ When run locally, the jekyll server can simulate API calls and logins so that yo
 * a jQuery version of at least 1.8.2
 * Your site MUST implement the .js/.no-js html class method in some fashion. Otherwise, there's no easy way to toggle javascript-only behaviors off when javascript is disabled.  That means that your html tag must include a class of no-js
 
-    `
-        <html class="no-js">
-    `
+```html
+<html class="no-js">
+```
+
 * If you're not using [Modernizr](http://modernizr.com/), you must include this script to toggle that class from no-js to js
 
-    `
-        <script>(function(dc){ dc.className = dc.className.replace("no-js","js"); }(document.documentElement));</script>
-    `
+```html
+<script>
+	(function(dc){
+		dc.className = dc.className.replace("no-js","js");
+	}(document.documentElement));
+</script>
+```
+
 * for IE9 and below, you'll want to make sure your site implements the placeholder polyfill in some fashion.  There's a copy in /js/polyfills/jquery.placeholder.js that can be used like this:
 
-    `
-        <!--[if lte IE 9]><script src="/page/-/donate/jquery.placeholder.js"></script><script>jQuery('input, textarea').placeholder();</script><![endif]-->
-    `
+```html
+<!--[if lte IE 9]>
+	<script src="/page/-/donate/jquery.placeholder.js"></script>
+	<script>jQuery('input, textarea').placeholder();</script>
+<![endif]-->
+```
 
 While not stricly necessary, we recommend using Modernizr and, in particular, the box-sizing custom detect.
 
@@ -41,11 +50,11 @@ Create complete wrappers/styled themes here in the Jekyll tool and then compile/
 
 1. Compile the javascript and Sass assets, start a jekyll server, and start a watch task which will recompile when source files change
 
-    `grunt`
+	`grunt`
 
 1. Get a list of all available tasks
 
-    `grunt -help`
+	`grunt -help`
 
 
 ##Setup:
@@ -82,13 +91,13 @@ No: then you probably have to host the custom form in the Simple Pages module on
 At this point, you should have basically two steps to get things working (this will change, as we'll want to separate core stuff from client custom stuff)
 
 1. Upload items from the /donate/ folder in /page/-/ from jekyll to a folder /donate on your client's server.
-    * you actually only need these files to be present in the tools:
-        - /page/-/donate/sequential-donate.js or /page/-/donate/donate-api-only.js (depending on whether or not you're using sequential donation)
-        - /page/-/donate/[-your-custom-style]/bsdcd-styles.css
-        - /page/-/donate/[-your-custom-style]/bsdcd-styles-desktop.css
-        - /page/-/donate/Credit_Card_Icons_m.png
-        - /page/-/donate/Credit_Card_Icons_m.svg
-        - /page/-/donate/ajax-loader.gif
+	* you actually only need these files to be present in the tools:
+		- /page/-/donate/sequential-donate.js or /page/-/donate/donate-api-only.js (depending on whether or not you're using sequential donation)
+		- /page/-/donate/[-your-custom-style]/bsdcd-styles.css
+		- /page/-/donate/[-your-custom-style]/bsdcd-styles-desktop.css
+		- /page/-/donate/Credit_Card_Icons_m.png
+		- /page/-/donate/Credit_Card_Icons_m.svg
+		- /page/-/donate/ajax-loader.gif
 2. Put the form markup on EE or Simple Pages, inside some appropriate wrapper.  If you want jekyll to just output the inner markup, instead of any test wrapper you used locally, set the layout option to form-only and copy the source of the result.  Make sure to figure out whether you want it to simply print out the CSS links and/or login markup above the form, or whether you are going to put those elsewhere in your real, production wrapper. You can turn both off in the config (you can also turn them off to stick them elsewhere in your test layout wrapper if you have one, to more closely match production, where you'll definitely want the css loaded in the head section).
 3. If your site is not responsive, just link to the desktop stylesheet and ignore the main one.  Or, leave everything in place and set the sequential/form breakpoints to like 2px or something to basically disable responsive styles
 
@@ -97,8 +106,8 @@ Now test!
 ##Things you'll WANT to test
 
 1. Overriden styles: there's a trade-off in making bsdcd styles simpler/faster: existing client styles may override the core, breaking the plug-n-play nature of structure/look. However, there are a couple of very common culprits if things look wrong:
-    * special padding and margins on ul/ol/li elements (often caused by over-specific rules).
-    * .base or #framework classes in the wrapper triggering a bunch of complex tools styles (just remove those from the wrapper in most cases)
+	* special padding and margins on ul/ol/li elements (often caused by over-specific rules).
+	* .base or #framework classes in the wrapper triggering a bunch of complex tools styles (just remove those from the wrapper in most cases)
 2. Do you have some means of getting the CSS in the <head>?  If not, the styles may flash on first load. A custom tools wrapper may be in order, or an includes/header.html conditinal that can call the styles as needed.
 3. Does the background image work at all browser sizes above tablet?  This can take some serious playing around with the code in bsdcd-backgrounds, as it really depends on what the image is, and what part of it you want to keep in view as the page scales, all without exposing the edges of the image.
 
