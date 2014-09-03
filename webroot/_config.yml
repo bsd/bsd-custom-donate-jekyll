@@ -1,5 +1,5 @@
 name: Donate
-pygments: true
+highlighter: rouge
 relative_permalinks: true
 
 permalink: /:year/:title.html
