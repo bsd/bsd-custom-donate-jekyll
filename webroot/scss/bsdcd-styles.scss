@@ -1,0 +1,18 @@
+@import '_core/bsdcd-core-variables.scss';
+@import 'variables.scss';
+@import '_core/mixins.scss';
+@import '_core/utility.scss';
+
+@import '_core/boilerplate.scss';
+
+@import '_core/bsdcd-core.scss';
+@import '_core/sequential-core.scss';
+@import '_core/quick-donate-core.scss';
+@import '_core/cc-detect-core.scss';
+
+/*floating box style*/
+@import '_plugins/_floating-box/bsdcd-core.scss';
+@import '_plugins/_floating-box/sequential.scss';
+@import '_plugins/_floating-box/quick-donate.scss';
+
+@import 'custom-bsdcd-styles.scss';
