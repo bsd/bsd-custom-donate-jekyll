@@ -3,7 +3,7 @@
 
   Authors:  Kyle Rush, kylerrush@gmail.com
             Drew Tipson dtipson@bluestatedigital.com
-  
+
 */
 
 
@@ -67,45 +67,45 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
             display:inline;
         }
     }
-    input.text, textarea {
-        font-size: $input-mobile-font-size;
-        background: $form-field-bg-color;
-        border: 1px solid #DEDEDE;
-        border-radius: 3px;
-        line-height: $input-height;
-        width: 100%;
-        padding: $input-vertical-padding $input-side-padding;
-        -webkit-box-shadow: $core-box-shadow;
-        box-shadow: $core-box-shadow; 
-        &:focus{
-            background: $form-field-focus-bg-color;
-        }
-    }
-    input.text{
-        height: $input-height;
-        padding: $input-vertical-padding $input-side-padding;
-    }
-    select {
-        font-size: $input-font-size;
-        border-color: #ebebeb;
-        padding: $input-vertical-padding $input-side-padding;
-        vertical-align: top;
-        line-height: $input-height;
-        height: $input-height + 4px;
-        border-radius: 3px;
-        background: $form-field-bg-color;
-        border: 1px solid #DEDEDE;
-        -webkit-box-shadow: $core-box-shadow;
-        box-shadow: $core-box-shadow;
-        @include border-box(); //so, odd thing: IE7 doesn't support this, but acts like it does by default anyhow
-        width: 100%;
-        .no-boxsizing &{
-            width: 95%;
-        }
-        .ie7 &{
-            width:100%; //ie7 should keep the 100% rule even though it doesn't "support" border-box
-        }
-    }
+    // input.text, textarea {
+    //     font-size: $input-mobile-font-size;
+    //     background: $form-field-bg-color;
+    //     border: 1px solid #DEDEDE;
+    //     border-radius: 3px;
+    //     line-height: $input-height;
+    //     width: 100%;
+    //     padding: $input-vertical-padding $input-side-padding;
+    //     -webkit-box-shadow: $core-box-shadow;
+    //     box-shadow: $core-box-shadow;
+    //     &:focus{
+    //         background: $form-field-focus-bg-color;
+    //     }
+    // }
+    // input.text{
+    //     height: $input-height;
+    //     padding: $input-vertical-padding $input-side-padding;
+    // }
+    // select {
+    //     font-size: $input-font-size;
+    //     border-color: #ebebeb;
+    //     padding: $input-vertical-padding $input-side-padding;
+    //     vertical-align: top;
+    //     line-height: $input-height;
+    //     height: $input-height + 4px;
+    //     border-radius: 3px;
+    //     background: $form-field-bg-color;
+    //     border: 1px solid #DEDEDE;
+    //     -webkit-box-shadow: $core-box-shadow;
+    //     box-shadow: $core-box-shadow;
+    //     @include border-box(); //so, odd thing: IE7 doesn't support this, but acts like it does by default anyhow
+    //     width: 100%;
+    //     .no-boxsizing &{
+    //         width: 95%;
+    //     }
+    //     .ie7 &{
+    //         width:100%; //ie7 should keep the 100% rule even though it doesn't "support" border-box
+    //     }
+    // }
     .form_field_cont{
         padding-right: $container-right-padding;
     }
