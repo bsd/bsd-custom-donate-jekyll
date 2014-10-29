@@ -1,10 +1,4 @@
----
-
-permalink: /GetToken
-succeed: true
-
----
-{%if page.succeed %}{
+{
     "version":"0.1.2",
     "enabled":true,
     "cons_id":"111111",
@@ -30,15 +24,4 @@ succeed: true
     "token_expires":2381352406,
     "expired":false,
     "hpc":0.44
-}{% else %}{
-    "version":"0.1.2",
-    "enabled":false,
-    "cons_id":null,
-    "token":null,
-    "token_info":[
-        
-    ],
-    "token_expires":0,
-    "expired":null,
-    "hpc":0
-}{% endif %}
+}

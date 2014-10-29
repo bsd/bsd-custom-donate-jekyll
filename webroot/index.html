@@ -1,5 +1,4 @@
 ---
-
 client: Children's Hospital of Philadelphia
 
 ## Meta Information
@@ -22,7 +21,7 @@ style: floating-leftside-form #default/form-only/or the slug of your custom styl
 # Core Feature Options
 #############################
 sequential: true
-quick-donate: true
+quick-donate: false
 detect-cc-type: true
 
 
@@ -111,5 +110,14 @@ content-after-button-html: #arbitrary html included after the buttons, potential
 #add a custom success function that's called when a user successfully donates instead of the standard redirect method. resobj is the objection containing information about the successful donation as outlined in the example success response in the BSD donate api docs
 custom-success: # something like function(resobj){ window.succeed(resobj); }
 
+
+##########
+# Fund Designations
+#####################
+fund-designation-options:
+  - designation: Greatest Need
+  - designation: Patient Care
+  - designation: Research
+  - designation: Buerger Center
 
 ---

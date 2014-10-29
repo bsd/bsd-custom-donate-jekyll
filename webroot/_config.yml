@@ -4,7 +4,9 @@ highlighter: true
 
 permalink: /:year/:title.html
 
-include: [".htaccess","ctl"]
+include: [".htaccess"]
+
+exclude: ["ctl","page"]
 
 #defaults for donate pages
 default-currency-symbol: "$"

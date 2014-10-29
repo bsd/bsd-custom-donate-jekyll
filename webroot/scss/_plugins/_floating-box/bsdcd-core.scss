@@ -23,8 +23,8 @@
 $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 /*limitation of current styles, should retest and refix */
-.bsdcd-outer-container *{
-    box-sizing:content-box;
+.bsdcd-outer-container * {
+    box-sizing: content-box;
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box;
 }
@@ -164,9 +164,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
     .form_section_header{
         margin:10px 0;
     }
-    .bsdcd-top-section{
-        padding:10px 0;
-    }
 }
 
 /*should be >tablet only?*/
@@ -261,11 +258,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         width: $section-total-width;
         background: none;
 
-        .bsdcd-top-section {
-            width: $section-total-width - ($section-inner-side-padding * 2);
-            padding: 10px $section-inner-side-padding;
-            border-bottom: 1px solid #d8d8d8;
-        }
         .bsdcd-form {
             width: $section-total-width - ( $section-inner-side-padding * 2 );
             padding: $section-inner-side-padding;

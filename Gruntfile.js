@@ -176,7 +176,8 @@ module.exports = function(grunt) {
             site: {
                 files: [jekyll_dist +'**/*.html', jekyll_dist +'**/*.md', "!"+jekyll_dist +'_site/**/*'],
                 tasks: [
-                    'exec:jbuild'
+                    'exec:jbuild',
+                    'copy:bsdcd'
                 ]
             },
             js: {
@@ -282,6 +283,22 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            bsdcd: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: jekyll_dist + 'ctl/',
+                        dest: jekyll_dist + '_site/ctl',
+                        src: '**/*'
+                    },
+                    {
+                        expand: true,
+                        cwd: jekyll_dist + 'page/',
+                        dest: jekyll_dist + '_site/page',
+                        src: '**/*'
+                    }
+                ]
+            },
             readme: {
                 options: {
                   process: function (content, srcpath) {
@@ -369,6 +386,7 @@ module.exports = function(grunt) {
             //'copy:readme',
             'exec:jserve',
             'watchmsg',
+            'copy:bsdcd',
             'watch'
         ]);
     });

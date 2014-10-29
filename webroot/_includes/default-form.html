@@ -60,6 +60,15 @@
                         {% endfor %}
                     </ul><!--/#amounts-->
                 </li><!--/#amount_cont-->
+                <li class="bsdcd__sd-fund-designation">
+                    <h3>Fund Designation</h3>
+                    <select id="re_funds" size="1" name="re_funds">
+                        <option value="">Please Choose</option>
+                        {% for opt in page.fund-designation-options %}
+                        <option value="{{ opt.designation }}">{{ opt.designation }}</option>
+                        {% endfor %}
+                    </select>
+                </li>
                 {%if page.step-one-html-after%}{{page.step-one-html-after}}{%endif%}
             </ul>
             <ul class="sequential_step step_2 clearfix inactive{% if page.extended-name-fields %} extended-name-fields{%endif%}">
@@ -415,7 +424,7 @@
             $topNode.detectCCType();
 {%endif%}
 {% if page.quick-donate %}
-            $topNode.quickDonate({ 
+            $topNode.quickDonate({
                 {% if page.debug %}debug: true{% endif %}
             });
 {%endif%}

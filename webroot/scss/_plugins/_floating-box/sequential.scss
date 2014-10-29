@@ -9,15 +9,16 @@
           overflow: hidden;
         }
         .bsdcd-seq-breadcrumbs {
-            width: $section-total-width - (10 * 2);
+            width: 100%;
             overflow:hidden;
             padding: 20px 10px 28px;
             margin: 0;
             border-bottom: 1px solid #000;
             font-size: 13px;
-            border-bottom: 1px solid #d8d8d8;
-            background: $step-container-bg-color;
+            border-bottom: 1px solid #d6dfe3;
+            background: #e6ebed;
             text-align:center;
+
             li {
                 @include inline-block();
                 vertical-align:middle;
