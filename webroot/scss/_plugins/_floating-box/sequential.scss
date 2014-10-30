@@ -21,15 +21,19 @@
 
             li {
                 @include inline-block();
+                font-family: $serif;
                 vertical-align:middle;
                 width: 110px;
                 list-style-type:none;
                 position: relative;
+
                 a {
                     text-decoration: none;
                     font-weight: bold;
                     cursor: default;
                     color: #b8b8b8;
+                    line-height: 1.5;
+
                     span {
                       color: #fff;
                     }
@@ -61,7 +65,7 @@
                     z-index:40;
                 }
                 &.active span, &.completed span {
-                    background: $step-active;
+                    background: $green;
                 }
                 hr {
                     display:block;
@@ -99,6 +103,7 @@
             padding: 10px 40px 10px 40px;
             text-align: center;
             margin: 0 auto;
+            border: 1px solid #cb7029;
         }
         .sequential_general_error_cont {
             text-align: center;

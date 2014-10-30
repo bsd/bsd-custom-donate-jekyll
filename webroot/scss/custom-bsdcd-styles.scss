@@ -23,7 +23,11 @@
         .bsdcd-top-section {
             background: white;
             border-bottom: 1px solid #d3dee1;
-            padding: 25px 30px;
+            padding: 0 0 20px;
+
+            @include respond-min( $form-field-layout ){
+                padding: 25px 30px;
+            }
 
             h1 {
                 font-family: $serif;
@@ -39,8 +43,61 @@
                 margin: 0;
             }
         }
+        p  {
+            font-family: $sans;
+        }
+        label {
+            color: $green;
+            font-family: $serif;
+            font-weight: normal;
+        }
+        select,
+        input {
+            color: $green;
+            font-family: $sans;
+        }
+        select {
+            padding: 0 10px;
+            width: 94%;
+        }
+        .form_section_header {
+            font-family: $serif;
+            font-size: 18px;
+            margin-bottom: 14px;
+        }
         #cd_amount_other {
             display: block !important;
+
+            @include respond-max( $form-field-layout - 1 ) {
+                height: 60px;
+                line-height: 60px;
+            }
+
+        }
+        .amount_group_related, .recurring-checkbox-cont, .in-honor-of {
+            margin-top: 0;
+        }
+        .preset_amount_label {
+            font-family: $serif;
+        }
+        .sequential_step.step_2 {
+            padding: 5px 5px 5px 7px;
+
+            .form_field_cont {
+                padding-right: 0;
+            }
+            select {
+                padding: 0 10px;
+                width: 94%;
+            }
+        }
+        #recurring_acknowledge-label {
+            padding: 15px 0 !important;
+            line-height: 1.2 !important;
+
+            input {
+                top: 2px;
+            }
         }
     }
 }
@@ -87,7 +144,8 @@
 }
 
 .bsdcd__sd-fund-designation {
-    padding: 5px 5px 5px 7px;
+    clear: both;
+    padding: 5px 5px 25px 7px;
 
     h3 {
         font-family: $serif;

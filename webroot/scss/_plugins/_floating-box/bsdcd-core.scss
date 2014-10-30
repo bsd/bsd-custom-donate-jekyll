@@ -67,45 +67,6 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
             display:inline;
         }
     }
-    // input.text, textarea {
-    //     font-size: $input-mobile-font-size;
-    //     background: $form-field-bg-color;
-    //     border: 1px solid #DEDEDE;
-    //     border-radius: 3px;
-    //     line-height: $input-height;
-    //     width: 100%;
-    //     padding: $input-vertical-padding $input-side-padding;
-    //     -webkit-box-shadow: $core-box-shadow;
-    //     box-shadow: $core-box-shadow;
-    //     &:focus{
-    //         background: $form-field-focus-bg-color;
-    //     }
-    // }
-    // input.text{
-    //     height: $input-height;
-    //     padding: $input-vertical-padding $input-side-padding;
-    // }
-    // select {
-    //     font-size: $input-font-size;
-    //     border-color: #ebebeb;
-    //     padding: $input-vertical-padding $input-side-padding;
-    //     vertical-align: top;
-    //     line-height: $input-height;
-    //     height: $input-height + 4px;
-    //     border-radius: 3px;
-    //     background: $form-field-bg-color;
-    //     border: 1px solid #DEDEDE;
-    //     -webkit-box-shadow: $core-box-shadow;
-    //     box-shadow: $core-box-shadow;
-    //     @include border-box(); //so, odd thing: IE7 doesn't support this, but acts like it does by default anyhow
-    //     width: 100%;
-    //     .no-boxsizing &{
-    //         width: 95%;
-    //     }
-    //     .ie7 &{
-    //         width:100%; //ie7 should keep the 100% rule even though it doesn't "support" border-box
-    //     }
-    // }
     .form_field_cont{
         padding-right: $container-right-padding;
     }
@@ -114,17 +75,18 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         padding: $input-vertical-padding $input-side-padding;
         display: block;
         width: 95%;
-        background: $button-normal;
+        background: $orange;
         background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, rgba(0, 0, 0, 0.1)), color-stop(1, rgba(255, 255, 255, 0.2)));
         background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
         background-image:  -moz-linear-gradient(top, rgba(255, 255, 255, 0.2) 10%, rgba(0, 0, 0, 0.1) 100%);
-        border: 1px solid darken($button-normal, 10%);
+        border: 1px solid #cb7029;
         border-radius: 3px;
         color: #fff;
         font-size: 19px;
-        line-height:$input-height;
-        height:$input-height;
+        line-height: $input-height;
+        height: $input-height;
         text-align: center;
+        font-family: $serif;
     }
     .amount_other_cont{
         width:44%;
@@ -140,9 +102,10 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
         }
         @mixin active-labels(){
             z-index:1;
-            background: $button-active;
+            background: $green;
             color: #fff;
             border: 1px solid #fff;
+            border-radius: 5px;
             box-shadow: inset 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
         }
         //these otherwise identical styles are split because IE7 will break if they are extended normally
@@ -240,10 +203,11 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
 
 @include respond-min( $phone ){
     .amount_cont {
-        width:48%;
-        float:left;
-        &.odd{
-            margin-right:4%
+        width: 48%;
+        float: left;
+
+        &.odd {
+            margin-right: 2%
         }
     }
 
@@ -283,11 +247,16 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
             margin-right: 0;
         }
         .amount_cont_8 {
-          width: 92%;
-          max-width: 220px;
+            width: 100%;
+            max-width: 243px;
+            margin-right: 0;
         }
         li.amount_cont_8 input.text {
-            padding: 8px 7px!important;
+            color: $green;
+            font-family: $sans;
+            font-size: 16px;
+            padding: 8px 7px;
+            // border-radius: 4px;
         }
         .contributor_header_cont {
             clear: both;
@@ -297,7 +266,7 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
             float:left;
         }
         .firstname_cont, .lastname_cont, .city_cont, .phone_cont, .email_cont, .employer_cont, .occupation_cont, .cc_month, .honoree_state_cd_cont, .honoree_zip_cont, .cc_cvv_cont {
-            width: $half-width-field-container-width;
+            width: 180px;
         }
         .cc_year, .cc_month {
             width: 123px !important;
@@ -318,14 +287,14 @@ $core-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.04);
             font-size: $input-font-size;
         }
         input.text{
-            padding: ($input-vertical-padding - 10) $input-side-padding;
+            // padding: ($input-vertical-padding - 10) $input-side-padding;
         }
         select {
             font-size: 16px;
         }
         .state_cd_cont {
             width: $fourth-width-field-container-width + $container-right-padding;
-            padding-right:0;
+            padding-right: 20px !important;
         }
         .full_dropdown_cont{
             width: $full-width-field-container-width + $container-right-padding;
