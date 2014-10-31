@@ -1,16 +1,17 @@
 {% if page.custom-amounts %}{% assign amounts = page.custom-amounts %}{% else %}{% assign amounts = site.amounts %}{% endif %}{% if page.include-styles-inline %}<!--[if lte IE 8]><link rel="stylesheet" href="/page/-/donate/{% if page.style %}{{page.style}}/{%endif%}bsdcd-styles-desktop.css"><![endif]-->
 <!--[if gt IE 8]><!--><link rel="stylesheet" href="/page/-/donate/{% if page.style %}{{page.style}}/{%endif%}bsdcd-styles.css"><!--<![endif]-->
-{% endif %}{% if page.include-login-inline %}
-<div class="qd-login-links-section">
-    <a href="#login" class="qd-log-in-link">Use my saved payment information</a>
-    <a href="#logout" class="qd-log-out-link">Log Out</a>
-</div>
 {% endif %}
 <div id="{{page.id-prefix}}_form_container" class="bsdcd-outer-container clearfix {{page.extra-classes-on-outer-container}} {%if page.show-first-next-button != "true" %}pre-first-click{%endif%}{% if page.sequential %} sequential sequential_step_0{%endif%}" {% if page.default-country %}data-default-country="{{page.default-state-cd-format}}"{%endif%} data-currency-symbol="{{page.currency-symbol}}">
     {% if page.header-section %}
     {%if page.html-above-header %}{{page.html-above-header}}{%endif%}
     <div class="bsdcd-top-section base">{% if page.above-header-html %}{{page.above-header-html}}{%else%}{% if page.title %}<h1>{{page.title}}</h1>{%endif%}
     {% if page.subtitle %}<h2>{{page.subtitle}}</h2>{%endif%}{%endif%}
+    {% if page.include-login-inline %}
+    <div class="qd-login-links-section">
+        <a href="#login" class="qd-log-in-link">Use my saved payment information</a>
+        <a href="#logout" class="qd-log-out-link">Log Out</a>
+    </div>
+    {% endif %}
     </div>
     {%endif%}
     {% if page.sequential %}
@@ -60,15 +61,6 @@
                         {% endfor %}
                     </ul><!--/#amounts-->
                 </li><!--/#amount_cont-->
-                <li class="bsdcd__sd-fund-designation">
-                    <h3>Fund Designation</h3>
-                    <select id="re_funds" size="1" name="re_funds">
-                        <option value="">Please Choose</option>
-                        {% for opt in page.fund-designation-options %}
-                        <option value="{{ opt.designation }}">{{ opt.designation }}</option>
-                        {% endfor %}
-                    </select>
-                </li>
                 {%if page.step-one-html-after%}{{page.step-one-html-after}}{%endif%}
             </ul>
             <ul class="sequential_step step_2 clearfix inactive{% if page.extended-name-fields %} extended-name-fields{%endif%}">
@@ -379,6 +371,33 @@
                     <label id="recurring_acknowledge-label" for="{{page.id-prefix}}recurring_acknowledge"><input name="recurring_acknowledge" id="{{page.id-prefix}}recurring_acknowledge" type="checkbox" value="1" tabindex="35"> {%if page.recurring-label%}{{page.recurring-label}}{%else%}Make this a monthly recurring contribution{%endif%}</label>
                 </li>
                 {%endif%}
+                <li class="bsdcd__sd-fund-designation">
+                    <h3>Fund Designation</h3>
+                    <select id="re_funds" size="1" name="re_funds">
+                        <option value="">Please Choose</option>
+                        {% for opt in page.fund-designation-options %}
+                        <option value="{{ opt.designation }}">{{ opt.designation }}</option>
+                        {% endfor %}
+                        <option value="Other">Other</option>
+                    </select>
+                </li>
+                <li class="bsdcd_sd-other-designation">
+                    <label for="cd_other_designation">Other Designation:</label>
+                    <input size="30" name="custom1" id="cd_other_designation" type="text" class="text">
+                </li>
+                <script>
+                (function($) {
+                    $("#re_funds").on("change", function() {
+                        var value = $(this).val(),
+                            other = $(".bsdcd_sd-other-designation");
+                        if ( value === "Other" ) {
+                            other.slideDown('fast');
+                        } else {
+                            other.slideUp('fast');
+                        }
+                    })
+                })(jQuery);
+                </script>
             </ul><!--/.sequential-step-3-->
             <li class="sequential_general_error_cont">
                 <p class="sequential_error_message bsdcd-error"></p>
