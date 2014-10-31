@@ -2,13 +2,13 @@
     body {
         background-image: url(https://s.bsd.net/chop/main/page/-/sequential/background.jpg); //actual image defined in variables
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: 110% auto;
         background-position: right center;
     }
 }
 
 .oldie body {
-    background-size: auto;
+    background-size: 110% auto;
     background-position: center top;
 }
 
