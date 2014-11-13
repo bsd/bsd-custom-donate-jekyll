@@ -6,9 +6,11 @@
 }
 @media screen and (min-width: 1000px){
     body {
+        background-attachment: fixed;
         background-image: url(https://s.bsd.net/chop/main/page/-/sequential/background.jpg); //actual image defined in variables
         background-repeat: no-repeat;
-        background-size: 105% auto;
+        background-size: cover;
+        // background-size: 105% auto;
         background-position: right top;
     }
 }
