@@ -12,9 +12,9 @@ This repo contains:
 
 When run locally, the jekyll server can simulate API calls and logins so that you can test the actual functional js code as well as the look and feel process without actually donating any money.  All the relative api and asset paths are set up to match what would be available on an actual BSD tools domain.
 
-##Local Dev Requirements: 
+##Local Dev Requirements:
 
-* Ruby, latest version of Jekyll (~v1.4.2): http://jekyllrb.com/
+* Ruby, latest version of Jekyll (~v2.5.3): http://jekyllrb.com/
 * Node, Grunt, & NPM: http://gruntjs.com/getting-started
 
 ##Wrapper/Site Requirements

@@ -1,6 +1,6 @@
 /*global jQuery */
 /*
- * quickDonate.js 
+ * quickDonate.js
  *
  * Author: Kyle Rush
  * kylerrush@gmail.com
@@ -16,7 +16,7 @@ var quickDonate = quickDonate || {};
 
     //creat the Quick Donate jQuery plugin
     $.fn.extend({
-        
+
         //pass the options variable to the function
         quickDonate: function(options) {
 
@@ -86,7 +86,7 @@ var quickDonate = quickDonate || {};
 
                         if(quickDonate.s.debug === true){
 
-                            console.log('properties in response object are all the correct type');
+                            console.log('properties in response object are all the right type');
 
                         }
 
@@ -279,7 +279,7 @@ var quickDonate = quickDonate || {};
                 if (quickDonate.cvvHolder && quickDonate.cvvHolder.length) {
                     $form.addClass('cvv-input').find('.cc_expiration_cont').after(quickDonate.cvvHolder);
                 }
-                $.Topic('change-step').publish(1, true); //go to now unhidden name step, but do it silently 
+                $.Topic('change-step').publish(1, true); //go to now unhidden name step, but do it silently
                 $.Topic('data-update').publish( 'qd_cleared' );
             };
 
@@ -299,7 +299,7 @@ var quickDonate = quickDonate || {};
                 responseHandler: defaultResponseHandler
 
             };
-            
+
             //consolidate both user defined and default functions
             quickDonate.s =  $.extend(true, defaults, options);
 
@@ -319,7 +319,7 @@ var quickDonate = quickDonate || {};
                 });
                 return tr;
             }
-            
+
             function tryToken(){
                 var obj = requestToken();
                 obj.always(function(d) {
@@ -342,7 +342,12 @@ var quickDonate = quickDonate || {};
               });
             }
             function getSpud(){
-                return resFilter($.ajax({url:'/page/spud?type=getm&field=email,firstname,lastname,addr1,city,state_cd,zip,phone&jsonp=?',dataType:'jsonp'}));
+                return resFilter(
+                    $.ajax($.extend({
+                        url:'/page/spud?type=getm&field=email,firstname,lastname,addr1,city,state_cd,zip,phone&jsonp=?',
+                        dataType:'jsonp'
+                    },nonsecure?{jsonpCallback:'fake'}:{}))
+                );
             }
             function getGraph(){
               return resFilter($.ajax({url:'/page/graph/me?callback=?&jsoncallback=?',dataType:'jsonp'}));
@@ -364,7 +369,7 @@ var quickDonate = quickDonate || {};
                 e.preventDefault();
 
                 window.open(
-                    '/ctl/Contribution/Quick/Login',
+                    '/ctl/Contribution/Quick/Login'+(location.hostname==="localhost"?'.html':''),
                     'quickDonateLogin',
                     'status=0,toolbar=0,location=0,menubar=0,resizable=0,scrollbars=0,width=550,height=350'
                 );
@@ -394,8 +399,7 @@ var quickDonate = quickDonate || {};
 
             return this; //chainablility
         }
-            
+
     });
 
 })(jQuery);
-                    
