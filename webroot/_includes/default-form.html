@@ -180,11 +180,11 @@
                     <label class="cc_type_label cc_type_cd_group_related">Card Type<span>*</span></label>
                     {%if page.detect-cc-type %}<div class="accepted_ccs"><span class="hide-text">We accept: </span>{% if page.accept-visa %}<span class="cc-img accept-vs"> Visa </span>{%endif%}{% if page.accept-mastercard %}<span class="cc-img accept-mc"> MasterCard </span>{%endif%}{% if page.accept-amex %}<span class="cc-img accept-ax"> American Express </span>{%endif%}{% if page.accept-discover %}<span class="cc-img accept-ds"> Discover </span>{%endif%}{% if page.accept-maestro %}<span class="cc-img accept-ma"> Maestro </span>{%endif%}{% if page.accept-paypal %}<span class="cc-img accept-pp"> Paypal </span>{%endif%}</div>{%  endif %}
                     <ul class="cc_type_radio_cont">
-                        {% if page.accept-visa == true %}<li>
+                        {% if page.accept-mastercard == true %}<li>
                             <input type="radio" class="radio cc-radio" id="{{page.id-prefix}}cc_mc" value="mc" name="cc_type_cd">
                             <label for="{{page.id-prefix}}cc_mc">MasterCard</label>
                         </li>{%endif%}
-                        {% if page.accept-mastercard == true %}<li>
+                        {% if page.accept-visa == true %}<li>
                             <input type="radio" class="radio cc-radio" id="{{page.id-prefix}}cc_vs" value="vs" name="cc_type_cd">
                             <label for="{{page.id-prefix}}cc_vs">Visa</label>
                         </li>{%endif%}
@@ -415,7 +415,7 @@
             $topNode.detectCCType();
 {%endif%}
 {% if page.quick-donate %}
-            $topNode.quickDonate({ 
+            $topNode.quickDonate({
                 {% if page.debug %}debug: true{% endif %}
             });
 {%endif%}
