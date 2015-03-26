@@ -66,7 +66,7 @@ accept-mastercard: true
 accept-amex: true
 accept-discover: true
 accept-maestro: false #shows up, but not tested with a live client gateway
-accept-pay-pal: false  #not yet implemented or tested
+accept-pay-pal: true  #not yet implemented or tested
 
 ##########
 # Default Layout Options
