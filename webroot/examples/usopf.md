@@ -42,7 +42,7 @@ custom-amounts: [10, 20, 50, 100, 250, 500, 1000] #an array of 7 values for the 
 min-donation: 2 #minimum donation amount allowed. Ensure that this matches the tools form
 max-donation: 30000 #maximum donation amount allowed. Ensure that this matches the tools form
 optional-phone: false #phone is required by default unless this is set to true, which would make the phone field optional
-employer-and-occupation: true #whether or not to show the employer and occupation fields
+employer-and-occupation: false #whether or not to show the employer and occupation fields
 
 require-cvv: true #Show the CVV field for credit card information. This setting will not affect quick donate, which does not use CVV
 show-cvv-help: false #show a cvv help tooltip: not ready for prime-time
@@ -73,7 +73,7 @@ accept-pay-pal: false  #not yet implemented or tested
 #############################
 
 ##top-section
-header-section: true #include an intro section
+header-section: false #include an intro section
 title: Donate Today
 subtitle: Help where it matters most
 above-header-html: #override the entire top section and use your own arbitrary html
