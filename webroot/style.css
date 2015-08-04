@@ -1,0 +1,294 @@
+.pagination-sect{
+	text-align: center;
+}
+.pagination{
+	margin-top: 0px;
+}
+
+.pagination li a{
+	border-radius: 30px;
+	height: 30px;
+	width: 30px;
+	padding: 1px 0 0 0;
+	text-align: center;
+	background: #56565a;
+	color: #fff;
+	margin: 0 10px;
+	cursor:pointer;
+}
+.pagination li a:hover{
+	background: #241f20;
+	color: #fff;
+}
+.pagination li a.active,
+.pagination li a:active,
+.pagination li.active a{
+	background: #428bca;
+}
+
+/*Reset pagination border radius*/
+.pagination > li:first-child > a,
+.pagination > li:first-child > span{
+	border-bottom-left-radius: 30px;
+  	border-top-left-radius: 30px;
+}
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+
+.placeholder label{
+
+}
+body{
+	background: #123456 url(https://secure.assets.bostatic.com/hydepark/images/donate/DonatePage_Bkg_032414.jpg) no-repeat center top;
+	background-size: cover;
+	font-size: 18px;
+	font-weight: 500;
+}
+.disclaimer{
+	background: rgba(0, 0, 0, .7);
+	padding: 20px;
+	color: #fff;
+	font-size: 12px;
+	margin-bottom: 50px;
+}
+#main{
+	margin-top:100px;
+}
+.disclaimer p{
+	font-weight: bold;
+}
+.above-form{
+	color: #fff;
+	margin-bottom: 30px;
+}
+.content-area h2{
+	font-weight: 600;
+	font-size: 40px;
+}
+.donate-form{
+	min-height: 300px;
+	background:#fff;
+}
+.donate-head{
+	background: #e6e7e8;
+
+}
+.donate-icon{
+	color: #fff;
+	border-radius: 30px;
+	background:#56565a;
+	position:absolute;
+	width:40px;
+	text-align: center;
+	padding:8px 0;
+	right:-20px;
+	margin-top:-20px;
+	font-size: 24px;
+}
+.donate-form{
+	color: #56565a;
+	position:relative;
+	margin-bottom: 100px;
+}
+.donate-head h3{
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: 30px;
+	text-align: center;
+	padding:0;
+	margin: 0;
+	padding: 20px 0;
+}
+.form-content{
+	padding-bottom: 9.5%;
+}
+.form-content input,
+.form-content select{
+	background: #e6e7e8;
+	border: 0;
+	border-radius: 5px;
+	border: 1px solid #cccccc;
+}
+.personal-sect,
+.pay-sect{
+	margin-top:10px;
+
+}
+.form-section-header{
+	text-transform: uppercase;
+  	font-weight: bold;
+}
+.submit-sect{
+	margin-top: 20px;
+}
+label{
+	font-size: 15px;
+	margin-bottom:1px;
+	font-weight: 500;
+}
+
+.form-control,
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+	font-size: 18px;
+	padding: 10px;
+
+}
+
+
+
+.amount-cont {
+	margin-top: 10px;
+}
+.amount-cont input{
+	display:none;
+}
+.amount-cont label{
+	background: #0092c9;
+	text-align: center;
+	color: #fff;
+	font-size: 1.3em;
+	padding: 10px 0;
+	width:100%;
+	border-radius: 5px;
+	cursor:pointer;
+}
+.amount-cont.other label{
+	display: none;
+}
+.amount-cont label.selected{
+	background: #667682;
+}
+.amount-cont :checked ~ label{
+	background: #667682;
+}
+.amount-cont.other input{
+	display: block;
+}
+.amount-cont label.active{
+	background: #667682;
+}
+.amount-cont{
+}
+#amounts-cont,
+#amounts{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style-type: none;
+}
+.cc-icons{
+	text-align: center;
+}
+.cc-icons .fa{
+	font-size: 2.2em;
+	margin:3px;
+}
+.cvv_container{
+	position:relative;
+}
+.cvv_triangle{
+	position:absolute;
+	top:0;
+	right:0;
+	width: 0;
+height: 0;
+border-style: solid;
+border-width: 0 20px 20px 0;
+border-color: transparent #56565a transparent transparent;
+line-height: 0px;
+_border-color: #000000 #56565a #000000 #000000;
+_filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+
+}
+.personal-info,
+.pagination-load .amount-info,
+.pagination-load .payment-info{
+	margin-top: 30px;
+}
+.form-section-header-cont{
+	text-align: center;
+}
+#recurring-sect input,
+#recurring-sect label{
+	margin-top: 25px;
+	display: inline;
+}
+.recurring-disclaimer{
+	display: none;
+	font-size: 15px;
+	margin-top: 25px;
+}
+.recurring-yes#recurring-sect input,
+.recurring-yes#recurring-sect label{
+	display: none;
+}
+.recurring-yes .recurring-disclaimer{
+	display:block;
+}
+
+
+.next-sect{
+	display: none;
+	margin-top: 20px;
+}
+.pagination-load .next-sect{
+	display: block;
+}
+.pagination-load .personal-info,
+.pagination-load .payment-info{
+	display: none;
+
+}
+.mobile .pagination-load .personal-info,
+.mobile .pagination-load .payment-info{
+	display:block;
+}
+.mobile .pagination-sect{
+	display: none;
+}
+
+
+
+.error-sect{
+	margin-bottom: -10px;
+	margin-top: 30px;
+	text-align: center;
+	color: #ca2129;
+	font-weight: 600;
+	display:none;
+}
+input.form-error{
+	border-color: #ca2129;
+	border-width: 2px;
+}
+select.form-error{
+	border-color: #ca2129;
+	border-width: 2px;
+}
+
+
+/**/
+span.error{
+	color: #ca2129;
+	float:right;
+	font-size:8px;
+}

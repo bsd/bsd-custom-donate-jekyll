@@ -1,0 +1,280 @@
+<html>
+<head>
+<!--
+
+Instructions for BSD
+
+** Note: There are still some minor CSS changes coming on our end but nothing to impact the JS creation**
+
+> Don't run progressive donation on mobile. We want the form stacked when viewed on a mobile device.
+> Add `active` class to `a.pagination-btn` for the active tab. This allows specific styles for the active tab.
+> Add `selected` class to `.amount-cont label` for the selected amount. This allows specific styles for the selected amount.
+> Form validation for each tab. If tab doesn't validate, you can't move forward (either by pagination or next links). This prevents users from continuing without filling out each step.
+> Add `form-error` class to inputs that have errors when validating. This will add a red border when an error occurs.
+> Show `.error-sect` when form doesn't validate. This shows the generic error at the top.
+> Allow `amounts=3|5|10|15|20|30|40` url parameter to use custom donation amounts. This allows us to set custom amounts if needed.
+> Add `recurring-yes` class to `#recurring-sect` and set `#recurring_acknowledge` to checked if `recurring=yes` url parameter exists.
+> Allow multiple source codes for donations. One that will be added on the form creation and one from a URL parameter. We use two (occasionally more) source codes for each donation.
+> Add Stripe code and payment processing
+
+
+** Additionally, our current donation pages have the ability to post the donation to different forms. It is setup to post one-time transactions to one form and recurring transactions to another. We can also change the standard forms to a new form slug that allows us to use custom auto-responses. We need to continue having this functionality. **
+-->
+
+<link rel="stylesheet" type="text/css" href="https://secure.assets.bostatic.com/apps/monroe/static/css/structure/monroe.css">
+<link rel="stylesheet" type="text/css" href="https://secure.assets.bostatic.com/apps/monroe/static/fonts/229254/3E90ADF5082FDD358.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/style.css">
+
+
+
+
+</head>
+<body>
+	<nav id="navMain" class="nav-main hidden-xs">
+	    <ul class="nav">
+	        <li class="brand home">
+	            <a href="#">
+	                <span class="sr-only">Organizing for Action</span></a>
+	        </li>
+	    </ul>
+	</nav>
+	<header id="navMainMobile" class="nav-main-mobile visible-xs">
+	    <a class="home" href="#">
+	        <span class="sr-only">Organizing for Action</span>
+	    </a>
+	</header>
+	<div class="container" id="main">
+		<div class="row">
+			<div class="col-md-6 col-sm-7 content-area">
+				<div class="row above-form">
+					<h2>We're counting on you&mdash;chip in</h2>
+					<p>We're fighting on the issues that matter today, while building the progressive infrastructure of tomorrow.</p>
+					<p>Do your part-chip in before our March 31st fundraising deadline.</p>
+				</div>
+				<div class="row donate-form">
+					<div class="donate-head">
+						<h3>Donate Today</h3>
+						<nav class="pagination-sect">
+						    <ul class="pagination">
+						        <li><a class="pagination-btn amount-btn" data-pagination="amountInfo">1</a></li>
+						        <li><a class="pagination-btn personal-btn" data-pagination="personalInfo">2</a></li>
+						        <li><a class="pagination-btn payment-btn" data-pagination="paymentInfo">3</a></li>
+						    </ul>
+						</nav>
+					</div>
+					<div class="donate-icon">
+						<i class="fa fa-lock"></i>
+					</div>
+					<div class="form-content col-xs-10 col-xs-offset-1">
+						<form id="donate-form" class="oDonate" action="https://donate.barackobama.com/page/contribute/o2013-contribute-default-ofa4" data-recurSlug="o2013-contribute-default-ofa4-recur" name="contribution" method="POST" data-customerrorhandler="customError">
+							<div class="error-sect">
+								Please correct the errors shown below
+							</div>
+							<div class="personal-info progressive-pane">
+								<div class="row form-row">
+									<div id="firstname-sect" class="personal-sect col-sm-6">
+									    <label for="firstname" class="firstname_related">First name*</label>
+									    <input type="text" class="text" name="firstname" id="firstname" tabindex="1">
+									</div>
+									<div id="lastname-sect" class="personal-sect col-sm-6">
+									    <label for="lastname" class="lastname_related">Last name*</label>
+									    <input type="text" class="text" name="lastname" id="lastname" tabindex="2">
+									</div>
+								</div>
+								<div class="row form-row">
+									<div id="addr1-sect" class="personal-sect col-sm-12">
+									    <label for="addr1" class="addr1_related">Address*</label>
+									    <input type="text" class="text" name="addr1" id="addr1" tabindex="3">
+									</div>
+								</div>
+								<div class="row form-row">
+									<div id="city-sect" class="personal-sect col-sm-8">
+									    <label for="city" class="city_related">City*</label>
+									    <input type="text" class="text" name="city" id="city" tabindex="5">
+									</div>
+									<div id="state_cd-sect" class="personal-sect state_cd_related col-sm-4">
+										<label for="state_cd" class="state_cd_related">State*</label>
+										<input id="state_cd" name="state_cd" type="text" tabindex="6" placeholder="SS">
+									</div><!--/#state_cd-cont-->
+								</div>
+								<div class="row form-row">
+									<div id="zip-sect" class="personal-sect col-sm-5">
+										<label for="zip" class="zip_related">ZIP*</label>
+										<input type="text" class="text" name="zip" id="zip" tabindex="7">
+									</div>
+
+									<div id="phone-sect" class="personal-sect col-sm-7">
+										<label for="phone" class="phone_related">Phone*</label>
+										<input type="text" class="text" name="phone" id="phone" tabindex="9">
+									</div><!--/#phone-->
+								</div>
+								<div class="row next-sect personal-next">
+									<div class="col-sm-12">
+									 	<button type="button" class="btn btn-info col-sm-12 next-btn" data-pagination="payment-info">Next</button>
+									 </div>
+								</div>
+							</div>
+							<!-- END PERSONAL INFO -->
+
+							<!-- START AMOUNT -->
+							<div class="amount-info progressive-pane">
+								<div class="row">
+									<div id="email-sect" class="personal-sect col-sm-12">
+										<label for="email" class="email_related">Email*</label>
+										<input type="text" class="text" name="email" id="email" tabindex="8">
+									</div><!--/#email-->
+								</div>
+								<div class="row">
+									<div class="form-section-header-cont amount_group_related" id="select-amount-header">
+										<h4 class="form-section-header" id="amount-header">Select an amount</h4>
+									</div>
+								</div>
+								<div class="row">
+									<div id="amounts-cont" class="amount_group_related">
+										<ul id="amounts">
+											<div class="amount-cont first col-sm-4 col-xs-6" id="amount-cont-1">
+												<input type="radio" class="radio amount-radio" name="amount" value="15" tabindex="10" id="amount-15">
+												<label for="amount-15" >$15</label>
+											</div>
+											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-2">
+												<input type="radio" class="radio amount-radio" name="amount" value="35" tabindex="11" id="amount-35">
+												<label for="amount-35" >$35</label>
+											</div>
+											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-3">
+												<input type="radio" class="radio amount-radio" name="amount" value="50" tabindex="12" id="amount-50">
+												<label for="amount-50">$50</label>
+											</div>
+											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-4">
+												<input type="radio" class="radio amount-radio" name="amount" value="100" tabindex="13" id="amount-100">
+												<label for="amount-100">$100</label>
+											</div>
+											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-5">
+												<input type="radio" class="radio amount-radio" name="amount" value="250" tabindex="14" id="amount-250">
+												<label for="amount-250">$250</label>
+											</div>
+											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-6">
+												<input type="radio" class="radio amount-radio" name="amount" value="500" tabindex="15" id="amount-500">
+												<label for="amount-500">$500</label>
+											</div>
+											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-7">
+												<input type="radio" class="radio amount-radio" name="amount" value="1,000" tabindex="16" id="amount-1,000">
+												<label for="amount-1,000">$1,000</label>
+											</div>
+											<div class="amount-cont other col-sm-8 col-xs-6" id="amount-cont-8">
+												<label for="amount-other">Other</label>
+												<input type="text" class="text" name="amount_other" id="amount-other" placeholder="Other amount" tabindex="18">
+											</div>
+										</ul>
+										<!-- <p id="suggested-amount">Suggested amount*</p> -->
+									</div>
+
+								</div>
+								<div class="row">
+									<div id="recurring-sect" class="col-sm-12">
+										<input name="recurring_acknowledge" id="recurring_acknowledge" type="checkbox" value="1" tabindex="26">
+										<label id="recurring_acknowledge-label" for="recurring_acknowledge">Become an OFA Champion: Make this a recurring monthly donation.</label>
+										<div class="recurring-disclaimer">I acknowledge that I am making a recurring contribution and that the amount I have selected above will be charged to my credit card every month. You may cancel at any time. The first charge will be made immediately.</div>
+									</div>
+								</div>
+
+								<div class="row next-sect personal-next">
+									<div class="col-sm-12">
+									 	<button type="button" class="btn btn-info col-sm-12 next-btn">Next</button>
+									 </div>
+								</div>
+							</div>
+							<!-- END AMOUNT -->
+
+
+
+							<!-- START CC INFO -->
+							<div class="payment-info progressive-pane">
+								<div class="row">
+									<div class="form-section-header-cont amount_group_related" id="select-amount-header">
+										<h4 class="form-section-header" id="amount-header">Payment Information</h4>
+									</div>
+								</div>
+								<div class="row cc-icons">
+									<i class="fa fa-cc-visa"></i><i class="fa fa-cc-mastercard"></i><i class="fa fa-cc-amex"></i><i class="fa fa-cc-discover"></i>
+								</div>
+								<div class="row">
+									<div id="cc-number-sect" class="pay-sect qd-info cc_number_related cc_type_cd_group_related col-sm-12">
+										<label for="cc_number" class="cc_number_related cc_type_cd_group_related">Card number*</label>
+										<input type="text" class="text cc_type_cd_group_related" id="cc_number" name="cc_number" tabindex="23" autocomplete="off">
+									</div>
+								</div>
+								<div class="row">
+									<div id="cc-expiration-sect" class="pay-sect qd-info cc_expir_group_related col-sm-4">
+										<label for="cc_expir_month" class="cc_expir_group_related">Expiration*</label>
+										<input type="text" class="cc_expir_month" id="cc_expir_month" autocomplete="off" name="cc_expir_month" tabindex="24" placeholder="MM">
+									</div>
+									<div class="pay-sect col-sm-4">
+										<label for="cc_expir_month" class="cc_expir_group_related">&nbsp;</label>
+										<input type="text" class="cc_expir_month" id="cc_expir_year" autocomplete="off" name="cc_expir_year" tabindex="25" placeholder="YYYY">
+									</div>
+									<div class="col-sm-4">
+										<label for="cc_number" class="pay-sect cc_number_related cc_type_cd_group_related">Security code*</label>
+										<div class="cvv_container">
+											<input type="text" class="text cc_cvv_group_related" id="cvv" name="cvv" tabindex="26" autocomplete="off">
+											<div class="cvv_triangle"></div>
+										</div>
+									</div>
+								</div>
+								<div class="row submit-sect">
+									<div class="col-sm-12">
+									 	<button type="button" class="btn btn-danger col-sm-12">Donate</button>
+									 </div>
+								</div>
+							</div>
+							<!-- END PAYMENT INFO -->
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="row disclaimer">
+			<p>By submitting the form above, I certify:</p>
+			<ol>
+				<li>If this contribution is from an individual, I am a U.S. citizen or lawfully admitted permanent resident of the United States or if this contribution is from an organization, such as a partnership, that the organization is not a foreign government or foreign political party, is not organized under the laws of a foreign country, and does not have its principal place of business in a foreign country;</li>
+				<li>This contribution is not from a corporation;</li>
+				<li>This contribution is not from a political action committee;</li>
+				<li>This contribution is not from a currently registered federal lobbyist or foreign agent;</li>
+				<li>This contribution is not from a minor under the age of 16;</li>
+				<li>The funds I am donating are from me and are not being provided by another person or entity for the purpose of making this contribution.</li>
+			</ol>
+			<p>Contributions or gifts to Organizing for Action are not tax deductible.</p>
+		</div>
+	</div>
+	<footer id="ft" class="ft ft-minimal footer footer-auto">
+	    <div class="row-disclaimer">
+	        <div class="container">
+	            <div class="logo">Organizing for Action</div>
+	            <div class="paid-for">Paid for by Organizing for Action</div>
+	            <ul>
+	                <li class="hidden-xs hidden-sm">&copy;2014 Organizing for Action. All Rights Reserved.
+	                </li>
+	                <li>
+	                    <a class="" href="https://www.barackobama.com/terms/">Terms of Service</a>
+	                </li>
+	                <li>
+	                    <a class="" href="https://www.barackobama.com/privacy/">Privacy Policy</a>
+	                </li>
+	                <li class="visible-xs-inline-block visible-sm-inline-block">
+	                    &copy; 2015 Organizing for Action. All Rights Reserved.
+	                </li>
+	            </ul>
+	        </div>
+	    </div>
+	</footer>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://secure.assets.bostatic.com/apps/monroe/static/fala/dist/core.js" data-js-base="//secure.assets.bostatic.com/apps/monroe/static/" data-identity="https://login.barackobama.com" data-bsd="https://my.barackobama.com" data-www="http://www.barackobama.com"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<script type="text/javascript" src="/scripts.js"></script>
+
+
+</body>
+</html>
