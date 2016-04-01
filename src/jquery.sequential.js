@@ -14,7 +14,7 @@ var sequential = {};
 
 	//creat the Quick Donate jQuery plugin
     $.fn.extend({
-        
+
         //pass the options variable to the function
         sequential: function(options) {
 
@@ -43,7 +43,7 @@ var sequential = {};
 
 			sequential.utilityFunctions.goToStep = function(step, silent){
 
-                //console.log(step);
+                console.log('change to',step);
 
 				var isPreviousStep, changeStep, oldstep = sequential.currentStep, $newStep, stepname;
 
@@ -57,7 +57,7 @@ var sequential = {};
                     sequential.currentStep = step;
 
                     $topNode.removeClass('sequential_step_' + oldstep).find('.sequential_error_message').text('');
-                    sequential.s.stepContainers.eq(oldstep).addClass('inactive').removeClass('active');
+                    sequential.s.stepContainersOrdered[oldstep].addClass('inactive').removeClass('active');
                     $breadcrumbs.eq(oldstep).removeClass('active');
 
                     //if qd is populated and step 1 was valid, users should go right to the step 2 without adding step 1
@@ -69,12 +69,12 @@ var sequential = {};
                         $newStep = $breadcrumbs.eq(step);
                         stepname = $newStep.data('stepname');
 
-                        $newStep.addClass('active').prevAll().removeClass('step-error').addClass('completed');
-                        sequential.s.stepContainers.eq(step).addClass('active').removeClass('inactive').prevAll().addClass('completed');
+                        $newStep.addClass('active').parent().prevAll().find('.sequential_breadcrumb').removeClass('step-error').addClass('completed');
+                        sequential.s.stepContainersOrdered[step].addClass('active').removeClass('inactive').prevAll('.sequential_step').addClass('completed');
 
                         //if not touch, focus on this steps first required field that is currently without a value
                         if(!touch){
-                            sequential.s.stepContainers.eq(step).find('input').find('[required]').filter(function(){
+                            sequential.s.stepContainersOrdered[step].find('input').find('[required]').filter(function(){
                                 if($(this).val() === ""){
                                     return true;
                                 }
@@ -118,7 +118,7 @@ var sequential = {};
                                 }
 							} else {
 								//console.log('step fail',sequential.currentStep);
-                                $('li.sequential_breadcrumb_' + sequential.currentStep).removeClass('completed').addClass('step-error');
+                                $('.sequential_breadcrumb_' + sequential.currentStep).removeClass('completed').addClass('step-error');
 							}
 
 						}
@@ -129,7 +129,7 @@ var sequential = {};
 
 			};
 
-			$.Topic('change-step').subscribe(sequential.utilityFunctions.goToStep); //allow other modules to change steps 
+			$.Topic('change-step').subscribe(sequential.utilityFunctions.goToStep); //allow other modules to change steps
 
             sequential.utilityFunctions.validateAmountsAndPersonal = function(){
                 return sequential.utilityFunctions.validateAmounts() && sequential.utilityFunctions.validatePersonalInfo();
@@ -137,13 +137,48 @@ var sequential = {};
 
 			sequential.utilityFunctions.validateAmounts = function (){
 
-				var amountRadioGroupNumber, otherAmountNumber, amountIsSelected, amountIsUnderMaximum, amountIsOverMinimum, amount, tmpamount = $otheramt.val();
+				var amountRadioGroupNumber, otherAmountNumber, amountIsSelected, amountIsUnderMaximum, amountIsOverMinimum, amount, tmpamount = $otheramt.val(), email;
 
 				$topNode.removeClass('sequential_error').find('.sequential_error_message').text('');
 
 				amountRadioGroupNumber = parseFloat( $form.find("input[name='amount']:checked").val() );
 
 				if (tmpamount) { otherAmountNumber =  parseFloat( $otheramt.val( tmpamount.replace(/[^\d\.]/g,'') ).val() ); }
+
+
+                email = {};
+
+                email.input = $form.find("[name='email']");
+
+                email.address = email.input.val();
+
+                email.isValid = function(){
+
+                    var emailRegEx = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                    if( emailRegEx.test(email.address) ){
+
+                        return true;
+
+                    } else {
+
+                        return false;
+
+                    }
+
+                };
+
+                if( email.address && email.isValid() ){
+
+                    email.valid = true;
+
+                    email.input.removeClass('bsdcd-error');
+
+                } else {
+                    email.valid = false;
+                    email.input.addClass('bsdcd-error');
+
+                }
 
 				amountIsSelected = function(){
 
@@ -264,6 +299,11 @@ var sequential = {};
 
 				};
 
+
+                if(!email.valid ){
+                    $topNode.addClass('sequential_error').find('.sequential_error_message').text('Please enter your email.');
+                    return false;
+                }
 				if( amountIsSelected() ){
 
 					//console.log('amount is selected');
@@ -393,15 +433,15 @@ var sequential = {};
 
 				$state = $("[name='state_cd']");
 
-				if( ($state.is('select') && $state.val().length !== 2 ) || !$state.val() ){
+				if( ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY", "AA", "AE", "AP", "AS", "FM", "GU", "MH", "MP", "PR", "PW", "VI"].indexOf($state.val())>-1 ){
 
-					numberOfInvalidFields++;
-
-					$state.addClass('bsdcd-error');
+                    $state.removeClass('bsdcd-error');
 
 				} else {
+                    numberOfInvalidFields++;
 
-					$state.removeClass('bsdcd-error');
+                    $state.addClass('bsdcd-error');
+
 
 				}
 
@@ -635,7 +675,7 @@ var sequential = {};
 
 				expirationDate.year.val = parseInt( expirationDate.year.field.val(), 10 );
 
-				if( ( isNaN(expirationDate.year.val) || expirationDate.year.val < 2013) && !pp) {
+				if( ( isNaN(expirationDate.year.val) || expirationDate.year.val < 2015) && !pp) {
 
                     expirationDate.year.field.addClass('bsdcd-error');
 
@@ -693,6 +733,8 @@ var sequential = {};
 
 				stepContainers: $topNode.find('.sequential_step'),
 
+                stepContainersOrdered: [$topNode.find('.step_1'), $topNode.find('.step_2'), $topNode.find('.step_3')],
+
 				donationAmountLimit: $form.data('max-donation')||null,
 
 				donationAmountMinimum: $form.data('min-donation')||null,
@@ -715,7 +757,7 @@ var sequential = {};
 			sequential.s = $.extend(true, defaults, options);
 
 			//add sequential body class
-			$topNode.addClass('sequential').addClass('sequential_step_' + sequential.currentStep);
+			$topNode.addClass('sequential').addClass('sequential_step_' + sequential.currentStep).find('form').data(sequential.s);
 
 			if( sequential.s.requireCountry ){
 
@@ -724,11 +766,11 @@ var sequential = {};
 			}
 
 			//show the first step
-			$(sequential.s.stepContainers[0]).addClass('active');
-			$('li.sequential_breadcrumb_0').addClass('active');
+			$(sequential.s.stepContainersOrdered[sequential.currentStep]).addClass('active');
+			$('.sequential_breadcrumb_0').addClass('active');
 
 			//hide the others
-			$(sequential.s.stepContainers).not( $(sequential.s.stepContainers[sequential.currentStep]) ).addClass('inactive');
+			sequential.s.stepContainers.not( $(sequential.s.stepContainersOrdered[sequential.currentStep]) ).addClass('inactive');
 
             //enable next buttons
 			$topNode.on('click','.sequential_move_forward',function(e){
@@ -737,9 +779,9 @@ var sequential = {};
             });
 
 
-            $('.bsdcd-seq-breadcrumbs').on('click', 'a', function(e){
+            $topNode.on('click','.sequential_breadcrumb', function(e){
                 e.preventDefault();
-                var step = $(this).closest('li').data('step');
+                var step = $(this).data('step');
                 sequential.utilityFunctions.goToStep(step);
             });
 

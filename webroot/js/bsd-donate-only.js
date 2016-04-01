@@ -31,7 +31,7 @@
 
     if (nonsecure){
         console.log('WARNING: nonsecure domain = test mode.');
-        $('body').prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>');
+        //$('body').prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>');
     }
 
     /*add pretty timeouts*/
@@ -43,7 +43,7 @@
 
     /*add basic pub sub, for error-free behavior chains*/
     $.Topic = function( id ) {
-        
+
         var callbacks,
             topic = id && topics[ id ];
         if ( !topic ) {
@@ -138,7 +138,7 @@
 
 })(jQuery);
 /*
- * blueContribute.js 
+ * blueContribute.js
  *
  * Author: Kyle Rush
  * kylerrush@gmail.com
@@ -184,7 +184,7 @@ var blueContribute = {};
 
     //creat the blueContribute jQuery plugin
     $.fn.extend({
-        
+
         //pass the options variable to the function
         blueContribute: function(options) {
 
@@ -208,10 +208,10 @@ var blueContribute = {};
 
             //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
 
-            if(urlsource || urlsubsource) {
-                if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
-                $sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
-            }
+            // if(urlsource || urlsubsource) {
+            //     if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
+            //     $sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
+            // }
 
             debug = function(message){
                 if(blueContribute.settings.debug){
@@ -279,6 +279,8 @@ var blueContribute = {};
 
                                 //remove the error class to the related fields
                                 $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
+                                $form.find('[name="' + blueContribute.latestResponseObject.field_errors[i].field + '"]')
+                                            .removeClass('form-error');
 
                                 //remove the general errors message
                                 $genError.text('').addClass('hidden');
@@ -360,12 +362,16 @@ var blueContribute = {};
                                     }
 
                                     for(i = 0; i <= resobj.field_errors.length - 1; i++){
-                                        
+
                                         //inject the error messages for each field
                                         $form.find('.' + resobj.field_errors[i].field + '_error').text(resobj.field_errors[i].message).removeClass('hidden');
 
                                         //add the error class to the related fields
-                                        $form.find('.' + resobj.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
+                                        $form.find('.' + resobj.field_errors[i].field + '_related')
+                                            .addClass('bsdcd-error').removeClass('hidden');
+
+                                        $form.find('[name="' + resobj.field_errors[i].field + '"]')
+                                            .addClass('form-error');
 
                                     }
 
@@ -382,7 +388,7 @@ var blueContribute = {};
                         } else if(resobj.code === 'gateway'){
 
                             debug('gateway rejected the transaction');
-                            
+
                             //checking for a declined card
                             if(resobj.gateway_response && resobj.gateway_response.status === "decline"){
 
@@ -418,7 +424,7 @@ var blueContribute = {};
                             }
 
                         }else {
-                            
+
                             genError(msg.unknown +' [Code: '+((resobj.code)?resobj.code:'unknown')+']');
                             debug('truly unknown error from donate api');
                             report(
@@ -439,7 +445,7 @@ var blueContribute = {};
 
                         window.scrollTo(0, 0);
 
-                    } //end else for valid error response 
+                    } //end else for valid error response
 
                 } else {
                     //invalid json
@@ -462,7 +468,7 @@ var blueContribute = {};
                 }
 
             };
-            
+
             //Set the default settings
             defaults = {
 
@@ -483,7 +489,7 @@ var blueContribute = {};
                 recurSlug: ($form.data('recur-slug')||false)
 
             };
-            
+
             //consolidate both user defined and default functions
             blueContribute.settings =  $.extend(true, defaults, options);
 
@@ -527,7 +533,7 @@ var blueContribute = {};
                         $.ajax({
 
                             url: blueContribute.settings.postTo,
-                            
+
                             type: nonsecure?'GET':'POST',
 
                             dataType: 'json',
@@ -562,7 +568,7 @@ var blueContribute = {};
 
             return this;//chainability
         }
-            
+
     });
 
 }(jQuery));
@@ -579,6 +585,7 @@ var blueContribute = {};
         $otherAmt = $form.find('.amount_other'),
         $otherAmtRadio = $form.find('.other_amount_radio'),
         $country = $form.find('.country'),
+        $email = $form.find('[name="email"]'),
         $state_cdCont = $form.find('.state_cd_cont').eq(0),
         $state_label = $state_cdCont.find('label'),
         $state_cd = $state_cdCont.find('input,select').eq(0),
@@ -604,10 +611,10 @@ var blueContribute = {};
         min = 0.01;
     }
 
-    //accept an 'x' separated string of amounts, validate each, and assign them to buttons 
+    //accept an 'x' separated string of amounts, validate each, and assign them to buttons
     function customAmounts(cas){
         if (!cas || typeof cas !== "string"){ return false; }
-        var ca_array = cas.split('x'),
+        var ca_array = cas.split(/[x|]/),
             btn = 0;
         if(ca_array && ca_array.length){
             $.each(ca_array,function(i,v){
@@ -627,12 +634,12 @@ var blueContribute = {};
 	//apply an active class to a label when amount is selected
 	$form.on('click','.preset_amount_label',function(e){
 		var $el = $(this);
-		$presetBtns.removeClass('active');
-		$el.addClass('active');
+		$presetBtns.removeClass('selected');
+		$el.addClass('selected');
 		$otherAmt.val('');
         $el.prev().prop('checked', true);
 	}).on('keydown','.amount_other',function(){
-		$presetBtns.removeClass('active');
+		$presetBtns.removeClass('selected');
 		$presetInputs.each(function(){
 			$(this).prop('checked',false);
 		});
@@ -640,23 +647,29 @@ var blueContribute = {};
 	});
 
     //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
-    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
-        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
-        $body.removeClass('pre-first-click'); //default amount should expose the next button
+    // if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
+    //     $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+    //     $body.removeClass('pre-first-click'); //default amount should expose the next button
 
-        //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
-        if(skip && skip===1 ){
-            $.wait(3).done(function(){
-                $.Topic('change-step').publish(1);
-            });
-        }
+    //     //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
+    //     if(skip && skip===1 ){
+    //         $.wait(3).done(function(){
+    //             $.Topic('change-step').publish(1);
+    //         });
+    //     }
+    // }
+
+    if(gup('recurring')==="yes"){
+        $form.find('#recurring-sect').addClass('recurring-yes').find('#recurring_acknowledge').click();
     }
 
     //now that we've dealt with pre-clicks, lets potentially bind the click behavior to change things on the first click
     $form.one('keydown','.amount_other',function(){
 		$body.removeClass('pre-first-click');
 	}).one('click','.preset_amount_label,.preset_amount_input',function(){
-		if ($('html').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
+		if ($('html').find('.pre-first-click').length && $email.val() && $email.get(0).validity && $email.get(0).validity.valid ) {
+            $.Topic('change-step').publish(1);
+        }
         $body.removeClass('pre-first-click');
 	});
 

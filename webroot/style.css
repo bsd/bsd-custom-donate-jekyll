@@ -247,7 +247,6 @@ _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
 
 
 .next-sect{
-	display: none;
 	margin-top: 20px;
 }
 .pagination-load .next-sect{
@@ -286,9 +285,12 @@ select.form-error{
 }
 
 
-/**/
+/* BSD extras */
 span.error{
 	color: #ca2129;
 	float:right;
 	font-size:8px;
+}
+.form-content{
+	overflow:hidden;
 }

@@ -24,11 +24,11 @@ Instructions for BSD
 <link rel="stylesheet" type="text/css" href="https://secure.assets.bostatic.com/apps/monroe/static/css/structure/monroe.css">
 <link rel="stylesheet" type="text/css" href="https://secure.assets.bostatic.com/apps/monroe/static/fonts/229254/3E90ADF5082FDD358.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="/style.css">
+<link rel="stylesheet" type="text/css" href="/style.css?3">
 
-
-
-
+    <!--[if lte IE 8]><link rel="stylesheet" href="/css/ofa-sequential/bsdcd-styles-desktop.css"><![endif]-->
+    <!--[if gt IE 8]><!--><link rel="stylesheet" href="/css/ofa-sequential/bsdcd-styles.css"><!--<![endif]-->
+<script src="/page/-/donate/modernizr.js"></script>
 </head>
 <body>
 	<nav id="navMain" class="nav-main hidden-xs">
@@ -52,14 +52,14 @@ Instructions for BSD
 					<p>We're fighting on the issues that matter today, while building the progressive infrastructure of tomorrow.</p>
 					<p>Do your part-chip in before our March 31st fundraising deadline.</p>
 				</div>
-				<div class="row donate-form">
+				<div class="row donate-form bsdcd-outer-container pre-first-click sequential sequential_step_0" data-default-country="" data-currency-symbol="$">
 					<div class="donate-head">
 						<h3>Donate Today</h3>
 						<nav class="pagination-sect">
-						    <ul class="pagination">
-						        <li><a class="pagination-btn amount-btn" data-pagination="amountInfo">1</a></li>
-						        <li><a class="pagination-btn personal-btn" data-pagination="personalInfo">2</a></li>
-						        <li><a class="pagination-btn payment-btn" data-pagination="paymentInfo">3</a></li>
+						    <ul class="pagination bsdcd-seq-breadcrumbs">
+						        <li><a class="pagination-btn amount-btn sequential_breadcrumb sequential_breadcrumb_amount sequential_breadcrumb_0" data-pagination="amountInfo" data-step="0" data-stepname="amount">1</a></li>
+						        <li><a class="pagination-btn personal-btn sequential_breadcrumb sequential_breadcrumb_name sequential_breadcrumb_1" data-pagination="personalInfo" data-step="1" data-stepname="personal_info">2</a></li>
+						        <li><a class="pagination-btn payment-btn sequential_breadcrumb sequential_breadcrumb_payment sequential_breadcrumb_2" data-pagination="paymentInfo" data-step="2" data-stepname="payment_info">3</a></li>
 						    </ul>
 						</nav>
 					</div>
@@ -67,11 +67,15 @@ Instructions for BSD
 						<i class="fa fa-lock"></i>
 					</div>
 					<div class="form-content col-xs-10 col-xs-offset-1">
-						<form id="donate-form" class="oDonate" action="https://donate.barackobama.com/page/contribute/o2013-contribute-default-ofa4" data-recurSlug="o2013-contribute-default-ofa4-recur" name="contribution" method="POST" data-customerrorhandler="customError">
-							<div class="error-sect">
+						<form id="donate-form" class="oDonate bsdcd-form bsd-cc-detect recurring-checkbox-field cvv-input" action="https://donate.barackobama.com/page/cde/Contribution/Charge" data-recurSlug="o2013-contribute-default-ofa4-recur" name="contribution" method="POST"  novalidate="novalidate" data-require-cvv="true" data-require-country="false" data-min-donation="2" data-max-donation="30000" data-slug="o2013-contribute-default-ofa4" data-recur-slug="o2013-contribute-default-ofa4-recur">
+							<input type="hidden" name="slug" value="o2013-contribute-default-ofa4">
+							<input name="quick_donate_populated" type="hidden" value="">
+					        <input name="source_codes" type="hidden" value="custom-donate">
+					        <input name="http_referer" type="hidden" value="">
+							<div class="error-sect bsdcd-general_error bsdcd-error">
 								Please correct the errors shown below
 							</div>
-							<div class="personal-info progressive-pane">
+							<div class="personal-info progressive-pane sequential_step step_2 clearfix inactive">
 								<div class="row form-row">
 									<div id="firstname-sect" class="personal-sect col-sm-6">
 									    <label for="firstname" class="firstname_related">First name*</label>
@@ -95,30 +99,30 @@ Instructions for BSD
 									</div>
 									<div id="state_cd-sect" class="personal-sect state_cd_related col-sm-4">
 										<label for="state_cd" class="state_cd_related">State*</label>
-										<input id="state_cd" name="state_cd" type="text" tabindex="6" placeholder="SS">
+										<select name="state_cd" id="state_cd" class="state_cd us-state-dropdown" tabindex="6" required="required"><option value=""></option><option value="AK">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option><option value="--" disabled="disabled">---</option><option value="AA">AA</option><option value="AE">AE</option><option value="AP">AP</option><option value="AS">AS</option><option value="FM">FM</option><option value="GU">GU</option><option value="MH">MH</option><option value="MP">MP</option><option value="PR">PR</option><option value="PW">PW</option><option value="VI">VI</option></select>
 									</div><!--/#state_cd-cont-->
 								</div>
 								<div class="row form-row">
 									<div id="zip-sect" class="personal-sect col-sm-5">
 										<label for="zip" class="zip_related">ZIP*</label>
-										<input type="text" class="text" name="zip" id="zip" tabindex="7">
+										<input type="tel" class="text" name="zip" id="zip" tabindex="7">
 									</div>
 
 									<div id="phone-sect" class="personal-sect col-sm-7">
 										<label for="phone" class="phone_related">Phone*</label>
-										<input type="text" class="text" name="phone" id="phone" tabindex="9">
+										<input type="tel" class="text" name="phone" id="phone" tabindex="9">
 									</div><!--/#phone-->
 								</div>
-								<div class="row next-sect personal-next">
+								<!--<div class="row next-sect personal-next">
 									<div class="col-sm-12">
 									 	<button type="button" class="btn btn-info col-sm-12 next-btn" data-pagination="payment-info">Next</button>
 									 </div>
-								</div>
+								</div>-->
 							</div>
 							<!-- END PERSONAL INFO -->
 
 							<!-- START AMOUNT -->
-							<div class="amount-info progressive-pane">
+							<div class="amount-info progressive-pane sequential_step step_1 active">
 								<div class="row">
 									<div id="email-sect" class="personal-sect col-sm-12">
 										<label for="email" class="email_related">Email*</label>
@@ -133,37 +137,38 @@ Instructions for BSD
 								<div class="row">
 									<div id="amounts-cont" class="amount_group_related">
 										<ul id="amounts">
+											<input type="radio" name="amount" value="other" class="other_amount_radio" checked hidden>
 											<div class="amount-cont first col-sm-4 col-xs-6" id="amount-cont-1">
-												<input type="radio" class="radio amount-radio" name="amount" value="15" tabindex="10" id="amount-15">
-												<label for="amount-15" >$15</label>
+												<input type="radio" class="radio amount-radio preset_amount_input" name="amount" value="15" tabindex="10" id="amount-15">
+												<label for="amount-15" class="preset_amount_label">$15</label>
 											</div>
 											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-2">
-												<input type="radio" class="radio amount-radio" name="amount" value="35" tabindex="11" id="amount-35">
-												<label for="amount-35" >$35</label>
+												<input type="radio" class="radio amount-radio preset_amount_input" name="amount" value="35" tabindex="11" id="amount-35">
+												<label for="amount-35" class="preset_amount_label">$35</label>
 											</div>
 											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-3">
-												<input type="radio" class="radio amount-radio" name="amount" value="50" tabindex="12" id="amount-50">
-												<label for="amount-50">$50</label>
+												<input type="radio" class="radio amount-radio preset_amount_input" name="amount" value="50" tabindex="12" id="amount-50">
+												<label for="amount-50" class="preset_amount_label">$50</label>
 											</div>
 											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-4">
-												<input type="radio" class="radio amount-radio" name="amount" value="100" tabindex="13" id="amount-100">
-												<label for="amount-100">$100</label>
+												<input type="radio" class="radio amount-radio preset_amount_input" name="amount" value="100" tabindex="13" id="amount-100">
+												<label for="amount-100" class="preset_amount_label">$100</label>
 											</div>
 											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-5">
-												<input type="radio" class="radio amount-radio" name="amount" value="250" tabindex="14" id="amount-250">
-												<label for="amount-250">$250</label>
+												<input type="radio" class="radio amount-radio preset_amount_input" name="amount" value="250" tabindex="14" id="amount-250">
+												<label for="amount-250" class="preset_amount_label">$250</label>
 											</div>
 											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-6">
-												<input type="radio" class="radio amount-radio" name="amount" value="500" tabindex="15" id="amount-500">
-												<label for="amount-500">$500</label>
+												<input type="radio" class="radio amount-radio preset_amount_input" name="amount" value="500" tabindex="15" id="amount-500">
+												<label for="amount-500" class="preset_amount_label">$500</label>
 											</div>
 											<div class="amount-cont col-sm-4 col-xs-6" id="amount-cont-7">
-												<input type="radio" class="radio amount-radio" name="amount" value="1,000" tabindex="16" id="amount-1,000">
-												<label for="amount-1,000">$1,000</label>
+												<input type="radio" class="radio amount-radio preset_amount_input" name="amount" value="1,000" tabindex="16" id="amount-1,000">
+												<label for="amount-1,000" class="preset_amount_label">$1,000</label>
 											</div>
 											<div class="amount-cont other col-sm-8 col-xs-6" id="amount-cont-8">
-												<label for="amount-other">Other</label>
-												<input type="text" class="text" name="amount_other" id="amount-other" placeholder="Other amount" tabindex="18">
+												<label for="amount-other" id="other_amount_label" class="other_amount_label">Other</label>
+												<input type="tel" class="text other_amount_input amount_other" name="amount_other" id="amount-other" placeholder="Other amount" tabindex="18">
 											</div>
 										</ul>
 										<!-- <p id="suggested-amount">Suggested amount*</p> -->
@@ -178,18 +183,18 @@ Instructions for BSD
 									</div>
 								</div>
 
-								<div class="row next-sect personal-next">
+								<!--<div class="row next-sect personal-next">
 									<div class="col-sm-12">
-									 	<button type="button" class="btn btn-info col-sm-12 next-btn">Next</button>
+									 	<button type="submit" class="btn btn-info col-sm-12 next-btn">Next</button>
 									 </div>
-								</div>
+								</div>-->
 							</div>
 							<!-- END AMOUNT -->
 
 
 
 							<!-- START CC INFO -->
-							<div class="payment-info progressive-pane">
+							<div class="payment-info progressive-pane sequential_step step_3 inactive">
 								<div class="row">
 									<div class="form-section-header-cont amount_group_related" id="select-amount-header">
 										<h4 class="form-section-header" id="amount-header">Payment Information</h4>
@@ -201,34 +206,54 @@ Instructions for BSD
 								<div class="row">
 									<div id="cc-number-sect" class="pay-sect qd-info cc_number_related cc_type_cd_group_related col-sm-12">
 										<label for="cc_number" class="cc_number_related cc_type_cd_group_related">Card number*</label>
-										<input type="text" class="text cc_type_cd_group_related" id="cc_number" name="cc_number" tabindex="23" autocomplete="off">
+										<input type="tel" class="text cc_type_cd_group_related" id="cc_number" name="cc_number" tabindex="23" autocomplete="off">
 									</div>
 								</div>
 								<div class="row">
 									<div id="cc-expiration-sect" class="pay-sect qd-info cc_expir_group_related col-sm-4">
 										<label for="cc_expir_month" class="cc_expir_group_related">Expiration*</label>
-										<input type="text" class="cc_expir_month" id="cc_expir_month" autocomplete="off" name="cc_expir_month" tabindex="24" placeholder="MM">
+										<input type="tel" class="text cc_expir_month" id="cc_expir_month" autocomplete="off" name="cc_expir_month" tabindex="24" placeholder="MM">
 									</div>
 									<div class="pay-sect col-sm-4">
 										<label for="cc_expir_month" class="cc_expir_group_related">&nbsp;</label>
-										<input type="text" class="cc_expir_month" id="cc_expir_year" autocomplete="off" name="cc_expir_year" tabindex="25" placeholder="YYYY">
+										<input type="tel" class="text cc_expir_month" id="cc_expir_year" autocomplete="off" name="cc_expir_year" tabindex="25" placeholder="YYYY">
 									</div>
 									<div class="col-sm-4">
 										<label for="cc_number" class="pay-sect cc_number_related cc_type_cd_group_related">Security code*</label>
 										<div class="cvv_container">
-											<input type="text" class="text cc_cvv_group_related" id="cvv" name="cvv" tabindex="26" autocomplete="off">
+											<input type="text" class="text cc_cvv_group_related" id="cvv" name="cc_cvv" tabindex="26" autocomplete="off">
 											<div class="cvv_triangle"></div>
 										</div>
 									</div>
 								</div>
-								<div class="row submit-sect">
+								<!--<div class="row submit-sect">
 									<div class="col-sm-12">
 									 	<button type="button" class="btn btn-danger col-sm-12">Donate</button>
 									 </div>
-								</div>
+								</div>-->
 							</div>
 							<!-- END PAYMENT INFO -->
+
+
+							<div class="sequential_general_error_cont next-sect">
+				                <p class="sequential_error_message bsdcd-error"></p>
+				            </div>
+				            <div class="row next-sect">
+					            <div class="sequential_next_cont col-sm-12">
+					            	<button type="submit" class="sequential_next_btn sequential_move_forward big_btn btn btn-info col-sm-12 next-btn"><span class="sequential_next_btn_copy">Next</span><span class="sequential-donate-btn-copy sequential_donate_btn_copy">Donate</span></button>
+					            </div>
+				            </div>
+				            <div class="row submit-sect">
+					            <div class="submit_cont col-sm-12">
+					                <button type="submit" class="bsdcd-submit-button big_btn btn btn-danger col-sm-12" tabindex="36">
+					                    <span class="processing_indicator">Processing...</span>
+					                    <span>Donate now</span>
+					                </button>
+					            </div>
+				            </div>
+
 						</div>
+
 					</form>
 				</div>
 			</div>
@@ -273,8 +298,26 @@ Instructions for BSD
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="http://secure.assets.bostatic.com/apps/monroe/static/fala/dist/core.js" data-js-base="//secure.assets.bostatic.com/apps/monroe/static/" data-identity="https://login.barackobama.com" data-bsd="https://my.barackobama.com" data-www="http://www.barackobama.com"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-<script type="text/javascript" src="/scripts.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/page/-/donate/bsd-sequential-donate.js"></script>
+<script type="text/javascript">
 
+        (function($){
+            var $topNode = $('.bsdcd-outer-container');
+
+            $topNode.sequential({
+                debug: true
+            });
+
+            $topNode.find('form').blueContribute({
+                debug: true
+            });
+
+            $topNode.detectCCType();
+
+        }(jQuery));
+
+    </script>
 
 </body>
 </html>

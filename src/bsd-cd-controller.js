@@ -31,7 +31,7 @@
 
     if (nonsecure){
         console.log('WARNING: nonsecure domain = test mode.');
-        $('body').prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>');
+        //$('body').prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>');
     }
 
     /*add pretty timeouts*/
@@ -43,7 +43,7 @@
 
     /*add basic pub sub, for error-free behavior chains*/
     $.Topic = function( id ) {
-        
+
         var callbacks,
             topic = id && topics[ id ];
         if ( !topic ) {

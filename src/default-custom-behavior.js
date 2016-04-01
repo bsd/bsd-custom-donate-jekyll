@@ -11,6 +11,7 @@
         $otherAmt = $form.find('.amount_other'),
         $otherAmtRadio = $form.find('.other_amount_radio'),
         $country = $form.find('.country'),
+        $email = $form.find('[name="email"]'),
         $state_cdCont = $form.find('.state_cd_cont').eq(0),
         $state_label = $state_cdCont.find('label'),
         $state_cd = $state_cdCont.find('input,select').eq(0),
@@ -36,10 +37,10 @@
         min = 0.01;
     }
 
-    //accept an 'x' separated string of amounts, validate each, and assign them to buttons 
+    //accept an 'x' separated string of amounts, validate each, and assign them to buttons
     function customAmounts(cas){
         if (!cas || typeof cas !== "string"){ return false; }
-        var ca_array = cas.split('x'),
+        var ca_array = cas.split(/[x|]/),
             btn = 0;
         if(ca_array && ca_array.length){
             $.each(ca_array,function(i,v){
@@ -59,12 +60,12 @@
 	//apply an active class to a label when amount is selected
 	$form.on('click','.preset_amount_label',function(e){
 		var $el = $(this);
-		$presetBtns.removeClass('active');
-		$el.addClass('active');
+		$presetBtns.removeClass('selected');
+		$el.addClass('selected');
 		$otherAmt.val('');
         $el.prev().prop('checked', true);
 	}).on('keydown','.amount_other',function(){
-		$presetBtns.removeClass('active');
+		$presetBtns.removeClass('selected');
 		$presetInputs.each(function(){
 			$(this).prop('checked',false);
 		});
@@ -72,23 +73,29 @@
 	});
 
     //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
-    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
-        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
-        $body.removeClass('pre-first-click'); //default amount should expose the next button
+    // if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
+    //     $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+    //     $body.removeClass('pre-first-click'); //default amount should expose the next button
 
-        //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
-        if(skip && skip===1 ){
-            $.wait(3).done(function(){
-                $.Topic('change-step').publish(1);
-            });
-        }
+    //     //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
+    //     if(skip && skip===1 ){
+    //         $.wait(3).done(function(){
+    //             $.Topic('change-step').publish(1);
+    //         });
+    //     }
+    // }
+
+    if(gup('recurring')==="yes"){
+        $form.find('#recurring-sect').addClass('recurring-yes').find('#recurring_acknowledge').click();
     }
 
     //now that we've dealt with pre-clicks, lets potentially bind the click behavior to change things on the first click
     $form.one('keydown','.amount_other',function(){
 		$body.removeClass('pre-first-click');
 	}).one('click','.preset_amount_label,.preset_amount_input',function(){
-		if ($('html').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
+		if ($('html').find('.pre-first-click').length && $email.val() && $email.get(0).validity && $email.get(0).validity.valid ) {
+            $.Topic('change-step').publish(1);
+        }
         $body.removeClass('pre-first-click');
 	});
 

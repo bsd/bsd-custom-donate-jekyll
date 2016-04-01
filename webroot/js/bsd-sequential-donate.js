@@ -31,7 +31,7 @@
 
     if (nonsecure){
         console.log('WARNING: nonsecure domain = test mode.');
-        $('body').prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>');
+        //$('body').prepend('<div class="insecure-warning">non-secure domain, using test mode.</div>');
     }
 
     /*add pretty timeouts*/
@@ -43,7 +43,7 @@
 
     /*add basic pub sub, for error-free behavior chains*/
     $.Topic = function( id ) {
-        
+
         var callbacks,
             topic = id && topics[ id ];
         if ( !topic ) {
@@ -543,7 +543,7 @@ var quickDonate = quickDonate || {};
 
 })(jQuery);
 /*
- * blueContribute.js 
+ * blueContribute.js
  *
  * Author: Kyle Rush
  * kylerrush@gmail.com
@@ -589,7 +589,7 @@ var blueContribute = {};
 
     //creat the blueContribute jQuery plugin
     $.fn.extend({
-        
+
         //pass the options variable to the function
         blueContribute: function(options) {
 
@@ -613,10 +613,10 @@ var blueContribute = {};
 
             //transfer sourcecodes.  How would we handle cookies/if this page was not the landing page?
 
-            if(urlsource || urlsubsource) {
-                if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
-                $sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
-            }
+            // if(urlsource || urlsubsource) {
+            //     if ( urlsubsource ) { urlsource = (urlsource)?urlsource+','+urlsubsource:urlsubsource; }
+            //     $sourceField.val( defaultsource  ? defaultsource + ',' + urlsource : urlsource );
+            // }
 
             debug = function(message){
                 if(blueContribute.settings.debug){
@@ -684,6 +684,8 @@ var blueContribute = {};
 
                                 //remove the error class to the related fields
                                 $form.find('.' + blueContribute.latestResponseObject.field_errors[i].field + '_related').removeClass('bsdcd-error');
+                                $form.find('[name="' + blueContribute.latestResponseObject.field_errors[i].field + '"]')
+                                            .removeClass('form-error');
 
                                 //remove the general errors message
                                 $genError.text('').addClass('hidden');
@@ -765,12 +767,16 @@ var blueContribute = {};
                                     }
 
                                     for(i = 0; i <= resobj.field_errors.length - 1; i++){
-                                        
+
                                         //inject the error messages for each field
                                         $form.find('.' + resobj.field_errors[i].field + '_error').text(resobj.field_errors[i].message).removeClass('hidden');
 
                                         //add the error class to the related fields
-                                        $form.find('.' + resobj.field_errors[i].field + '_related').addClass('bsdcd-error').removeClass('hidden');
+                                        $form.find('.' + resobj.field_errors[i].field + '_related')
+                                            .addClass('bsdcd-error').removeClass('hidden');
+
+                                        $form.find('[name="' + resobj.field_errors[i].field + '"]')
+                                            .addClass('form-error');
 
                                     }
 
@@ -787,7 +793,7 @@ var blueContribute = {};
                         } else if(resobj.code === 'gateway'){
 
                             debug('gateway rejected the transaction');
-                            
+
                             //checking for a declined card
                             if(resobj.gateway_response && resobj.gateway_response.status === "decline"){
 
@@ -823,7 +829,7 @@ var blueContribute = {};
                             }
 
                         }else {
-                            
+
                             genError(msg.unknown +' [Code: '+((resobj.code)?resobj.code:'unknown')+']');
                             debug('truly unknown error from donate api');
                             report(
@@ -844,7 +850,7 @@ var blueContribute = {};
 
                         window.scrollTo(0, 0);
 
-                    } //end else for valid error response 
+                    } //end else for valid error response
 
                 } else {
                     //invalid json
@@ -867,7 +873,7 @@ var blueContribute = {};
                 }
 
             };
-            
+
             //Set the default settings
             defaults = {
 
@@ -888,7 +894,7 @@ var blueContribute = {};
                 recurSlug: ($form.data('recur-slug')||false)
 
             };
-            
+
             //consolidate both user defined and default functions
             blueContribute.settings =  $.extend(true, defaults, options);
 
@@ -932,7 +938,7 @@ var blueContribute = {};
                         $.ajax({
 
                             url: blueContribute.settings.postTo,
-                            
+
                             type: nonsecure?'GET':'POST',
 
                             dataType: 'json',
@@ -967,7 +973,7 @@ var blueContribute = {};
 
             return this;//chainability
         }
-            
+
     });
 
 }(jQuery));
@@ -986,7 +992,7 @@ var sequential = {};
 
 	//creat the Quick Donate jQuery plugin
     $.fn.extend({
-        
+
         //pass the options variable to the function
         sequential: function(options) {
 
@@ -1015,7 +1021,7 @@ var sequential = {};
 
 			sequential.utilityFunctions.goToStep = function(step, silent){
 
-                //console.log(step);
+                console.log('change to',step);
 
 				var isPreviousStep, changeStep, oldstep = sequential.currentStep, $newStep, stepname;
 
@@ -1029,7 +1035,7 @@ var sequential = {};
                     sequential.currentStep = step;
 
                     $topNode.removeClass('sequential_step_' + oldstep).find('.sequential_error_message').text('');
-                    sequential.s.stepContainers.eq(oldstep).addClass('inactive').removeClass('active');
+                    sequential.s.stepContainersOrdered[oldstep].addClass('inactive').removeClass('active');
                     $breadcrumbs.eq(oldstep).removeClass('active');
 
                     //if qd is populated and step 1 was valid, users should go right to the step 2 without adding step 1
@@ -1041,12 +1047,12 @@ var sequential = {};
                         $newStep = $breadcrumbs.eq(step);
                         stepname = $newStep.data('stepname');
 
-                        $newStep.addClass('active').prevAll().removeClass('step-error').addClass('completed');
-                        sequential.s.stepContainers.eq(step).addClass('active').removeClass('inactive').prevAll().addClass('completed');
+                        $newStep.addClass('active').parent().prevAll().find('.sequential_breadcrumb').removeClass('step-error').addClass('completed');
+                        sequential.s.stepContainersOrdered[step].addClass('active').removeClass('inactive').prevAll('.sequential_step').addClass('completed');
 
                         //if not touch, focus on this steps first required field that is currently without a value
                         if(!touch){
-                            sequential.s.stepContainers.eq(step).find('input').find('[required]').filter(function(){
+                            sequential.s.stepContainersOrdered[step].find('input').find('[required]').filter(function(){
                                 if($(this).val() === ""){
                                     return true;
                                 }
@@ -1090,7 +1096,7 @@ var sequential = {};
                                 }
 							} else {
 								//console.log('step fail',sequential.currentStep);
-                                $('li.sequential_breadcrumb_' + sequential.currentStep).removeClass('completed').addClass('step-error');
+                                $('.sequential_breadcrumb_' + sequential.currentStep).removeClass('completed').addClass('step-error');
 							}
 
 						}
@@ -1101,7 +1107,7 @@ var sequential = {};
 
 			};
 
-			$.Topic('change-step').subscribe(sequential.utilityFunctions.goToStep); //allow other modules to change steps 
+			$.Topic('change-step').subscribe(sequential.utilityFunctions.goToStep); //allow other modules to change steps
 
             sequential.utilityFunctions.validateAmountsAndPersonal = function(){
                 return sequential.utilityFunctions.validateAmounts() && sequential.utilityFunctions.validatePersonalInfo();
@@ -1109,13 +1115,48 @@ var sequential = {};
 
 			sequential.utilityFunctions.validateAmounts = function (){
 
-				var amountRadioGroupNumber, otherAmountNumber, amountIsSelected, amountIsUnderMaximum, amountIsOverMinimum, amount, tmpamount = $otheramt.val();
+				var amountRadioGroupNumber, otherAmountNumber, amountIsSelected, amountIsUnderMaximum, amountIsOverMinimum, amount, tmpamount = $otheramt.val(), email;
 
 				$topNode.removeClass('sequential_error').find('.sequential_error_message').text('');
 
 				amountRadioGroupNumber = parseFloat( $form.find("input[name='amount']:checked").val() );
 
 				if (tmpamount) { otherAmountNumber =  parseFloat( $otheramt.val( tmpamount.replace(/[^\d\.]/g,'') ).val() ); }
+
+
+                email = {};
+
+                email.input = $form.find("[name='email']");
+
+                email.address = email.input.val();
+
+                email.isValid = function(){
+
+                    var emailRegEx = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                    if( emailRegEx.test(email.address) ){
+
+                        return true;
+
+                    } else {
+
+                        return false;
+
+                    }
+
+                };
+
+                if( email.address && email.isValid() ){
+
+                    email.valid = true;
+
+                    email.input.removeClass('bsdcd-error');
+
+                } else {
+                    email.valid = false;
+                    email.input.addClass('bsdcd-error');
+
+                }
 
 				amountIsSelected = function(){
 
@@ -1236,6 +1277,11 @@ var sequential = {};
 
 				};
 
+
+                if(!email.valid ){
+                    $topNode.addClass('sequential_error').find('.sequential_error_message').text('Please enter your email.');
+                    return false;
+                }
 				if( amountIsSelected() ){
 
 					//console.log('amount is selected');
@@ -1365,15 +1411,15 @@ var sequential = {};
 
 				$state = $("[name='state_cd']");
 
-				if( ($state.is('select') && $state.val().length !== 2 ) || !$state.val() ){
+				if( ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY", "AA", "AE", "AP", "AS", "FM", "GU", "MH", "MP", "PR", "PW", "VI"].indexOf($state.val())>-1 ){
 
-					numberOfInvalidFields++;
-
-					$state.addClass('bsdcd-error');
+                    $state.removeClass('bsdcd-error');
 
 				} else {
+                    numberOfInvalidFields++;
 
-					$state.removeClass('bsdcd-error');
+                    $state.addClass('bsdcd-error');
+
 
 				}
 
@@ -1607,7 +1653,7 @@ var sequential = {};
 
 				expirationDate.year.val = parseInt( expirationDate.year.field.val(), 10 );
 
-				if( ( isNaN(expirationDate.year.val) || expirationDate.year.val < 2013) && !pp) {
+				if( ( isNaN(expirationDate.year.val) || expirationDate.year.val < 2015) && !pp) {
 
                     expirationDate.year.field.addClass('bsdcd-error');
 
@@ -1665,6 +1711,8 @@ var sequential = {};
 
 				stepContainers: $topNode.find('.sequential_step'),
 
+                stepContainersOrdered: [$topNode.find('.step_1'), $topNode.find('.step_2'), $topNode.find('.step_3')],
+
 				donationAmountLimit: $form.data('max-donation')||null,
 
 				donationAmountMinimum: $form.data('min-donation')||null,
@@ -1687,7 +1735,7 @@ var sequential = {};
 			sequential.s = $.extend(true, defaults, options);
 
 			//add sequential body class
-			$topNode.addClass('sequential').addClass('sequential_step_' + sequential.currentStep);
+			$topNode.addClass('sequential').addClass('sequential_step_' + sequential.currentStep).find('form').data(sequential.s);
 
 			if( sequential.s.requireCountry ){
 
@@ -1696,11 +1744,11 @@ var sequential = {};
 			}
 
 			//show the first step
-			$(sequential.s.stepContainers[0]).addClass('active');
-			$('li.sequential_breadcrumb_0').addClass('active');
+			$(sequential.s.stepContainersOrdered[sequential.currentStep]).addClass('active');
+			$('.sequential_breadcrumb_0').addClass('active');
 
 			//hide the others
-			$(sequential.s.stepContainers).not( $(sequential.s.stepContainers[sequential.currentStep]) ).addClass('inactive');
+			sequential.s.stepContainers.not( $(sequential.s.stepContainersOrdered[sequential.currentStep]) ).addClass('inactive');
 
             //enable next buttons
 			$topNode.on('click','.sequential_move_forward',function(e){
@@ -1709,9 +1757,9 @@ var sequential = {};
             });
 
 
-            $('.bsdcd-seq-breadcrumbs').on('click', 'a', function(e){
+            $topNode.on('click','.sequential_breadcrumb', function(e){
                 e.preventDefault();
-                var step = $(this).closest('li').data('step');
+                var step = $(this).data('step');
                 sequential.utilityFunctions.goToStep(step);
             });
 
@@ -1736,6 +1784,7 @@ window.sequential = sequential;
         $otherAmt = $form.find('.amount_other'),
         $otherAmtRadio = $form.find('.other_amount_radio'),
         $country = $form.find('.country'),
+        $email = $form.find('[name="email"]'),
         $state_cdCont = $form.find('.state_cd_cont').eq(0),
         $state_label = $state_cdCont.find('label'),
         $state_cd = $state_cdCont.find('input,select').eq(0),
@@ -1761,10 +1810,10 @@ window.sequential = sequential;
         min = 0.01;
     }
 
-    //accept an 'x' separated string of amounts, validate each, and assign them to buttons 
+    //accept an 'x' separated string of amounts, validate each, and assign them to buttons
     function customAmounts(cas){
         if (!cas || typeof cas !== "string"){ return false; }
-        var ca_array = cas.split('x'),
+        var ca_array = cas.split(/[x|]/),
             btn = 0;
         if(ca_array && ca_array.length){
             $.each(ca_array,function(i,v){
@@ -1784,12 +1833,12 @@ window.sequential = sequential;
 	//apply an active class to a label when amount is selected
 	$form.on('click','.preset_amount_label',function(e){
 		var $el = $(this);
-		$presetBtns.removeClass('active');
-		$el.addClass('active');
+		$presetBtns.removeClass('selected');
+		$el.addClass('selected');
 		$otherAmt.val('');
         $el.prev().prop('checked', true);
 	}).on('keydown','.amount_other',function(){
-		$presetBtns.removeClass('active');
+		$presetBtns.removeClass('selected');
 		$presetInputs.each(function(){
 			$(this).prop('checked',false);
 		});
@@ -1797,23 +1846,29 @@ window.sequential = sequential;
 	});
 
     //if there's a url parameter requesting a default amount be preselected, see if it's valid and matches an existing label, then select it
-    if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
-        $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
-        $body.removeClass('pre-first-click'); //default amount should expose the next button
+    // if (default_amount && parseFloat(default_amount) && $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).length>0  ){
+    //     $presetInputs.filter( function(){ return $(this).val() === default_amount; } ).eq(0).next('label').click();
+    //     $body.removeClass('pre-first-click'); //default amount should expose the next button
 
-        //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
-        if(skip && skip===1 ){
-            $.wait(3).done(function(){
-                $.Topic('change-step').publish(1);
-            });
-        }
+    //     //if skip to second step is requested, do so if an amount is already in. Not sure why the delay is needed here
+    //     if(skip && skip===1 ){
+    //         $.wait(3).done(function(){
+    //             $.Topic('change-step').publish(1);
+    //         });
+    //     }
+    // }
+
+    if(gup('recurring')==="yes"){
+        $form.find('#recurring-sect').addClass('recurring-yes').find('#recurring_acknowledge').click();
     }
 
     //now that we've dealt with pre-clicks, lets potentially bind the click behavior to change things on the first click
     $form.one('keydown','.amount_other',function(){
 		$body.removeClass('pre-first-click');
 	}).one('click','.preset_amount_label,.preset_amount_input',function(){
-		if ($('html').find('.pre-first-click').length) { $.Topic('change-step').publish(1); }
+		if ($('html').find('.pre-first-click').length && $email.val() && $email.get(0).validity && $email.get(0).validity.valid ) {
+            $.Topic('change-step').publish(1);
+        }
         $body.removeClass('pre-first-click');
 	});
 
